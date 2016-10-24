@@ -1,0 +1,98 @@
+;武器
+(@buy @sell)
+%100
++0
++42
++30
++3
+
+;对话, '*' : 对话tag
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+我不想和你这样的人打交道.. \ \
+<close/@exit>
+;<取消/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+
+Welcome, how may I help you ?\ \
+ <Buy/@buy> Item\
+ <Sell/@sell> Item\
+  <Talk with/@QUEST>\
+ <Cancel/@exit>
+<>
+
+
+[@QUEST]
+#IF
+check [759] 1
+#ACT
+goto @Q709
+break
+
+#IF
+check [758] 1 
+#ACT
+goto @Q708
+#ELSEACT
+goto @normal
+
+[@normal] 
+你知道半兽勇士吗？ \
+手拿一个大斧头， \
+看起来像妖魔... \
+见到这种怪物，可要当心啊 \ \
+<close/@exit>
+;<取消/@exit>
+
+[@Q709]
+替我向那位老人问好...  \
+路上小心.. \ \
+<close/@exit>
+;<取消/@exit>
+
+[@Q708]
+#IF
+#ACT
+SET [759] 1
+#SAY
+在比奇卖书的老人问候我? \
+真的吗?? 我们的交请很深的... \
+虽然这个沃玛森林是个很可怕的地方, \
+但是为了给在这里打猎的人提供药水，我不能离开这里 \
+麻烦你替我问候老人 \ \
+<close/@exit>
+;<取消/@exit>
+
+[@buy]
+Which items do you need ?\ \ \
+ <Back/@main>
+
+[@sell]
+We buy Candles, Amulets, Scrolls RepairOils, Pots etc.\
+ <Back/@main>
+
+[goods]
+;items(cab be Zen)      pieces      hour
+(HP)DrugSmall		200	1	
+(MP)DrugSmall		200	1
+(HP)Drugmedium		200	1
+(MP)Drugmedium		200	1
+(HP)DrugLarge		200	1
+(MP)DrugLarge		200	1
+(HP)Drugbundle		200	1
+(MP)Drugbundle		200	1
+(HP)MDrugbundl		200	1
+(MP)MDrugbundl		200	1
+(HP)SDrugbundl		200	1
+(MP)SDrugbundl		200	1
+Candle			200	1	
+Torch			200	1
+DungeonEscape		200	1
+RandomTeleport		200	1

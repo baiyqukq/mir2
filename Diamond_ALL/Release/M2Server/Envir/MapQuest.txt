@@ -1,0 +1,12 @@
+;地图名称	标志	标志值	怪物名称	物品名称	脚本名称	编组模式(GROUP)
+12      [401]    1      RootSpider       *               Q1401
+
+D10031  [403]    1      BigApe           *               Q1403
+D10032  [403]    1      BigApe           *               Q1403
+D1004   [403]    1      BigApe           *               Q1403
+D10051  [403]    1      BigApe           *               Q1403
+D10052  [403]    1      BigApe           *               Q1403
+D10053  [407]    1      RedEvilApe       *               Q1407
+D10071  [409]    1      RedMoonEvil1  EvilApeOil         Q14091
+D10054  [412]    1      GreyEvilApe      *               Q1412
+D10062  [413]    1      RedMoonEvil      *               Q14132

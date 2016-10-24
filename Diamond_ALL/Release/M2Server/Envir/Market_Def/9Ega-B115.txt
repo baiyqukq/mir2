@@ -1,0 +1,203 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+BreakTimeRecall 
+break
+
+#IF
+equal p9 1
+#ACT
+goto @complete
+BreakTimeRecall 
+break
+
+#IF
+equal p9 2
+#ACT
+goto @race
+BreakTimeRecall 
+break
+
+#IF
+equal p9 3
+#ACT
+goto @cube
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@main-1]
+#IF
+#ACT
+mov p9 0
+#SAY
+Today <$USERNAME>, you will be a miner once again\
+Yes we ahve all done it  :)\
+To Continue, you must find some Silver Ore Purity 10 or over...\
+and some BlackOre Ore Purity 10 or over\
+Good Luck, you have 10 minutes\\
+<Alrighty/@Pena1>
+
+[@Pena1]
+#IF
+#ACT
+give PickAxe 1
+mov p9 1
+TimeRecall 10
+map T115
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+[@complete]
+#IF
+checkitem SilverOre 1
+checkitem IronOre 1
+checkdura SilverOre 10
+checkdura IronOre 10
+#ACT
+take SilverOre 40
+take IronOre 40
+mov p9 2
+goto @race
+#ELSESAY
+Hmm, looks like you failed!\\
+<Shit/@Quit>
+#ELSEACT
+take SilverOre 40
+take IronOre 40
+mov p9 9
+
+[@race]
+Well Done!\\
+<WOO/@pre_cube>
+
+[@pre_cube]
+#IF
+checkitem gamblechip 1
+#ACT
+take gamblechip 1
+mov p9 3
+movr d0 6
+inc d0 1
+playdice 1 @cube
+#SAY
+Continue\ \
+<Ok/@cube>
+#ELSESAY
+<$USERNAME>, You haven't any Chips!!\
+Go get some if you want to gamble\\
+<Silly Me/@Quit>
+#ELSEACT
+mov p9 9
+
+[@cube]
+#SAY
+Hey, you roled a <$STR(D0)> \
+You can now move <$STR(D0)> rooms forward.\\
+<Sweet, lets move!/@next_cube>
+
+[@next_cube]
+#IF
+equal d0 1 
+#ACT
+goto @posi1
+break
+
+#IF
+equal d0 2 
+#ACT
+goto @posi2
+break
+
+#IF
+equal d0 3 
+#ACT
+goto @posi3
+break
+
+#IF
+equal d0 4 
+#ACT
+goto @posi4
+break
+
+#IF
+equal d0 5
+#ACT
+goto @posi5
+break
+
+#IF
+equal d0 6 
+#ACT
+goto @posi6
+break
+
+[@Posi1]
+#IF
+#ACT
+batchDelay 1
+addbatch B116
+batchmove
+
+[@Posi2]
+#IF
+#ACT
+batchDelay 1
+addbatch B116
+addbatch B117
+batchmove
+
+[@Posi3]
+#IF
+#ACT
+batchDelay 1
+addbatch B116
+addbatch B117
+addbatch B118
+batchmove
+
+[@Posi4]
+#IF
+#ACT
+batchDelay 1
+addbatch B116
+addbatch B117
+addbatch B118
+addbatch B119
+batchmove
+
+[@Posi5]
+#IF
+#ACT
+batchDelay 1
+addbatch B116
+addbatch B117
+addbatch B118
+addbatch B119
+addbatch B120
+batchmove
+
+[@Posi6]
+#IF
+#ACT
+batchDelay 1
+addbatch B116
+addbatch B117
+addbatch B118
+addbatch B119
+addbatch B120
+addbatch B121
+batchmove
+

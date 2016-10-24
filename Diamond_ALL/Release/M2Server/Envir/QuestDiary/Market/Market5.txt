@@ -1,0 +1,158 @@
+[@Markets]
+{
+#IF
+    small p9 99
+#SAY
+离我远点，我不想与你这种人打交道。\ \
+ <退出/@exit>
+#ELSESAY
+MAINMSG\ \
+ <STORMSG/@storage>    <GETBACKMSG/@getback>\
+ <BINDMSG/@makedrug>    <CHGOLDMSG/@changeGold>\
+ <HELPMSG/@helps>        <README/@StorageHelp>\ \
+ <退出/@exit>
+ <>
+[@storage]
+
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#ELSESAY
+MAINSTMSG\ \
+ <返回/@Markets>
+
+[@getback]
+
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#ELSESAY
+MAINGETMSG\ \
+ <返回/@Markets>
+
+[@makedrug]
+
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#ELSESAY
+MAINBINMSG\ \
+ <返回/@Markets>
+
+[@changeGold]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#ELSESAY
+MAINCHGMSG\ \
+ <金币兑换金条/@GoldTO>\
+ <金条兑换金币/@ToGold>\ \
+ <返回/@Markets>
+#ELSEACT
+
+[@GoldTO]
+
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+
+#IF
+  checkgold 501000
+#ACT
+   take 金币 501000
+   give 金条 1
+   goto @changeGold
+#ELSESAY
+你的现金不够或背包满了，我没办法帮的了你！ \
+准备好再来吧！\ \
+ <返回/@changeGold>
+
+[@ToGold]
+
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+
+#IF
+    checkgold 4591000
+#SAY
+你的现金太多了，你装不下更多的钱了。 \ \
+ <返回/@changeGold>
+#ACT
+    break
+
+#IF
+  checkitem 金条 1
+#ACT
+   take 金条 1
+   give 金币 409000
+   goto @changeGold
+#ELSESAY
+你都没有金条，我没办法帮的了你！ \
+准备好再来吧！\ \
+ <返回/@changeGold>
+[@Punish]
+#CALL	[\Common\Punish.txt]	@Punisher
+[@CheckAction]
+#CALL	[\Common\CheckAction.txt]	@Actions
+}

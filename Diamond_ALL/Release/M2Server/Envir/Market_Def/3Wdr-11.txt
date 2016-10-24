@@ -1,0 +1,20 @@
+;武器
+(@s_repair)
+%150
++10
++11
+
+
+
+;对话, '*' : 对话tag
+
+[@main]
+Hello <$USERNAME>,\
+I learned the hidden skill to special repair armours.\
+I do a fine jobe repairing them.\
+It will cost a bit more tho.\ \
+<Special repair/@s_repair> Clothes\
+<Cancel/@exit>
+
+[goods]
+;商品 数量  时间(hour)

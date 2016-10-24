@@ -1,0 +1,20 @@
+;武器
+(@s_repair)
+%100
++5
++6
+
+;对话, '*' : 对话tag
+
+[@main]
+I can do special repairs on your weapon, special repair\
+costs more than normal repair, but you wont lose Durability, \
+by order of <$LORD> members of <$OWNERGUILD> will get a \
+discount on my prices\ \
+
+ <Repair/@s_repair>\
+ <Exit/@exit>
+<>
+
+[goods]
+;哩登绰 惑前    拱樊       hour

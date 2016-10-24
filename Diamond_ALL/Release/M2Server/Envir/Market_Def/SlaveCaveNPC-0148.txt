@@ -1,0 +1,38 @@
+; Slave Cave Quest
+; Last updated 21/07 by Caerdydd
+
+[@main]
+#IF
+checklevel 30
+#SAY
+Hello <$USERNAME>\
+Evil creatures have infested the land where i live.\
+Its about time they were sorted out.\
+You look like someone who could do it.\
+There could be a fine reward if you succeed\ \
+<Tell me more/@next>\
+<No thanks/@exit>
+#ELSESAY
+Im busy. Come back later!\\
+<Exit/@exit>
+
+[@next]
+Powerful beasts roam the lands at night\
+They raid villages and slaughter all who face them\
+Leaked documents from the Bichon Administrator suggest\
+that there is a evil king controlling them all who\
+if not dealt with soon could take over the whole land.\ \
+<What will i get out of it/@next2>\
+<No way, thats suicide/@exit>
+
+[@next2]
+The monsters take masses of gold and riches from\
+the villages they raid.\
+Anything you find is yours to keep\
+So are you up for it or are you a chicken?\ \
+<Im ready. Take me there/@letsgo>\
+<I value my life more than gold/@exit>
+
+[@letsgo]
+#ACT
+map F004

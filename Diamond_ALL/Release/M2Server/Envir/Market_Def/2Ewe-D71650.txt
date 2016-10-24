@@ -1,0 +1,27 @@
+;嶠포
+(@repair)
+%200
++5
++6
+
+;ST maze cloth repair
+[@main]
+Are you here to find out something new ?\
+I guess you may know that it is dangerous here\
+The only thing I can do for you is repair your Weapons \\
+repairing your Weapons \\
+<repair/@repair> Weapon \
+<cancel/@exit>
+<>
+
+[@repair]
+Do you want to repair your Weapon?\ \ 
+<back/@main>
+
+[~@repair]
+It seems to be well done.\ \
+<back/@main>
+
+;[상품]
+[goods]
+;젠되는 상품    물량       hour

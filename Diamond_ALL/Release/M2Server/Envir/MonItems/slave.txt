@@ -1,0 +1,11 @@
+; Slave drop file for F004 (Slave Cave)
+; Last Updates 21/07 by Caerdydd
+
+1/1 gold 20000
+
+1/10 BenedictionOil
+1/10 BenedictionOil
+
+;The two benes isnt a mistake
+;It just means this will still be compatible if the item db
+;is updated

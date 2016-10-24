@@ -1,0 +1,19 @@
+[@main]
+#IF
+check [408] 1
+#ACT
+break
+
+#IF
+check [405] 1
+#ACT
+break
+
+#IF
+check [404] 1
+checkitem JadeCrystal 1 
+#ACT
+take JadeCrystal 40
+SET [405] 1
+#ELSESAY
+(Why can't i get in this room???)

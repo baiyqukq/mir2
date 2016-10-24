@@ -1,0 +1,120 @@
+1/1   gold 35000
+
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/1    SunPotion
+1/1    SunPotion
+1/1    SunPotion
+1/1    SunPotion
+1/1    SunPotion
+1/1    SunPotion
+1/1    SunPotion
+1/2    SunPotion
+1/2    SunPotion
+1/2    SunPotion
+1/2    SunPotion
+1/2    SunPotion
+1/2    SunPotion
+1/2    SunPotion
+1/1    (HP)DrugMedium
+1/1    (HP)DrugMedium
+1/1    (HP)DrugMedium
+1/1    (HP)DrugMedium
+1/1    (HP)DrugMedium
+1/1    (MP)DrugMedium
+1/1    (MP)DrugMedium
+1/1    (MP)DrugMedium
+1/1    (MP)DrugMedium
+1/1    (MP)DrugMedium
+1/2    (HP)Druglarge
+1/2    (HP)Druglarge
+1/2    (HP)Druglarge
+1/2    (HP)Druglarge
+1/2    (HP)Druglarge
+1/2    (MP)Druglarge
+1/2    (MP)Druglarge
+1/2    (MP)Druglarge
+1/2    (MP)Druglarge
+1/2    (MP)Druglarge
+
+
+
+
+1/30   greenbead
+1/30   spiritdrug
+1/3000 JudgementMace
+1/30   stormdrug
+
+1/40   TrapHex
+1/60   ThunderStorm
+1/15   ShoulderDash
+1/90   MagicShield
+
+1/20  LifeNecklace
+1/20  DragonRing
+1/20  RecallHelmet
+
+1/10  SerpentSword
+1/10  MageStaff
+1/10  GreatAxe
+
+1/20   ConvexLens
+1/10   BambooPipe
+1/10   DeathGauntlet
+1/10   PurifierSword
+1/40   CoralRing
+1/10   ExpelRing
+
+1/30   SkeletonHelmet
+1/30   DeathGauntlet
+1/30   PowerAxe
+
+1/5   HeavyArmour(M)
+1/5   HeavyArmour(F)
+1/5   SoulArmour(F)
+1/5   SoulArmour(M)
+1/5   MagicRobe(M)
+1/5   MagicRobe(F)
+1/5   GoldRing
+1/5   BlueJadeneck
+1/5   GoldBracelet
+1/5   MoralRing
+1/5   CharmRing
+
+1/3   MonkBracelet
+1/3   EbonyBracelet
+1/3   KrissSword
+1/3   BlackRing
+1/3   SerpentEyeRing
+1/3   PearlRing
+1/3   PrinceSword
+1/3   MartialSword
+1/3   HookedSpear
+1/3   lanternneck
+1/3   TigerNecklace
+1/3   PlatinumNeck
+1/3   SkeletonRing
+1/3   StrainBracelet
+
+1/20   HookedSword
+1/20   Slaying
+1/20   Trident
+1/20   BlueRing
+1/20   NagaNecklace
+1/20   AmberNeck
+1/20   SteelBracelet
+1/20   hardGlove
+1/20   MagicBracelet
+1/20   lanternneck
+1/20   SteelSword
+1/50   platinumring
+1/50   dragonring
+1/50   rubyring

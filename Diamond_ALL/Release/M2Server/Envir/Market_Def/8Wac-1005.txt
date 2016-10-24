@@ -1,0 +1,73 @@
+;武器
+(@buy @sell @repair)
+%100
+;手镯
++19
++20
++21
++22
++23
++24
++26
+
+;对话框, '*' : 对话框 标签
+[@main]
+This is a place to research and develope accesories.\
+Also various kinds of accesories are stored here.\
+Other items as well as accesories for taoists are prepared\
+Select what you want please.\ \
+<Buy/@buy> accesory\
+<Sell/@sell> accesory\
+<Repair/@repair> accesory\
+<Cancel/@exit>
+
+[@buy]
+Which accecory would you like to buy?\ \ \
+<Back/@main>
+
+[@sell]
+Show me the accecory you wish to sell.\ \ \
+<Back/@main>
+
+[@repair]
+Give me the accecory you want to repair.\ \ \
+<Back/@main>
+
+[~@repair]
+Your accecory seems repaired fine.\ \
+<Back/@main>
+
+[goods]
+;Name         	Amount  Minute
+GlassRing		200	1
+CopperRing		200	1
+HornRing		200	1
+HexagonalRing		200	1
+BlueRing		200	1
+PearlRing		200	1
+BlackRing		200	1
+SerpentEyeRing		200	1
+GoldRing		200	1
+IronRing		200	1
+IronBracelet		200	1
+ThinBracelet		200	1
+SilverBracelet		200	1
+LargeBracelet 		200	1
+SteelBracelet  		200	1
+MagicBracelet 		200	1
+MonkBraclet		200	1
+EbonyBracelet		200	1
+StrainBracelet		200	1
+LeatherGlove		200	1
+HardGlove		200	1
+GoldNecklace		200	1
+PrecisionNeck		200	1
+YellowNecklace		200	1
+EbonyNecklace		200	1
+BlackNecklace		200	1
+PlatinumNeck		200	1
+TigerNecklace		200	1
+LanternNeck		200	1
+AmberNecklace		200	1
+NagaNecklace		200	1
+PhoenixBead		200	1

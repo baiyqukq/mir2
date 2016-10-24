@@ -1,0 +1,11 @@
+;;焙档 涅胶飘 付瘤阜 盒扁痢
+;;命运之刃指示最后分歧点
+[@main]
+#IF
+checkmonmap 01141 1
+#SAY
+There are still spirits guarding the book!!\ \
+ <Exit/@exit>
+#ELSEACT
+map 0114
+set [209] 1

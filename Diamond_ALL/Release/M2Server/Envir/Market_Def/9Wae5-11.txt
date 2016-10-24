@@ -1,0 +1,15 @@
+[@main]
+#IF
+#SAY
+;요사스러운 숲의 끝에 저주 받은 산이 있어, 붉은 달이 \
+;산마루에 걸리면 천하가 피에 잠기리라.. \
+;아, 이건 제가 전에 본 고서 낙서 되어 있던 문구 입니다. \
+;무언가를 암시하는 것 같지만 도통 뜻을 알 수가 없군요. \ \
+;<닫  기/@exit>
+
+There is a cursed mountain at the end of the vicious woods, \
+the red moon is over the ridge of the mountain,.. \
+the whole word may be under blood. \
+Wow it's a scribbling written in an old book i never saw before. \
+Iit seems to indicate something but i have no idea what. \ \
+<close/@exit>

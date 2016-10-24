@@ -1,0 +1,159 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+BreakTimeRecall 
+break
+
+#IF
+equal p9 1
+#ACT
+goto @pena1
+BreakTimeRecall 
+break
+
+#IF
+equal p9 2
+#ACT
+goto @pena2
+BreakTimeRecall 
+break
+
+#IF
+equal p9 3
+#ACT
+goto @pena3
+BreakTimeRecall 
+break
+
+#IF
+equal p9 4
+#ACT
+goto @pena4
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+[@main-1]
+#IF
+#ACT
+mov p9 0
+#SAY
+Hello <$USERNAME>\
+This is room 30, where you can more to 3 different places\
+Depending on your luck\
+I hope you feel lucky\\
+<COntinue/@main-2>
+
+[@main-2]
+#IF
+checkitem gamblechip 1
+#ACT
+take gamblechip 1
+goto @penalty
+#ELSESAY
+<$USERNAME>, You haven't any Chips!!\
+Go get some if you want to gamble\\
+<Silly Me/@Quit>
+#ELSEACT
+mov p9 9
+
+[@Penalty]
+#IF
+random 4
+#ACT
+mov p9 1
+goto @pena1
+give gamblechip 1
+break
+
+#IF
+random 4
+#ACT
+mov p9 2
+goto @pena2
+take gamblechip 2
+break
+
+#IF
+random 4
+#ACT
+mov p9 3
+goto @pena3
+take gamblechip 2
+break
+
+#IF
+random 4
+#ACT
+mov p9 4
+goto @pena4
+give gamblechip 2
+break
+
+#ELSEACT
+goto @Penalty
+
+[@pena1]
+#SAY
+You will go to room 29\\
+<Move/@Posi1>
+
+[@pena2]
+#SAY
+You will go to room 28\\
+<Move/@Posi2>
+
+[@pena3]
+#SAY
+You will go to room 31\\
+<Move/@Posi3>
+
+[@pena4]
+#SAY
+You will go to room 32\\
+<Move/@Posi4>
+
+[@Posi1]
+#IF
+#ACT
+batchDelay 1
+addbatch B129
+batchmove
+
+[@Posi2]
+#IF
+#ACT
+batchDelay 1
+addbatch B129
+addbatch B128
+batchmove
+
+[@Posi3]
+#IF
+#ACT
+batchDelay 1
+addbatch B131
+batchmove
+
+[@Posi4]
+#IF
+#ACT
+batchDelay 1
+addbatch B131
+addbatch B132
+batchmove
+
+

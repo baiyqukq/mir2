@@ -1,0 +1,14 @@
+[@CheckQuest]
+{
+#IF
+#SAY
+NPC ID号: <$STR(p6)> \ \
+<返回/@main>
+[@StorageHelp]
+仓库密码保护可设置长度为4-7位密码保护，人物在取物品\
+前必须先输入仓库密码解锁。否则将无法取仓库物品。\ \
+相关密码管理命令：\
+设置密码：@SETPASSWORD    仓库加锁：@LOCK \
+修改密码：@CHGPASSWORD    仓库加锁：@UNLOCK\ \
+<返回/@main>
+}

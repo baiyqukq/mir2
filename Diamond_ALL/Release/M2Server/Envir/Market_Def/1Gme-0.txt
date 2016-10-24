@@ -1,0 +1,151 @@
+;/R => 表示开头
+;    科目  肉块  , 干肉产品
+(@sell)
+%100
++40
++1
+;对话, '*' : 对话tag
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+I will not help an evil person like you... \ \
+<Exit/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+Welcome, what can I do for you ?\ \
+ <Sell/@sell>Meat\
+ <Talk with/@QUEST> \
+ <Cancel/@exit>\
+ <Ask/@meathelp> about how to gain meat\
+<>
+
+
+
+[@QUEST]
+#IF
+check [752] 1
+#ACT
+goto @QUEST3
+break
+
+#IF
+check [751] 1
+#ACT
+goto @QUEST1_2
+break
+
+#IF
+check [750] 1
+#ACT
+goto @QUEST1_1
+#ELSEACT
+goto @QUEST2
+
+[@QUEST3]
+#IF
+#SAY
+去找向导吧，他有话要和你说. \ \
+<close/@exit>
+;<取消/@exit>
+
+[@QUEST1_2]
+#IF
+#SAY
+带来品质13以上的肉吗??? \ \
+;<带来/@QUEST1_2_1>品质13以上的肉 \
+;<没找到/@QUEST1_2_2>品质13以上的肉
+<1-2-1/@QUEST1_2_1>品质13以上的肉 \
+<1-2-2/@QUEST1_2_2>品质13以上的肉
+
+
+[@QUEST1_2_1]
+#IF
+checkdura Meat 13
+#ACT
+takecheckitem 
+give gold 1000
+SET [752] 1
+#SAY
+你带来的肉品质很好. \
+祝贺你啊. 其实也没什么，不过会对你打猎有帮助的\
+给你1000金币作为祝贺礼物吧. \
+另外，请你再去找一下向导，祝你好运. \ \
+<close/@exit>
+;<取消/@exit>
+
+#ELSESAY
+第一次会有一些困难. 慢慢找吧 \
+我会等您<$USERNAME>来的. \ \
+<close/@exit>
+;<取消/@exit>
+
+
+[@QUEST1_2_2]
+#IF
+#SAY
+第一次会有一些困难. 慢慢找吧 \
+我会等您<$USERNAME>来的. \ \
+<close/@exit>
+;<取消/@exit>
+
+
+[@QUEST1_1]
+<$USERNAME>您是听向导的话来的吧... \
+您好. 我是肉点屠夫. \
+我先再讲一遍割肉的方法. \
+可以割的怪物有鸡，鹿，羊，粪虫，毒蜘蛛，楔蛾等等 \
+可能目前还见不到这些怪物. \
+但是以后慢慢会看到的. \ \
+<1-1-1/@quest1_1_1>
+;<继续/@QUEST1_1_1>
+
+
+[@QUEST1_1_1]
+#IF
+#SAY
+可以割肉的怪物有鸡，鹿，羊等等 \
+杀死这些怪物之后，在怪物面前按几下alt+键盘（鼠标左键），\
+就可以得到肉块。先按F9，就可以看到肉块 \
+在这些肉块中， \
+帮我带来一个品质13以上的肉块. \
+这就是<$USERNAME>您首先要做的事情. \ \
+<close/@exit>
+;<取消/@exit> 
+
+#ACT
+SET [751] 1
+
+[@QUEST2]
+#IF
+#SAY
+<$USERNAME>您对传奇世界了解得足够多了. \
+我认为您自己一个人完全可以开拓自己的路 \
+我是帮不上忙了，祝你好运. \ \
+<close/@exit>
+;<取消/@exit>
+
+
+
+[@sell]
+We'll buy high qualitiy at high price.\
+But we'll buy at low price meat stained with soil or burned by fire.\ \
+ <Back/@main>
+
+[@meathelp]
+Meat can be gained from Hens, deer, sheep, and wolves.\
+To get meat from any of the above, first of all kill the animal.\
+Once you have killed it, press the ALT button, while left clicking\
+on the dead body for a few seconds.\
+You should then see a piece of meat appear in your inventory.\
+Using magic to kill an animal burns the meat, reducing its quality.\ \
+ <Back/@main>
+
+
+
+[goods]
+;  科目  数量  时间(hour)

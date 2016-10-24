@@ -1,0 +1,13 @@
+
+1/1 (hp)drugmedium
+1/1 (mp)drugmedium
+1/5 Sunpotion(M)
+1/5 Sunpotion(M)
+1/10000 benedictionoil
+1/5 steelsword
+1/5 krisssword
+1/5 hookedspear
+1/5 martialsword
+1/3 trident
+1/4 hookedsword
+1/3 scimitar

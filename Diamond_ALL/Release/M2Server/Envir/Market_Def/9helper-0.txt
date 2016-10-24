@@ -1,0 +1,342 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; [750] - [770] 鳖瘤绰 檬肪侩 涅胶飘 肯搬 敲饭弊
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[@Main]
+Hi, are you a beginner in this game?\
+I can guide you with a brief explanation.\
+<Talk With/@QUEST>\
+<Learn how to use Mir/@next>
+
+[@next]
+First, let me tell you how to talk with an NPC.\
+Do you see a yellow line? Click on it.\
+And you can see the concerned dialogue or category table\
+It could be difficult because it is the first time\
+You will be used to it soon.\
+<Next/@next1>
+
+[@next1]
+Please select one of the following categories. \
+<How to wear items/@Wear>\
+<How to move/@Move>\
+<How to fight/@Fight>\
+<Speach commands/@Talk>\
+<Martial Arts/@Skill>\
+<Function Keys/@Hotkey>\
+<Quest Dialog/@QUEST>\
+<Close/@exit>
+
+[@QUEST]
+#IF
+check [756] 1
+#ACT
+goto @Q706
+break
+
+#IF
+check [755] 1
+#ACT
+goto @Q705
+break
+
+#IF
+check [753] 1
+#ACT
+goto @Q703
+break
+
+#IF
+check [752] 1
+#ACT
+goto @Q702
+break
+
+#IF
+check [750] 1
+#ACT
+goto @Q700
+#ELSEACT
+goto @QUEST1
+
+[@Q706]
+赶快去我告诉你的地方,他已经在那里等你了 \ \
+<close/@exit>
+;<退  出/@exit>
+
+[@Q705]
+#IF
+checklevel 5
+#ACT
+SET [756] 1
+goto @Q705_1
+#ELSESAY
+<$USERNAME>武器店老板委托你的事情都已经做好了吗? \
+使用同样方法杀死多钩猫和稻草人以及钉耙猫\
+到了等级是5级的时候再来找我, 我会告诉你下一步该做的事情 \
+祝你好运^^; \ \
+<close/@exit>
+;<退  出/@exit>
+
+[@Q705_1]
+#IF
+checkjob warrior
+#ACT
+goto @Q705_1_1
+break
+
+#IF
+checkjob wizard
+#ACT
+goto @Q705_1_2
+break
+
+#IF
+checkjob taoist
+#ACT
+goto @Q705_1_3
+break
+
+[@Q705_1_3]
+<$USERNAME>武器店老板委托你的事情都已经做好了吗? \
+<$USERNAME>你已经5级以上了,你知道你的职业是什么吗? \
+你的职业是道士,这个职业是道教所创立的,对于天文地理医术方面很有造诣 \
+道士在剑法上虽然比不上战士,但对养生的研究超过其他职业 \ \
+<退  出/@Q705_1_3_1>
+
+[@Q705_1_3_1]
+道士可以用他的气和医术来使用多种治愈术 \
+而且可以制作多种致命的毒药 \
+道士的特征是使用多种辅助道具 \
+因为到后半期他可以使用护身符所以所携带的物品也很多 \
+在攻击方式方面道士是最合理的,他可以远程和近距离的攻击敌人 \
+他还可以使用强有力的辅助道术,来解决各种危机情况\
+<下一步/@Q705_1_3_2>
+
+[@Q705_1_3_2]
+现在<$USERNAME>你到高级道士之家修炼 \
+那你必须大飞圣僧对话 \
+高级道士之家在 544,560 路途艰难\
+一定要跟他对话哦 \ \
+<close/@exit>
+;<退  出/@exit>
+
+[@Q705_1_2]
+<$USERNAME>武器店老板委托你的事情,你已经做好了吗? \
+<$USERNAME>你的等级是已经5以上了 \
+你知道你的职业是什么吗? 你是魔法师 \
+魔法师的特征是使用多种华丽的魔法. \
+魔法师可以远程攻击,所以不管什么样的地形都可以有效的攻击对方 \ \
+<下一步/@Q705_1_2_1>
+
+[@Q705_1_2_1]
+如果还没有修练出强力魔法的话 <$USERNAME> \
+由于你的生命力比较薄弱, 容易受到威胁\
+如果你掌握了强力魔法, 你将非常厉害 \
+欢迎您选择魔法师这个职业\
+现在<$USERNAME>到高级魔法师之家,用心修炼吧 \
+高级魔法师之家在比奇省314,474附近. \
+路途艰难,但你一定要安全抵达那里 \
+<close/@exit>
+;<退  出/@exit>
+
+[@Q705_1_1]
+<$USERNAME>武器店老板委托你的事情,你已经做好了吗? \
+<$USERNAME>你的等级是已经5以上了 \
+你知道你的职业是什么吗? 你是战士! \
+战士的特征是拥有强大的生命力和攻击力! 在打猎和战斗中破坏力比较强!\
+高等级的战士可以修炼特殊剑法,这些剑法拥有不可思议的破坏力! \ \
+<下一步/@Q705_1_1_1>
+
+[@Q705_1_1_1]
+虽然战士在战斗中拥有最强的破坏力,但容易遭到远程攻击和魔法攻击的伤害. \
+但是战士可以使用所有的战甲,护具来保护自己. \
+欢迎您选择战士这个职业. \
+现在<$USERNAME>到高级战士之家,用心修炼吧 \
+高级战士之家在比奇省107,316附近. \
+路途艰难,但你一定要安全抵达那里 \
+<close/@exit>
+;<退  出/@exit>
+
+[@Q703]
+#IF
+#SAY
+铁匠正在找 <$USERNAME>, 赶快去吧. \ \
+<close/@exit>
+;<退  出/@exit>
+
+[@Q702]
+#IF
+checklevel 3
+#ACT
+SET [753] 1
+#SAY
+<$USERNAME>屠夫委托你的任务, 你已经完成了吗? \
+现在 <$USERNAME>是等级3以上 \
+告诉你下一步应该做的事情\
+你应该去([297,612],[649,602])找铁匠寻求帮助  \
+你知道这些数字的意思是什么吗? \ 
+赶快动身吧\ \
+<close/@exit>
+;<退  出/@exit>
+
+#ELSESAY
+<$USERNAME>屠夫委托你的任务, 你已经完成了吗? \
+用同样的方法去杀死鸡和鹿,并得到肉, 卖给屠夫, 这样你可以得到一些钱. \
+用同样的方法提升自己的等级到3以上, 然后再来找我. \
+我会告诉你下一步应该做的事情. \
+祝你好运! \ \
+<close/@exit>
+;<退  出/@exit>
+
+[@Q700]
+#IF
+#SAY
+屠夫正在找 <$USERNAME>. \ \
+<close/@exit>
+;<退  出/@exit>
+
+[@QUEST1]
+#IF
+checklevel 1
+#ACT
+reset [750] 20
+goto @QUEST1_1
+#ELSESAY
+<$USERNAME>因为你的等级太高,所以没必要完成我的任务 \
+我需要等级1-3的玩家来帮助我完成任务 \
+你去做你该做的事情吧.\
+祝你好运. \ \
+<close/@exit>
+;<退  出/@exit>
+
+[@QUEST1_1]
+#IF
+checklevel 4
+#SAY
+<$USERNAME>. 因为你的等级太高,所以没必要完成我的任务 \
+我需要等级1-3的玩家来帮助我完成任务 \
+你去做你该做的事情吧.\
+祝你好运. \ \
+<退  出/@exit>
+#ELSESAY
+<$USERNAME>我将告诉你接下来该做的事情 \
+你想试一试吗? 玩传奇将带给你很多乐趣. \
+希望你和我一起尝试. \ \
+npc给你的任务 <continue/@QUEST1_1_1> \
+npc给你的任务 <stop/@QUEST1_1_2>
+;npc给你的任务 <做/@QUEST1_1_1> \
+;npc给你的任务 <不做/@QUEST1_1_2>
+
+[@QUEST1_1_1]
+#IF
+#ACT
+SET [750] 1
+#SAY
+你想知道你接下来该做什么吗? \
+那就去([293,603],[649,592]) 找屠夫吧. \
+你知道这些数字的意思吗? 你可以在游戏画面的左下角找到这些数字. \
+这些数字表示传奇世界中地图的坐标.\
+数字旁边你可以知道当前所在地图的名称. \
+现在地图的名称是比奇城, 赶快出发吧. \ \
+<close/@exit>
+;<退  出/@exit>
+
+[@QUEST1_1_2]
+#IF
+#SAY
+<$USERNAME>如果你不想得到我的帮助, \
+那你在传奇中将面临种种困难.\
+祝你一路顺风 \ \
+<close/@exit>
+;<退  出/@exit>
+
+[@Wear]
+If you press F9(bag window) and F10(status window)\
+you will see two windows.\
+To wear an item, you have to drag the item from the bag\
+window, to the wearing position in the status window.\
+<Back/@next1>
+
+[@Move]
+Using the mouse to move:\
+Left button: basic actions, walking, attacking, etc.\
+Right button: click on the ground close to you and you will face in that direction\
+or if you click(and hold) it, you will run.\
+Shift + left: this will let you attack other players.\
+<Back/@next1>, <Continue/@Move2>
+
+[@Move2]
+Ctrl + left: Run\
+Ctrl + right: You can see the highlighted players equipment\
+Alt + left: you can harvest the target, to gain meat, or poison ingredients\
+Double click: you will pick up the item(s) you are standing on\
+<Back/@next1>
+
+[@Getitem]
+You can do this on the body of a deer, hen, sheep, and wolf\
+This will get you meat\ \
+Doing this on a Cannibal Plant will get you a CannibalLeaf, or a CannibalFruit\ \
+On a CaveMaggot you will get a MaggotPill\ \
+And on a SpittingSpider, you will get some SpidersTeeth\
+<Back/@next1>
+
+[@Fight]
+Basicly you can attack MOBS by left-clicking on them.\
+But, to attack another PLAYER you need to hold down Shift and left click\
+<Back/@next1>
+
+[@Talk]
+/ followed by a characters name will let you send a private\
+message to the target\ \
+! followed by a message will let you shout a message\ \
+!! followed by a message will send a message to your current group\ \
+!~ followed by a message will send a message to your current guild\ \
+<Back/@next1>,<Continue/@Talk2>
+
+[@Talk2]
+@rejectwhisper	  This will reject all incoming messages\ 
+@rejectshouting	  This will reject all incoming shouts\
+@reject_Guild_Chat  This will reject all Guild Chat Messages\
+@leave_Guild	  This will make you leave your current Guild\
+Direction keys 	  Use these to scroll up and down the chat window\ \
+Note: all of these are reset when you reconnect\
+<Back/@next1>
+
+[@Skill]
+In order to learn your first skill, your character must be level 7.\
+Warriors can learn <Fencing/@Onehand>, Taoists can learn <Healing/@Heal>\
+and wizards can learn <Fireball/@Fireball>.\
+Books are sold at the bookstore of Border village,\
+Bichon wall, and Mongchon Mud Wall\
+After the first skills, some books can be bought from the bookstore\
+Others must be acquired by killing powerfull mobs\
+<Back/@next1>
+
+[@Onehand]
+Your accuracy will increase with the level of this skill.\ \
+<Back/@Skill>
+
+[@Heal]
+You can heal yourself or other players with this spell\
+as the level of the spell raises, so will the ammount it heals for\ \
+<Back/@Skill>
+
+[@Fireball]
+This spell deals damage to the target\
+as the level of the spell raises, so will the ammount of damage done\ \
+<Back/@Skill>
+
+[@Hotkey]
+F1~F8	      Shortcut for skills\
+F9          Bag Window\
+F10         Status Window\
+F11         Skill Status Window\
+Ctrl+h      Change attack mode\
+Ctrl+f      Change font\
+Ctrl+A      Change <Pet/@Slave> attack mode\
+<Back/@next1>
+
+[@Slave]
+This will tell your pet to either attack, or stay in passive\
+mode\
+<Back/@Hotkey>

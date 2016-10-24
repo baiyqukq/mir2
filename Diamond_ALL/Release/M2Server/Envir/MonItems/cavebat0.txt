@@ -1,0 +1,10 @@
+1/1 gold 3000
+1/5 gold 2000
+1/1   townteleport
+1/1   townteleport
+1/2   townteleport
+1/2   townteleport
+1/3   townteleport
+1/4   townteleport
+
+

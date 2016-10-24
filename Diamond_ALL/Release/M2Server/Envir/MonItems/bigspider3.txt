@@ -1,0 +1,67 @@
+1/1 gold 1000
+1/10   (HP)DrugMedium
+1/10   (MP)DrugMedium
+1/50 skeletonring
+1/100 magicaiddrug
+1/100 staminaaiddrug
+1/100 spiritdrug
+1/100 impactdrug
+1/100 stormdrug
+1/150 Sunpotion(M)
+1/150    OldGinseng
+1/200 StormDrug
+1/200 StaminaAidDrug
+1/200 SpiritDrug
+1/200 MagicDrug
+1/200 MagicAidDrug
+1/100 ImpactDrug
+
+1/100  HeavyArmour(F)
+1/100  HeavyArmour(M)
+1/100 MagicRobe(F)
+1/100 MagicRobe(M) 
+1/100 SoulArmour(F)
+1/100 SoulArmour(M)
+
+1/40 PrinceSword
+1/40 MartialSword
+1/40 HookedSpear
+1/35 KrissSword
+1/75 PowerAxe
+1/100 PurifierSword
+1/2000 greataxe
+1/2000 serpentSword
+1/2000 magestaff
+
+1/40 StrainBracelet
+1/40 MagicBracelet
+1/40 PearlRing
+1/40 BlackRing
+1/40 SerpentEyeRing
+1/40 HardGlove 
+1/50 LanternNeck
+1/50 TigerNecklace
+1/50 GoldRing
+1/70 SkeletonRing
+1/70 MonkBracelet
+1/70 EbonyBracelet
+1/20 IronRing
+1/50 CharmRing
+1/50 MoralRing
+1/50 PlatinumNeck
+1/70 DeathGauntlet
+1/80 BlueJadeNeck
+1/80 BambooPipe
+1/80 Convexlens
+1/50 GoldBracelet
+
+1/100 ShamanHelmet
+1/200 Skeletonhelmet
+1/200 BronzeGlove
+1/200 expelring
+1/200 coralring
+1/400 galering
+
+1/2000 DragonRing
+1/2000 PlatinumRing
+1/1000 RubyRing

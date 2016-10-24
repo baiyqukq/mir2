@@ -1,0 +1,90 @@
+[@Markets]
+{
+#IF
+    small p9 99
+#SAY
+离我远点，我不想与你这种人打交道。\ \
+ <退出/@exit>
+#ELSESAY
+MAINMSG\ \
+ <UPGRADEITEMMSG/@upgradenow> <$DATETIME>\
+ <GETBACKITEMMSG/@getbackupgnow>\
+ <HELPMSG/@helps>\ \
+ <退出/@exit>
+[@upgradenow]
+[@getbackupgnow]
+[@buy]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#ELSESAY
+MAINUPGRADEMSG\ \
+ <返回/@Markets>
+
+
+[@helps]
+升级武器需要一此必备的材料，包括<首饰/@Etc>，<黑铁矿石/@Biron>，你想用来升\
+级的武器，每次升级武器我将收取费用<$UPGRADEWEAPONFEE>金币。\ 
+以下为需要注意的要点:\
+1 、把你想要升级的武器拿到手上，你当前手上的武器是 <$USERWEAPON>\
+2 、将你用来升级武器的<首饰/@Etc>及<黑铁矿/@Biron>放到你的背包，在升级时我\
+会从你背包取出所有用的上的物品，如果你有重要的物品，在你寄\
+存在仓库后再回来。\ \
+<返回/@main>
+
+[@Biron]
+想要升级出一把好的武器就必须去搞些高纯度的黑铁矿，矿石的数\
+量也必须达到要求(具体数量因各种原因而没有可参考的数据)，如\
+果矿石的数量或纯度不好的话将达不到预期的结果。\ \
+<返回/@helps>
+
+[@Etc]
+升级武器，其实也就是将首饰中的一些属性通过特殊方法融入到武\
+器中，所以你在选择不同属性的首饰品用于升级时，得到的结果都\
+会不同。当然首饰的品质也决定升级的结果，要想升级出的武器具\
+有好的属性，你就必须使用好的首饰品。\ \
+<返回/@helps>
+
+[~@upgradenow_ok]
+我会尽我最大的能帮你升级这把武器的，请过几分钟来取回吧。\
+ <返回/@main>\
+
+[~@upgradenow_ing]
+我不能同时进行多项工作，请下次再来吧 ...\ \
+ <返回/@main>
+
+[~@upgradenow_fail]
+你准备的材料不够，请准备好材料再来吧...\ \
+ <返回/@main>\
+
+[~@getbackupgnow_ok]
+你的武器已经搞定了，但结果是否<成功/@Success>只有在你使用过一次后\
+才知道，出去试试吧，祝你好运。\ \
+ <退出/@exit>\
+
+[@Success]
+只要使用升级的武器攻击一下怪物或其它可攻击对象你就会得到结果了。\ \
+ <退出/@Main>\
+
+[~@getbackupgnow_ing]
+我正在忙着呢，请过半小时来取吧...\ \
+ <返回/@main>\
+
+[~@getbackupgnow_fail]
+如果你想取回很久以前你升级的武器的话，你还是回去吧，我都记\不起来扔那去了...\ \
+ <返回/@main>\
+[@Punish]
+#CALL	[\Common\Punish.txt]	@Punisher
+[@CheckAction]
+#CALL	[\Common\CheckAction.txt]	@Actions
+}

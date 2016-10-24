@@ -1,0 +1,95 @@
+1/1   gold 5000
+1/5   gold 3500
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/1    SunPotion
+1/1    SunPotion
+1/1    SunPotion
+1/2    SunPotion
+1/2    SunPotion
+1/2    SunPotion
+1/1    (HP)DrugMedium
+1/1    (HP)DrugMedium
+1/1    (HP)DrugMedium
+1/1    (MP)DrugMedium
+1/2   (HP)Druglarge
+1/2   (HP)Druglarge
+1/2   (MP)Druglarge
+1/2   (MP)Druglarge
+1/2   (MP)Druglarge
+1/2   (HP)Druglarge
+1/2   (MP)Druglarge
+1/2   (HP)Druglarge
+1/2   (MP)Druglarge
+
+1/30   stormdrug
+1/30   magicdrug
+1/30   magicaiddrug
+1/30   staminaaiddrug
+1/30   impactdrug
+1/30   spiritdrug
+
+1/20   ConvexLens
+1/30   BambooPipe
+1/30   DeathGauntlet
+
+1/55   HeavyArmour(M)
+1/55   HeavyArmour(F)
+1/55   SoulArmour(F)
+1/55   SoulArmour(M)
+1/55   MagicRobe(M)
+1/55   MagicRobe(F)
+1/10   GoldRing
+1/10   BlueJadeneck
+1/10   GoldBracelet
+1/10   MoralRing
+1/10   CharmRing
+
+1/6   MonkBracelet
+1/6   EbonyBracelet
+1/6   KrissSword
+1/6   BlackRing
+1/6   SerpentEyeRing
+1/6   PearlRing
+1/6   PrinceSword
+1/6   MartialSword
+1/6   HookedSpear
+1/6   lanternneck
+1/6   TigerNecklace
+1/3   PlatinumNeck
+1/6   SkeletonRing
+1/6   StrainBracelet
+
+1/5   HookedSword
+1/5   Trident
+1/5   BlueRing
+1/5   NagaNecklace
+1/5   AmberNeck
+1/5   SteelBracelet
+1/5   hardGlove
+1/10  MagicBracelet
+1/10  lanternneck
+1/10  SteelSword
+
+1/10 Slaying
+1/10 blessedarmour
+1/10 soulshield
+1/10 traphexagon
+1/10 revelation
+1/10 masshealing
+1/10 summonshinsu
+
+1/10 thrusting
+1/10 halfmoon
+1/10 shoulderdash
+1/10 flamingsword
+
+1/10 lightning
+1/10 thunderstorm
+1/10 magicshield
+1/10 turnundead
+1/10 icestorm

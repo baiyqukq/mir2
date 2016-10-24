@@ -1,0 +1,309 @@
+[@HelpStart]
+{
+<$USERNAME>：您好！欢迎光临<$SERVERNAME>，如果在游戏中遇到什么困难请直\
+接来找我，我会尽力帮你解决问题。\
+ 论坛：<$BBSSITE>\
+╔══════╦══════╦══════╦══════╗\
+║『<游戏介绍/@GameInfos>』║『<玩家须知/@PlayRead>』║『<ＰＫ规则/@PKRule>』║『<结婚系统/@marry>』║\
+╠══════╬══════╬══════╬══════╣\
+║『<查看信息/@ViewInfo>』║『<游戏命令/@GameCommand>』║『<仓库密码/@StoragePassword>』║『<师徒系统/@Master>』║\
+╚══════╩══════╩══════╩══════╝\
+\
+;/@Member>
+◎<费用援助/@FreeGame>◎ 〖<关闭/@exit>〗
+[@GameInfos]
+#CALL	[\Common\Business.txt]		@GameRead
+[@marry]
+全新结婚系统已经开放，要结婚的玩家请速到比齐皇宫进行婚礼!!!\ \
+<返回/@main> <关闭/@exit>
+[@Master]
+暂时未开放\ \
+<返回/@main> <关闭/@exit>
+[@Member]
+<$USERNAME>：你想成为<$SERVERNAME>会员吗?或你对会员有什么疑问我可对你\
+一一解答。\ \
+『<会员好处/@Memberhc>』\
+『<会员装备/@Memberzb>』\
+
+『<如何购买/@WhatBuy>』\ \
+<返回/@main> <关闭/@exit>
+[@PlayRead]
+1.合法登录<$SERVERNAME>，不向<$SERVERNAME>发送干扰信息或攻击<$SERVERNAME>\
+系统。\
+2.妥善保管帐号，如果丢失密码或帐号，请直接与我们管理员联系，\
+并<提供密码保护提示及答案找回密码>。如果不能提供正确的密码提\
+示答案，我们将不会处理密码找回。无论是将之提供给他人使用，\
+或因遗失、泄密等原因而被他人使用，<$SERVERNAME> 均不对此以\
+及造成的损失进行赔偿。\ \
+【<返回/@main>】 〖<关闭/@exit>〗
+
+[@WhatBuy]
+《<$SERVERNAME>》在银行开通了帐号， 您可以通过银行汇款， 异地存\
+款及网上银行转帐等各种不同的付款方式更方便的申请成为《传奇\
+之颠》网络游戏的会员。\ \
+为了更准确的确认您所汇的款项，我们建议您在汇款时多汇一个零\
+头，即原来应汇￥200.00，可汇￥200.28，零头多少由您自己决定，\
+以示与其他会员所汇款项的区别。\ \
+<下一页/@whatbuy1> <返回/@member> <关闭/@exit>
+
+[@whatbuy1]
+汇完款拿到汇款底单后，请拨打电话我们的客服电话或者客服QQ来\
+确认您的款项，我们会立即开通您的传奇ID!\ \
+开户行：中国工商银行中山市分行\
+帐  号：9558 8020 1110 4254 672\
+帐  户：饶云\
+电  话：13318290777\
+QQ:12841682\
+<返回/@member> <关闭/@exit>
+
+
+[@Memberhc]
+通过购买会员，你可以得到：\ \
+1.等级提升到相关会员指定等级；\
+2.更为强劲的武器装备；\
+3.新版本加入功能可全部享受；\
+4.每天清除300点PK值等等....\
+5.可得到更好的游戏服务..\ \
+<返回/@Member> <关闭/@exit>
+
+[@Memberzb]
+以下为会员装备列表：\ \
+『<铜牌会员/@No1>』\
+『<银牌会员/@No2>』\
+『<金牌会员/@No3>』\
+『<单件装备/@No4>』\ \
+<返回/@Member> <关闭/@exit>
+
+[@No1]
+<此套装备隐藏有护身属性>：\
+武器<玄铁之刃>：<幸运>+6<准确>+6<攻击速度>+3<攻>:75-150<魔>:75-150<道>:75-150\
+衣服<玄铁神甲>：防:8-18 魔防:6-10 攻:6-12 魔:6-12 道:6-12\
+头盔<玄铁头盔>：防:9-21 魔防:9-21 攻:8-18 魔:8-18 道:8-18\
+项链<玄铁项链>：魔法躲避30% 幸运+4攻:9-21 魔:9-21 道:9-21\
+手镯<玄铁手镯>：防:9-18   攻:9-18    魔:9-18      道:9-18\
+戒指<玄铁戒指>：防:8-12 魔防:8-12 攻:15-22魔:15-22道:15-22\
+<赠送>：号角...<特惠价￥:100元>\
+<返回/@Memberzb> <关闭/@exit>
+
+[@No2]
+<此套装备隐藏有麻痹属性>：\
+武器<轩辕之杖>：<幸运>+7<准确>+7<攻击速度>+4<攻>:105-195<魔>:105-195<道>:105-195\
+衣服<轩辕战甲>：防:10-12 魔防:9-15  攻:9-16 魔:9-16 道:9-16\
+头盔<轩辕头盔>：防:12-26 魔防:12-26 攻:9-22 魔:9-22 道:9-22\
+项链<轩辕项链>：魔法躲避40% 幸运+6攻:12-26 魔:12-26 道:12-26\
+手镯<轩辕手镯>：防:12-22   攻:12-22    魔:12-22     道:12-22\
+戒指<轩辕戒指>：防:10-18 魔防:10-18 攻:18-28魔:18-28道:18-28\
+<赠送>：号角.传送戒指...<特惠价￥:200元>\
+<返回/@Memberzb> <关闭/@exit>
+
+[@No3]
+<此套装备隐藏有麻痹.护身属性>：\
+武器<逆火屠龙>：<幸运>+8<准确>+8<攻击速度>+5<攻>:135-240<魔>:75-240<道>:75-240\
+衣服<逆火战袍>：防:14-27 魔防:12-20 攻:12-21 魔:12-21 道:12-21\
+头盔<逆火头盔>：防:15-30 魔防:15-30 攻:14-27 魔:14-27 道:14-27\
+项链<逆火项链>：魔法躲避60% 幸运+6  攻:15-30 魔:15-30 道:15-30\
+手镯<逆火手镯>：防:15-27    攻:15-27    魔:15-27      道:15-27\
+戒指<逆火戒指>：防:14-22 魔防:14-22 攻:21-33 魔:21-33 道:21-33\
+<赠送>：号角.复活戒指.传送戒指...<特惠价￥:300元>\
+<返回/@Memberzb> <关闭/@exit>
+[@NO4]
+<神圣魔戒>:攻10-10 魔10-10 道10-10 隐藏防麻痹属性<100元>\
+<圣战魔戒>:攻10-10 魔10-10 道10-10 隐藏破护身属性<150元>\ \
+<返回/@Memberzb> <关闭/@exit>
+
+[@GameCommand]
+以下为常用的游戏命令列表: \
+『<查看时间/@Date>』       : @<$CMD_DATE>\
+『<禁止&允许私聊/@AllowMsg>』  : @<$CMD_ALLOWMSG>\
+『<禁止&允许群聊/@LetShout>』  : @<$CMD_LETSHOUT>\
+『<禁止&允许交易/@LetTrade>』  : @<$CMD_LETTRADE>\
+『<组队传送/@GroupCall>』       : @<$CMD_GROUPRECALLL>\
+『<禁止&允许组传送/@AllowGroupCall>』: @<$CMD_ALLOWGROUPCALL>\ \
+<下一页/@GameCommand1>  <返回/@main>
+;<ＧＭ命令/@GmCommand>
+
+[@Date]
+游戏中输入：@<$CMD_DATE>  可显示当前日期及时间。\ \
+<返回/@GameCommand>
+
+[@AllowMsg]
+游戏中输入：@<$CMD_ALLOWMSG>  可拒绝私聊，重复输入可转换为:允许私聊。\ \
+<返回/@GameCommand>
+
+[@LetShout]
+游戏中输入：@<$CMD_LETSHOUT>  可拒绝群聊，重复输入可转换为:允许群聊。\ \
+<返回/@GameCommand>
+
+[@LetTrade]
+游戏中输入：@<$CMD_LETTRADE>  可拒绝交易，重复输入可转换为:允许交易。\ \
+<返回/@GameCommand>
+
+[@GroupCall]
+游戏中输入：@<$CMD_GROUPRECALLL>  可将已编组的玩家召换到身边来（组成\
+员必须打开天地合一功能，且组领导有记忆装备一套）。\ \
+<返回/@GameCommand>
+
+[@AllowGroupCall]
+游戏中输入：@<$CMD_ALLOWGROUPCALL>  可打开天地合一功能，重复输入可:关\
+闭天地合一功能。\ \
+<返回/@GameCommand>
+
+[@GmCommand]
+以下为GM命令列表：\
+『<制作物品/@Make>』       : make\
+『<地图传送/@Move>』       : move\
+『<定点传送/@PositionMove>』       : PositionMove\
+『<更改职业/@ChangeJob>』       : ChangeJob\
+『<更改性别/@ChangeGender>』       : ChangeGender\
+『<更改颜色/@NameColor>』       : NameColor\ \
+<下一页/@GmCommand1> <返回/@GameCommand>
+
+[@GmCommand1]
+『<查看地图信息/@Map>』   : map\
+『<查看人物属性/@Info>』   : info\
+『<增加人物金币/@AddGold>』   : addgold\
+<上一页/@GmCommand> <返回/@GameCommand>
+
+[@GameCommand1]
+以下为行会相关游戏命令列表: \
+『<禁止&允许加入行会/@LetGuild>』: @<$CMD_LETGUILD>\
+『<退出行会/@EndGuild>』         : @<$CMD_ENDGUILD>\
+『<禁止&允许行会聊天/@BanGuildChat>』: @<$CMD_BANGUILDCHAT>\
+『<禁止&允许行会联盟/@AuthAlly>』: @<$CMD_AUTHALLY>\
+『<行会联盟/@Auth>』         : @<$CMD_AUTH>\
+『<取消行会联盟/@AuthCancel>』     : @<$CMD_AUTHCANCEL>\ \
+<下一页/@GameCommand2> <上一页/@GameCommand> <返回/@main>
+
+[@LetGuild]
+游戏中输入：@<$CMD_LETGUILD>  可打开加入行会功能，重复输入可：关闭\
+加入行会功能。\ \
+<返回/@GameCommand1>
+
+[@EndGuild]
+游戏中输入：@<$CMD_ENDGUILD>  已加入行会的玩家将退出行会。\ \
+<返回/@GameCommand1>
+
+[@BanGuildChat]
+游戏中输入：@<$CMD_BANGUILDCHAT>  将拒绝接收行会聊天信息，重复输\
+入可：允许接收行会聊天信息。\ \
+<返回/@GameCommand1>
+
+[@AuthAlly]
+游戏中输入：@<$CMD_AUTHALLY>  将允许与对方行会联盟，重复输\
+入可：拒绝行会联盟。\ \
+<返回/@GameCommand1>
+
+[@Auth]
+游戏中输入：@<$CMD_AUTH>  将与对方行会联盟。\ \
+<返回/@GameCommand1>
+
+[@AuthCancel]
+游戏中输入：@<$CMD_AUTHCANCEL>  可取消行会的联盟。\ \
+<返回/@GameCommand1>
+
+[@GameCommand2]
+以下为特殊功能游戏命令列表: \
+『<传送戒指/@UserMove>』: @<$CMD_USERMOVE>\
+『<探测项链/@Searching>』: @<$CMD_SEARCHING>\ \
+<上一页/@GameCommand1> <返回/@main>
+
+[@UserMove]
+身上戴上有传送功能的装备后，就可以使用传送命令，可随意传送\
+到指定座标上。\ \
+命令实例: @<$CMD_USERMOVE> 330 330 \ \
+<返回/@GameCommand2>
+
+[@Searching]
+身上戴上有探测功能的装备后，就可以合作探测命令，查到人物所\
+在详细位置。 \ \
+命令实例: @<$CMD_SEARCHING> 玩家名字\ \
+<返回/@GameCommand2>
+
+[@StoragePassword]
+为了保护您的装备物品不被盗，可启用仓库密码保护系统，锁定仓\
+库凭密码解锁后才可以取出仓库物品。\
+以下为仓库密码游戏命令列表:\
+『<设置密码/@StorageSetPassword>』: @<$CMD_STORAGESETPASSWORD>\
+『<修改密码/@StorageChgPassword>』: @<$CMD_STORAGECHGPASSWORD>\
+『<锁定仓库/@StorageLock>』: @<$CMD_STORAGELOCK>\
+『<解锁仓库/@StorageUnlock>』: @<$CMD_STORAGEUNLOCK>\ \
+<返回/@main>
+
+[@StorageSetPassword]
+在游戏输入：@<$CMD_STORAGESETPASSWORD>  可为仓库设定一个4-7位数长的仓库密码，\
+设定后玩家必须开启仓库后方能从仓库取出装备。\ \
+<返回/@StoragePassword>
+
+[@StorageChgPassword]
+在游戏输入：@<$CMD_STORAGECHGPASSWORD>  可更改仓库密码。\ \
+<返回/@StoragePassword>
+
+[@StorageLock]
+在游戏输入：@<$CMD_STORAGELOCK>  可将仓库锁定，下次取装备时必须开启仓库。\ \
+<返回/@StoragePassword>
+
+[@StorageUnlock]
+在游戏输入：@<$CMD_STORAGEUNLOCK>  输入正确密码后可将锁定的仓库开启。\ \
+<返回/@StoragePassword>
+
+[@PKRule]
+以下为本游戏中的<ＰＫ规则>，请大家仔细阅读，以便大家快速熟悉\
+本游戏。\ \
+在游戏中，大家可以<自由搏杀>，杀死对方后等级将提升一级（双方\
+等级相差必须<10>级以内，否则将以谋杀罪处理），被杀者等级将降\
+级（<白名减一级，红名减二级>）。\ \
+<返回/@main>
+
+[@ViewInfo]
+以下为现在可以查看的相关信息: \ \
+╔══════╦══════╦══════╦══════╗\
+║『<游戏信息/@GameInfo>』║『<名人排榜/@HighInfo>』║『<个人信息/@SelfInfo>』║            ║\
+╚══════╩══════╩══════╩══════╝\ \
+<返回/@main>
+
+;╠══════╬══════╬══════╬══════╣\
+;║『个人信息』║『会员通道』║            ║            ║\
+
+[@HighInfo]
+╔══════╦══════╦══════╦══════╗\
+║『<最高等级/@HighLevelInfo>』║『<最高攻击/@HighDCInfo>』║『<最高魔法/@HighMCInfo>』║『<最高道术/@HighSCInfo>』║\
+╠══════╬══════╬══════╬══════╣\
+║『<罪大恶极/@HighPKCInfo>』║            ║            ║            ║\
+╚══════╩══════╩══════╩══════╝\ \
+[@HighLevelInfo]
+以下为当前在线最高等级人物信息: \ \
+<$HIGHLEVELINFO>\ \
+<返回/@HighInfo>
+
+[@HighDCInfo]
+以下为当前在线最高攻击力人物信息: \ \
+<$HIGHDCINFO>\ \
+<返回/@HighInfo>
+[@HighMCInfo]
+以下为当前在线最高魔法人物信息: \ \
+<$HIGHMCINFO>\ \
+<返回/@HighInfo>
+[@HighSCInfo]
+以下为当前在线最高道术人物信息: \ \
+<$HIGHSCINFO>\ \
+<返回/@HighInfo>
+[@HighPKCInfo]
+以下为当前在线罪大恶习极人物信息: \ \
+<$HIGHPKINFO>\ \
+<返回/@HighInfo>
+[@GameInfo]
+以下为游戏部份信息: \ \
+服务器名: <$SERVERNAME>  服务器IP: <$SERVERIP>  在线人数: <$USERCOUNT>\
+当前时间: <$DATETIME>\ \
+<返回/@ViewInfo>
+
+[@SelfInfo]
+以下为你当前的部份信息: \ \
+人物名称:<$USERNAME>  等级:<$LEVEL>  经验值:<$EXP>/<$MAXEXP>\
+体力值:<$HP>/<$MAXHP>  魔法值:<$MP>/<$MAXMP>  ＰＫ点数:<$PKPOINT>\
+防御力:<$AC>/<$MAXAC>  魔防力:<$MAC>/<$MAXMAC>  攻击力:<$DC>/<$MAXDC>  魔法:<$MC>/<$MAXMC>  道术:<$SC>/<$MAXSC>\
+背包重量:<$BW>/<$MAXBW>  负量:<$WW>/<$MAXWW>  腕力:<$HW>/<$MAXHW>\
+<$GAMEGOLDNAME>:<$GAMEGOLD>  能量:<$HUNGER>\ \
+
+<返回/@ViewInfo>
+}

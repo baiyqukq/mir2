@@ -1,0 +1,13 @@
+[@MRservice]
+{
+#IF
+    equal p1  0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#ELSESAY
+;<$STR(p1)>
+我现在能提供以下几种美容服务器，请选择你想要的服务: \ \
+<美发>    <美名>
+}

@@ -1,0 +1,177 @@
+;
+;科目  肉块  , 干肉产品
+(@buy @sell)
+%100
++40
++1
+
+;;------------------------------------------------------------------------------
+;; [302] 在盟重肉店接到指示的人
+;; [304] 处理从盟重黄家肉店接到的指示的人
+;; [305] 接到要寻找厨师的指示的人
+;; [309] 处理沃玛勇士下的指示的人
+;; [310] 接到要寻找神秘老人的指示的人
+;;------------------------------------------------------------------------------
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+I will not help an evil person like you... \ \
+<Exit/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+#IF
+random 2
+#ACT
+goto @QUEST
+#ELSEACT
+goto @normal
+
+[@normal]
+Welcome, what can I do for you ?\ \
+ <Buy/@buy>Meat\
+ <Sell/@sell>Meat\
+ <Cancel/@exit>
+
+[@Tmove]
+#IF
+random 2
+#ACT
+mapmove 0 307 264
+break
+
+#IF
+random 2
+#ACT
+mapmove 0 308 265
+break
+
+#ELSEACT
+goto @Tmove
+
+[@QUEST]
+#IF 
+check [312] 1
+#ACT
+goto @Q312
+break
+
+#IF
+check [310] 1
+#ACT
+goto @Q310
+break 
+
+#IF
+check [309] 1
+#ACT
+goto @Q309
+break
+
+#IF
+check [305] 1
+#ACT
+goto @Q305
+break 
+
+#IF
+check [304] 1
+#ACT
+goto @Q304
+#ELSESAY
+Welcome, what can I do for you ?\ \
+ <Buy/@buy>Meat\
+ <Sell/@sell>Meat\
+ <Cancel/@exit>
+
+[@Q304]
+你是听盟重蜀汉氏的话来这儿吧 \
+来得好... 我有件事情要请求你帮我 \
+我听蜀汉氏讲你是一个很善良的人 \
+请你一定答应我.. \ \
+
+  <接受/@Q304_1>请求 \
+  <拒绝/@exit>请求
+
+
+[@Q304_1]
+#IF
+#ACT
+SET [305] 1
+#SAY
+你接受我的请求，很感谢.. \ 
+不是别的，就是蜀汉氏给了我品质好的肉和鸡肉， \
+要我帮他做料理。 \
+但是做料理，需要有厨师， \ 
+请你帮忙找一位厨师吧。 \ \
+<关闭/@exit>
+
+
+[@Q305]
+#IF
+#SAY
+请快一点帮我找厨师。 \ \
+<关闭/@exit>
+
+[@Q309]
+#IF
+check [309] 1
+#SAY
+哇，你竟然连那位老人都找到了， \
+再一次佩服和惊叹你的实力。 \
+嗯，那位老人来了通知， \ 
+他说要做美味佳肴需要一种特殊的油， \ \
+<关闭/@Q309_1>
+
+
+[@Q309_1]
+#IF
+#ACT
+SET [310] 1
+#SAY
+关于这个油，据说是从毒蛇山谷废弃的矿区到死亡山谷的中间\
+有一位神秘老人，他知道怎么制作这种油。 \
+你去找他一下吧。 \
+那位老人具体在哪里，我也不知道。 \\
+
+ <去/@exit>寻找
+
+
+[@Q310]
+#IF
+#SAY
+快去找那位神秘老人吧。 \ \
+<关闭/@exit>
+
+
+[@Q312]
+#IF
+#ACT
+SET [313] 1
+#SAY
+从那位老人那里来了货。 \ 
+我把货拜托给厨师，叫他送给蜀汉氏了。 \
+你去蜀汉氏那里看一下。 \ \
+<关闭/@exit>
+
+
+[@buy]
+Please Chose what you want to buy.\ \ \
+ <Back/@main>
+
+
+[@sell]
+If you have high quality meat please sell it to me\
+I'll pay well for it\ \
+ <Back/@main>
+
+
+
+[goods]
+;  科目   数量        时间(hour)
+Meat     1000            1
+Chicken  1000            1 

@@ -1,0 +1,17 @@
+1/5 gold 50
+1/10 (hp)drugsmall
+1/10 (MP)drugsmall
+1/25  Woodensword
+1/50  ebonysword
+1/50 BaseDress(M)
+1/50 BaseDress(F)
+1/50 precisionneck
+1/40  Dagger
+
+1/50 (hp)drugmedium
+1/50 (mp)drugmedium
+
+1/100 copperring
+1/100 hornring
+1/100 hexagonalring
+1/100 goldassring

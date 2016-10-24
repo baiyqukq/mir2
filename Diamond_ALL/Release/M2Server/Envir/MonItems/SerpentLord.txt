@@ -1,0 +1,35 @@
+1/1 gold 30000
+
+1/5 BenedictionOil
+1/5 BenedictionOil
+1/5 BenedictionOil
+
+1/6 3rdEyeBracelet
+1/6 SpellBracelet
+1/6 KnightBracelet
+
+1/5 GreatAxe
+1/5 SerpentSword
+1/5 MageStaff
+1/6 DragonSword
+1/7 JudgementMace
+1/7 BloodStealer
+1/7 SoulSpringWand
+
+1/10 Powerring
+1/10 violetring
+1/10 titanring
+
+1/25 Greenbead
+1/25 SoulNecklace
+1/25 DemonicBells
+
+1/35 RecoveryRing
+1/35 RevivalRing
+1/35 FlameRing
+1/35 ParalysisRing
+1/35 MuscleRing
+
+1/60 ClearRing
+1/60 TeleportRing
+1/60 Protectionring

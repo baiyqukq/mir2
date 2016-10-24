@@ -1,0 +1,55 @@
+1/5 gold 500
+1/50    SunPotion
+1/100    SunPotion
+1/200    SunPotion
+1/300 Sunpotion(M)
+1/300    OldGinseng
+1/20 (HP)Drugmedium
+1/20 (MP)DrugMedium
+1/40 (HP)Druglarge
+1/40 (MP)Druglarge
+
+1/120  HeavyArmour(F)
+1/120  HeavyArmour(M)
+1/120 MagicRobe(F)
+1/120 MagicRobe(M) 
+1/120 SoulArmour(F)
+1/120 SoulArmour(M)
+
+1/8 PrinceSword
+1/8 MartialSword
+1/8 HookedSpear
+1/7 KrissSword
+1/10 PowerAxe
+1/30 PurifierSword
+1/2400 greataxe
+1/2400 serpentSword
+1/2400 magestaff
+
+1/18 StrainBracelet
+1/18 MagicBracelet
+1/18 PearlRing
+1/18 BlackRing
+1/18 SerpentEyeRing
+1/18 HardGlove 
+1/110 LanternNeck
+1/110 TigerNecklace
+1/110 GoldRing
+1/110 SkeletonRing
+1/110 MonkBracelet
+1/110 EbonyBracelet
+1/110 IronRing
+1/110 CharmRing
+1/110 MoralRing
+1/110 PlatinumNeck
+1/110 DeathGauntlet
+1/120 BlueJadeNeck
+1/120 BambooPipe
+1/120 Convexlens
+1/110 GoldBracelet
+1/170 ShamanHelmet
+1/100 Skeletonhelmet
+1/200 BronzeGlove
+1/10 expelring
+1/10 coralring
+1/50 galering

@@ -1,0 +1,57 @@
+[@SuperTeleport]
+{
+«Î—°‘Òƒ„œÎ»•µƒµÿ∑Ω: \ \
+< Øƒπ∆ﬂ≤„/@stone7>   <◊Ê¬Í∆ﬂ≤„/@zuma7>    <Œ÷¬Í¥ÛÃ¸/@woma3>    <À¿Õˆπ◊≤ƒ/@swgz>   <≥‡‘¬ƒß—®/@cylc>\
+<‘¬¬Í¥ÛÃ¸/@yema7>    <Œ¥÷™∞µµÓ/@andian>\ \
+<∑µªÿ/@main>
+[@stone7]
+#IF
+    large p1 1
+#ELSEACT
+    goto @Punish
+#ACT
+    mapmove D716 27 31
+
+[@zuma7]
+#IF
+    large p1 1
+#ELSEACT
+    goto @Punish
+#ACT
+    mapmove D5071 35 37
+[@woma3]
+#IF
+    large p1 1
+#ELSEACT
+    goto @Punish
+#ACT
+    mapmove D023 50 360
+[@swgz]
+#IF
+    large p1 1
+#ELSEACT
+    goto @Punish
+#ACT
+    mapmove D618 155 175
+[@cylc]
+#IF
+    large p1 1
+#ELSEACT
+    goto @Punish
+#ACT
+    mapmove D10052 137 28
+[@yema7]
+#IF
+    large p1 1
+#ELSEACT
+    goto @Punish
+#ACT
+    mapmove D2076 26 31
+[@andian]
+#IF
+    large p1 1
+#ELSEACT
+    goto @Punish
+#ACT
+    mapmove M001 325 160
+}

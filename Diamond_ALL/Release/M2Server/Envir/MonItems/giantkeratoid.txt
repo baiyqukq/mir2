@@ -1,0 +1,69 @@
+1/1   gold 2500
+
+1/1    SunpotMedium
+1/1    SunpotMedium
+1/2    SunpotMedium
+1/2    SunpotMedium
+1/2    SunpotMedium
+1/1    sunpotion
+1/1    sunpotion
+1/1    sunpotion
+1/1    sunpotion
+1/1    sunpotion
+1/2    sunpotion
+1/2    sunpotion
+1/2    sunpotion
+1/2    sunpotion
+1/2    sunpotion
+1/1    (HP)DrugMedium
+1/1    (HP)DrugMedium
+1/1    (HP)DrugMedium
+1/2    (HP)DrugMedium
+1/2    (HP)DrugMedium
+1/1    (MP)DrugMedium
+1/1    (MP)DrugMedium
+1/1    (MP)DrugMedium
+1/2    (MP)DrugMedium
+1/2    (MP)DrugMedium
+
+
+1/10   HookedSword
+1/10   Slaying
+1/10   Trident
+1/10   SteelSword
+1/10   BlueRing
+1/10   NagaNecklace
+1/10   AmberNecklace
+1/10   PearlNecklace
+1/10   hardGlove
+1/10   MagicBracer
+1/10   lanternneck
+
+1/5   IronSword
+1/5   ShortSword
+1/5   bronzehelmet
+1/5   LightArmour(M)
+1/5   LightArmour(F)
+1/5   BronzeAxe
+1/5   ebonynecklace
+1/5   yellownecklace
+1/5   blacknecklace
+1/5   magichelmet
+
+1/2   BronzeSword
+1/2   ThinBracelet
+1/2   goldassRing
+1/2   HexagonalRing
+1/2   leatherGlove
+1/2   SilverBracelet
+1/2   steelbrace
+1/2   HornRing
+1/2   largebrace
+
+1/2   GreatFireBall
+1/2   SummonSkele
+1/2   Teleport
+1/2   SoulFireBall
+1/2   ThunderBolt
+1/2   HellFire
+1/2   Eshock

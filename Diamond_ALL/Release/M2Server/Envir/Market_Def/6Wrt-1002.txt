@@ -1,0 +1,227 @@
+[@main]
+#IF
+check [403] 1
+#SAY
+I am Perry, the Rev.taoist of this school. A young here like you \
+reminds me of my youth days. \
+Especially an outstanding thief 'Abel',who's story still makes my blood boil \
+You may not be aware of it since you are still young. \
+Do you want to hear about Abel? \ \
+<Hear/@hear> the story \
+<skip/@nohear> the story \
+#ACT
+break
+
+#IF
+check [402] 1
+#SAY
+You killed a RootSpider, didn't you? Good job!\
+Now I am goign to tell you what you want.\ \
+<Can you tell me who is the villain who stole the HolySword?/@next_quest>\
+#ACT
+break
+
+#IF
+check [401] 1
+#SAY
+You didn't kill a root spider yet. I cannot tell you the secret untill you\
+kil it. As i have said before..\ \
+<close/@exit>
+#ACT
+break
+
+#IF
+check [400] 0
+#SAY
+I am Perry, the Rev.taoist of this school. A young here like you \
+reminds me of my youth days. \
+Especially an outstanding thief 'Abel',who's story still makes my blood boil \
+You may not be aware of it since you are still young. \
+Do you want to hear about Abel? \ \
+<Hear/@hear> the story \
+<skip/@nohear> the story \
+#ELSESAY
+You seem to be interested in an old tale. Ok.\
+What do you want to know?\
+<I'd like to hear about the HolySword/@quest>\
+
+[@next_quest]
+#IF
+#SAY
+No information about him remains. I just heard that the former\
+Rev.taoist of this school thought he was pitiful and permitted\
+him to stay here. Because he was running away as he had committed\
+a serious crime before. But he betrayed that trust and stole the\
+sword, the best sword of this school, and dissapeared.\ \
+<Can you tell me What HolySword is?/@next_quest1>\
+
+[@next_quest1]
+#IF
+#SAY
+The chronicle or specification for the HolySword vanished since\
+the sword disappeared from here long time ago. So I don't know\
+it's detail either. People say it cayses storms to blow dragons to\
+appear. But thats just hot air. And also an expression of pride and\
+love for the disappeared best sword of this school.\ \
+<Can you tell me where the HolySword is?/@next_quest2>\
+
+[@next_quest2]
+#IF
+#SAY
+According to the former Rev.taoist of this school, the person who\
+stole the HolySword went forward in to the Redmoon Valley across a\
+Tree path. Then a big group of heroes went there to pursue him but\
+no one came back. By perfroming magical astrology I found out there\
+was a very strong demon in Redmoon valley and that it seemed to be\
+related to the tragedy.\ \
+<I see and appreciate your answer/@next_quest3>\
+
+[@next_quest3]
+#IF
+#SAY
+A long time ago, the Redmoon valley was athe habitat of the Jade Crystal\
+Before the demonic power came there. If a certain special power got into\
+the JadeStick then taoistic defenses will come out of it,  It requires a\
+JadeCrystal holding. Some special taoistic power to pass there, Only a\
+taoist od the highest order is able to make a key JadeCrystal. It is \
+Possible that the heroes who went into the Redmoon Valley left a sign with\
+a JadeCrystal there. Keep this in mind.\ \
+<close/@exit>
+#ACT
+SET [403] 1
+
+[@nohear]
+Well, everything is gone and useles now \
+Get out of here please!\ \
+<Ask/@pre_hear> for the tale again\
+Just <Get out/@exit>
+
+[@pre_hear]
+You want to hear the tale again.\
+It seems so funny to you\ \
+<listen/@hear>
+
+[@hear]
+You are so curious to wonder what \
+happend before you where born  \
+Ok i'll tell you what i can remember. \ \
+<next/@next>
+
+
+[@next]
+it must be approximately 90 years ago now.  \
+when i was only a young fellow in my early twenties. \
+but my martial art skill was so good as to place me within\
+the top ten people with taoist skills. \
+It is true \ \
+<next/@next1>
+
+[@next1]
+It was rumored around Bichon province \
+all that time that a villain stole \
+the secret know-how and \
+treasures of each prominent taoist school, \
+his name was Abel\
+<next/@next2>
+
+[@next2]
+As the damage grew, \
+many heroes struggled to arrest Abel and together \
+stove to catch him in a trap. But\
+we all made a mistake and underestimated him\
+we never dreamed that he would have\
+mastered the best martial art skill of all.\ \
+<next/@next3>
+
+[@next3]
+We organized a new group consisting of high level heroes after \
+the first group consisted of middle level heroes failed to arrest him \
+Finaly we found him in Woomyon Woods. \
+Listen carefully. \ \
+<next/@next4>
+
+[@next4]
+Fourteen heroes surrounded him but he was never scared \
+What a great man he was! \
+We tried persuading him to surrender to us\
+but he didn't answer, consequently a fight began\ \
+<next/@next5>
+
+[@next5]
+We could not break him because not only. \
+was his martial art skill really the best \
+but also the heroes wer enot in harmony to attack him \
+so, i made a decision to fight man to man. \
+The heroes stepped back \
+A man on man fight between me and him began.\ \
+<next/@next6>
+
+[@next6]
+At the end of a fierce fight i was heavily wounded. \
+but i had injured his leg. \
+I saw he could not even stand so i relaxed my attention\
+Then Abel floated in the air as with a kind of \
+high level martial art and dissapeared \
+We traced his blood but we failed to find him again\ \
+<next/@next7>
+
+[@next7]
+Abel disappeared and the secret know-how was gone with him. \
+It was rumored that a certain party \
+who wanted the secret know-how.\
+exclusively for themselves hid Abel away \
+It caused lot of groups to fight against each other. \
+Although this fight lasted for ten years no one ever found out \
+a single clue to his whereabouts\
+Finally this fight was over without any satisfactory conclusion\ \
+<next/@next8>
+
+[@next8]
+So far there is no one who has seen Abel since this incident\
+though it would be a permanent riddle. But there is a rumor \
+It says a big cave was found out in the Tree path these days, \
+and the secret know-how. \
+Abel stole long time ago is hidden there. \ \
+<next/@next9>
+
+[@next9]
+But there are many strong monsters there, \
+so they will kill you when you are there \
+Now i am too old. For am i not a Rev.taoist \
+Who is responsible for this taoist school \
+I'll go there and check it out..\ \
+<next/@next10>
+
+[@next10]
+#IF
+#SAY
+The story is over, now get out of here. \ \
+<close/@exit>
+
+[@quest]
+#IF
+#SAY
+Holy Sword... It was our very best sword a long time ago. But we don't\
+have it anymore. People say that the sword is able to know every kinds\
+of demon and evil for it is holy and reverend. But a certain villain\
+stole it and ran away with it a long time ago. So there is nothing left\
+but its legend... If the HolySword still exists just one place occurse\
+to me...\ \
+<Where is it?/@quest1>
+
+[@quest1]
+#IF
+#SAY
+Needs to be translated.\
+那个地方.. 哎..那里太危险不能随便告诉人的. \
+知道你很好奇，但是因为一时好奇而丢掉性命， \
+那岂不是贫道把你推向火坑里吗？. \ \
+<i will defeat all creatures/@quest2>
+
+
+
+[@quest2]
+#IF
+#ACT
+SET [401] 1
+close

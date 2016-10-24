@@ -1,0 +1,90 @@
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+I will never teleport such an evil person as you!\ \
+<Exit/@exit>\
+#ELSEACT
+goto @main-1
+
+[@main-1]
+Welcome to my teleport service.\
+Every teleport will cost you 10k in gold.\
+Where would u like to go?\ \
+<Bichon Wall/@bwmove>  <BorderTown/@brdmove>  <GingkoTreeValley/@ginmove>\
+<SerpentValley/@svmove>  <MudWall/@mwmove>  <WoomyonWall/@wwmove>\
+<Cancel/@exit>\
+
+
+[@bwmove]
+#IF
+checkgold 10000
+#ACT
+take gold 10000
+mapmove 0 333 268
+break
+#ELSESAY
+You Dont Have enough gold to use my Service!\
+Be gone, don't waste my time again!\ \
+<Exit/@exit>\
+
+[@brdmove]
+#IF
+checkgold 10000
+#ACT
+take gold 10000
+mapmove 0 288 615
+break
+#ELSESAY
+You Dont Have enough gold to use my Service!\
+Be gone, don't waste my time again!\ \
+<Exit/@exit>\
+
+
+[@ginmove]
+#IF
+checkgold 10000
+#ACT
+take gold 10000
+mapmove 0 634 612
+break
+#ELSESAY
+You Dont Have enough gold to use my Service!\
+Be gone, don't waste my time again!\ \
+<Exit/@exit>\
+
+[@svmove]
+#IF
+checkgold 10000
+#ACT
+take gold 10000
+mapmove 2 504 484
+break
+#ELSESAY
+You Dont Have enough gold to use my Service!\
+Be gone, don't waste my time again!\ \
+<Exit/@exit>\
+
+[@mwmove]
+#IF
+checkgold 10000
+#ACT
+take gold 10000
+mapmove 3 330 330
+break
+#ELSESAY
+You Dont Have enough gold to use my Service!\
+Be gone, don't waste my time again!\ \
+<Exit/@exit>\
+
+[@wwmove]
+#IF
+checkgold 10000
+#ACT
+take gold 10000
+mapmove 11 177 324
+break
+#ELSESAY
+You Dont Have enough gold to use my Service!\
+Be gone, don't waste my time again!\ \
+<Exit/@exit>\

@@ -1,0 +1,219 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+BreakTimeRecall 
+break
+
+#IF
+equal p9 1
+#ACT
+goto @pena
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@main-1]
+#IF
+#ACT
+mov p9 0
+#SAY
+Hi <$USERNAME>\
+This is room 24, the switching room\
+You will switch places with a person in a random room\
+YOu could go forwards or backwards\
+So get going...\\
+<Move/@race>
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+[@race]
+#IF
+checkitem gamblechip 1
+#ACT
+mov p9 1
+take gamblechip 1
+goto @race1
+#ELSESAY
+<$USERNAME>, You haven't any Chips!!\
+Go get some if you want to gamble\\
+<Silly Me/@Quit>
+#ELSEACT
+mov p9 9
+
+[@race1]
+#IF
+random 10
+#SAY
+You will switch places with a player in room 26\
+GO...\\
+<Ok/@Pena>
+#ACT
+mov p1 1
+break
+
+#IF
+random 10
+#SAY
+You will switch places with a player in room 27\
+GO...\\
+<Ok/@Pena>
+#ACT
+mov p1 2
+break
+
+#IF
+random 10
+#SAY
+You will switch places with a player in room 30\
+GO...\\
+<Ok/@Pena>
+#ACT
+mov p1 3
+break
+
+#IF
+random 10
+#SAY
+You will switch places with a player in room 33\
+GO...\\
+<Ok/@Pena>
+#ACT
+mov p1 4
+break
+
+#IF
+random 10
+#SAY
+You will switch places with a player in room 35\
+GO...\\
+<Ok/@Pena>
+#ACT
+mov p1 5
+break
+
+#IF
+random 10
+#SAY
+You will switch places with a player in room 2\
+GO...\\
+<Ok/@Pena>
+#ACT
+mov p1 6
+break
+
+#IF
+random 10
+#SAY
+You will switch places with a player in room 14\
+GO...\\
+<Ok/@Pena>
+#ACT
+mov p1 7
+break
+
+#IF
+random 10
+#SAY
+You will switch places with a player in room 15\
+GO...\\
+<Ok/@Pena>
+#ACT
+mov p1 8
+break
+
+#IF
+random 10
+#SAY
+You will switch places with a player in room 18\
+GO...\\
+<Ok/@Pena>
+#ACT
+mov p1 9
+break
+
+#IF
+random 10
+#SAY
+You will switch places with a player in room 19\
+GO...\\
+<Ok/@Pena>
+#ACT
+mov p1 10
+break
+
+#ELSEACT
+goto @race1
+
+[@Pena]
+#IF
+equal p1 1
+#ACT
+ExchangeMap B126
+break
+
+#IF
+equal p1 2
+#ACT
+ExchangeMap B127
+break
+
+#IF
+equal p1 3
+#ACT
+ExchangeMap B130
+break
+
+#IF
+equal p1 4
+#ACT
+ExchangeMap B133
+break
+
+#IF
+equal p1 5
+#ACT
+ExchangeMap B135
+break
+
+#IF
+equal p1 6
+#ACT
+ExchangeMap B102
+break
+
+#IF
+equal p1 7
+#ACT
+ExchangeMap B114
+break
+
+#IF
+equal p1 8
+#ACT
+ExchangeMap B115
+break
+
+#IF
+equal p1 9
+#ACT
+ExchangeMap B118
+break
+
+#IF
+equal p1 10
+#ACT
+ExchangeMap B119
+break
+
+

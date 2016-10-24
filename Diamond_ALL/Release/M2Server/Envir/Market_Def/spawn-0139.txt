@@ -1,0 +1,676 @@
+[@main]
+#IF
+checklevel 50
+#SAY
+Go, and fight.....or something!\ \
+By the way, do you want some <mobs/@spawnlist> to fight also?\
+#ELSESAY
+Go, and fight.....or something!\
+
+[@spawnlist]
+#SAY
+I see you are an experienced fighter\
+Prehaps you would like to test yourself agaisnt\
+some monsters?\ \
+<Bichon Province/@bichon>,<Snake Valley/@snakevalley>,<MongChong/@mong>,<WoomyonWoods/@woomy>\
+<Wooma Temple/@woomat>,<Natural Cave/@natural>,<Oma Cave/@omac>,<The Mines/@mines>,<Zuma Temple/@zuma>\
+<Bug Cave/@bugc>,<Stone Temple/@st>,<Spider cave/@spiderc>
+
+
+[@bichon]
+#SAY
+<Hen/@hen>,<Deer/@deer>,<Oma/@oma>,<SpittingSpider/@spitting>,<Yob/@yob>,<HookingCat/@hookcat>\
+<RakingCat/@rakecat>,<Scarecrow/@scarecrow>,<CannibalPlant/@cplant>\ \
+<Back/@spawnlist>\
+
+[@snakevalley]
+#SAY
+<Oma/@oma>,<HookingCat/@hookcat>,<RakingCat/@rakecat>,<CannibalPlant/@cplant>,<RedSnake/@rsnake>\
+<TigerSnake/@tsnake>,<SpittingSpider/@spitting>\ \
+<Back/@spawnlist>\
+
+[@mong]
+#SAY
+<Sheep/@sheep>,<SkyStinger/@skystinger>,<ShellNipper/@shellnipp>,<VisceralWorm/@viscworm>,<Keratoid/@keratoid>\
+<GiantKeratoid/@gkeratoid>,<Wolf/@wolf>,<SandWorm/@sandworm>,<TigerSnake/@tsnake>\ \
+<Back/@spawnlist>\
+
+[@woomy]
+#SAY
+<ForestYeti/@fyeti>,<Oma/@oma>,<OmaFighter/@omaf>,<OmaWarrior/@omaw>,<SpittingSpider/@spitting>\
+<RakingCat/@rakecat>,<HookingCat/@hookcat>,<CannibalPlant/@cplant>\ \
+<Back/@spawnlist>\
+
+[@woomat]
+#SAY
+<CaveBat/@cavebat>,<CaveMaggot/@cavemag>,<Dark/@dark>,<Dung/@dung>,<WoomaSoldier/@woomsold>\
+<WoomaFighter/@woomfight>,<WoomaWarrior/@woomwar>,<WoomaGuardian/@woomguard>,<Woomataurus/@woomt>\ \
+<Back/@spawnlist>\
+
+[@natural]
+#SAY
+<CaveBat/@cavebat>,<CaveMaggot/@cavemag>,<Scorpion/@scorp>,<Skeleton/@skele>,<AxeSkeleton/@axeskele>\
+<BoneFighter/@bonefight>,<BoneWarrior/@bonewar>,<BoneElite/@bonel>\ \
+<Back/@spawnlist>\
+
+[@omac]
+#SAY
+<CaveBat/@cavebat>,<CaveMaggot/@cavemag>,<Scorpion/@scorp>,<Skeleton/@skele>,<AxeSkeleton/@axeskele>\
+<BoneFighter/@bonefight>,<BoneWarrior/@bonewar>,<BoneElite/@bonel>\ \
+<Back/@spawnlist>\
+
+[@mines]
+#SAY
+<CaveMaggot/@cavemag>,<Zombie1/@zom1>,<Zombie2/@zom2>,<Zombie3/@zom3>,<Zombie4/@zom4>,<Zombie5/@zom5>\
+<Ghoul/@ghoul>\ \
+<Back/@spawnlist>\
+
+[@zuma]
+#SAY
+<WedgeMoth/@wedge>,<BigRat/@bigrat>,<ZumaArcher/@zumarch>,<ZumaStatue/@zumstat>,<ZumaGuardian/@zumguard>\
+<BugBatMaggot/@bbm>,<BugBat/@bb>,<ZumaTaurus/@zumataur>\ \
+<Back/@spawnlist>\
+
+[@bugc]
+#SAY
+<Centipede/@centi>,<BlackMaggot/@blackmag>,<WhimperingBee/@bee>,<GiantWorm/@gworm>,<Tongs/@tongs>\
+<EvilTongs/@etongs>,<EvilCentipede/@ecenti>\ \
+<Back/@spawnlist>\
+
+[@st]
+#SAY
+<WedgeMoth/@wedge>,<BugBatMaggot/@bbm>,<BugBat/@bb>,<RedEvilBoar/@rboar>,<BlackEvilBoar/@bboar>\
+<WhiteEvilBoar/@wboar>,<SnakeScorpion/@sscorp>,<EvilSnake/@esnake>\ \
+<Back/@spawnlist>\
+
+[@spiderc]
+#SAY
+<SpiderBat/@spidbat>,<GangSpider/@gspid>,<VenomSpider/@vspid>,<BigSpider/@bspid>,<RootSpider/@rspid>\
+<LureSpider/@lspid>,<Larva/@larva>,<BigApe/@bape>,<EvilApe/@eape>,<RedMoonEvil/@rme>\ \
+<Back/@spawnlist>\
+
+
+;subs made by list.pl
+[@hen]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Hen 1 1
+close
+
+[@deer]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Deer 1 1
+close
+
+[@oma]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Oma 1 1
+close
+
+[@spitting]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen SpittingSpider 1 1
+close
+
+[@yob]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Yob 1 1
+close
+
+[@hookcat]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen HookingCat 1 1
+close
+
+[@rakecat]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen RakingCat 1 1
+close
+
+[@scarecrow]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Scarecrow 1 1
+close
+
+[@cplant]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen CannibalPlant 1 1
+close
+
+[@rsnake]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen RedSnake 1 1
+close
+
+[@tsnake]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen TigerSnake 1 1
+close
+
+[@sheep]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Sheep 1 1
+close
+
+[@skystinger]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen SkyStinger 1 1
+close
+
+[@shellnipp]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen ShellNipper 1 1
+close
+
+[@viscworm]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen VisceralWorm 1 1
+close
+
+[@keratoid]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Keratoid 1 1
+close
+
+[@gkeratoid]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen GiantKeratoid 1 1
+close
+
+[@wolf]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Wolf 1 1
+close
+
+[@sandworm]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen SandWorm 1 1
+close
+
+[@fyeti]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen ForestYeti 1 1
+close
+
+[@omaf]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen OmaFighter 1 1
+close
+
+[@omaw]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen OmaWarrior 1 1
+close
+
+[@cavebat]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen CaveBat 1 1
+close
+
+[@cavemag]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen CaveMaggot 1 1
+close
+
+[@dark]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Dark 1 1
+close
+
+[@dung]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Dung 1 1
+close
+
+[@woomsold]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen WoomaSoldier 1 1
+close
+
+[@woomfight]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen WoomaFighter 1 1
+close
+
+[@woomwar]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen WoomaWarrior 1 1
+close
+
+[@woomguard]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen WoomaGuardian 1 1
+close
+
+[@woomt]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Woomataurus 1 1
+close
+
+[@scorp]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Scorpion 1 1
+close
+
+[@skele]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Skeleton 1 1
+close
+
+[@axeskele]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen AxeSkeleton 1 1
+close
+
+[@bonefight]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen BoneFighter 1 1
+close
+
+[@bonewar]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen BoneWarrior 1 1
+close
+
+[@bonel]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen BoneElite 1 1
+close
+
+[@zom1]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Zombie1 1 1
+close
+
+[@zom2]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Zombie2 1 1
+close
+
+[@zom3]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Zombie3 1 1
+close
+
+[@zom4]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Zombie4 1 1
+close
+
+[@zom5]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Zombie5 1 1
+close
+
+[@ghoul]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Ghoul 1 1
+close
+
+[@wedge]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen WedgeMoth 1 1
+close
+
+[@bigrat]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen BigRat 1 1
+close
+
+[@zumarch]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen ZumaArcher 1 1
+close
+
+[@zumstat]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen ZumaStatue 1 1
+close
+
+[@zumguard]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen ZumaGuardian 1 1
+close
+
+[@zumataur]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen ZumaTaurus 1 1
+close
+
+[@bbm]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen BugBatMaggot 1 1
+close
+
+[@bb]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen BugBat 1 1
+close
+
+[@centii]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Centipede 1 1
+close
+
+[@blackmag]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen BlackMaggot 1 1
+close
+
+[@bee]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen WhimperingBee 1 1
+close
+
+[@gworm]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen GiantWorm 1 1
+close
+
+[@tongs]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Tongs 1 1
+close
+
+[@etongs]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen EvilTongs 1 1
+close
+
+[@ecenti]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen EvilCentipede 1 1
+close
+
+[@rboar]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen RedEvilBoar 1 1
+close
+
+[@bboar]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen BlackEvilBoar 1 1
+close
+
+[@wboar]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen WhiteEvilBoar 1 1
+close
+
+[@sscorp]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen SnakeScorpion 1 1
+close
+
+[@esnake]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen EvilSnake 1 1
+close
+
+[@spidbat]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen SpidBat 1 1
+close
+
+[@gspid]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen GangSpider 1 1
+close
+
+[@vspid]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen VenomSpider 1 1
+close
+
+[@bspid]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen BigSpider 1 1
+close
+
+[@rspid]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen RootSpider 1 1
+close
+
+[@lspid]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen LureSpider 1 1
+close
+
+[@larva]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen Larva 1 1
+close
+
+[@bape]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen BigApe 1 1
+close
+
+[@eape]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen EvilApe 1 1
+close
+
+[@rme]
+#ACT
+Param1 0139
+Param2 21
+Param3 25
+MonGen RedMoonEvil 1 1
+close

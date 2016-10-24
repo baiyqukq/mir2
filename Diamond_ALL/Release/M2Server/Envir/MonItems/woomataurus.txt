@@ -1,0 +1,151 @@
+1/1    gold  25000
+1/20   goldbar 
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/1    (HP)Druglarge
+1/1    (HP)Druglarge
+1/1    (HP)Druglarge
+1/1    (HP)Druglarge
+1/1    (HP)Druglarge
+1/1    (HP)Druglarge
+1/1    (HP)Druglarge
+1/1    (HP)Druglarge
+1/2    (HP)Druglarge
+1/2    (HP)Druglarge
+1/1    (MP)Druglarge
+1/1    (MP)Druglarge
+1/1    (MP)Druglarge
+1/1    (MP)Druglarge
+1/1    (MP)Druglarge
+1/1    (MP)Druglarge
+1/1    (MP)Druglarge
+1/1    (MP)Druglarge
+1/2    (MP)Druglarge
+1/2    (MP)Druglarge
+
+1/20     woomahorn
+
+
+
+1/30   spiritdrug
+1/30   magicdrug
+1/30   stormdrug
+
+1/300     GreenBead
+1/300     GaleNecklace
+1/500    SoulNecklace
+1/500    DemonicBells
+
+1/500     BlackIronHelm
+
+1/500     PowerRing
+1/500    VioletRing
+1/500    TitanRing
+
+1/500     Knightbracelet
+1/1000    DragonSlayer
+1/750    WarMageStaff
+1/1000    SoulSabre
+
+1/4     IceStorm
+1/4     SummonShinsu
+1/4     FlamingSword
+
+
+1/300   greenbead
+1/30   spiritdrug
+1/500   JudgementMace
+1/30   stormdrug
+
+
+1/10 PrinceSword
+1/10 MartialSword
+1/10 HookedSpear
+1/10 KrissSword
+1/25 PowerAxe
+1/25 PurifierSword
+1/100 greataxe
+1/100 serpentSword
+1/100 magestaff
+1/250 DragonSword
+1/400 SoulSpringWand
+
+
+1/8 StrainBracelet
+1/8 MagicBracelet
+1/8 PearlRing
+1/8 BlackRing
+1/8 SerpentEyeRing
+1/8 HardGlove 
+1/10 LanternNeck
+1/10 TigerNecklace
+1/10 GoldRing
+1/10 SkeletonRing
+1/10 MonkBracelet
+1/10 EbonyBracelet
+1/5 IronRing
+1/10 CharmRing
+1/10 MoralRing
+1/10 PlatinumNeck
+1/5 DeathGauntlet
+1/5 BlueJadeNeck
+1/5 BambooPipe
+1/5 Convexlens
+1/3 GoldBracelet
+
+1/10 ShamanHelmet
+1/10 Skeletonhelmet
+1/15 BronzeGlove
+1/30 expelring
+1/30 coralring
+1/40 galering
+
+1/500 DragonRing
+1/500 PlatinumRing
+1/500 RubyRing
+1/500 SpellBracelet
+1/500 LifeNecklace
+1/500 ClawNecklace
+1/1000 SkillNecklace
+1/1500 teleportring
+1/500  FlameRing
+1/40 3rdEyeBracelet
+1/200 PearlNecklace
+
+1/200 SteelGlove
+1/200 BlackIronGlove
+1/200 DragonBracelet
+1/200 SoulBracelet
+
+
+
+
+1/5   HeavyArmour(M)
+1/5   HeavyArmour(F)
+1/5   SoulArmour(F)
+1/5   SoulArmour(M)
+1/5   MagicRobe(M)
+1/5   MagicRobe(F)
+1/5   GoldRing
+1/5   BlueJadeneck
+1/5   GoldBracelet
+1/5   MoralRing
+1/5   CharmRing

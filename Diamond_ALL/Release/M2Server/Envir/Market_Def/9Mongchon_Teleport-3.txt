@@ -1,0 +1,33 @@
+[@main]
+#IF
+#SAY
+Welcome <$USERNAME>,\
+I can Teleport you into any shop you want. \ \
+<WeaponShop/@Gwe>  ,  <ClothesShop/@Gpo> \
+<Jewellry/@Gza>  ,  <Storage/@Gwh> \
+<BookShop/@Gbo> \
+
+[@Gwe]
+#IF
+#ACT
+map 0159
+
+[@Gpo]
+#IF
+#ACT
+map 0149
+
+[@Gza]
+#IF
+#ACT
+map 0158
+
+[@Gwh]
+#IF
+#ACT
+map 0145
+
+[@Gbo]
+#IF
+#ACT
+map 0161

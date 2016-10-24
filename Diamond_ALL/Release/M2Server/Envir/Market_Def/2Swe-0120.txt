@@ -1,0 +1,93 @@
+;武器
+(@buy @sell @repair)
+%100
++5
++6
++43
+
+;对话, '*' : 对话tag
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+我不想和你这样的人打交道.. \ \
+<取消/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+Glad to see you, how can i help you ?\ \
+ <Buy/@buy> weapon\
+ <Sell/@sell> weapon\
+ <Repair/@repair> weapon\
+ <Ask/@qweapon> about weapon\
+ <cancel/@exit>
+
+[@Tmove]
+#IF
+random 3
+#ACT
+mapmove 2 517 492
+break
+
+#IF
+random 3
+#ACT
+mapmove 2 517 493
+break
+
+#IF
+random 3
+#ACT
+mapmove 2 516 493
+break
+
+#ELSEACT
+goto @Tmove
+
+[@buy]
+Please select the weapon you want to buy\ \ \
+ <Back/@main>
+
+[@sell]
+Lay down your weapon to be sold\ \ \
+ <Back/@main>
+
+[@repair]
+Would you like to repair your weapon ?\ \
+ <Back/@main>
+
+[~@repair]
+Your weapon seems to be repaired fine.\ \
+ <Back/@main>
+
+[@qweapon]
+The weapon bought from this store has some capacity limit,\
+but weapons aquired from monsters sometimes have special stats.\
+If you bring that special weapon to us we'll buy it at a higher price.\
+By the way, don't forget that the weapon price differs with its stats\
+Usually the higher the durability the higher the selling price.\
+ <Back/@main>
+
+[goods]
+;商品    数量       时间
+WoodenSword     100         	1
+Dagger		100		1
+EbonySword	100		1	
+BronzeSword	100		1 
+ShortSword 	100		1
+Ironsword	100		1
+BronzeAxe	100		1
+Trident		100		1
+HookedSword	100		1
+Scimitar	100		1
+SteelSword	100		1
+PickAxe		100		1
+Copp		100		1
+IronOre		100		1
+SilverOre	100		1
+GoldOre		100		1
+BlackOre	100		1
+   

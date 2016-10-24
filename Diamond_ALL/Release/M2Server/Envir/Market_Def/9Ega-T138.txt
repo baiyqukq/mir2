@@ -1,0 +1,174 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+break
+
+#IF
+equal p9 1
+#ACT
+goto @race
+BreakTimeRecall 
+break
+
+#IF
+equal p9 2
+#ACT
+goto @cube
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+[@main-1]
+#IF
+checkmonmap T138 1
+#SAY
+All the Rats aren't dead!\
+Kill them\\
+<OK/@exit>
+#ACT
+mov p9 0
+#ELSESAY
+Thankyou for saving me from those Rodents\\
+<Continue/@race>
+
+[@race]
+#IF
+#ACT
+BreakTimeRecall 
+mov p9 1
+set [799] 0
+#SAY
+You can role the dice\\
+<Role/@pre_Cube>
+
+[@pre_cube]
+#IF
+checkitem 투패 1
+#ACT
+take 투패 1
+mov p9 2
+movr d0 6
+inc d0 1
+playdice 1 @cube
+#SAY
+Continue\ \
+<Ok/@cube>
+#ELSESAY
+<$USERNAME>, You haven't any Chips!!\
+Go get some if you want to gamble\\
+<Silly Me/@Quit>
+#ELSEACT
+mov p9 9
+
+[@cube]
+Hey, you roled a <$STR(D0)> \
+You can now move <$STR(D0)> rooms forward.\\
+<Sweet, lets move!/@next_cube>
+
+[@next_cube]
+#IF
+equal d0 1 
+#ACT
+goto @posi1
+break
+
+#IF
+equal d0 2 
+#ACT
+goto @posi2
+break
+
+#IF
+equal d0 3 
+#ACT
+goto @posi3
+break
+
+#IF
+equal d0 4 
+#ACT
+goto @posi4
+break
+
+#IF
+equal d0 5
+#ACT
+goto @posi5
+break
+
+#IF
+equal d0 6 
+#ACT
+goto @posi6
+break
+
+[@Posi1]
+#IF
+#ACT
+batchDelay 1
+addbatch B139
+batchmove
+
+[@Posi2]
+#IF
+#ACT
+batchDelay 1
+addbatch B139
+addbatch B140
+batchmove
+
+[@Posi3]
+#IF
+#ACT
+batchDelay 1
+addbatch B139
+addbatch B140
+addbatch B101
+batchmove
+
+[@Posi4]
+#IF
+#ACT
+batchDelay 1
+addbatch B139
+addbatch B140
+addbatch B101
+addbatch B102
+batchmove
+
+[@Posi5]
+#IF
+#ACT
+batchDelay 1
+addbatch B139
+addbatch B140
+addbatch B101
+addbatch B102
+addbatch B103
+batchmove
+
+[@Posi6]
+#IF
+#ACT
+batchDelay 1
+addbatch B139
+addbatch B140
+addbatch B101
+addbatch B102
+addbatch B103
+addbatch B104
+batchmove
+

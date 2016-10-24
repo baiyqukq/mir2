@@ -1,0 +1,13 @@
+[@main]
+#IF
+#SAY
+;¿¾³¯ ¿ì¸® µµ°ü¿¡¼­ ºñÀåÇÏ°í ÀÖ´ø À¸¶ä°¡´Â µµ±â¸¦ µµµÏÁúÇÑ \
+;¹üÀÎÀº ´ç´ë ¾Ç¸íÀÌ µå ³ô´øÀÚ·Î¼­, ±×ÀÚ°¡ ÀúÁö¸¥ ¾ÇÇàÀ» ¿­°Å \
+;ÇÏÀÚ¸é Ã¥ ÇÑ ±Ç¿¡ ³ÑÄ¡µgoldÏ ½áµµ ºÎÁ·ÇÏ´Ù°í ÇÏ´õ±º¿ä \ \
+;<´İ  ±â/@exit>
+
+The person who stole the best sword of  \
+this taoist school in the past \
+was a notorious villain at that time, \
+his criminal record would fill a small book \ \
+<close/@exit>

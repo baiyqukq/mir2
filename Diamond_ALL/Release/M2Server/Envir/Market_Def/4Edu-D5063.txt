@@ -1,0 +1,32 @@
+;武器
+(@buy)
+%200
++0
+
+;对话, '*' : 对话tag
+[@main]
+Welcome to this dangerous place, \
+how may I help you ?\ \
+ <Buy/@buy> drug\
+  <Cancel/@exit>
+<>
+
+[@buy]
+Which item do you want to buy ?\ \ \
+ <Back/@main>
+
+
+[goods]
+;items(cab be Zen)      pieces      hour
+(HP)DrugSmall		200	1	
+(MP)DrugSmall		200	1
+(HP)Drugmedium		200	1
+(MP)Drugmedium		200	1
+(HP)DrugLarge		200	1
+(MP)DrugLarge		200	1
+(HP)Drugbundle		200	1
+(MP)Drugbundle		200	1
+(HP)MDrugbundl		200	1
+(MP)MDrugbundl		200	1
+(HP)SDrugbundl		200	1
+(MP)SDrugbundl		200	1

@@ -1,0 +1,121 @@
+[FileVersion]
+Version=6.0
+[Compiler]
+A=4
+B=0
+C=0
+D=1
+E=0
+F=0
+G=1
+H=1
+I=1
+J=0
+K=0
+L=1
+M=0
+N=1
+O=0
+P=1
+Q=0
+R=0
+S=0
+T=0
+U=0
+V=1
+W=1
+X=1
+Y=1
+Z=1
+ShowHints=1
+ShowWarnings=1
+UnitAliases=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
+[Linker]
+MapFile=0
+OutputObjs=0
+ConsoleApp=1
+DebugInfo=0
+RemoteSymbols=0
+MinStackSize=16384
+MaxStackSize=1048576
+ImageBase=4194304
+ExeDescription=
+[Directories]
+OutputDir=F:\GameOfMir\Release\M2Server
+UnitOutputDir=
+PackageDLLOutputDir=
+PackageDCPOutputDir=
+SearchPath=$(DELPHI)\Lib\Debug
+Packages=vcl;rtl;dbrtl;adortl;vcldb;vclx;bdertl;vcldbx;dsnap;cds;bdecds;visualclx;visualdbclx;dsnapcrba;dsnapcon;VclSmp;vclie;xmlrtl;inet;inetdbbde;inetdbxpress;nmfast;dbexpress;dbxcds
+Conditionals=
+DebugSourceDirs=
+UsePackages=0
+[Parameters]
+RunParams=
+HostApplication=F:\GameOfMir\Release\M2Server\GameEngine.exe
+Launcher=
+UseLauncher=0
+DebugCWD=
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=D:\Program Files\Borland\Delphi6\Bin\
+[Version Info]
+IncludeVerInfo=0
+AutoIncBuild=0
+MajorVer=1
+MinorVer=0
+Release=0
+Build=0
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=2052
+CodePage=936
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.0.0.0
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
+Comments=
+[Excluded Packages]
+c:\program files\borland\delphi6\Bin\dclshlctrls60.bpl=Shell Control Property and Component Editors
+c:\program files\borland\delphi6\Bin\dcloffice2k60.bpl=Microsoft Office 2000 Sample Automation Server Wrapper Components
+c:\program files\borland\delphi6\Bin\DCLIB60.bpl=InterBase Data Access Components
+C:\WINNT\system32\ibevnt60.bpl=Borland Interbase Event Alerter Component
+c:\program files\borland\delphi6\Bin\dclqrt60.bpl=QuickReport Components
+c:\program files\borland\delphi6\Bin\dcltee60.bpl=TeeChart Components
+c:\program files\borland\delphi6\Bin\dcldss60.bpl=Borland Decision Cube Components
+c:\program files\borland\delphi6\Bin\dcltqr60.bpl=TeeChart for QuickReport Components
+c:\program files\borland\delphi6\Bin\DBWEBXPRT.BPL=Borland Web Wizard Package
+c:\program files\borland\delphi6\Bin\dclwbm60.bpl=Borland InternetExpress Components
+c:\program files\borland\delphi6\Bin\dclwebsnap60.bpl=Borland WebSnap Components
+c:\program files\borland\delphi6\Bin\dclsoap60.bpl=Borland SOAP Components
+c:\program files\borland\delphi6\Bin\dclindy60.bpl=Internet Direct (Indy) for D6 Property and Component Editors
+C:\Program Files\Raize\RC3\Bin\Rz30Ctls_Dsgn60.bpl=Raize Components 3.0.9
+C:\Program Files\Raize\RC3\Bin\Rz30DBCtls_Dsgn60.bpl=Raize Components 3.0.9 (Data-Aware)
+c:\program files\borland\delphi6\Projects\Bpl\SUIPackD6.bpl=Sunisoft SUIPack
+C:\Program Files\Raize\CS2\Bin\CSP20IDsgn60.bpl=CodeSite 2 Professional Components
+[HistoryLists\hlUnitAliases]
+Count=1
+Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
+[HistoryLists\hlSearchPath]
+Count=1
+Item0=$(DELPHI)\Lib\Debug
+[HistoryLists\hlOutputDirectorry]
+Count=8
+Item0=F:\GameOfMir\Release\M2Server
+Item1=D:\GameOfmir\Mir200
+Item2=..\Release\M2Server\
+Item3=..\Release\M2Server
+Item4=C:\GameOfMir\Mir200
+Item5=F:\mir2
+Item6=C:\mir2\Data
+Item7=J:\mir\Data

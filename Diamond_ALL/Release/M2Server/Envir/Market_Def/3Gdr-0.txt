@@ -1,0 +1,62 @@
+;武器
+(@buy @sell @repair)
+%100
++10
++11
+;头盔
++15
+
+;对话, '*' : 对话tag
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+我不想和你这样的人打交道.. \ \
+<取消/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+Welcome, how may i help you ?\ \
+ <Buy/@buy> clothes\
+ <Sell/@sell> clothes\
+ <Repair/@repair> clothes\
+ <Talk With/@talkwith>\
+ <Cancel/@exit>
+<>
+
+[@buy]
+What item do you want to buy ?\ \ \
+ <Back/@main>
+
+[@sell]
+Show me your clothes to be sold. I'll give you an appraisement.\
+We also trade helmets.\
+So if you like my store please sell them to me.\ \
+ <Back/@main>
+
+[@repair]
+You can repair clothes and helmets here.\ \ \
+ <Back/@main>
+
+[~@repair]
+It seems repaired fine.\ \ \
+ <Back/@main>
+
+
+[goods]
+;Items (can be Zen)     Amount  hour
+BaseDress(M)		100	1	
+BaseDress(F)		100	1
+LightArmour(M)		100	1
+LightArmour(F)		100	1
+HeavyArmour(M)		100	1
+HeavyArmour(F)		100	1
+SoulArmour(M)		100	1
+SoulArmour(F)		100	1
+MagicRobe(M)		100	1
+MagicRobe(F)		100	1
+BronzeHelmet		100	1
+MagicHelmet		100	1

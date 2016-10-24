@@ -1,0 +1,235 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+BreakTimeRecall 
+break
+
+#IF
+equal p9 1
+#ACT
+goto @race
+BreakTimeRecall 
+break
+
+#IF
+equal p9 2
+#ACT
+goto @cube
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@main-1]
+#IF
+#ACT
+mov p9 0
+#SAY
+Hi there <$USERNAME>\
+Some people decribe me as a genersou thief\
+It all depends on what mood I am in...\
+I might take, or give resources, who knows, only me.\
+So, You feeling lucky, PUNK?"\
+<YES!/@penalty> 
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+[@penalty]
+#IF
+random 6
+#SAY
+Mwhahahaha\
+You Loose!\\
+<Oops/@race>
+#ACT
+mov p9 1
+take gold 10000
+break
+
+#IF
+random 6
+#SAY
+Hmmm, im in a good mood\\
+<Yay/@race>
+#ACT
+mov p9 1
+give gold 10000
+break
+
+#IF
+random 6
+#SAY
+Mwhahahaha\
+You Loose!\\
+<Oops@race>
+#ACT
+mov p9 1
+take gold 2000
+break
+
+#IF
+random 6
+#SAY
+Hmmm, im in a good mood\\
+<Yay/@race>
+#ACT
+mov p9 1
+give gold 2000
+break
+
+#IF
+random 6
+#SAY
+Mwhahahaha\
+You Loose!\\
+<Oops/@race>
+#ACT
+mov p9 1
+take GambleChip 5
+break
+
+#IF
+random 6
+#SAY
+Hmmm, im in a good mood\\
+<Yay/@race>
+#ACT
+mov p9 1
+give GambleChip 5
+break
+#ELSEACT
+goto @penalty
+
+[@race]
+Now get out of here...\\
+<Alright/@pre_cube>
+
+[@pre_cube]
+#IF
+checkitem gamblechip 1
+#ACT
+mov p9 2
+take gamblechip 1
+movr d0 6
+inc d0 1
+playdice 1 @cube
+#SAY
+Role... \ \
+<Ok/@cube>
+#ELSESAY
+<$USERNAME>, You haven't any Chips!!\
+Go get some if you want to gamble\\
+<Silly Me/@Quit>
+#ELSEACT
+mov p9 9
+
+[@cube]
+#SAY
+Hey, you roled a <$STR(D0)> \
+You can now move <$STR(D0)> rooms forward.\\
+<Sweet, lets move!/@next_cube>
+
+[@next_cube]
+#IF
+equal d0 1 
+#ACT
+goto @posi1
+break
+
+#IF
+equal d0 2 
+#ACT
+goto @posi2
+break
+
+#IF
+equal d0 3 
+#ACT
+goto @posi3
+break
+
+#IF
+equal d0 4 
+#ACT
+goto @posi4
+break
+
+#IF
+equal d0 5
+#ACT
+goto @posi5
+break
+
+#IF
+equal d0 6 
+#ACT
+goto @posi6
+break
+
+[@Posi1]
+#IF
+#ACT
+batchDelay 1
+addbatch B105
+batchmove
+
+[@Posi2]
+#IF
+#ACT
+batchDelay 1
+addbatch B105
+addbatch B106
+batchmove
+
+[@Posi3]
+#IF
+#ACT
+batchDelay 1
+addbatch B105
+addbatch B106
+addbatch B107
+batchmove
+
+[@Posi4]
+#IF
+#ACT
+batchDelay 1
+addbatch B105
+addbatch B106
+addbatch B107
+addbatch B108
+batchmove
+
+[@Posi5]
+#IF
+#ACT
+batchDelay 1
+addbatch B105
+addbatch B106
+addbatch B107
+addbatch B108
+addbatch B109
+batchmove
+
+[@Posi6]
+#IF
+#ACT
+batchDelay 1
+addbatch B105
+addbatch B106
+addbatch B107
+addbatch B108
+addbatch B109
+addbatch B110
+batchmove
+

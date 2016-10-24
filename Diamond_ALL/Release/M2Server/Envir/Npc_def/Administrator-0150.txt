@@ -1,0 +1,90 @@
+[@main]
+Sabuk Is owned by <$OWNERGUILD> and controlled by <$LORD>.\
+The total gold of the castle is: <$CASTLEGOLD>.\
+Todays income is: <$TODAYINCOME>\ \
+
+ <WithDraw Cash/@@withdrawal>\
+ <Store Cash/@@receipts>\
+ <Control Main Gate/@treatdoor>\
+ <Repair Castle gate and walls/@repaircastle>\
+; <Hire Guards and Archers/@guardcmd>\
+ <Hire Archers/@hirearchers>\
+
+
+;--------------------------------------------------
+;성문을 조정
+
+[@treatdoor]
+The Castle Door is currently <$CASTLEDOORSTATE>\ \
+ <Close the main gate/@closemaindoor>\
+ <Open the main gate/@openmaindoor>\
+ <Back/@main>\
+
+[@openmaindoor]
+The main gate is now open.\ \
+ <Back/@treatdoor>\
+
+[@closemaindoor]
+The main gate is now closed.\ \
+ <Back/@treatdoor>\
+
+
+;--------------------------------------------------
+;수리 관련
+
+[@repaircastle]
+What do you want to repair?\ \
+ <Repair the main door./@repairdoor>\
+ <Repair castle walls./@repairwalls>\
+ <Back/@main>\
+
+[@repairdoor]
+It will cost <$REPAIRDOORGOLD> to repair the Door!\ \
+ <Repair Door Now/@repairdoornow>\
+ <Back/@repaircastle>\
+
+[@repairwalls]
+It will cost <$REPAIRWALLGOLD> to repair the Wall.\ \
+ <Repair Wall./@repairwallnow1>\
+ <Repair Wall./@repairwallnow2>\
+ <Repair Wall./@repairwallnow3>\
+ <Back/@repaircastle>\
+
+
+;--------------------------------------------------
+;경비 관련
+
+[@guardcmd]
+Do you want ot hire Archers?.\ \
+;<Hire more Guards./@hireguards>\
+<Hire more Archers./@hirearchers>\
+<Command order?./@commandorder>\
+ <Back/@main>\
+
+
+[@hireguards]
+어느 곳에 경비병을 고용하시겠습니까?\
+비용은 한명당 <$GUARDFEE>전 입니다.\ \
+ 성문앞 <Guard1/@hireguardnow1>, <Guard2/@hireguardnow2>\
+ 내성앞 <Guard3/@hireguardnow3>, <Guard4/@hireguardnow4>\
+ <Back/@guardcmd>\
+
+[@hirearchers]
+Do you want to hire some Arch's?\
+They dont Come free, they will cost \
+<$ARCHERFEE> each.\ \
+ Hire  <Archer1/@hirearchernow1>, <Archer2/@hirearchernow2>, <Archer3/@hirearchernow3>\
+ Hire <Archer4/@hirearchernow4>, <Archer5/@hirearchernow5>, <Archer6/@hirearchernow6>\
+ Hire  <Archer7/@hirearchernow7>, <Archer8/@hirearchernow8>\
+ Hire <Archer9/@hirearchernow9>, <Archer10/@hirearchernow10>\
+ Hire <Archer11/@hirearchernow11>, <Archer12/@hirearchernow12>\
+ <Back/@main>\
+; <Back/@guardcmd>\
+
+[@commandorder]
+Guards are currently set to <$GUARDRULE>.\
+Do you want to Change it?\ \
+ <Guards normal operation/@guardrule_normalnow>\
+ <Guards attack pk's on site/@guardrule_pkattack>\
+ <Back/@guardcmd>\
+

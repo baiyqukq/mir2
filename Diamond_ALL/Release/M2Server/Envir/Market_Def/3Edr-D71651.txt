@@ -1,0 +1,29 @@
+;衣服,头盔
+(@repair)
+%200
++10
++11
++15
+
+;对话, '*' : 对话tag
+[@main]
+Are you here to find out something new ?\
+I guess you may know that it is dangerous here\
+The only thing I can do for you is repair your clothes and helmet \\
+repairing your clothes and helmet \\
+<repair/@repair> clothes \
+<cancel/@exit>
+<>
+
+[@repair]
+Do you want to repair your accessory?\ \ 
+<back/@main>
+
+[~@repair]
+It seems to be well done.\ \
+<back/@main>
+
+;[惑前]
+[Goods]
+;哩登绰 惑前    拱樊       hour
+

@@ -1,0 +1,53 @@
+[@HelpStart]
+{
+<$USERNAME> 您好！欢迎光临本游戏，如果在游戏中遇到什么困难\
+请直接来找我，我会尽我的能力帮你解决问题。\ \
+
+╔══════╦══════╗\
+║『<游戏命令/@GameCommand>』║『<仓库加密/@StoragePassword>』║\
+╠══════╬══════╣\
+║『<ＰＫ规则/@PKRule>』║            ║\
+╚══════╩══════╝\
+\
+<关闭/@exit>
+
+[@GameCommand]
+以下为常用的游戏命令列表: \
+『<查看时间/@Date>』: @<$CMD_DATE>\
+『<禁止&允许私聊/@AllowMsg>』: @<$CMD_ALLOWMSG>\
+『<禁止&允许群聊/@LetShout>』: @<$CMD_LETSHOUT>\
+『<禁止&允许交易/@LetTrade>』: @<$CMD_LETTRADE>\
+『<组队传送/@GroupCall>』: @<$CMD_GROUPRECALLL>\
+『<禁止&允许组传送/@AllowGroupCall>』: @<$CMD_ALLOWGROUPCALL>\ \
+<下一页/@GameCommand1> <返回/@main>
+[@GameCommand1]
+以下为行会相关游戏命令列表: \
+『<禁止&允许加入行会/@LetGuild>』: @<$CMD_LETGUILD>\
+『<退出行会/@EndGuild>』: @<$CMD_ENDGUILD>\
+『<禁止&允许行会聊天/@BanGuildChat>』: @<$CMD_BANGUILDCHAT>\
+『<禁止&允许行会联盟/@AuthAlly>』: @<$CMD_AUTHALLY>\
+『<行会联盟/@Auth>』: @<$CMD_AUTH>\
+『<取消行会联盟/@AuthCancel>』: @<$CMD_AUTHCANCEL>\ \
+<下一页/@GameCommand2> <上一页/@GameCommand> <返回/@main>
+[@GameCommand2]
+以下为特殊功能游戏命令列表: \
+『<传送戒指/@UserMove>』: @<$CMD_USERMOVE>\
+『<探测项链/@Searching>』: @<$CMD_SEARCHING>\ \
+<上一页/@GameCommand1> <返回/@main>
+[@StoragePassword]
+为了保护您的装备物品不被盗，可启用仓库密码保护系统，锁定仓\
+库凭密码解锁后才可以取出仓库物品。\
+以下为仓库密码游戏命令列表:\
+『<设置密码/@StorageSetPassword>』: @<$CMD_STORAGESETPASSWORD>\
+『<修改密码/@StorageChgPassword>』: @<$CMD_STORAGECHGPASSWORD>\
+『<锁定仓库/@StorageLock>』: @<$CMD_STORAGELOCK>\
+『<解锁仓库/@StorageUnlock>』: @<$CMD_STORAGEUNLOCK>\ \
+<返回/@main>
+[@PKRule]
+以下为本游戏中的<ＰＫ规则>，请大家仔细阅读，以便大家快速熟悉\
+本游戏。\ \
+在游戏中，大家可以<自由搏杀>，杀死对方后等级将提升一级（双方\
+等级相差必须<10>级以内，否则将以谋杀罪处理），被杀者等级将降\
+级（<白名减一级，红名减二级>）。\ \
+<返回/@main>
+}

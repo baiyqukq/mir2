@@ -1,0 +1,4 @@
+1/10 gold 100
+1/100 gold 250
+1/10 (hp)drugmedium
+1/10 (mp)drugmedium

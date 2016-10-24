@@ -1,0 +1,63 @@
+;Clothes
+(@buy @sell @repair)
+%100
++10
++11
+;Helmets
++15
+
+;对话, '*' : 对话
+[@main]
+I was here to learn martial arts skills but I have practiced\
+laundering and sewing instead of martial art skills.\
+It's not bad as I made money with selling extra clothing and\
+charging for repairs. well, what do you want?\
+<Buy/@buy> protectors\
+<Sell/@sell> protectors\
+<Repair/@repair> protectors\
+<Cancel/@exit>
+
+[@buy]
+What item do you want to buy ?\ \ \
+<Back/@main>
+
+[@sell]
+Show me your clothes to be sold. I'll give you an appraisement.\
+We also trade helmets.\
+So if you like my store please sell them to me.\ \
+<Back/@main>
+
+[@repair]
+You can repair clothes and helmets here.\ \ \
+<Back/@main>
+
+[~@repair]
+It seems repaired fine.\ \ \
+<Back/@main>
+
+[goods]
+;Items (can be Zen)     Amount  hour
+BaseDress(M)		100	1	
+BaseDress(F)		100	1
+LightArmour(M)		100	1
+LightArmour(F)		100	1
+HeavyArmour(M)		100	1
+HeavyArmour(F)		100	1
+IronArmour(M)		100	1
+IronArmour(F)		100	1
+SteelArmour(M)		100	1
+SteelArmour(F)		100	1
+SoulArmour(M)		100	1
+SoulArmour(F)		100	1
+PearlArmour(M)		100	1
+PearlArmour(F)		100	1
+TitanArmour(M)		100	1
+TitanArmour(F)		100	1
+MagicRobe(M)		100	1
+MagicRobe(F)		100	1
+WizardRobe(M)		100	1
+WizardRobe(F)		100	1
+DragonRobe(M)		100	1
+DragonRobe(F)		100	1
+BronzeHelmet		100	1
+MagicHelmet		100	1

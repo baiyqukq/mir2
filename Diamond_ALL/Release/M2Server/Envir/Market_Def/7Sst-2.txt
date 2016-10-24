@@ -1,0 +1,48 @@
+;武器
+(@buy @sell)
+%100
++30
++25
++3
+
+;对话框, '*' : 对话框 标签
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+我不想和你这样的人打交道.. \ \
+<取消/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+Welcome, how may I help you ?\ \
+ <Buy/@buy> Item\
+ <Sell/@sell> Item\
+ <Cancel/@exit>
+<>
+
+[@buy]
+Which items do you need ?\ \ \
+ <Back/@main>
+
+[@sell]
+We buy Candles, Amulets, Scrolls RepairOils, etc.\
+ <Back/@main>
+
+
+[goods]
+;商品           数量       时间
+Candle		200	1
+Torch		200	1
+EternalFlame	200	1
+DungeonEscape	200	1
+EscapeBundle	200	1
+RandomTeleport	200	1
+RandomBundle	200	1
+RepairOil	200	1
+TeleportHome	200	1
+Amulet		200	1
+AmuletBundle	200	1

@@ -1,0 +1,61 @@
+;Weapon
+(@buy @sell @repair)
+%100
++10
++11
+;Helmet
++15
+
+;Dialogue, '*' : Dialogue tag
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+我不想和你这样的人打交道.. \ \
+<取消/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+Welcome. what can i do for you?\ \
+ <buy/@buy>  clothes\
+ <sell/@sell>  clothes\
+ <repair/@repair> clothes\
+ <close/@exit>
+<>
+
+
+[@buy]
+What would you like to buy?\ \ \
+ <back/@main>
+
+[@sell]
+Show me your clothes to be sold. I'll give you an appraisement...\
+We also treat helmet or headsets\
+So if you are not engaged sell it in here\ \
+back/@main>
+
+[@repair]
+what item would you like to repair?\ \ \
+<back/@main>
+
+[~@repair]
+the item is repaired\ \ \
+<back/@main>
+
+[goods]
+;items(can be Zen)      pieces     hour
+BaseDress(M)		100	1	
+BaseDress(F)		100	1
+LightArmour(M)		100	1
+LightArmour(F)		100	1
+HeavyArmour(M)		100	1
+HeavyArmour(F)		100	1
+SoulArmour(M)		100	1
+SoulArmour(F)		100	1
+MagicRobe(M)		100	1
+MagicRobe(F)		100	1
+BronzeHelmet		100	1
+MagicHelmet		100	1

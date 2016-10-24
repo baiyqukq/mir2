@@ -1,0 +1,21 @@
+1/1 gold 2000
+1/5 gold 1000
+1/2 (hp)drugsmall
+1/2 (MP)drugsmall
+1/2 (hp)drugsmall
+1/2 (MP)drugsmall
+1/2 (hp)drugsmall
+1/2 (MP)drugsmall
+1/2 (hp)drugsmall
+1/2 (MP)drugsmall
+
+1/5 BaseDress(M)
+1/5 BaseDress(F)
+1/5 precisionneck
+1/5  Dagger
+
+1/3 EbonySword 
+1/3 copperring
+1/3 hornring
+1/3 hexagonalring
+1/3 goldassring

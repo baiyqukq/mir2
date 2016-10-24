@@ -1,0 +1,753 @@
+[@GegMemberGold]
+{
+#IF
+    equal p1  0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+
+;普通会员
+#IF
+    dayofweek sun
+    check [11] 0
+    equal p1 1
+#ACT
+    set [11] 1
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 10000
+    goto @GetOK
+    break
+#IF
+    dayofweek sun
+    check [11] 0
+    equal p1 2
+#ACT
+    set [11] 1
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 20000
+    goto @GetOK
+    break
+#IF
+    dayofweek sun
+    check [11] 0
+    equal p1 3
+#ACT
+    set [11] 1
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 30000
+    goto @GetOK
+    break
+#IF
+    dayofweek sun
+    check [11] 0
+    equal p1 4
+#ACT
+    set [11] 1
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 40000
+    goto @GetOK
+    break
+#IF
+    dayofweek sun
+    check [11] 0
+    equal p1 5
+#ACT
+    set [11] 1
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 50000
+    goto @GetOK
+    break
+#IF
+    dayofweek sun
+    check [11] 0
+    equal p1 6
+#ACT
+    set [11] 1
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 60000
+    goto @GetOK
+    break
+#IF
+    dayofweek sun
+    check [11] 0
+    equal p1 7
+#ACT
+    set [11] 1
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 70000
+    goto @GetOK
+    break
+#IF
+    dayofweek mon
+    check [12] 0
+    equal p1 1
+#ACT
+    set [11] 0
+    set [12] 1
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 10000
+    goto @GetOK
+    break
+#IF
+    dayofweek mon
+    check [12] 0
+    equal p1 2
+#ACT
+    set [11] 0
+    set [12] 1
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 20000
+    goto @GetOK
+    break
+#IF
+    dayofweek mon
+    check [12] 0
+    equal p1 3
+#ACT
+    set [11] 0
+    set [12] 1
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 30000
+    goto @GetOK
+    break
+#IF
+    dayofweek mon
+    check [12] 0
+    equal p1 4
+#ACT
+    set [11] 0
+    set [12] 1
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 40000
+    goto @GetOK
+    break
+#IF
+    dayofweek mon
+    check [12] 0
+    equal p1 5
+#ACT
+    set [11] 0
+    set [12] 1
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 50000
+    goto @GetOK
+    break
+#IF
+    dayofweek mon
+    check [12] 0
+    equal p1 6
+#ACT
+    set [11] 0
+    set [12] 1
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 60000
+    goto @GetOK
+    break
+#IF
+    dayofweek mon
+    check [12] 0
+    equal p1 7
+#ACT
+    set [11] 0
+    set [12] 1
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 70000
+    goto @GetOK
+    break
+#IF
+    dayofweek tue
+    check [13] 0
+    equal p1 1
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 1
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 10000
+    goto @GetOK
+    break
+#IF
+    dayofweek tue
+    check [13] 0
+    equal p1 2
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 1
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 20000
+    goto @GetOK
+    break
+#IF
+    dayofweek tue
+    check [13] 0
+    equal p1 3
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 1
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 30000
+    goto @GetOK
+    break
+#IF
+    dayofweek tue
+    check [13] 0
+    equal p1 4
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 1
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 40000
+    goto @GetOK
+    break
+#IF
+    dayofweek tue
+    check [13] 0
+    equal p1 5
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 1
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 50000
+    goto @GetOK
+    break
+#IF
+    dayofweek tue
+    check [13] 0
+    equal p1 6
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 1
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 60000
+    goto @GetOK
+    break
+#IF
+    dayofweek tue
+    check [13] 0
+    equal p1 7
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 1
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 70000
+    goto @GetOK
+    break
+#IF
+    dayofweek wed
+    check [14] 0
+    equal p1 1
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 1
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 10000
+    goto @GetOK
+    break
+#IF
+    dayofweek wed
+    check [14] 0
+    equal p1 2
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 1
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 20000
+    goto @GetOK
+    break
+#IF
+    dayofweek wed
+    check [14] 0
+    equal p1 3
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 1
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 30000
+    goto @GetOK
+    break
+#IF
+    dayofweek wed
+    check [14] 0
+    equal p1 4
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 1
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 40000
+    goto @GetOK
+    break
+#IF
+    dayofweek wed
+    check [14] 0
+    equal p1 5
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 1
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 50000
+    goto @GetOK
+    break
+#IF
+    dayofweek wed
+    check [14] 0
+    equal p1 6
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 1
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 60000
+    goto @GetOK
+    break
+#IF
+    dayofweek wed
+    check [14] 0
+    equal p1 7
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 1
+    set [15] 0
+    set [16] 0
+    set [17] 0
+    give 金币 70000
+    goto @GetOK
+    break
+#IF
+    dayofweek thu
+    check [15] 0
+    equal p1 1
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 1
+    set [16] 0
+    set [17] 0
+    give 金币 10000
+    goto @GetOK
+    break
+#IF
+    dayofweek thu
+    check [15] 0
+    equal p1 2
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 1
+    set [16] 0
+    set [17] 0
+    give 金币 20000
+    goto @GetOK
+    break
+#IF
+    dayofweek thu
+    check [15] 0
+    equal p1 3
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 1
+    set [16] 0
+    set [17] 0
+    give 金币 30000
+    goto @GetOK
+    break
+#IF
+    dayofweek thu
+    check [15] 0
+    equal p1 4
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 1
+    set [16] 0
+    set [17] 0
+    give 金币 40000
+    goto @GetOK
+    break
+#IF
+    dayofweek thu
+    check [15] 0
+    equal p1 5
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 1
+    set [16] 0
+    set [17] 0
+    give 金币 50000
+    goto @GetOK
+    break
+#IF
+    dayofweek thu
+    check [15] 0
+    equal p1 6
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 1
+    set [16] 0
+    set [17] 0
+    give 金币 60000
+    goto @GetOK
+    break
+#IF
+    dayofweek thu
+    check [15] 0
+    equal p1 7
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 1
+    set [16] 0
+    set [17] 0
+    give 金币 70000
+    goto @GetOK
+    break
+#IF
+    dayofweek fri
+    check [16] 0
+    equal p1 1
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 1
+    set [17] 0
+    give 金币 10000
+    goto @GetOK
+    break
+#IF
+    dayofweek fri
+    check [16] 0
+    equal p1 2
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 1
+    set [17] 0
+    give 金币 20000
+    goto @GetOK
+    break
+#IF
+    dayofweek fri
+    check [16] 0
+    equal p1 3
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 1
+    set [17] 0
+    give 金币 30000
+    goto @GetOK
+    break
+#IF
+    dayofweek fri
+    check [16] 0
+    equal p1 4
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 1
+    set [17] 0
+    give 金币 40000
+    goto @GetOK
+    break
+#IF
+    dayofweek fri
+    check [16] 0
+    equal p1 5
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 1
+    set [17] 0
+    give 金币 50000
+    goto @GetOK
+    break
+#IF
+    dayofweek fri
+    check [16] 0
+    equal p1 6
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 1
+    set [17] 0
+    give 金币 60000
+    goto @GetOK
+    break
+#IF
+    dayofweek fri
+    check [16] 0
+    equal p1 7
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 1
+    set [17] 0
+    give 金币 70000
+    goto @GetOK
+    break
+#IF
+    dayofweek sat
+    check [17] 0
+    equal p1 1
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 1
+    give 金币 10000
+    goto @GetOK
+    break
+#IF
+    dayofweek sat
+    check [17] 0
+    equal p1 2
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 1
+    give 金币 20000
+    goto @GetOK
+    break
+#IF
+    dayofweek sat
+    check [17] 0
+    equal p1 3
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 1
+    give 金币 30000
+    goto @GetOK
+    break
+#IF
+    dayofweek sat
+    check [17] 0
+    equal p1 4
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 1
+    give 金币 40000
+    goto @GetOK
+    break
+#IF
+    dayofweek sat
+    check [17] 0
+    equal p1 5
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 1
+    give 金币 50000
+    goto @GetOK
+    break
+#IF
+    dayofweek sat
+    check [17] 0
+    equal p1 6
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 1
+    give 金币 60000
+    goto @GetOK
+    break
+#IF
+    dayofweek sat
+    check [17] 0
+    equal p1 7
+#ACT
+    set [11] 0
+    set [12] 0
+    set [13] 0
+    set [14] 0
+    set [15] 0
+    set [16] 0
+    set [17] 1
+    give 金币 70000
+    goto @GetOK
+    break
+#IF
+#SAY
+你已经领过了，你还想要呀！！！\ \
+<返回/@main>
+[@GetOK]
+钱可拿好了，掉了可没的补哟。\ \
+<返回/@main>
+}

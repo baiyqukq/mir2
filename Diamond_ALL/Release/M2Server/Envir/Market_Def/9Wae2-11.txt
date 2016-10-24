@@ -1,0 +1,15 @@
+[@main]
+#IF
+#SAY
+;이 도관으로부터 북쪽으로 가면 우리가 환목림이라고 부르는 \
+;숲 지대가 나옵니다. 그 곳은 수목이 울창하고 낮에도 햇빛이 \
+;잘 들지 않기 때문에 이 부근의 사람들도 곧잘 길을 해매곤 \
+;하지요. 그곳에 가실 때는 부디 조심하시기 바랍니다. \ \
+;<닫  기/@exit>
+Some woods called the Tree path are located in the area to the\
+noth of this taoist school \
+A lot of trees are gathered thickly there and \
+it is dark there even during the day. \
+Even the local natives often lose their way \
+When you go there, take great care!.\ \
+<close/@exit>

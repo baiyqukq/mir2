@@ -1,0 +1,217 @@
+[@main]
+#IF
+#ACT
+goto @QUEST
+
+[@QUEST]
+#IF
+check [317] 1
+#ACT
+goto @Q317
+break
+
+#IF
+#ACT
+mov p1 0
+mov p2 0
+mov p3 0
+mov p4 0
+goto @Q316
+break
+
+[@Q316]
+#IF
+#SAY
+你到来到这里了, 我总不能看着不管. \
+我在这里生活这么长时间，做了几件东西. \
+这些东西在外面卖多少钱我不知道. \
+但是我对这些宝贝充满信心. \
+要观看这些东西吗?? \ \
+ <观看/@Q316_1> \
+ <不看/@Q316_2>
+
+[@Q316_2]
+#IF
+#SAY
+不看是吧? 好..可以理解, 那么请回去吧... \ \
+<取消/@exit>
+
+[@Q316_1]
+#IF
+checkjob warrior
+#ACT
+goto @warr
+break
+#IF 
+checkjob wizard
+#ACT
+goto @wiza
+break
+#IF
+checkjob taoist
+#ACT
+goto @taoi
+break
+
+[@warr]
+#IF
+#SAY
+我只给你看一次我制作的东西.看好了.\
+不要关闭窗口.\ 
+<拜托/@Q316_1_1>制作炼狱(金条1,纯度18以上的金矿5个) \
+<拜托/@Q316_1_4>制作祝福油(金币50万，太阳水（中）5) \
+<取消/@exit>
+#ACT
+SET [317] 1
+
+[@wiza]
+#IF
+#SAY
+我只给你看一次我制作的东西.看好了.\
+不要关闭窗口.\ 
+ <拜托/@Q316_1_3> 制作魔杖(金条1，纯度18以上的金矿3)\
+ <拜托/@Q316_1_4>制作祝福油(金币50万, 太阳水(中)5) \
+<取消/@exit>
+#ACT
+SET [317] 1
+
+[@taoi]
+#IF
+#SAY
+我只给你看一次我制作的东西.看好了.\
+不要关闭窗口.\ 
+<拜托/@Q316_1_2>制作银蛇(金条1，纯度18以上的金矿4) \
+<拜托/@Q316_1_4>制作祝福油(金币50万, 太阳水(中)5) \
+<取消/@exit>
+#ACT
+SET [317] 1
+
+[@Q316_1_1]
+#IF
+equal p1 1
+#ACT
+goto @Nopay1
+#ELSEACT
+goto @Q316_1_1_1
+
+[@Nopay1]
+#IF
+#SAY
+很抱歉. 炼狱目前只能制作一个. \ \
+<取消/@exit>
+
+[@Q316_1_1_1]
+#IF
+checkitem 金条 1
+checkitem 金矿 5
+checkduraeva 金矿 18
+#ACT
+take 金矿 5
+take 金条 1
+give 炼狱 1
+mov p1 1
+map D002
+#ELSESAY
+制作炼狱, 需要刚才说的那些材料. \
+把材料准备好了，才能制作炼狱, \
+没有材料怎么制作呢? \ \
+<取消/@exit>
+
+[@Q316_1_2]
+#IF
+equal p2 1
+#ACT
+goto @Nopay2
+#ELSEACT
+goto @Q316_1_2_1
+
+[@Nopay2]
+#IF
+#SAY
+很抱歉. 目前银蛇目前只能制作一个. \ \
+<取消/@exit>
+
+[@Q316_1_2_1]
+#IF
+checkitem 金条 1
+checkitem 金矿 4
+checkduraeva 金矿 18
+#ACT
+take 金矿 4
+take 金条 1
+give 银蛇 1
+mov p2 1
+map D002
+#ELSESAY
+制作银蛇, 需要刚才说的那些材料. \
+把材料准备好了，才能制作银蛇, \
+没有材料怎么制作呢? \ \
+<取消/@exit>
+
+[@Q316_1_3]
+#IF
+equal p3 1
+#ACT
+goto @Nopay3
+#ELSEACT
+goto @Q316_1_3_1
+
+[@Nopay3]
+#IF
+#SAY
+很抱歉. 目前魔杖只能制作一个. \ \
+<取消/@exit>
+
+[@Q316_1_3_1]
+#IF
+checkitem 金矿 3
+checkitem 金条 1
+checkduraeva 金矿 18
+#ACT
+take 金条 1
+take 金矿 3
+give 魔杖 1
+mov p3 1
+map D002
+#ELSESAY
+制作魔杖, 需要刚才说的那些材料. \
+把材料准备好了，才能制作魔杖, \
+没有材料怎么制作呢? \ \
+<取消/@exit>
+
+[@Q316_1_4]
+#IF
+equal p4 5
+#ACT
+goto @Nopay4
+#ELSEACT
+goto @Q316_1_4_1
+
+[@Nopay4]
+#IF
+#SAY
+很抱歉. 目前祝福油只有5个. \ \
+<取消/@exit>
+
+[@Q316_1_4_1]
+#IF
+checkgold 500000
+checkitem 太阳水(中) 5
+#ACT
+take gold 500000
+take 太阳水(中) 5  
+give 祝福油 1
+inc p4 1
+map D002
+#ELSESAY
+制作祝福油, 需要刚才说的那些材料. \
+把材料准备好了，才能制作, \
+没有材料怎么制作呢? \ \
+<取消/@exit>
+
+[@Q317]
+#IF
+#SAY
+我做的东西给人之后，也就是一旦进行了一次交易之后，\
+是不会再做交易的. 快回去吧 \ \
+<取消/@exit>

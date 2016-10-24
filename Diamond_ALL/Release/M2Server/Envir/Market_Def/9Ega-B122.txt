@@ -1,0 +1,105 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+BreakTimeRecall 
+break
+
+#IF
+equal p9 1
+#ACT
+goto @cube
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@main-1]
+#IF
+#ACT
+mov p9 0
+#SAY
+Welcome <$USERNAME>\
+This is room 22, the windy room\
+If you role over 3, you may advance 10 rooms\
+3 or less, and you will advance the number on the dice\
+Good Luck\\
+<Role/@race>
+
+[@race]
+#IF
+#ACT
+mov p9 1
+movr d0 6
+inc d0 1
+playdice 1 @cube
+#SAY
+GO!
+<OK!/@cube>
+
+[@cube]
+#IF
+large d0 3
+#SAY
+You roled over 3\
+You will move forward 10 rooms\\
+<Cool/@move>
+#ELSESAY
+Hey, you roled a <$STR(D0)> \
+You can now move <$STR(D0)> rooms forward.\\
+<Sweet, lets move!/@next_cube>
+
+[@next_cube]
+#IF
+equal d0 1 
+#ACT
+batchDelay 1
+addbatch B123
+batchmove
+break
+
+#IF
+equal d0 2 
+#ACT
+batchDelay 1
+addbatch B123
+addbatch B124
+batchmove
+break
+
+#IF
+equal d0 3 
+#ACT
+batchDelay 1
+addbatch B123
+addbatch B124
+addbatch B125
+batchmove
+break
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+[@move]
+#IF
+#ACT
+batchDelay 1
+addbatch B123
+addbatch B124
+addbatch B125
+addbatch B126
+addbatch B127
+addbatch B128
+addbatch B129
+addbatch B130
+batchmove
+
+

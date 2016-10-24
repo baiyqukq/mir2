@@ -1,0 +1,5 @@
+;#AutoRun	NPC	SEC	10	@SendRedMsg
+
+;指定星期--每星期一，晚上八点三十分运行脚本
+#AutoRun	NPC	RUNONDAY	17:13	@SendRedMsg
+

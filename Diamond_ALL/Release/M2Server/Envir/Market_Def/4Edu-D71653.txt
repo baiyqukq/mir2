@@ -1,0 +1,27 @@
+;武器
+(@buy)
+%200
++0
+
+;对话, '*' : 对话tag
+[@main]
+Welcome. How can I help you?\ \
+ <Buy/@buy>  item\
+ <Exit/@exit> 
+
+<>
+
+[@buy]
+What items do you need?\
+ <Back/@main>
+
+
+[goods]
+;菜单项(can be Zen)     数量       小时
+Candle              1000        1
+Torch               1000        1
+RandomTeleport      1000        1
+DungeonEscape       1000        1
+EscapeBundle        1000        1
+RandomBundle        1000        1
+

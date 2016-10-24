@@ -1,0 +1,24 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+BreakTimeRecall 
+break
+
+[@main-1]
+#IF
+#ACT
+mov p9 0
+#SAY
+Hi ! This is a Rascal's room . \
+You selected me among 5 people. \
+I'll give you 5 Sunpotions. \ \ 
+<Next/@next>
+
+[@next]
+#IF
+#ACT
+give Sunpotion 5
+mapmove B105 10 10
+

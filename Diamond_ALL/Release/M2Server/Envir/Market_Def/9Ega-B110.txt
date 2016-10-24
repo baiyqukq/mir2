@@ -1,0 +1,61 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @next
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@main-1]
+#IF
+checkitem gamblechip 1
+#ACT
+mov p9 0
+goto @next
+take gamblechip 1
+#ELSESAY
+<$USERNAME>, You haven't any Chips!!\
+Go get some if you want to gamble\\
+<Silly Me/@Quit>
+#ELSEACT
+mov p9 9
+
+[@next]
+Hello <$USERNAME>\
+From here, you can move 13 rooms forward\
+So off you go!\\
+<13 rooms?/@move>
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+[@move]
+#IF
+#ACT
+batchDelay 1
+addbatch B111
+addbatch B112
+addbatch B113
+addbatch B114
+addbatch B115
+addbatch B116
+addbatch B117
+addbatch B118
+addbatch B119
+addbatch B120
+addbatch B121
+addbatch B122
+addbatch B123
+addbatch B124
+batchmove
+
+

@@ -1,0 +1,106 @@
+;武器
+(@buy @sell @repair)
+%180
++30
++0
++3
++5
++6
++10
++11
++45
+
+;对话, '*' : 对话tag
+[@main]
+#IF
+random 2
+#ACT
+goto @QUEST
+#ELSEACT
+goto @normal
+
+[@QUEST]
+#IF
+check [353] 1 
+#ACT
+goto @Q353
+break
+#IF
+check [352] 1
+checkitemw 斩马刀 1
+#ACT
+goto @Q352
+#ELSEACT
+goto @normal
+
+[@normal]
+Welcome, how may I help you ?\ \
+ <Buy/@buy> Item\
+ <Sell/@sell> Item\
+ <Repair/@repair> item\
+ <Cancel/@exit>
+
+[@Q352]
+#IF
+#ACT
+takew 斩马刀 1
+give gold 100
+SET [353] 1
+#SAY
+哈哈，你的斩马刀是什么东西？\ 
+难道你想用这个斩马刀来欺骗我？\
+谢谢你，我还是用它吧。\
+不好意思白拿，给你100分吧，你得谢谢我啊。 \ 
+还有你去沓水杂货。\ \
+<关闭/@exit>
+
+[@Q353]
+#IF
+#SAY
+快去看看沓水杂货。\ \
+<关闭/@exit>
+
+
+[@buy]
+Which items do you need ?\ \ \
+ <Back/@main>
+
+[@sell]
+We buy Candles, Weapons, Armour, Scrolls, RepairOils, Pots etc.\
+ <Back/@main>
+
+[@repair]
+Would you like to repair your item ?\
+ <Back/@main>
+
+[~@repair]
+Your Item seems to be repaired fine.\ \
+ <Back/@main>
+
+
+[goods]
+商品            数量       时间
+(HP)DrugSmall	200		1	
+(MP)DrugSmall	200		1
+(HP)Drugmedium	200		1
+(MP)Drugmedium	200		1
+WoodenSword     100         	1
+Dagger		100		1
+EbonySword	100		1	
+BronzeSword	100		1 
+ShortSword 	100		1
+Ironsword	100		1
+BronzeAxe	100		1
+Trident		100		1
+HookedSword	100		1
+Scimitar	100		1
+SteelSword	100		1
+Candle		100		1
+Timber		100		1
+Dice		100		1
+DungeonEscape	100		1
+RandomTeleport	100		1
+BaseDress(M)	100		1
+BaseDress(F)	100		1
+LightArmour(M)	100		1
+LightArmour(F)	100		1

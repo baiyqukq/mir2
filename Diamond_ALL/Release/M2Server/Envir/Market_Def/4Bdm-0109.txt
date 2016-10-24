@@ -1,0 +1,175 @@
+;武器
+(@makedrug)
+%100
++0
++42
+
+;对话, '*' : 对话tag
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+我不想和你这样的人打交道.. \ \
+<取消/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+What kind of poison do you want to make ?\ \
+ <Make/@makedrug> Poison\
+ <Listen to explanation/@helpmakedrug>\
+ <Talk with/@talkwith>\
+ <Cancel/@exit>
+<>
+
+[@makedrug]
+Select what kind of drug you want to make.\
+Needless to say... You did bring all the ingredients didn't you ?\ \
+ <Back/@main>
+
+
+[@helpmakedrug]
+Two kinds of poison can be made here.\ \
+ <Grey Poison powder/@helpdrug1> effect\
+ <Yellow Poison powder/@helpdrug2> effect\
+ <Ingredients/@helpmakedrug1> to make Grey Poison\
+ <Ingredients/@helpmakedrug2> to make Yellow Poison\
+ <Back/@main>
+
+
+[@helpdrug1]
+Grey Poison powder can be used by taoists when they execute\
+Poisoning skill. If the target is poisoned, its health power\
+will slowly decrease. \
+ <Back/@helpmakedrug>
+
+
+[@helpdrug2]
+Yellow Poison powder can be used by taoists when they execute\
+Poisoning skill. If the target is poisoned, its defence strenght\
+will decrease. \
+ <Back/@helpmakedrug>
+
+
+[@helpmakedrug1]
+Grey Poison ingredients are\ 
+			   <1 CannibalFruit/@helpitem1> \
+			   <2 SpiderTeeth/@helpitem1> \
+			   <4 CannibalLeafs/@helpitem1>\
+ <Back/@helpmakedrug>
+
+
+[@helpmakedrug2]
+Grey Poison ingredients are\ 
+		           <1 MaggotPill/@helpitem2> \
+			   <1 ScorpionTail/@helpitem2> \
+			   <4 CannibalLeafs/@helpitem2>\
+
+ <Back/@helpmakedrug>
+
+[@helpitem1]
+CannbibalFruit can be harvested from CannibalPlants.\
+SpiderTeeth can be harvested from SpittingSpiders.\
+CannibalLeafs can be harvested from CannibalPlants.\
+
+<back/@helpmakedrug1>
+
+[@helpitem2]
+MaggotPills can be harvested from CaveMaggots.\
+ScorpionTails can be harvested from Scorpions.\
+CannibalLeafs can be harvested from CannibalPlants.\
+ 
+<back/@helpmakedrug2>
+
+
+
+
+;#####################################################
+
+[@talkwith]
+#IF
+checkunit  [1] 0
+#ACT
+goto  @talkwith_1
+
+;#####################################################
+
+
+;-----------------------------------------------------
+;
+;
+; [101] 进入有奖活动
+; [102]
+; [103] 传达药剂师的信件
+;
+;
+;-----------------------------------------------------
+
+[@talkwith_1] 
+哈哈哈, <$USERNAME>是个好名字。\
+我需要5个毒蜘蛛牙齿，能帮我去拿吗？\
+如果你能拿回来，我会给你好价钱的。\ \
+<给5个毒蜘蛛牙齿/@give_st_10>\
+<下次给找。/@i_will_do_next_time>\
+
+[@give_st_10]
+#IF
+CHECKITEM 毒蜘蛛牙齿 5
+#ACT
+TAKE  毒蜘蛛牙齿 5
+GIVE  gold  1500
+GOTO  @give_st_10_1
+#ELSESAY
+我现在很需要5个毒蜘蛛牙齿,\
+请不要开玩笑，快帮我找5个。\
+
+
+[@give_st_10_1]
+#IF
+CHECK [103] 0
+RANDOM   4
+#SAY
+我还有另外一个请求，不知道你能不能答应？\
+如果答应，那就太感谢了。\ \
+<接受请求/@ok_order_1>\
+<拒绝请求/@no_order_1>\
+
+#ELSEACT
+#ELSESAY
+谢谢你，我给你一个算300元。\
+谢谢，欢迎下次再来。\
+我需要很多毒蜘蛛牙齿，随时都可以拿来。\
+
+
+[@ok_order_1]
+#ACT
+GIVE  药剂师的信  1
+SET   [103]  1
+#SAY
+<$USERNAME>, 你真是我的好朋友。\
+我要你帮忙的就是，\
+把这封信交给在银杏山谷的我的儿子。\
+在银杏山谷只要提起许中医，无人不知，\
+拜托了。\
+
+[@no_order_1]
+既然你说没时间，那我也没办法。\
+下次有时间，就帮我忙吧。\
+再见\
+
+
+[@i_will_do_next_time]
+#ACT
+close
+
+
+[goods]
+;items(cab be Zen)      pieces      hour
+YellowPoisn(S)		200	1
+GreyPoison(S)		200	1
+YellowPoisn(M)		200	1
+GreyPoison(M)		200	1
+YellowPoisn(L)		200	1
+GreyPoison(L)		200	1

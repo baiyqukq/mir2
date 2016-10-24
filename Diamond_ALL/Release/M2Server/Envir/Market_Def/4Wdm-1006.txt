@@ -1,0 +1,46 @@
+;무기
+(@buy)
+%100
++0
++42
+
+;대화, '*' : 대화 태그
+[@main]
+This is the place to make a drug, test it, and teach you how\
+to make it. Every drug is here from the royalelixir of eternal\
+youth to fatally poisonous powdered medicidine. The Drugs can\
+be used the right way or the wrong way according to the person\
+who uses the drug. Keep it in mind.\ \
+<Buy/@buy> Poison\
+<Listen to/@explanation> the explanation of poison\
+<Cancel/@exit>
+
+
+[@buy]
+Select the poison you want to buy.\ \
+<Back/@main>
+
+
+[@explanation]
+There are two kinds of drugs.\ 
+ \ \
+<Grey Poison Powder/@grey> effeciancy\
+<Yellow Poison Powder/@yellow> effeciancy\
+<Back/@main>\
+
+[@grey]
+Grey Poison Powder can be used by Taoists when\
+they execute poisoning skill.\
+If the target is poisoned, its health power will slowly decrease.\
+<Back/@explanation>\
+
+[@yellow]
+Yellow Poison Powder can be used by Taoists when\
+they execute poisoning skill.\
+If the target is poisoned, its defence power will decrease.\
+<Back/@explanation>\
+
+[goods]
+;items(cab be Zen)      pieces      hour
+YellowPoisn(M)		200	1
+GreyPoison(M)		200	1

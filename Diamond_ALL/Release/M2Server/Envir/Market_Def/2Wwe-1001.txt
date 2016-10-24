@@ -1,0 +1,58 @@
+;公扁
+(@buy @sell @repair @s_repair)
+%100
++5
++6
++43
+
+;措拳, '*' : 措拳 怕弊
+
+[@main]
+This is a weapon storage.\
+This is one of the most guarded places of the taoist school.\
+These days we sell the extra weapons to visitors at a price\
+set just to cover the cost of manufacture. How may i help you?\ \
+<Buy/@buy> weapon\
+<Sell/@sell> weapon\
+<Repair/@repair> weapon\
+<Special repair/@s_repair> Weapon\
+<cancel/@exit>
+<>
+
+
+[@buy]
+You can find here many kind of weapons.\
+What weapon do you want?\ \
+ <Back/@main>
+
+[@sell]
+Lay down your weapon to be sold.\ \ \
+ <Back/@main>
+
+[@repair]
+Would you like to repair your weapon?\ \
+ <Back/@main>
+
+[~@repair]
+Your weapon seems to be repaired fine.\ \
+ <Back/@main>
+
+[goods]
+;商品    数量       时间
+WoodenSword     100         	1
+Dagger		100		1
+EbonySword	100		1	
+BronzeSword	100		1 
+ShortSword 	100		1
+Ironsword	100		1
+BronzeAxe	100		1
+Trident		100		1
+HookedSword	100		1
+Scimitar	100		1
+SteelSword	100		1
+PickAxe		100		1
+Copp		100		1
+IronOre		100		1
+SilverOre	100		1
+GoldOre		100		1
+BlackOre	100		1

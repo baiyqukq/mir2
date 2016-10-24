@@ -1,0 +1,100 @@
+;Settings
+(@upgradenow @getbackupgnow)
+%100
++5
++6
+
+;Dialog
+
+[@main]
+Welcome to my shop <$USERNAME>\
+My work is so skilled that even members of\
+<$OWNERGUILD> cannot be offered a discount.\
+It hurts my Pride!!!\ \
+<Upgrade Weapon/@upgrade>\
+<Get Back Upgraded Weapon/@getbackupgnow>\
+<Exit/@exit>\
+<>
+
+[@upgrade]
+I can upgrade Weapons for you for a small fee of <$UPGRADEWEAPONFEE>.\
+To make an Upgrade you need <BlackOre/@Biron>, <Jewelery/@Etc>,
+<Weapon/@Weapon>, and <Gold/@Gold>\
+Do you have these ready for me?\ \
+ <Confirm Upgrade/@confirmupgrade>\
+ <Cancel Upgrade/@main>\
+
+[@Biron]
+BlackOre is a strong metal used for making weapons.\
+BlackOre can be obtained from the mines the higher \
+the purity, the better chance of a good upgrade\
+My eyesight is poor, so i will take all BlackOre \
+that is in your Bag \ \
+<Back/@upgrade>
+
+[@Etc]
+Jewelery is items such as Necklaces, Bracelets and \
+Rings. The higher level needed to wear, the better\
+the chance of the refine working. My eyesight is not \
+very good, so i will take all jewelery from your bag \ \
+<Back/@upgrade>
+
+[@Weapon]
+The weapon i will use is the weapon that is in your hand at \
+the time of the request.\ \
+ <Back/@upgrade>
+
+[@Gold]
+I can't upgrade your weapon for free. As my work is of\
+such a high standard i charge <$UPGRADEWEAPONFEE> per\
+upgrade.\ \
+<Back/@upgrade>
+
+[@confirmupgrade]
+I will take your <$USERWEAPON> from you to refine.\
+My eysight isn't very good so I will take \
+all the BlackOre and Jewelery in your bag.\
+If you do have items you do not want included you\
+must store them now\ \
+<Upgrade Now/@upgradenow>\
+<Cancel Upgrade/@main>\
+
+
+[~@upgradenow_ok]
+It was a hard job but i think i have done a good job\ \
+<Get back weapon now/@getbackupgnow>\
+<Collect weapon later/@main>
+
+[~@upgradenow_ing]
+I am already working on an item\
+Come back later...\ \
+<Back/@main>\
+
+[~@upgradenow_fail]
+Hey <$USERNAME>. Are you trying to confuse me?\
+You are missing one or more of the vital ingredients\
+Check you are wearing a weapon, have the BlackOre, Jewelery\
+and most importantly the money.\
+Then try again\
+<Back/@main>\
+
+[~@getbackupgnow_ok]
+Here is your weapon.\
+I have done my best.\
+You need to try the weapon to see if the upgrade was successful\
+<More Information/@Success>\
+<Exit/@exit>\
+
+[@Success]
+I can't guarrantee successfull refining each and every time.\
+You Will need to check Your self to see if it worked.\ \
+<Exit/@exit>\
+
+[~@getbackupgnow_ing]
+The upgrade is not finished yet, come back later!\ \
+<Main/@main>\
+
+[~@getbackupgnow_fail]
+If You gave me a weapon long ago, you can forget about it now!\
+You should have come back sooner!\ \
+<Main/@main>\

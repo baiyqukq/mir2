@@ -1,0 +1,11 @@
+;此脚为登录脚本，人物每次登录时都会执行此脚本，所有人物初始设置都可以放在此脚本中。
+;修改脚本内容，可用@ReloadManage命令重新加载该脚本，不须重启程序。
+[@Login]
+#IF
+RANDOM 5
+#SAY
+Test Msg 1\ \
+<Close/@exit> \ \
+#ELSESAY
+Test Msg 2\ \
+<Close/@exit> \ \

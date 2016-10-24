@@ -1,0 +1,116 @@
+;武器
+(@buy @sell)
+%150
++30
++0
++5
++6
++10
++11
+
+[@main]
+Ah are you one of those villains?\
+I think i have seen you before...\
+I can sell you items or you can sell them to me..\
+But do not forgot my prices are not low...\ \
+ <Buy/@buy> Item\
+ <Sell/@sell> Item\
+ <Exit/@exit>
+<>
+
+
+
+[@Q317]
+#IF
+check [318] 1
+#ACT
+goto @Q318
+break
+
+#IF
+check [319] 1
+#ACT
+goto @Q318
+break
+
+#IF
+check [317] 1
+#ACT
+goto @Q317_1
+#ELSESAY
+你到这么偏僻的地方做什么？ \
+这里是传奇世界里不怎么样的人才来的地方.. \ 
+但愿你和他们不一样.. \ \
+<取消/@exit>
+
+[@Q318]
+想从我这里了解陶氏吗?? \ 
+他在盟重买卖药.. 只要知道这个，\
+我想你也会找到他的.. \ \
+<取消/@exit>
+
+[@Q317_1]
+#IF
+#SAY
+你找我有事吗？? \ \
+<传达/@Q317_1_1>成男(秘密商店) 的置身之地
+
+[@Q317_1_1]
+什么？你见到了成男?? \ 
+他在以前可是很有名的人 \
+很长时间没有见到他，原来他在那里生活\
+嗯..(以后有机会去找他) \
+谢谢你，我也没什么可以告诉你的，\
+不过这件事情我一定要告诉你.. 借用纯粹的内功\ \
+<继续/@Q317_1_2>
+
+[@Q317_1_2]
+#SAY
+转移为体力或魔力的天水。。。 \
+其名字具体是什么我也不清楚，\ 
+但是有人知道，知道这个人是谁之前你要做一个决定 \
+什么决定呢？\
+那就是怎样使用转移内功的药水? \ \
+<修炼外功/@Q317_1_2_1> \
+<修炼内功/@Q317_1_2_2>
+
+[@Q317_1_2_1]
+#IF
+#ACT
+SET [318] 1
+#SAY
+去问盟重陶氏吧 \
+了解这个药水的人只有他一个人\
+我已经叫人告诉陶氏你会去找他\
+我想他会等你的.. \ \
+<去找陶氏/@exit>
+
+[@Q317_1_2_2]
+#IF
+#ACT
+SET [319] 1
+#SAY
+去问盟重陶氏吧 \
+了解这个药水的人只有他一个人\
+我已经叫人告诉陶氏你会去找他\
+我想他会等你的.. \ \
+<去找陶氏/@exit>
+
+
+[@buy]
+Select the item you want to buy.\ \ \
+ <Back/@main>
+
+[@sell]
+Show me the item you want to sell.\ \ \
+ <Back/@main>
+
+
+[goods]
+;哩登绰 惑前    拱樊       hour
+Candle            100        1
+BaseDress(M)      100        1
+BaseDress(F)      100        1
+WoodenSword	  100	     1
+(HP)DrugSmall	  100	     1
+(MP)DrugSmall	  100	     1

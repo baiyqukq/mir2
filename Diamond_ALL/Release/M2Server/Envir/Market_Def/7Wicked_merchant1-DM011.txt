@@ -1,0 +1,62 @@
+;武器
+(@buy @sell @repair)
+%180
++30
++0
++3
++5
++6
++10
++11
+
+;对话框, '*' : 对话框 标签
+[@main]
+Welcome, how may I help you ?\ \
+ <Buy/@buy> Item\
+ <Sell/@sell> Item\
+ <Repair/@repair> item\
+ <Cancel/@exit>
+
+[@buy]
+Which items do you need ?\ \ \
+ <Back/@main>
+
+[@sell]
+We buy Candles, Weapons, Armour, Scrolls, RepairOils, Pots etc.\
+ <Back/@main>
+
+[@repair]
+Would you like to repair your item ?\
+ <Back/@main>
+
+[~@repair]
+Your Item seems to be repaired fine.\ \
+ <Back/@main>
+
+
+[goods]
+商品            数量       时间
+(HP)DrugSmall	200		1	
+(MP)DrugSmall	200		1
+(HP)Drugmedium	200		1
+(MP)Drugmedium	200		1
+WoodenSword     100         	1
+Dagger		100		1
+EbonySword	100		1	
+BronzeSword	100		1 
+ShortSword 	100		1
+Ironsword	100		1
+BronzeAxe	100		1
+Trident		100		1
+HookedSword	100		1
+Scimitar	100		1
+SteelSword	100		1
+Candle		100		1
+Timber		100		1
+Dice		100		1
+DungeonEscape	100		1
+RandomTeleport	100		1
+BaseDress(M)	100		1
+BaseDress(F)	100		1
+LightArmour(M)	100		1
+LightArmour(F)	100		1

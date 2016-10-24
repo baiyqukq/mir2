@@ -1,0 +1,17 @@
+;对话, '*' : 对话语言
+[@main]
+Do you wanna know about sabuk wars?\ \
+
+<Info/@aboutwar>\
+
+[@aboutwar]
+so you wanna know about wars,\
+the next war is planned on  <$CASTLEWARDATE>, 8PM cet.\ \
+
+<WarList/@listwar>\
+<Back/@main>\
+
+
+[@listwar]
+<$LISTOFWAR>\
+<Back/@aboutwar>\

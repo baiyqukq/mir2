@@ -1,0 +1,602 @@
+[@clearmon]
+{
+;#IF
+;    checkhum 0 1
+;#ELSEACT
+;    monclear 0
+;#IF
+;    checkhum 1 1
+;#ELSEACT
+;    monclear 1
+;#IF
+;    checkhum 2 1
+;#ELSEACT
+    monclear 2
+;#IF
+;    checkhum 3 1
+;#ELSEACT
+;    monclear 3
+
+;#IF
+;    checkhum 4 1
+;#ELSEACT
+;    monclear 4
+
+;#IF
+;    checkhum 11 1
+;#ELSEACT
+;    monclear 11
+
+#IF
+    checkhum 12 1
+#ELSEACT
+    monclear 12
+
+#IF
+    checkhum D001 1
+#ELSEACT
+    monclear D001
+#IF
+    checkhum D002 1
+#ELSEACT
+    monclear D002
+#IF
+    checkhum D003 1
+#ELSEACT
+    monclear D003
+#IF
+    checkhum D011 1
+#ELSEACT
+    monclear D011
+#IF
+    checkhum D012 1
+#ELSEACT
+    monclear D012
+#IF
+    checkhum D021 1
+#ELSEACT
+    monclear D021
+#IF
+    checkhum D022 1
+#ELSEACT
+    monclear D022
+#IF
+    checkhum D023 1
+#ELSEACT
+    monclear D023
+;#IF
+;    checkhum D024 1
+;#ELSEACT
+;    monclear D024
+
+#IF
+    checkhum D10011 1
+#ELSEACT
+    monclear D10011
+#IF
+    checkhum D10012 1
+#ELSEACT
+    monclear D10012
+#IF
+    checkhum D10013 1
+#ELSEACT
+    monclear D10013
+
+
+#IF
+    checkhum D1002 1
+#ELSEACT
+    monclear D1002
+
+#IF
+    checkhum D10031 1
+#ELSEACT
+    monclear D10031
+#IF
+    checkhum D10032 1
+#ELSEACT
+    monclear D10032
+#IF
+    checkhum D1004 1
+#ELSEACT
+    monclear D1004
+#IF
+    checkhum D10051 1
+#ELSEACT
+    monclear D10051
+#IF
+    checkhum D10052 1
+#ELSEACT
+    monclear D10052
+#IF
+    checkhum D10053 1
+#ELSEACT
+    monclear D10053
+#IF
+    checkhum D10054 1
+#ELSEACT
+    monclear D10054
+#IF
+    checkhum D10071 1
+#ELSEACT
+    monclear D10071
+
+#IF
+    checkhum D2001 1
+#ELSEACT
+    monclear D2001
+#IF
+    checkhum D2002 1
+#ELSEACT
+    monclear D2002
+#IF
+    checkhum D2003 1
+#ELSEACT
+    monclear D2003
+#IF
+    checkhum D2004 1
+#ELSEACT
+    monclear D2004
+#IF
+    checkhum D2005 1
+#ELSEACT
+    monclear D2005
+#IF
+    checkhum D2006 1
+#ELSEACT
+    monclear D2006
+#IF
+    checkhum D2007 1
+#ELSEACT
+    monclear D2007
+#IF
+    checkhum D2008 1
+#ELSEACT
+    monclear D2008
+#IF
+    checkhum D2009 1
+#ELSEACT
+    monclear D2009
+#IF
+    checkhum D2010 1
+#ELSEACT
+    monclear D2010
+#IF
+    checkhum D2011 1
+#ELSEACT
+    monclear D2011
+#IF
+    checkhum D2012 1
+#ELSEACT
+    monclear D2012
+#IF
+    checkhum D2013 1
+#ELSEACT
+    monclear D2013
+
+#IF
+    checkhum D401 1
+#ELSEACT
+    monclear D401
+#IF
+    checkhum D402 1
+#ELSEACT
+    monclear D402
+#IF
+    checkhum D403 1
+#ELSEACT
+    monclear D403
+#IF
+    checkhum D404 1
+#ELSEACT
+    monclear D404
+#IF
+    checkhum D405 1
+#ELSEACT
+    monclear D405
+#IF
+    checkhum D406 1
+#ELSEACT
+    monclear D406
+#IF
+    checkhum D411 1
+#ELSEACT
+    monclear D411
+#IF
+    checkhum D412 1
+#ELSEACT
+    monclear D412
+#IF
+    checkhum D413 1
+#ELSEACT
+    monclear D413
+#IF
+    checkhum D414 1
+#ELSEACT
+    monclear D414
+#IF
+    checkhum D415 1
+#ELSEACT
+    monclear D415
+#IF
+    checkhum D416 1
+#ELSEACT
+    monclear D416
+#IF
+    checkhum D421 1
+#ELSEACT
+    monclear D421
+#IF
+    checkhum D422 1
+#ELSEACT
+    monclear D422
+#IF
+    checkhum D501 1
+#ELSEACT
+    monclear D501
+#IF
+    checkhum D502 1
+#ELSEACT
+    monclear D502
+#IF
+    checkhum D503 1
+#ELSEACT
+    monclear D503
+#IF
+    checkhum D504 1
+#ELSEACT
+    monclear D504
+#IF
+    checkhum D505 1
+#ELSEACT
+    monclear D505
+#IF
+    checkhum D5061 1
+#ELSEACT
+    monclear D5061
+#IF
+    checkhum D5062 1
+#ELSEACT
+    monclear D5062
+#IF
+    checkhum D5063 1
+#ELSEACT
+    monclear D5063
+#IF
+    checkhum D5064 1
+#ELSEACT
+    monclear D5064
+#IF
+    checkhum D5065 1
+#ELSEACT
+    monclear D5065
+#IF
+    checkhum D5066 1
+#ELSEACT
+    monclear D5066
+#IF
+    checkhum D5067 1
+#ELSEACT
+    monclear D5067
+#IF
+    checkhum D5068 1
+#ELSEACT
+    monclear D5068
+#IF
+    checkhum D5069 1
+#ELSEACT
+    monclear D5069
+#IF
+    checkhum D5072 1
+#ELSEACT
+    monclear D5072
+#IF
+    checkhum D5073 1
+#ELSEACT
+    monclear D5073
+#IF
+    checkhum D5074 1
+#ELSEACT
+    monclear D5074
+
+#IF
+    checkhum D601 1
+#ELSEACT
+    monclear D601
+#IF
+    checkhum D602 1
+#ELSEACT
+    monclear D602
+#IF
+    checkhum D603 1
+#ELSEACT
+    monclear D603
+#IF
+    checkhum D604 1
+#ELSEACT
+    monclear D604
+#IF
+    checkhum D605 1
+#ELSEACT
+    monclear D605
+#IF
+    checkhum D606 1
+#ELSEACT
+    monclear D606
+#IF
+    checkhum D612 1
+#ELSEACT
+    monclear D612
+#IF
+    checkhum D613 1
+#ELSEACT
+    monclear D613
+#IF
+    checkhum D614 1
+#ELSEACT
+    monclear D614
+#IF
+    checkhum D615 1
+#ELSEACT
+    monclear D615
+#IF
+    checkhum D616 1
+#ELSEACT
+    monclear D616
+#IF
+    checkhum D617 1
+#ELSEACT
+    monclear D617
+#IF
+    checkhum D618 1
+#ELSEACT
+    monclear D618
+
+
+#IF
+    checkhum D711 1
+#ELSEACT
+    monclear D711
+#IF
+    checkhum D712 1
+#ELSEACT
+    monclear D712
+#IF
+    checkhum D713 1
+#ELSEACT
+    monclear D713
+#IF
+    checkhum D714 1
+#ELSEACT
+    monclear D714
+#IF
+    checkhum D715 1
+#ELSEACT
+    monclear D715
+#IF
+    checkhum D716 1
+#ELSEACT
+    monclear D716
+#IF
+    checkhum D717 1
+#ELSEACT
+    monclear D717
+
+#IF
+    checkhum D71601 1
+#ELSEACT
+    monclear D71601
+#IF
+    checkhum D71602 1
+#ELSEACT
+    monclear D71602
+#IF
+    checkhum D71603 1
+#ELSEACT
+    monclear D71603
+#IF
+    checkhum D71604 1
+#ELSEACT
+    monclear D71604
+#IF
+    checkhum D71605 1
+#ELSEACT
+    monclear D71605
+#IF
+    checkhum D71606 1
+#ELSEACT
+    monclear D71606
+#IF
+    checkhum D71607 1
+#ELSEACT
+    monclear D71607
+#IF
+    checkhum D71608 1
+#ELSEACT
+    monclear D71608
+#IF
+    checkhum D71609 1
+#ELSEACT
+    monclear D71609
+#IF
+    checkhum D71610 1
+#ELSEACT
+    monclear D71610
+#IF
+    checkhum D71611 1
+#ELSEACT
+    monclear D71611
+#IF
+    checkhum D71612 1
+#ELSEACT
+    monclear D71612
+#IF
+    checkhum D71613 1
+#ELSEACT
+    monclear D71613
+#IF
+    checkhum D71614 1
+#ELSEACT
+    monclear D71614
+#IF
+    checkhum D71615 1
+#ELSEACT
+    monclear D71615
+#IF
+    checkhum D71616 1
+#ELSEACT
+    monclear D71616
+#IF
+    checkhum D71617 1
+#ELSEACT
+    monclear D71617
+#IF
+    checkhum D71618 1
+#ELSEACT
+    monclear D71618
+#IF
+    checkhum D71619 1
+#ELSEACT
+    monclear D71619
+#IF
+    checkhum D71620 1
+#ELSEACT
+    monclear D71620
+#IF
+    checkhum D71620 1
+#ELSEACT
+    monclear D71620
+#IF
+    checkhum D71621 1
+#ELSEACT
+    monclear D71621
+#IF
+    checkhum D71622 1
+#ELSEACT
+    monclear D71622
+#IF
+    checkhum D71623 1
+#ELSEACT
+    monclear D71623
+#IF
+    checkhum D71624 1
+#ELSEACT
+    monclear D71624
+#IF
+    checkhum D71625 1
+#ELSEACT
+    monclear D71625
+
+#IF
+    checkhum E001 1
+#ELSEACT
+    monclear E001
+#IF
+    checkhum E002 1
+#ELSEACT
+    monclear E002
+
+#IF
+    checkhum E401 1
+#ELSEACT
+    monclear E401
+#IF
+    checkhum E402 1
+#ELSEACT
+    monclear E402
+#IF
+    checkhum E403 1
+#ELSEACT
+    monclear E403
+#IF
+    checkhum E404 1
+#ELSEACT
+    monclear E404
+
+#IF
+    checkhum E601 1
+#ELSEACT
+    monclear E601
+#IF
+    checkhum E602 1
+#ELSEACT
+    monclear E602
+#IF
+    checkhum E603 1
+#ELSEACT
+    monclear E603
+#IF
+    checkhum E604 1
+#ELSEACT
+    monclear E604
+#IF
+    checkhum E605 1
+#ELSEACT
+    monclear E605
+
+
+
+#IF
+    checkhum E701 1
+#ELSEACT
+    monclear E701
+#IF
+    checkhum E702 1
+#ELSEACT
+    monclear E702
+#IF
+    checkhum E703 1
+#ELSEACT
+    monclear E703
+
+#IF
+    checkhum M001 1
+#ELSEACT
+    monclear M001
+
+#IF
+    checkhum Q004 1
+#ELSEACT
+    monclear Q004
+
+#IF
+    checkhum D2070 1
+#ELSEACT
+    monclear D2070
+#IF
+    checkhum D2071 1
+#ELSEACT
+    monclear D2071
+#IF
+    checkhum D2072 1
+#ELSEACT
+    monclear D2072
+#IF
+    checkhum D2073 1
+#ELSEACT
+    monclear D2073
+#IF
+    checkhum D2074 1
+#ELSEACT
+    monclear D2074
+#IF
+    checkhum D2075 1
+#ELSEACT
+    monclear D2075
+#IF
+    checkhum D2076 1
+#ELSEACT
+    monclear D2076
+#IF
+    checkhum D2077 1
+#ELSEACT
+    monclear D2077
+#IF
+    checkhum D2078 1
+#ELSEACT
+    monclear D2078
+#IF
+    checkhum D2079 1
+#ELSEACT
+    monclear D2079
+}

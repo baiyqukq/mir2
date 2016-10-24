@@ -1,0 +1,49 @@
+[@main]
+#IF
+check [799] 0
+#ACT
+goto @main-1
+BreakTimeRecall
+#ELSESAY
+당신은 10분동안 NPC를 쥐들로 부터 구하시지 못하셨군요 \
+당신의 능력이 의심스럽습니다. \ 
+다시 처음 부터 시작해 주세요. \ \
+<닫  기/@quit>
+
+[@main-1]
+#IF
+#SAY
+Hey <$USERNAME>\
+This is room 38\
+There is a mass rat spawn...\
+And you must help my freind, she is inside\
+Save her from her rats\\
+<OK!/@race>
+
+[@Quit]
+#IF
+#ACT
+SET [799] 0
+map B011
+
+[@race]
+#IF
+checkhum T138 1
+#SAY
+There is already someone inside, wait\\
+<Grr/@exit>
+#ELSEACT
+goto @next
+
+[@next]
+#IF
+#ACT
+SET [799] 1
+Monclear T138
+Param1 T138
+Param2 10
+Param3 20
+MonGen 큰쥐 20 10
+TimeRecall 10
+map T138
+

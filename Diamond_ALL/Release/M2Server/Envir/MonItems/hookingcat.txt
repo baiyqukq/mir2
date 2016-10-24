@@ -1,0 +1,32 @@
+1/10   gold 100
+1/80    SunPotion
+1/30 (hp)drugsmall
+1/30 (mp)drugsmall
+1/50 BaseDress(M)
+1/50 BaseDress(F)
+1/150 LightArmour(M)
+1/150 LightArmour(F)
+1/75 BronzeHelmet
+1/100 MagicHelmet
+1/30 WoodenSword
+1/45 Dagger
+1/45 EbonySword
+1/70 BronzeSword
+1/90 IronSword
+1/110 ShortSword
+1/200 HookedSword
+
+1/30 CopperRing
+1/30 GoldNecklace
+1/40 PrecisionNeck
+1/40 IronBracelet
+1/55 HornRing
+1/55 goldassRing
+1/55 HexagonalRing
+1/100 BlueRing
+1/100 YellowNecklace
+1/100 BlackNecklace
+1/100 EbonyNecklace
+1/150 leatherGlove
+1/150 SteelBracelet
+1/200 ThinBracelet

@@ -1,0 +1,13 @@
+; Mir King drop file for F004 (Slave Cave)
+; Last Updates 22/07 by dapoldi
+
+1/1   GoldBar
+
+1/1   BenedictionOil
+1/1   BenedictionOil
+1/1   BenedictionOil
+
+;The two benes isnt a mistake
+;It just means this will still be compatible if the item db
+;is updated
+;amount set behind items doesnt seem to work.

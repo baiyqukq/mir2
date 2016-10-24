@@ -1,0 +1,164 @@
+[@main]
+#IF
+check [411] 1
+#ACT
+break
+
+#IF
+check [410] 1
+#SAY
+What is in the bottle is the fould blood of a RedmoonEvil I killed...\
+If you disguised yourself as a demon of a mn by swearing on it your\
+clothes and holding an EvilApeHeart you can get the RedMoonSword. To\
+kill the RemoonEvil and to get rid of the origin of the demon depends\
+upon you. It is hard ofr you to kill a RedmoonEvil alone. Band together\
+with many other heroes...\
+<Close/@exit>
+#ACT
+SET [411] 1
+break
+
+#IF
+check [409] 1
+#SAY
+You did not yet kill a RemoonEvil...\
+I'll send you back there\
+I'll pray that you may overcome the ordeal..\ \
+<Take an ordeal/@next_quest>
+#ACT
+break
+
+#IF
+check [408] 1
+checkitem BloodSwordChip 1
+#SAY
+Unknown.\
+赤血魔剑碎块带来了吗？我要再一次考验你的能力 \
+你要通过这个考验，给我带来魔血. \
+这样，我就会告诉你得到赤血魔剑的方法\
+<Next/@next_quest>
+#ACT
+break
+
+#IF
+check [406] 1
+#SAY
+Come on, bring me BloodSwordChip.\
+t's a ominous demonic sword.\
+You should seek out the sword before someone else gets it.\ \
+<close/@exit>
+#ACT
+break
+
+#IF
+check [405] 1
+#SAY
+Come here pal!\
+I have been waiting for you a long time...\
+ \
+It's your destiny you never escape from it even after you die...\
+Ah friend, Will you tak my orders and get through the hard way?\ \
+<I'll follow your orders with pleasure/@next>\
+
+
+[@next]
+#IF
+#SAY
+Well, this is my duty. This is why i have waited for you instead of leaving here.\
+You came here with a JadeCrystal. My name is Abel, and my nickname was Thunderman\
+before i died. Originall i had striven for martial art training since I was 5 years\
+old. When I was 30 years old, i was never scared of anyone in the world. Then I was\
+arrogant for I took a pride in my martial art. Consequently it made me a lot of\
+enemies. But I was no longer interested in community life.\
+<Next/@next1>
+
+[@next1]
+#IF
+#SAY
+Unknown.\
+有很长一段时间我为了寻找武艺高超的怪物在江湖没了踪影， \
+后来终于来到了这个红月峡谷的最顶层\ 
+我在一个潮湿臭气满天的房间看到了一个巨大的怪物... \ 
+那个怪物在疯狂地咆哮着，爆发着内心的愤怒... \ 
+我被这个怪物强大的力量惊呆了... \
+我想到无论如何都要把这个怪物杀掉，不然太危险了 \ 
+<next/@next2>
+
+[@next2]
+#IF
+#SAY
+Unknown.\
+是的.为此我到山下的道馆，求他们借给我他们的馆中之宝破关珍剑, \ 
+但是，由于当时我在江湖中声誉不是很好，所以他们不但不相信我说的话，  \
+还把我赶出门外。我一气之下用武力把那把破关珍剑抢到手 \
+之后就来到了这个地方 \
+事情的祸根就是从此开始...  \
+当时我傲气十足 \ \ 
+<next/@next3>
+
+[@next3]
+#IF
+#SAY
+Unknown.\
+知道我抢到了宝物，很多人为了得到那个宝物来杀我 \ 
+那天来红月峡谷的所有人都被那个巨大的恶魔中邪, \
+充满了杀气 . \
+人们互相残杀，尸体遍布在整个峡谷，血流成河... \
+值得庆幸的是我有道门无价之宝破关珍剑， \
+所以没有中那个恶魔的邪咒,
+但是还是杀死了几个无辜的人 . \ \  
+<next/@next4>
+
+[@next4]
+#IF
+#SAY
+Unknown.\
+我对那个怪物...对那个红月恶魔恨之入骨. \
+但是只凭愤怒和憎恨士没有办法战胜恶魔 \ 
+我把剑插入红月恶魔心脏的瞬间，我已经被恶魔的邪气包围住 \
+破关珍剑没能战胜我心中的邪恶，我人包括破关珍剑都没能保住 \
+破关珍剑也成了邪恶之剑。 \
+<next/@next5>
+
+[@next5]
+#IF
+#SAY
+Unknown.\
+虽然当时红月恶魔打败了我和破关珍剑， \
+但是破关珍剑所具有的威力带给红月恶魔的打击也非常大. \
+所以虽说过了很长的岁月，但是红月恶魔还没有恢复元气 \ 
+再加上你没有染上恶魔的邪气，我干肯定你一定能打败它 \
+红月恶魔所犯下的罪过，是不能饶恕的 \
+一定要把它消灭掉，你要记住我将要说的话 \
+<next/@next6>
+
+[@next6]
+#IF
+#SAY
+Unknown.\
+自从我沾上红月恶魔的魔血变成人魔之后... \
+我受破关珍剑，不，受红月魔剑的引诱在赤血峡谷乱杀无辜. \ 
+这种情形持续了100多年，终于打断了赤血宝剑，我也回复了神志 \ 
+我从邪恶里清醒过来，得到了醒悟，\  
+就算我死了，我的灵魂和肉体都会在一起。
+现在我要和你讲的是，请务必把赤血魔剑碎块找回来，\
+<close/@exit>
+
+#ACT
+SET [406] 1
+
+[@next_quest]
+#IF
+checkhum D10071 2
+#SAY 
+There is already someone before you!\
+<Come back later/@exit>
+#ELSEACT
+take BloodSwordChip 1
+SET [409] 1
+MONCLEAR D10071
+PARAM1 D10071
+PARAM2 17
+PARAM3 21
+MONGEN RedMoonEvil1 1 0
+MAP D10071

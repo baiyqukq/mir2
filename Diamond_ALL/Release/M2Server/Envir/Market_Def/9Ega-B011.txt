@@ -1,0 +1,84 @@
+[@main]
+#IF
+#SAY
+Hi! <$USERNAME>, Welcome to Ma-Bang-Jin. \
+This Gambling place is consist of 40 rooms, When you reach 40th room \
+If you completed the quest of this room, 1 BenedictionOil will be presented to you \
+for a gift. Each room is full of traps \
+So watch out in there!\ \
+<Next/@next>
+#ACT
+BreakTimeRecall 
+
+[@next]
+#IF
+#SAY
+Also you should have GambleChips to throw dice \
+If dice you have is exhausted you will come back here and during playing a game \ 
+If you died you should begin again at the starting point, if you failed of a quest of each room \
+You will be back here. \
+I don't know exactly but I'll explain the traps of some rooms. \ \
+<Listen/@next11>to the quest of rooms \
+<Try/@next3>just without explanation
+
+[@next11]
+#IF
+#SAY
+Every rooms belongs to Ma-Bang-Jin, the figure means the location of each room. \
+Preparatory Room is 2nd room, Mr.Jeoung's Room is 3rd room, \
+Rascal's Room is 5th room , Room for cross is 6th room, \
+GamblingRoom is 7th room, WindyRoom1 is 8th room, \
+DesireRoom is 9th room,   WindyRoom2 is 10th room, \
+WindyRoom3 is 12th room,  PatientRoom1 is 11th room, \
+ChoiceRoom is 13th room , Crossroad Room is 14th room, \
+<Next/@next12>
+
+[@next12]
+#IF
+#SAY
+Miner's Room is 15th room, SwitchingRoom is 16th room, \
+RecallRoom is 17th room ,   DeathRoom is 18th,  \
+AdversityRoom is 19th room , GamblingRoom is 20th room, \
+GroupRoom is 21st room , WindyRoom4 is 22nd room , \
+DamageRoom is 24th room , PatientRoom2 is 23rd room,  \
+PeacefulRoom is 25th room, WindyRoom5 is 26th room, \
+ChaoticRoom is 28th room, Patientroom3 is 29th room, \
+<Next/@next13>
+
+[@next13]
+#IF
+#SAY
+4FortuneRoom is 30th room , JudgingRoom is 31st room , \
+EvilTong's Room is 32nd room , WindyRoom6 is 33th room , \
+ZumaStatue's Room is 34th room,  Pilgrim's Room is 35th room , \
+DarkRoom is 36th room, Ratflock's Room is 38th room, \
+DarksealRoom is 39th room , HeavenRoom is 40th room. \ \ 
+<Listen to more information of WindyRoom /@next14> \
+<Try just without listening/@next3>
+
+[@next14]
+#IF
+#SAY
+If you reached WindyRoom1, 8th room, you should move to 14th room, \
+If you reached WindyRoom2, 10th room, you should move to 24th room, \
+If you reached WindyRoom3, 12th room, you should move to 5th room, \
+If you reached WindyRoom4, 22th room, you should move to 30th room, \
+If you reached WindyRoom5, 26th room, you should move to 16th room, \
+If you reached WindyRoom6, 33th room, you should move to 23th room, \ \
+<Next/@next2>
+
+
+[@next2]
+#IF
+#SAY
+Now, Would you try playing a game?? \ \
+<Yes/@next3>I'll try \
+<No/@exit>let me think about it in a while
+
+[@next3]
+#IF
+#ACT
+SET [799] 0
+SET [798] 0
+;map B101
+mapmove B101 10 10

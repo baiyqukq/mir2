@@ -1,0 +1,78 @@
+;武器
+(@buy @sell)
+%100
++0
++42
+
+;对话, '*' : 对话tag
+
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+我不想和你这样的人打交道.. \ \
+<取消/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+Welcome, how may I help you ?\ \
+
+ <Buy/@buy> drug\
+ <Sell/@sell> drug\
+ <Cancel/@exit>
+<>
+
+[@Tmove]
+#IF
+random 4
+#ACT
+mapmove 2 505 497
+break
+
+#IF
+random 4
+#ACT
+mapmove 2 505 498
+break
+
+#IF
+random 4
+#ACT
+mapmove 2 504 499
+break
+
+#IF
+random 4
+#ACT
+mapmove 2 505 499
+break
+#ELSEACT
+goto @Tmove
+
+[@buy]
+Which item do you want to buy ?\ \ \
+ <Back/@main>
+
+
+[@sell]
+Show me your item, I'll offer you a good price.\ \ \
+ <Back/@main>
+
+
+[goods]
+;items(cab be Zen)      pieces      hour
+(HP)DrugSmall		200	1	
+(MP)DrugSmall		200	1
+(HP)Drugmedium		200	1
+(MP)Drugmedium		200	1
+(HP)DrugLarge		200	1
+(MP)DrugLarge		200	1
+(HP)Drugbundle		200	1
+(MP)Drugbundle		200	1
+(HP)MDrugbundl		200	1
+(MP)MDrugbundl		200	1
+(HP)SDrugbundl		200	1
+(MP)SDrugbundl		200	1

@@ -1,0 +1,272 @@
+;¹«±â
+ÎäÆ÷
+(@buy @sell @repair)
+%100
++5
++6
++43
+
+;; Á¦¸ñ - ±¤¼®ÀÇ °áÁ¤(±ºµµ Äù½ºÆ®ÀÇ ½ÃÀÛ)
+;#####################################################
+;-----------------------------------------------------
+;Äù½ºÆ®¸¦ ½ÃÀÛÇÑ °æ¿ì [203]
+;Äù½ºÆ®¸¦ ÇÏ´ÂµµÁß º¹±Ç¸¸ ¹Ş°í ³¡³­ °æ¿ì [204]
+;Äù½ºÆ®¸¦ ÇÏ´ÂµµÁß ½ÇÆĞÇÑ ¶Ç´Â ¿Ï·áÇÑ °æ¿ì[205]
+;´ëÀåÀåÀÌ Àå¾¾¸¦ »ßÁö°ÔÇÑ °æ¿ì [210]
+;Àº½ÇÀÌµµ »ßÁö°Ô ÇÑ °æ¿ì [211]
+;Àå¾¾¸¦ »ßÁö°ÔÇß´Ù Ç®¾îÁÖ´Âµ¥ ±İ±¤¼®ÀÌ ¾øÀ»°æ¿ì [212]
+;Àå¾¾¸¦ »ßÁö°ÔÇß´Ù Ç®¾îÁØ °æ¿ì [213]
+;°­¾¾¿¡°Ô Ã£¾Æ°¡º¸¶ó´Â ¸»À» µéÀº °æ¿ì [214]
+;Àå¾¾¾ÆÀú½Ã¿¡°Ô ¿Ü»óÀ¸·Î ÁØ °æ¿ì [215]
+;°­¾¾¾ÆÀú¾¾°¡ ¿ëÇ÷¼±»ı¿¡°Ô ¸»À» ÀüÇÏµgoldÏ ºÎÅ¹ÇÑ °æ¿ì [216]
+;¿ëÇ÷¼±»ı¿¡°Ô ¸»À» Àß ¸øÇÑ °æ¿ì [217]
+;¸¶±Í¸¦ ¹°¸®Ä¡°Ú´Ù°í ½Â¶ôÇÑ °æ¿ì[218]
+;Äù½ºÆ®¿¡ ´ëÇÑ ÈùÆ®¸¦ µéÀº°æ¿ì [219]
+;¸¶±Í¸¦ ´Ù ¹°¸®Ä£ °æ¿ì [220]
+;¸¶±Í¸¦ ¹°¸®ÃÄ¼­ Á¦±ºµµ¼­¸¦ ¹ŞÀº °æ¿ì [221]
+;Á¦±ºµµ¼­¸¦ °®´ÙÁÖ°í ³ªÁß¿¡ Ã£¾Æ¿À¶ó°í ÇÔ [222]
+;---------------------------------------------------
+;; ÌâÄ¿ - ¾ö¶¨¿óÊ¯(ÃüÔËÖ®ÈĞÖ¸Ê¾¿ªÊ¼)
+;#####################################################
+;-----------------------------------------------------
+;¿ªÊ¼Ö¸Ê¾Ê±[203]
+;Ö´ĞĞÖ¸Ê¾¹ı³ÌÖĞÊÕµ½²ÊÆ±¾Í½áÊøÊ± [204]
+;Ö´ĞĞÖ¸Ê¾¹ı³ÌÖĞÊ§°Ü»òÍê³ÉÊ±[205]
+;ÈÇÄÕÎÀ¼ÒµêÊ± [210]
+;ÈÇÄÕ½äÖ¸µêÀÏ°åÊ±[211]
+;Ã»ÓĞÄÜ¹»µ÷½â±»ÈÇÄÕµÄÎÀ¼ÒµêĞÄÇéµÄ½ğ¿óÊ±[212]
+;µ÷½âºÃ±»ÈÇÄÕµÄÎÀ¼ÒµêµÄĞÄÇéÊ±[213]
+;Ìıµ½È¥ÕÒÌú½³ÆÌÀÏ°åµÄ»°Ê±[214]
+;¸øÎÀ¼ÒµêÉŞÕËÊ±[215]
+;Ìú½³ÆÌÀÏ°åÇëÇó¸ø¸ß¼¶ÎäÊ¿´«»°Ê±[216]
+;¸ø¸ß¼¶ÎäÊ¿Ëµ´í»°Ê±[217]
+;³ĞÅµ´ò°ÜÄ§¹íÊ±[218]
+;Ìıµ½ÓĞ¹ØÖ¸Ê¾µÄ°µÊ¾Ê± [219]
+;´ò°ÜÁËÄ§¹íÊ± [220]
+;´ò°ÜÄ§¹í£¬ÄÃµ½ÃüÔËÖ®ÊéÊ± [221]
+;È¥ËÍÃüÔËÖ®Êé£¬½ĞÒÔºóÔÙÀ´ÕÒÊ±[222]
+;---------------------------------------------------
+
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+Sorry but i do not deal with an evil person like you.. \ \
+<Exit/@exit>
+
+#ELSEACT
+goto @main-1
+
+;#####################################################
+
+;´ëÈ­, '*' : ´ëÈ­ ÅÂ±×
+;¶Ô»°, '*' : ¶Ô»°tag
+
+[@main-1]
+Glad to see you, how can i help you ?\ \
+ <Buy/@buy> weapon\
+ <Sell/@sell> weapon\
+ <Repair/@repair> weapon\
+ <Ask/@qweapon> about weapon\
+ <Talk With/@talk>\
+ <Teleport Out/@Tmove> \
+ <cancel/@exit>
+
+
+[@Tmove]
+#IF
+random 4
+#ACT
+mapmove 0 345 310
+break
+
+#IF
+random 4
+#ACT
+mapmove 0 344 309
+break
+
+#IF
+random 4
+#ACT
+mapmove 0 334 300
+break
+
+#IF
+random 4
+#ACT
+mapmove 0 334 301
+break
+
+#ELSEACT
+goto @Tmove
+
+[@buy]
+Please select the weapon you want to buy\ \ \
+  <Back/@main-1>
+
+[@sell]
+Lay down your weapon to be sold\ \ \
+  <Back/@main-1>
+
+[@repair]
+Would you like to repair your weapon ?\ \
+  <Back/@main-1>
+
+[~@repair]
+Your weapon seems to be repaired fine.\ \
+  <Back/@main-1>
+
+[@qweapon]
+The weapon bought from this store has some capacity limit,\
+but weapons aquired from monsters sometimes have special stats.\
+If you bring that special weapon to us we'll buy it at a higher price.\
+By the way, don't forget that the weapon price differs with its stats\
+Usually the higher the durability the higher the selling price.\
+ <Back/@main-1>
+
+
+[goods]
+;Item		Amount		Time
+WoodenSword     100         	1
+Dagger		100		1
+EbonySword	100		1	
+BronzeSword	100		1 
+ShortSword 	100		1
+Ironsword	100		1
+BronzeAxe	100		1
+Trident		100		1
+HookedSword	100		1
+Scimitar	100		1
+SteelSword	100		1
+PickAxe		100		1
+Copp		100		1
+IronOre		100		1
+SilverOre	100		1
+GoldOre		100		1
+BlackOre	100		1
+   
+
+
+
+;-------------------------------------------------------
+
+[@talk]
+#IF
+check [205] 1
+#ACT
+goto @end
+break
+
+#IF
+check [203] 1
+#ACT
+goto @end
+break
+
+#IF
+check [202] 1
+#ACT
+goto @kang
+break
+
+#IF
+check [201] 1
+#ACT
+goto @talkwith
+break
+
+#ELSEACT
+goto @needgold
+break
+
+[@end]
+#IF
+#SAY
+It is a nice day to be open... \ \
+<Exit/@exit>
+
+
+[@needgold]
+#IF
+checkitem GoldOre 1
+#SAY
+What is that i see there glittering in your bag?\
+Is that a gold ore? Talking about gold ore,\
+Have you ever heard about the FateSword?\
+Bring me higher purity ores and i will tell you more\
+about the sword.\ \
+ <Main/@main-1>
+
+#ACT
+reset [201] 50
+set [201] 1
+#ELSESAY
+Quick go and get the ores i need... \ \ 
+<Exit/@exit>
+
+
+[@talkwith]
+#IF
+checkitem GoldOre 3
+checkdura GoldOre 15
+
+#SAY
+Aah i see you found the gold ores i need.\
+Good Good, Quickly give them to me.\
+I cannot pay you for them as i am having\
+to many expenses today.\
+Would you give them for free to me?\ \
+  <Give for Free/@freegive>\
+  <Don't Give/@nogive>\
+
+#ELSESAY
+Quick go get the gold ores i need... \ \ 
+<Exit/@exit>
+
+[@freegive]
+#IF
+checkitem GoldOre 3
+checkdura GoldOre 10
+
+#ACT
+take GoldOre 2
+takecheckitem
+set [202] 1
+#SAY
+
+Thank you for being so generous!\
+I will give these gold ores to my friend Bill.\
+He knows everything about this FateSword.\
+He is also the only person who can make it.\
+But for him to make it there is a small thing\
+you must do for him.\ \
+ <Next/@kang>
+
+
+[@nogive]
+Are you sure you cannot spare those nice GoldOres?\
+They a are needed to make this FateSword.\
+Please me and Bill will need them.\
+Think about it!\ \
+ <Give for Free/@freegive>\
+ <Don't Give/@r_nogive>
+
+[@r_nogive]
+#IF
+#SAY
+Fine then dont give them. \
+Go and think about it! \ \
+<Exit/@exit>
+
+
+[@kang]
+#IF
+#SAY
+I will go and study these Ores now.\
+If you want to know more about this sword\
+then go talk to Bill.\
+ <Exit/@exit>
+
+#ACT
+set [203] 1

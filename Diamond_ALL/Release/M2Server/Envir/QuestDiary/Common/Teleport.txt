@@ -1,0 +1,641 @@
+[@MAPMOVE]
+{
+#IF
+random 10
+#ACT
+goto @CLMON
+#ELSEACT
+    goto @mapmove1
+[@CLMON]
+#CALL	[\Common\Clearmon.txt]	@clearmon
+#ACT
+    goto @mapmove1
+
+[@mapmove1]
+欢迎使用我提供的传送服务。我对整个世界了如指掌，没有我到\
+不了的地方。我现在可以提供以下几种服务:\ \
+<购物向导/@shopto>    <远程传送/@telport>    <超级传送/@suptelport>\ \
+<退出/@exit>
+[@shopto]
+使用此服务或可将您带您你想去商店购买商品，以指导你快速的\
+熟悉环境。此服务现在暂进不收取任何费用请多多利用。\ \
+<药店/@ydmove>    <首饰店/@ssmove>    <武器店/@wqmove>    <衣服店/@yfmove>    <客栈/@kzmove>\ \
+<返回/@mapmove1>
+
+[@ydmove]
+#IF
+    equal p6 201
+#ACT
+    map 0108
+    break
+#IF
+    equal p6 202
+#ACT
+    map 0117
+    break
+#IF
+    equal p6 203
+#ACT
+    map 0160
+    break
+#IF
+    equal p6 204
+#ACT
+    map B343
+    break
+#IF
+    equal p6 205
+#ACT
+    map 1006
+    break
+
+#IF
+    equal p6 5000
+#ACT
+    mapmove B355 11 11
+    break
+[@ssmove]
+#IF
+    equal p6 201
+#ACT
+    map 0105
+    break
+#IF
+    equal p6 202
+#SAY
+这穷地方还没谁在这开首饰店。\ \
+<返回/@shopto>
+#ACT
+    break
+
+#IF
+    equal p6 203
+#ACT
+    map 0158
+    break
+#IF
+    equal p6 204
+#ACT
+    map B344
+    break
+#IF
+    equal p6 205
+#ACT
+    map 1005
+    break
+
+#IF
+    equal p6 5000
+#ACT
+    mapmove B352 9 12
+    break
+[@wqmove]
+#IF
+    equal p6 201
+#ACT
+    map 0103
+    break
+#IF
+    equal p6 202
+#ACT
+    map 0120
+    break
+
+#IF
+    equal p6 203
+#ACT
+    map 0159
+    break
+#IF
+    equal p6 204
+#ACT
+    map B342
+    break
+#IF
+    equal p6 205
+#ACT
+    map 1001
+    break
+
+#IF
+    equal p6 5000
+#ACT
+    mapmove B351 9 11
+    break
+
+[@yfmove]
+#IF
+    equal p6 201
+#ACT
+    map 0106
+    break
+#IF
+    equal p6 202
+#SAY
+这穷地方还没谁在这开衣服店。\ \
+<返回/@shopto>
+#ACT
+    break
+
+#IF
+    equal p6 203
+#ACT
+    map 0149
+    break
+#IF
+    equal p6 204
+#ACT
+    map B345
+    break
+#IF
+    equal p6 205
+#ACT
+    map 1003
+    break
+
+#IF
+    equal p6 5000
+#ACT
+    mapmove B353 10 18
+    break
+[@kzmove]
+#IF
+    equal p6 201
+#ACT
+    map 0125
+    break
+#IF
+    equal p6 202
+#ACT
+    map 0116
+    break
+#IF
+    equal p6 203
+#ACT
+    map 0145
+    break
+#IF
+    equal p6 204
+#ACT
+    map B347
+    break
+#IF
+    equal p6 205
+#SAY
+仓库保管员不就在你身边吗？\ \
+<返回/@shopto>
+#ACT
+    break
+
+#IF
+    equal p6 5000
+#ACT
+    mapmove B354 12 14
+    break
+
+[@telport]
+使用此服务我可将您在几个大城市之间快速的移动，使您不用\
+花太多的时间跑路。但使用此服务必须收取一定的费使用，每\
+次费用为1000金币。\ 
+请选择您要到达的地方:\ \
+<比奇省/@zymove>   <盟重土城/@dmmove>    <白日门/@znsmove>
+;    <毒蛇山谷/@dsmove>
+   <西域/@xymove>
+<沙巴克/@sbkmove>   <神龙岛/@srdmove>\ \
+<返回/@mapmove1>
+
+[@suptelport]
+;比奇
+#IF
+    equal p6 201
+#SAY
+使用此服务我可将您传送到本城市附近的一些打猎的地方，使\
+您不用花太多的时间跑路。但使用此服务必须收取一定的费使\
+用，每次费用为2000金币。\
+请选择您要去的地方:\ \
+<奥玛洞穴/@ammove>    <自然洞穴/@zlmove>    <沃玛寺庙/@wmmove>    <死亡矿区/@swmove>\ \
+<返回/@mapmove1>
+#ACT
+    break
+
+;毒蛇山谷
+#IF
+    equal p6 202
+#SAY
+使用此服务我可将您传送到本城市附近的一些打猎的地方，使\
+您不用花太多的时间跑路。但使用此服务必须收取一定的费使\
+用，每次费用为2000金币。\
+请选择您要去的地方:\ \
+<山谷矿区/@sgkqmove>\ \
+<返回/@mapmove1>
+#ACT
+    break
+;盟重
+#IF
+    equal p6 203
+#SAY
+使用此服务我可将您传送到本城市附近的一些打猎的地方，使\
+您不用花太多的时间跑路。但使用此服务必须收取一定的费使\
+用，每次费用为2000金币。\
+请选择您要去的地方:\ \
+<死亡山谷/@swsgmove>    <祖玛寺庙/@zmmove>    <石墓/@smmove>    <矿区/@kqmove>    <未知暗殿/@andian>\ \
+<返回/@mapmove1>
+#ACT
+    break
+
+#IF
+    equal p6 5000
+#SAY
+使用此服务我可将您传送到本城市附近的一些打猎的地方，使\
+您不用花太多的时间跑路。但使用此服务必须收取一定的费使\
+用，每次费用为2000金币。\
+请选择您要去的地方:\ \
+<月玛寺庙/@ymgmove>\ \
+<返回/@mapmove1>
+#ACT
+    break
+#IF
+#SAY
+暂未开放!!!\ \
+<返回/@mapmove1>
+[@kqmove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+#ACT
+    map F001
+#ELSEACT
+    goto @nomoney
+
+[@ymgmove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 2000
+#ACT
+    take 金币 2000
+    mapmove 5 659 463
+#ELSEACT
+    goto @nomoney
+[@swsgmove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 2000
+#ACT
+    take 金币 2000
+    mapmove 3 144 94
+#ELSEACT
+    goto @nomoney
+[@zmmove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 2000
+#ACT
+    take 金币 2000
+    mapmove 3 857 182
+#ELSEACT
+    goto @nomoney
+[@smmove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 2000
+#ACT
+    take 金币 2000
+    mapmove 3 297 337
+#ELSEACT
+    goto @nomoney
+[@swmove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 2000
+#ACT
+    take 金币 2000
+    mapmove 0 661 217
+#ELSEACT
+    goto @nomoney
+[@wmmove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 2000
+#ACT
+    take 金币 2000
+    mapmove 1 88 282
+#ELSEACT
+    goto @nomoney
+[@zlmove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 2000
+#ACT
+    take 金币 2000
+    mapmove 0 45 112
+#ELSEACT
+    goto @nomoney
+[@ammove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 2000
+#ACT
+    take 金币 2000
+    mapmove 0 144 36
+#ELSEACT
+    goto @nomoney
+[@sgkqmove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 2000
+#ACT
+    take 金币 2000
+    mapmove 2 562 174
+#ELSEACT
+    goto @nomoney
+[@zymove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 1000
+#ACT
+    take 金币 1000
+    mapmove 0 333 266
+#ELSEACT
+    goto @nomoney
+[@dmmove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 1000
+#ACT
+    take 金币 1000
+    mapmove 3 330 330
+#ELSEACT
+    goto @nomoney
+[@znsmove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 1000
+#ACT
+    take 金币 1000
+    mapmove 11 180 306
+
+#ELSEACT
+    goto @nomoney
+[@dsmove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 1000
+#ACT
+    take 金币 1000
+    mapmove 2 501 485
+
+#ELSEACT
+    goto @nomoney
+[@xymove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 1000
+#ACT
+    take 金币 1000
+    mapmove 4 232 207
+
+#ELSEACT
+    goto @nomoney
+
+[@sbkmove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 1000
+#ACT
+    take 金币 1000
+    mapmove 3 676 334
+#ELSEACT
+    goto @nomoney
+[@srdmove]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 1000
+#ACT
+    take 金币 1000
+    mapmove 5 139 336
+
+#ELSEACT
+    goto @nomoney
+
+[@andian]
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#IF
+    checkgold 1000
+#ACT
+    take 金币 1000
+
+    Param1 M001
+    Param2 325
+    Param3 160
+    MonGen 沃玛教主1 5 10
+    mapmove M001 325 160
+
+#ELSEACT
+    goto @nomoney
+
+
+[@CheckAction]
+#CALL	[\Common\CheckAction.txt]	@Actions
+
+
+[@nomoney]
+你这穷鬼，这点钱都没有！你怎么混的呀！\ \
+<退出/@exit>
+}

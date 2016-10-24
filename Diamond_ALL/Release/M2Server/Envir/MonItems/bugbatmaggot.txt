@@ -1,0 +1,5 @@
+1/10    gold 300 
+1/10   Sunpotion
+1/20   Sunpotion(M)
+1/5    (hp)drugmedium
+1/5    (mp)drugmedium

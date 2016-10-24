@@ -1,0 +1,36 @@
+(@buy)
+
+;科目  彩票
+%100
++3
+
+;对话, '*' : 对话tag
+[@main]
+欢迎光临，不想试一下你的运气吗？\
+就算没有中奖，我也不负责。\
+如果你同意，就请抽奖吧。\
+到了一定的限度，你的钱会掉到地上，\
+请注意啊!\ \
+ <Buy/@buy>彩票\
+ <Prizes/@Bingo>彩票\
+ <Exit/@exit>
+<>
+
+[@buy]
+Buy as many as you like,\
+But don't get addicted.\ \ \
+<Main/@main>
+
+[@Bingo]
+Prizes\
+  1st    1,000,000 Gold\
+  2nd      200,000 Gold\
+  3rd      100,000 Gold\
+  4th       10,000 Gold\
+  5th        1,000 Gold\
+  6th          500 Gold\ \
+<返回/@main>
+
+[goods]
+商品   数量         时间
+LotteryTicket    10000           1

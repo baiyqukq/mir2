@@ -1,0 +1,96 @@
+(@buy @sell)
+
+;대화, '*' : 대화 태그
+[@main]
+This is a place to store all kinds of books for apprentices.\
+Ofcourse, martial art skills books are prepared too.\
+What kind of book do you want?\
+See list of available books to <buy/@buy>\
+<Sell/@sell> Book\
+<Listen to the explanation/@helpbooks> about skills\ 
+<Cancel/@exit>
+
+[@buy]
+Please select the book you want to buy. \ \ \
+ <Back/@main>
+
+[@sell]
+Show me the books you want to sell.\ \ \
+ <Back/@main>
+
+
+[@helpbooks]
+What kinds of books are you interested in ?\ \
+Warriors can learn the following <spells/@help1>\
+Taoists can learn the following <spells/@help2>\
+Wizards can learn the following <spells/@help3>\
+
+ <Back/@main>
+
+
+[@help1]
+From Lvl  7 Fencing\
+From Lvl 19 Slaying\
+From Lvl 25 Thrusting\
+From Lvl 28 HalfMoon\
+From Lvl 30 ShoulderDash\
+From Lvl 35 FlamingSword\
+ <Back/@helpbooks>
+
+
+[@help2]
+From Lvl  7 Healing\
+From Lvl  9 SpiritSword\
+From Lvl 14 Poisoning\
+From Lvl 18 SoulFireBall\
+From Lvl 19 SummonSkeleton\
+From Lvl 20 Hiding\
+ <Next/@help21>
+
+[@help21]
+From Lvl 21 MassHiding\
+From Lvl 22 SoulShield\
+From Lvl 25 BlessedArmour\
+From Lvl 26 Revelation\
+From Lvl 28 TrapHexagon\
+From Lvl 33 MassHealing\
+From Lvl 35 SummonShinsu\
+ <Back/@helpbooks>
+
+
+[@help3]
+From Lvl  7 FireBall\
+From Lvl 12 Repulsion\
+From Lvl 13 ElecShock\
+From Lvl 16 HellFire\
+From Lvl 17 ThunderBolt\
+From Lvl 19 Teleport\
+ <Next/@help31>
+
+[@help31]
+From Lvl 19 GreatFireball\
+From Lvl 22 FireBang\
+From Lvl 24 FireWall\
+From Lvl 26 Lightning\
+From Lvl 30 ThunderStorm\
+From Lvl 31 MagicShield\
+From Lvl 32 TurnUndead\
+From Lvl 35 IceStorm\
+ <Back/@helpbooks>
+
+[goods]
+;items         quantity       hour
+Fencing			200	1
+Slaying			200	1
+Healing			200	1
+SpiritSword		200	1
+Poisoning		200	1
+SoulFireBall		200	1
+SummonSkele		200	1
+FireBall		200	1
+Repulsion		200	1
+EShock			200	1
+HellFire		200	1
+ThunderBolt		200	1
+Teleport		200	1
+GreatFireBal		200	1

@@ -1,0 +1,726 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+BreakTimeRecall 
+break
+
+#IF
+equal p9 1
+#ACT
+goto @race
+BreakTimeRecall 
+break
+
+#IF
+equal p9 2
+#ACT
+goto @cube
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@main-1]
+#IF
+#ACT
+mov p9 0
+#SAY
+<$USERNAME>, you look like a gambler\
+Well this is your lucky Day\
+Firstly, do you want to Exchange your chips into Bundles?\
+Make your choise <$USERNAME>\\
+<Ill Pass thanks/@race> \
+<Lets Gamble!./@presen> \
+<Bundle My Chips!/@bind> 
+
+[@bind]
+#IF
+checkitem gamblechip 6
+#ACT
+take gamblechip 6
+give gamblechipbun 1
+#SAY
+There you go.\\
+<Thanks/@main-1>
+#ELSESAY
+You dont have enough chips to bundle...\\
+<Oops/@main-1>
+
+[@race]
+#IF
+#ACT
+mov p9 1
+#SAY
+Ok then, lets role the dice!\\
+<Role/@pre_cube>
+
+[@presen]
+#IF
+#SAY 
+{3,4,5,6}  : Gold 4000개  ,  {2,3,4,5}  : Gold 3500\
+{1,2,3,4}  : Gold 3500개  ,  {6,6,6,6}  : Gold 3000\
+{5,5,5,5}  : Gold 2800개  ,  {4,4,4,4}  : Gold 2600\
+{3,3,3,3}  : Gold 2400개  ,  {2,2,2,2}  : Gold 2200\
+{1,1,1,1}  : Gold 2000개  \
+Same Numer Thrice in a Row   : Gold  1000개\
+((I DONT KNOW))   : Gold  800개\
+Same Numer Twice in a Row   : Gold  100개\
+<Role them!/@dicestart>
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+[@dicestart]
+#IF
+checkitem gamblechip 2
+#ACT
+take gamblechip 2
+movr d0 6
+movr d1 6
+movr d2 6
+movr d3 6
+inc d0 1
+inc d1 1
+inc d2 1
+inc d3 1
+playdice 4 @next
+#SAY
+You Win\ \
+;<다  음/@next>
+#ELSESAY
+You Loose..Role again.\\
+<Ok/@dicestart>
+
+[@next]
+#IF
+equal d0 3
+equal d1 4
+equal d2 5
+equal d3 6
+#ACT
+goto @Dedice1
+break
+
+#IF
+equal d0 2
+equal d1 3
+equal d2 4
+equal d3 5
+#ACT
+goto @Dedice2
+break
+
+#IF
+equal d0 1
+equal d1 2
+equal d2 3
+equal d3 4
+#ACT
+goto @Dedice3
+break
+
+#IF
+equal d0 6
+equal d1 6
+equal d2 6
+equal d3 6
+#ACT
+goto @4dice1
+break
+
+#IF
+equal d0 5
+equal d1 5
+equal d2 5
+equal d3 5
+#ACT
+goto @4dice2
+break
+
+#IF
+equal d0 4
+equal d1 4
+equal d2 4
+equal d3 4
+#ACT
+goto @4dice3
+break
+
+#IF
+equal d0 3
+equal d1 3
+equal d2 3
+equal d3 3
+#ACT
+goto @4dice4
+break
+
+#IF
+equal d0 2
+equal d1 2
+equal d2 2
+equal d3 2
+#ACT
+goto @4dice5
+break
+
+#IF
+equal d0 1
+equal d1 1
+equal d2 1
+equal d3 1
+#ACT
+goto @4dice6
+break
+
+#IF
+equal d0 6
+equal d1 6
+equal d2 6
+#ACT
+goto @3dice
+break
+
+#IF
+equal d0 5
+equal d1 5
+equal d2 5
+#ACT
+goto @3dice
+break
+
+#IF
+equal d0 4
+equal d1 4
+equal d2 4
+#ACT
+goto @3dice
+break
+
+#IF
+equal d0 3
+equal d1 3
+equal d2 3
+#ACT
+goto @3dice
+break
+
+#IF
+equal d0 2
+equal d1 2
+equal d2 2
+#ACT
+goto @3dice
+break
+
+#IF
+equal d0 1
+equal d1 1
+equal d2 1
+#ACT
+goto @3dice
+break
+
+#IF
+equal d1 6
+equal d2 6
+equal d3 6
+#ACT
+goto @3dice
+break
+
+#IF
+equal d1 5
+equal d2 5
+equal d3 5
+#ACT
+goto @3dice
+break
+
+#IF
+equal d1 4
+equal d2 4
+equal d3 4
+#ACT
+goto @3dice
+break
+
+#IF
+equal d1 3
+equal d2 3
+equal d3 3
+#ACT
+goto @3dice
+break
+
+#IF
+equal d1 2
+equal d2 2
+equal d3 2
+#ACT
+goto @3dice
+break
+
+#IF
+equal d1 1
+equal d2 1
+equal d3 1
+#ACT
+goto @3dice
+break
+
+#IF
+equal d0 6
+equal d1 6
+#ACT
+goto @2dice1
+break
+
+#IF
+equal d0 5
+equal d1 5
+#ACT
+goto @2dice1
+break
+
+#IF
+equal d0 4
+equal d1 4
+#ACT
+goto @2dice1
+break
+
+#IF
+equal d0 3
+equal d1 3
+#ACT
+goto @2dice1
+break
+
+#IF
+equal d0 2
+equal d1 2
+#ACT
+goto @2dice1
+break
+
+#IF
+equal d0 1
+equal d1 1
+#ACT
+goto @2dice1
+break
+
+#IF
+equal d1 6
+equal d2 6
+#ACT
+goto @2dice
+break
+
+#IF
+equal d1 5
+equal d2 5
+#ACT
+goto @2dice
+break
+
+#IF
+equal d1 4
+equal d2 4
+#ACT
+goto @2dice
+break
+
+#IF
+equal d1 3
+equal d2 3
+#ACT
+goto @2dice
+break
+
+#IF
+equal d1 2
+equal d2 2
+#ACT
+goto @2dice
+break
+
+#IF
+equal d1 1
+equal d2 1
+#ACT
+goto @2dice
+break
+
+#IF
+equal d2 6
+equal d3 6
+#ACT
+goto @2dice
+break
+
+#IF
+equal d2 5
+equal d3 5
+#ACT
+goto @2dice
+break
+
+#IF
+equal d2 4
+equal d3 4
+#ACT
+goto @2dice
+break
+
+#IF
+equal d2 3
+equal d3 3
+#ACT
+goto @2dice
+break
+
+#IF
+equal d2 2
+equal d3 2
+#ACT
+goto @2dice
+break
+
+#IF
+equal d2 1
+equal d3 1
+#ACT
+goto @2dice
+break
+#ELSEACT
+goto @normal
+
+[@Dedice1]
+#IF
+#SAY
+Well done!\ 
+You Roled <$STR(D0)> , <$STR(D1)> , <$STR(D2)> , <$STR(D3)> 걸리셨습니다. \
+You Win 4000 Gold \
+Play Again? \ \
+<Yes/@dicestart> \
+<No/@main-1>
+#ACT
+give gold 4000
+
+[@Dedice2]
+#IF
+#SAY
+Well done!\ 
+You Roled <$STR(D0)> , <$STR(D1)> , <$STR(D2)> , <$STR(D3)> 걸리셨습니다. \
+You Win 3500 Gold \
+Play Again? \ \
+<Yes/@dicestart> \
+<No/@main-1>
+#ACT
+give gold 3500
+
+[@Dedice3]
+#IF
+#SAY
+Well done!\ 
+You Roled <$STR(D0)> , <$STR(D1)> , <$STR(D2)> , <$STR(D3)> 걸리셨습니다. \
+You Win 3500 Gold \
+Play Again? \ \
+<Yes/@dicestart> \
+<No/@main-1>
+#ACT
+give gold 3500
+
+[@4dice1]
+#IF
+#SAY
+Well done!\ 
+You Roled <$STR(D0)> , <$STR(D1)> , <$STR(D2)> , <$STR(D3)> 걸리셨습니다. \
+You Win 3500 Gold \
+Play Again? \ \
+<Yes/@dicestart> \
+<No/@main-1>
+#ACT
+give gold 3000
+
+[@4dice2]
+#IF
+#SAY
+Well done!\ 
+You Roled <$STR(D0)> , <$STR(D1)> , <$STR(D2)> , <$STR(D3)> 걸리셨습니다. \
+You Win 2800 Gold \
+Play Again? \ \
+<Yes/@dicestart> \
+<No/@main-1>
+#ACT
+give gold 2800
+
+[@4dice3]
+#IF
+#SAY
+Well done!\ 
+You Roled <$STR(D0)> , <$STR(D1)> , <$STR(D2)> , <$STR(D3)> 걸리셨습니다. \
+You Win 2600 Gold \
+Play Again? \ \
+<Yes/@dicestart> \
+<No/@main-1>
+#ACT
+give gold 2600
+
+[@4dice4]
+#IF
+#SAY
+Well done!\ 
+You Roled <$STR(D0)> , <$STR(D1)> , <$STR(D2)> , <$STR(D3)> 걸리셨습니다. \
+You Win 2400 Gold \
+Play Again? \ \
+<Yes/@dicestart> \
+<No/@main-1>
+#ACT
+give gold 2400
+
+[@4dice5]
+#IF
+#SAY
+축하 합니다!! \ 
+Well done!\ 
+You Roled <$STR(D0)> , <$STR(D1)> , <$STR(D2)> , <$STR(D3)> 걸리셨습니다. \
+You Win 2200 Gold \
+Play Again? \ \
+<Yes/@dicestart> \
+<No/@main-1>
+#ACT
+give gold 2200
+
+[@4dice6]
+#IF
+#SAY
+Well done!\ 
+You Roled <$STR(D0)> , <$STR(D1)> , <$STR(D2)> , <$STR(D3)> 걸리셨습니다. \
+You Win 2000 Gold \
+Play Again? \ \
+<Yes/@dicestart> \
+<No/@main-1>
+#ACT
+give gold 2000
+
+[@3dice]
+#IF
+#SAY
+Well done!\ 
+You Roled <$STR(D0)> , <$STR(D1)> , <$STR(D2)> , <$STR(D3)> 걸리셨습니다. \
+You Win 1000 Gold \
+Play Again? \ \
+<Yes/@dicestart> \
+<No/@main-1>
+#ACT
+give gold 1000
+
+[@2dice1]
+#IF
+equal d2 1
+equal d3 1
+#ACT
+goto @2pair
+break
+
+#IF
+equal d2 2
+equal d3 2
+#ACT
+goto @2pair
+break
+
+#IF
+equal d2 3
+equal d3 3
+#ACT
+goto @2pair
+break
+
+#IF
+equal d2 4
+equal d3 4
+#ACT
+goto @2pair
+break
+
+#IF
+equal d2 5
+equal d3 5
+#ACT
+goto @2pair
+break
+
+#IF
+equal d2 6
+equal d3 6
+#ACT
+goto @2pair
+break
+#ELSEACT
+goto @2dice
+
+[@2pair]
+#IF
+#SAY
+Well done!\ 
+You Roled <$STR(D0)> , <$STR(D1)> , <$STR(D2)> , <$STR(D3)> 걸리셨습니다. \
+You Win 800 Gold \
+Play Again? \ \
+<Yes/@dicestart> \
+<No/@main-1>
+#ACT
+give gold 800
+
+[@2dice]
+#IF
+#SAY
+Well done!\ 
+You Roled <$STR(D0)> , <$STR(D1)> , <$STR(D2)> , <$STR(D3)> 걸리셨습니다. \
+You Win 100 Gold \
+Play Again? \ \
+<Yes/@dicestart> \
+<No/@main-1>
+#ACT
+give gold 100
+
+[@normal]
+#IF
+#SAY
+Awwww, you didn't win.\
+You roled <$STR(D0)> , <$STR(D1)> , <$STR(D2)> , <$STR(D3)> 걸리셨습니다. \
+Lets move on....\\
+<Damn/@dicestart> 
+
+
+[@pre_cube]
+#IF
+checkitem gamblechip 1
+#ACT
+mov p9 2
+take gamblechip 1
+movr d0 6
+inc d0 1
+playdice 1 @cube
+#SAY
+Continue\ \
+<Ok/@cube>
+#ELSESAY
+<$USERNAME>, You haven't any Chips!!\
+Go get some if you want to gamble\\
+<Silly Me/@Quit>
+#ELSEACT
+mov p9 9
+
+[@cube]
+#SAY
+Hey, you roled a <$STR(D0)> \
+You can now move <$STR(D0)> rooms forward.\\
+<Sweet, lets move!/@next_cube>
+
+[@next_cube]
+#IF
+equal d0 1 
+#ACT
+goto @posi1
+break
+
+#IF
+equal d0 2 
+#ACT
+goto @posi2
+break
+
+#IF
+equal d0 3 
+#ACT
+goto @posi3
+break
+
+#IF
+equal d0 4 
+#ACT
+goto @posi4
+break
+
+#IF
+equal d0 5
+#ACT
+goto @posi5
+break
+
+#IF
+equal d0 6 
+#ACT
+goto @posi6
+break
+
+[@Posi1]
+#IF
+#ACT
+batchDelay 1
+addbatch B121
+batchmove
+
+[@Posi2]
+#IF
+#ACT
+batchDelay 1
+addbatch B121
+addbatch B122
+batchmove
+
+[@Posi3]
+#IF
+#ACT
+batchDelay 1
+addbatch B121
+addbatch B122
+addbatch B123
+batchmove
+
+[@Posi4]
+#IF
+#ACT
+batchDelay 1
+addbatch B121
+addbatch B122
+addbatch B123
+addbatch B124
+batchmove
+
+[@Posi5]
+#IF
+#ACT
+batchDelay 1
+addbatch B121
+addbatch B122
+addbatch B123
+addbatch B124
+addbatch B125
+batchmove
+
+[@Posi6]
+#IF
+#ACT
+batchDelay 1
+addbatch B121
+addbatch B122
+addbatch B123
+addbatch B124
+addbatch B125
+addbatch B126
+batchmove
+

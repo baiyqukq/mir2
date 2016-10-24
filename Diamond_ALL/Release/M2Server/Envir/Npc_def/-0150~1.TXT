@@ -1,0 +1,85 @@
+[@main]
+沙巴克当前归<$OWNERGUILD>所有，由<$LORD>统治管理。\
+现在金库中所存的金币数量为:<$CASTLEGOLD>，今天的收入为: <$TODAYINCOME>\ \
+
+ <改名/@@castlename>\
+ <取钱/@@withdrawal>      <存钱/@@receipts>\
+ <控制城门/@treatdoor>    <修理城门和城墙/@repaircastle>\
+ ;<Hire Guards and Archers/@guardcmd>\
+ <雇用弓箭手/@guardcmd>\
+ <取消/@exit>\
+
+[@treatdoor]
+城门当前状态为:<$CASTLEDOORSTATE>\ \
+ <关城门/@closemaindoor>\
+ <开城门/@openmaindoor>\ \
+ <返回/@main>\
+
+[@openmaindoor]
+城门已经打开。\ \
+ <返回/@treatdoor>\
+
+[@closemaindoor]
+城门已经关闭。\ \
+ <返回/@treatdoor>\
+
+
+;--------------------------------------------------
+;荐府 包访
+
+[@repaircastle]
+请选择要修理的位置？\ \
+ <修理城门/@repairdoor>\
+ <修理城墙/@repairwalls>\ \
+ <返回/@main>\
+
+[@repairdoor]
+修理城门所需费用为:<$REPAIRDOORGOLD>金币。\ \
+ <修理城门/@repairdoornow>\
+ <返回/@repaircastle>\
+
+[@repairwalls]
+修理城墙所需费用为:<$REPAIRWALLGOLD>金币。\ \
+ <修理城墙/@repairwallnow1>\
+ <修理城墙/@repairwallnow2>\
+ <修理城墙/@repairwallnow3>\ \
+ <返回/@repaircastle>\
+
+
+;--------------------------------------------------
+;版厚 包访
+
+[@guardcmd]
+Do you want ot hire Archers?.\ \
+<Hire more Guards./@hireguards>\
+<Hire more Archers./@hirearchers>\
+<Command order?./@commandorder>\
+ <Back/@main>\
+
+
+[@hireguards]
+绢蠢 镑俊 版厚捍阑 绊侩窍矫摆嚼聪鳖?\
+厚侩篮 茄疙寸 <$GUARDFEE>傈 涝聪促.\ \
+ 己巩菊 <Guard1/@hireguardnow1>, <Guard2/@hireguardnow2>\
+ 郴己菊 <Guard3/@hireguardnow3>, <Guard4/@hireguardnow4>\
+ <Back/@guardcmd>\
+
+[@hirearchers]
+雇用弓箭手可保护城堡的安全，并维护城堡的治安。\
+每个弓箭手的雇用费用为<$ARCHERFEE>金币。\
+请选择要雇用弓箭手放置位置: \ \
+ <城墙左弓箭手三/@hirearchernow1>, <城墙左弓箭手二/@hirearchernow2>, <城墙左弓箭手一/@hirearchernow3>\
+ <城墙右弓箭手一/@hirearchernow4>, <城墙右弓箭手二/@hirearchernow5>, <城墙右弓箭手三/@hirearchernow6>\
+ <城门左弓箭手/@hirearchernow9>, <城门左弓箭手/@hirearchernow10>, <城门右弓箭手/@hirearchernow11>, <城门右弓箭手/@hirearchernow12>\
+ <皇宫左弓箭手/@hirearchernow7>, <皇宫右弓箭手/@hirearchernow8>\
+ <返回/@main>\
+ ;<Back/@guardcmd>\
+
+[@commandorder]
+Guards are currently set to <$GUARDRULE>.\
+Do you want to Change it?\ \
+ <Guards normal operation/@guardrule_normalnow>\
+ <Guards attack pk's on site/@guardrule_pkattack>\
+ <Back/@guardcmd>\
+
+[@hireguardok]

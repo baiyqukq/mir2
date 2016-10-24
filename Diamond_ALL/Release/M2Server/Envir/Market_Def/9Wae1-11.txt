@@ -1,0 +1,17 @@
+[@main]
+#IF
+#SAY
+;¿À·¡Àü, ¿ì¸® µµ°üÀÇ Áø»êÁöº¸¿´´ø ÆÄ°üÁø°ËÀ» ¾î¶² ¾ÇÇÑÀÌ \
+;ÈÉÃÄ ´Ş¾Æ³µ´Ù°í ÇÕ´Ï´Ù. ±× °ËÀº ÂüÀ¸·Î ½Å·É½º·¯¿î µµ±âÀÎÁö¶ó \
+;ÇÑ¹ø ÈÖµÎ¸£¸é Ç³¿îÀÌ °İµ¿ÇÏ°í ÃgoldæÀÌ ³»·Á¿Í ÃãÀ» Ãá´Ù°í \
+;ÀüÇØÁı´Ï´Ù¸¸... ±Û½ê¿ä, ±×Á¤µµ±îÁö´Â ¾Æ´Ï´õ¶óµµ ¸¸¾à ±× °ËÀÌ \
+;½ÇÀç ÇÑ´Ù¸é ±× À§·ÂÀÌ ¾î¶°ÇÏ¸®¶ó´Â °ÍÀº ÁüÀÛÀÌ °¥¸¸ÇÑ ÀÏÀÌÁö¿ä. \ \
+;<´İ  ±â/@exit>
+
+A long time ago, a certain villian stole our HolySword, \
+the best sword of our school, \
+This sword was so holy that there is a legend, \
+that when it smashes once storm blows and dragons appear\
+well...who knows it is true or not? But if the sword exists \
+it's power will is so big we cant even imagine its range. \ \
+<close/@exit>

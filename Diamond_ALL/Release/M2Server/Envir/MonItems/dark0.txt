@@ -1,0 +1,11 @@
+1/1 gold 2000
+1/5 gold 1000
+1/2 (hp)drugmedium
+1/2 (mp)drugmedium
+1/5 Sunpotion(M)
+1/5 Sunpotion(M)
+1/2 (hp)drugmedium
+1/2 (mp)drugmedium
+1/5 Sunpotion(M)
+1/5 Sunpotion(M)
+

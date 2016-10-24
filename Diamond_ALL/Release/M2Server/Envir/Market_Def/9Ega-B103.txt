@@ -1,0 +1,186 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+BreakTimeRecall 
+break
+
+#IF
+equal p9 1
+#ACT
+goto @race
+BreakTimeRecall 
+break
+
+#IF
+equal p9 2
+#ACT
+goto @cube
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@main-1]
+#IF
+#ACT
+mov p9 0
+#SAY
+Hello <$USERNAME>\
+This is room 3\
+Now all you have to do, <$USERNAME>, is kill all the sheep\
+Simple yes? We will see\
+Are you ready? The sheep await your kind hands :P \
+<Sheep mmmm *drool*/@pena1> 
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+[@pena1]
+#IF
+#ACT
+mov p9 1
+TimeRecall 1
+mapmove T103 13 13
+
+[@race]
+#IF
+checkmonmap T103 1
+#SAY
+You failed! Useless!\ \
+<Damn/@quit>
+#ACT
+mov p9 9
+#ELSESAY
+Congratulations\
+You killed all the poor sheep\
+YOu can now role...\ \
+<Oh Yay Im Good/@pre_cube>
+
+[@pre_cube]
+#IF
+checkitem gamblechip 1
+#ACT
+mov p9 2
+take gamblechip 1
+movr d0 6
+inc d0 1
+playdice 1 @cube
+#SAY
+주사위를 굴리고 있습니다. \ \
+<다  음/@cube>
+#ELSESAY
+<$USERNAME>, You haven't any Chips!!\
+Go get some if you want to gamble\\
+<Silly Me/@Quit>
+#ELSEACT
+mov p9 9
+
+[@cube]
+Hey, you roled a <$STR(D0)> \
+You can now move <$STR(D0)> rooms forward.\\
+<Sweet, lets move!/@next_cube>
+
+[@next_cube]
+#IF
+equal d0 1 
+#ACT
+goto @posi1
+break
+
+#IF
+equal d0 2 
+#ACT
+goto @posi2
+break
+
+#IF
+equal d0 3 
+#ACT
+goto @posi3
+break
+
+#IF
+equal d0 4 
+#ACT
+goto @posi4
+break
+
+#IF
+equal d0 5
+#ACT
+goto @posi5
+break
+
+#IF
+equal d0 6 
+#ACT
+goto @posi6
+break
+
+[@Posi1]
+#IF
+#ACT
+batchDelay 1
+addbatch B104
+batchmove
+
+[@Posi2]
+#IF
+#ACT
+batchDelay 1
+addbatch B104
+addbatch B105
+batchmove
+
+[@Posi3]
+#IF
+#ACT
+batchDelay 1
+addbatch B104
+addbatch B105
+addbatch B106
+batchmove
+
+[@Posi4]
+#IF
+#ACT
+batchDelay 1
+addbatch B104
+addbatch B105
+addbatch B106
+addbatch B107
+batchmove
+
+[@Posi5]
+#IF
+#ACT
+batchDelay 1
+addbatch B104
+addbatch B105
+addbatch B106
+addbatch B107
+addbatch B108
+batchmove
+
+[@Posi6]
+#IF
+#ACT
+batchDelay 1
+addbatch B104
+addbatch B105
+addbatch B106
+addbatch B107
+addbatch B108
+addbatch B109
+batchmove
+
+

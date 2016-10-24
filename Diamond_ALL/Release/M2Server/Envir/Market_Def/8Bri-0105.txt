@@ -1,0 +1,86 @@
+%100
+(@buy @sell @repair)
+;戒指
++22
++23
+;; 命运之刃指示第一分歧点
+;###################################
+;;惹恼卫家店时 [210]
+;;惹恼戒指店老板时[211]
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+不想和你这样的可怜人作交易。。。\ \
+<关闭/@exit>
+
+#ELSEACT
+goto @main_1
+
+[@main_1]
+Welcome, how may I help you ?\ \
+<Buy/@buy> Ring\
+<Sell/@sell> Ring\
+<Repair/@repair> Ring\
+<Cancel/@exit>
+<>
+;###################################
+
+;措拳, '*' : 措拳 怕弊
+
+[@Tmove]
+#IF
+random 4
+#ACT
+mapmove 0 306 276
+break
+
+#IF
+random 4
+#ACT
+mapmove 0 306 277
+break
+
+#IF
+random 4
+#ACT
+mapmove 0 296 286
+break
+
+#IF
+random 4
+#ACT
+mapmove 0 297 285
+break
+
+#ELSEACT
+goto @Tmove
+
+[@buy]
+Which ring would you like ?\ \ \
+ <Back/@main>
+
+[@sell]
+Show me the ring you wish to sell.\ \ \
+ <Back/@main>
+
+[@repair]
+Give me the ring you want to repair.\ \ \
+ <Back/@main>
+
+[~@repair]
+Your ring seems repaired fine.\ \
+ <Back/@main>
+
+[goods]
+;商品          数量       时间
+GlassRing	200	1
+CopperRing	200	1
+HornRing	200	1
+HexagonalRing	200	1
+BlueRing	200	1
+PearlRing	200	1
+BlackRing	200	1
+SerpentEyeRing	200	1
+GoldRing	200	1
+IronRing	200	1

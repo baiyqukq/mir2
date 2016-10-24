@@ -1,0 +1,42 @@
+1/1   gold 6000
+1/5   gold 2500
+1/2   (HP)DrugMedium
+1/2   (MP)DrugMedium
+1/2   (HP)DrugMedium
+1/2   (MP)DrugMedium
+1/5    SunPotion
+1/5    SunPotion
+1/5    SunPotion
+1/10 LightArmour(M)
+1/10 LightArmour(F)
+1/5  bronzehelmet
+1/7  MagicHelmet
+1/3  BronzeAxe
+1/3  ShortSword
+1/3  IronSword
+1/3  BronzeSword
+1/8  HookedSword
+1/8  Scimitar
+1/8  Trident
+1/10 SteelSword
+1/3  CopperRing
+1/4  goldassRing
+1/4  HornRing
+1/4  HexagonalRing
+1/10 BlueRing
+1/3  YellowNecklace
+1/4  BlackNecklace
+1/4  EbonyNecklace
+1/4  ThinBracelet
+1/7  SilverBracelet
+1/7  LargeBracelet
+1/7  NagaNecklace
+1/7  AmberNecklace
+1/7  PhoenixBead 
+1/25 HardGlove
+1/10 LanternNeck
+1/15 BlackRing
+1/20 MagicBracelet
+
+
+ 

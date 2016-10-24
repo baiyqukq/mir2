@@ -1,0 +1,6 @@
+[@ChangeScroll]
+{
+#IF
+#SAY
+ÔÝÎ´¿ª·Å£¡
+}

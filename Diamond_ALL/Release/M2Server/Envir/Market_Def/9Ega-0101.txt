@@ -1,0 +1,63 @@
+[@main]
+Welcome to My Casino. Do you wish to enter young one? \ \
+<Yeah. Im Feeling lucky./@pre> \
+<Err...No thanks./@leave>
+
+[@pre]
+#IF
+random 3
+#ACT
+mapmove B010 17 17
+break
+
+#IF
+random 3
+#ACT
+mapmove B010 17 61
+break
+
+#IF
+random 3
+#ACT
+mapmove B010 67 31
+break
+
+#ELSEACT
+goto @pre
+
+[@leave]
+You know, I get really angry when people like you waste my time\
+For this You get a small Punishment!\\
+<Err../@move>
+
+
+
+[@move]
+#ACT
+mapmove 0101
+mapmove 0101
+mapmove 0101
+mapmove 0101
+mapmove 0101
+mapmove 0101
+mapmove 0101
+mapmove 0101
+mapmove 0101
+mapmove 0101
+mapmove Q004
+mapmove 0101
+mapmove 0101
+mapmove 0101
+mapmove 0101
+mapmove 0101
+mapmove 0101
+mapmove 0101 7 8
+goto @finish
+
+[@finish]
+Alright, Now bugger off\\
+<Im going!/@tele>
+
+[@tele]
+#ACT
+mapmove 0 291 295

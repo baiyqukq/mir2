@@ -1,0 +1,110 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+BreakTimeRecall 
+break
+
+#IF
+equal p9 1
+#ACT
+goto @cube
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@main-1]
+#IF
+#ACT
+mov p9 0
+#SAY
+Hello <$USERNAME>\
+This is room 33, the windy room\
+I am afraid you are going backwards from here...\\
+<Next/@next>
+
+[@next]
+#IF
+checkitem gamblechip 1
+#ACT
+mov p9 1
+movr d0 6
+inc d0 1
+playdice 1 @next1
+#SAY
+Continue\ \
+<Ok/@cube>
+#ELSESAY
+<$USERNAME>, You haven't any Chips!!\
+Go get some if you want to gamble\\
+<Silly Me/@Quit>
+#ELSEACT
+mov p9 9
+
+[@cube]
+#IF
+small d0 5
+#SAY
+Hey, you roled a <$STR(D0)> \
+You go backwards 10 rooms\\
+<Move/@move>
+#ELSESAY
+Hey, you roled a <$STR(D0)> \
+You go backwards <$STR(D0)> rooms\\
+<Move/@next_cube>
+
+[@next_cube]
+#IF
+equal d0 5 
+#ACT
+batchDelay 1
+addbatch b132
+addbatch b131
+addbatch b130
+addbatch b129
+addbatch b128
+batchmove
+break
+
+#IF
+equal d0 6 
+#ACT
+batchDelay 1
+addbatch b132
+addbatch b131
+addbatch b130
+addbatch b129
+addbatch b128
+addbatch b127
+batchmove
+break
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+[@move]
+#IF
+#ACT
+batchDelay 1
+addbatch b132
+addbatch b131
+addbatch b130
+addbatch b129
+addbatch b128
+addbatch b127
+addbatch b126
+addbatch b125
+addbatch b124
+addbatch b123
+batchmove
+
+

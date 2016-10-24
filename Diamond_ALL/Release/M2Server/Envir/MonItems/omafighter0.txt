@@ -1,0 +1,42 @@
+1/1 gold 2000
+1/5 gold 2000
+1/200    SunPotion
+1/300    SunPotion
+1/2 (HP)Drugmedium
+1/2 (HP)DrugMedium
+1/2 (HP)Drugmedium
+1/2 (mp)DrugMedium
+1/2 (mp)Drugmedium
+1/2 (mp)DrugMedium
+1/5 BaseDress(M)
+1/5 BaseDress(F)
+1/15 LightArmour(M)
+1/15 LightArmour(F)
+1/5 BronzeHelmet
+1/10 MagicHelmet
+1/4 Dagger
+1/4 EbonySword
+1/7 BronzeSword
+1/9 IronSword
+1/10 ShortSword
+
+1/3 CopperRing
+1/3 GoldNecklace
+1/4 PrecisionNeck
+1/4 IronBracelet
+1/5 HornRing
+1/5 goldassRing
+1/5 HexagonalRing
+1/10 BlueRing
+1/10 YellowNecklace
+1/10 BlackNecklace
+1/10 EbonyNecklace
+1/10 leatherGlove
+1/15 SteelBracelet
+1/10 ThinBracelet
+1/10 SilverBracelet
+1/10 LargeBracelet
+1/15 NagaNecklace
+1/15 AmberNeck
+1/15 PhoenixBead
+

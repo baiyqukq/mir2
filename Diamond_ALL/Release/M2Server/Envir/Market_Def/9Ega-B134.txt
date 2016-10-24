@@ -1,0 +1,178 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+BreakTimeRecall 
+break
+
+#IF
+equal p9 1
+#ACT
+goto @race
+BreakTimeRecall 
+break
+
+#IF
+equal p9 2
+#ACT
+goto @cube
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@main-1]
+#IF
+#ACT
+mov p9 0
+#SAY
+Hello <$USERNAME>\
+Welcome to room 34, the room of the Zumas\
+You must to try to pass all the Guards, and get back to me\
+Only the strong and swift will survive\
+Good Luck\\
+<Move/@Pena1>
+
+[@pena1]
+#IF
+#ACT
+mov p9 1
+mapmove T134 33 8
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+[@race]
+#IF
+#SAY
+You survuved\
+Well done\\\
+<Continue/@pre_Cube>
+
+[@pre_cube]
+#IF
+checkitem gamblechip 1
+#ACT
+take gamblechip 1
+mov p9 2
+movr d0 6
+inc d0 1
+playdice 1 @cube
+#SAY
+Continue\ \
+<Ok/@cube>
+#ELSESAY
+<$USERNAME>, You haven't any Chips!!\
+Go get some if you want to gamble\\
+<Silly Me/@Quit>
+#ELSEACT
+mov p9 9
+
+[@cube]
+#SAY
+Hey, you roled a <$STR(D0)> \
+You can now move <$STR(D0)> rooms forward.\\
+<Sweet, lets move!/@next_cube>
+[@next_cube]
+#IF
+equal d0 1 
+#ACT
+goto @posi1
+break
+
+#IF
+equal d0 2 
+#ACT
+goto @posi2
+break
+
+#IF
+equal d0 3 
+#ACT
+goto @posi3
+break
+
+#IF
+equal d0 4 
+#ACT
+goto @posi4
+break
+
+#IF
+equal d0 5
+#ACT
+goto @posi5
+break
+
+#IF
+equal d0 6 
+#ACT
+goto @posi6
+break
+
+[@Posi1]
+#IF
+#ACT
+batchDelay 1
+addbatch B135
+batchmove
+
+[@Posi2]
+#IF
+#ACT
+batchDelay 1
+addbatch B135
+addbatch B136
+batchmove
+
+[@Posi3]
+#IF
+#ACT
+batchDelay 1
+addbatch B135
+addbatch B136
+addbatch B137
+batchmove
+
+[@Posi4]
+#IF
+#ACT
+batchDelay 1
+addbatch B135
+addbatch B136
+addbatch B137
+addbatch B138
+batchmove
+
+[@Posi5]
+#IF
+#ACT
+batchDelay 1
+addbatch B135
+addbatch B136
+addbatch B137
+addbatch B138
+addbatch B139
+batchmove
+
+[@Posi6]
+#IF
+#ACT
+batchDelay 1
+addbatch B135
+addbatch B136
+addbatch B137
+addbatch B138
+addbatch B139
+addbatch B140
+batchmove
+
+

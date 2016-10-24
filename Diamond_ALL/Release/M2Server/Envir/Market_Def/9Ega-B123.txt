@@ -1,0 +1,298 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+BreakTimeRecall 
+break
+
+#IF
+equal p9 1
+#ACT
+goto @main-3
+BreakTimeRecall 
+break
+
+#IF
+equal p9 2
+#ACT
+goto @next2
+BreakTimeRecall 
+break
+
+#IF
+equal p9 3
+#ACT
+goto @cube
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@main-1]
+#IF
+#ACT
+mov p9 0
+#SAY
+Welcome <$USERNAME>\
+This is the 23rd room, the room of perseverance\
+I will role 2 dice...
+If the First number take the second equals 2, you can continue\
+You get 5 chances per Chip\
+If you Fail, you can try again, costing you another chip\
+Good Luck\\
+<Thanks/@main-2>
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+[@main-2]
+#IF
+checkitem gamblechip 1
+#ACT
+goto @main-3
+take gamblechip 1
+mov p2 0
+mov p9 1
+#ELSESAY
+<$USERNAME> you have no Chips\
+You will have to leave and get some more\\
+<Damn/@Quit>
+#ELSEACT
+mov p9 9
+
+[@main-3]
+Well role the dice then!
+<Role/@dicestart>
+
+[@dicestart]
+#IF
+small p2 5
+#ACT
+mov p9 2
+movr d0 6
+movr d1 6
+inc p2 1
+inc d0 1
+inc d1 1
+playdice 2 @next
+#SAY
+Role the dice\ \
+<´Ù  À½/@next>
+#ELSEACT
+goto @main-2
+
+[@next]
+#IF
+equal d1 1
+#ACT
+mov d9 0
+sum d0 
+dec d9 1
+goto @next1
+break
+
+#IF
+equal d1 2
+#ACT
+mov d9 0
+sum d0 
+dec d9 2
+goto @next1
+break
+
+#IF
+equal d1 3
+#ACT
+mov d9 0
+sum d0 
+dec d9 3
+goto @next1
+break
+
+#IF
+equal d1 4
+#ACT
+mov d9 0
+sum d0 
+dec d9 4
+goto @next1
+break
+
+#IF
+equal d1 5
+#ACT
+mov d9 0
+sum d0 
+dec d9 5
+goto @next1
+break
+
+#IF
+equal d1 6
+#ACT
+mov d9 0
+sum d0 
+dec d9 6
+goto @next1
+break
+
+[@next1]
+#IF
+equal d9 2
+#SAY
+You Roled <$STR(D0)> , <$STR(D1)>\
+<$STR(D0)> - <$STR(D1)> = 2\
+you can Continue\\
+<Yay/@pre_cube>
+#ELSESAY
+You Roled <$STR(D0)> , <$STR(D1)>\
+That doesn't work :(\\
+<Try Again/@dicestart>
+
+[@pre_cube]
+#IF
+checkitem gamblechip 1
+#ACT
+take gamblechip 1
+mov p9 3
+movr d0 6
+inc d0 1
+playdice 1 @cube
+#SAY
+Continue\ \
+<Ok/@cube>
+#ELSESAY
+<$USERNAME>, You haven't any Chips!!\
+Go get some if you want to gamble\\
+<Silly Me/@Quit>
+
+#ELSEACT
+mov p9 9
+
+[@cube]
+#SAY
+Hey, you roled a <$STR(D0)> \
+You can now move <$STR(D0)> rooms forward.\\
+<Sweet, lets move!/@next_cube>
+
+[@next_cube]
+#IF
+equal d0 1 
+#ACT
+goto @posi1
+break
+
+#IF
+equal d0 2 
+#ACT
+goto @posi2
+break
+
+#IF
+equal d0 3 
+#ACT
+goto @posi3
+break
+
+#IF
+equal d0 4 
+#ACT
+goto @posi4
+break
+
+#IF
+equal d0 5
+#ACT
+goto @posi5
+break
+
+#IF
+equal d0 6 
+#ACT
+goto @posi6
+break
+
+[@back]
+#IF
+#ACT
+batchDelay 1
+addbatch B122
+addbatch B121
+batchmove
+
+[@forward]
+#IF
+#ACT
+batchDelay 1
+addbatch B124
+addbatch B125
+addbatch B126
+addbatch B127
+batchmove
+
+[@Posi1]
+#IF
+#ACT
+batchDelay 1
+addbatch B124
+batchmove
+
+[@Posi2]
+#IF
+#ACT
+batchDelay 1
+addbatch B124
+addbatch B125
+batchmove
+
+[@Posi3]
+#IF
+#ACT
+batchDelay 1
+addbatch B124
+addbatch B125
+addbatch B126
+batchmove
+
+[@Posi4]
+#IF
+#ACT
+batchDelay 1
+addbatch B124
+addbatch B125
+addbatch B126
+addbatch B127
+batchmove
+
+[@Posi5]
+#IF
+#ACT
+batchDelay 1
+addbatch B124
+addbatch B125
+addbatch B126
+addbatch B127
+addbatch B128
+batchmove
+
+[@Posi6]
+#IF
+#ACT
+batchDelay 1
+addbatch B124
+addbatch B125
+addbatch B126
+addbatch B127
+addbatch B128
+addbatch B129
+batchmove
+
+

@@ -1,0 +1,98 @@
+;武器
+(@buy @sell)
+%100
++0
++42
++30
++3
+
+;对话, '*' : 对话tag
+[@main]
+Welcome, how may i help you?\ \
+ <buy/@buy>  items\
+ <sell/@sell>  items\
+ <help/@questionprize> \
+ <close/@exit>
+<>
+[@buy]
+What item would you like to buy?\ \ \
+ <back/@main>
+
+
+[@sell]
+What item would you like to sell?\ \ \
+ <back/@main>
+
+[@questionprize]
+We treat only <candle/@candle>, and <teleport/@teleport>,\
+But we heard that there are <Random Teleport Scroll/@teleport2>,\
+<Town Teleport Scroll/@steleport> and <Repair Oil/@repairoil>\
+that can be aquired from monster or bought from other store.\ \
+ <back/@main>
+
+[@candle]
+You can use candle when it's dark. If you do not have candle\
+it will be so dark you can't see even around yourself.\ \
+ <back/@questionprize>
+
+
+[@teleport]
+Dungeon Escape Scroll is teleportation document that can move you\
+randomly near last visited village in a moment.\ 
+It's weaker in movement force than Town Teleport\
+but it can save your life while in danger.\ \
+ <back/@questionprize>
+
+
+[@teleport2]
+Random Teleport Scroll is teleportation document that\
+can move you randomly in the same map you actually are.\
+It's dangerous but if you want to keep hunting after teleport\
+it can be verry usefull\ \
+ <back/@questionprize>
+
+
+[@steleport]
+Town Teleport Scroll is created by an old magic skill\
+coming from ancient time and now, unfortunantly, lost\
+but we heard that some monsters still have these scrolls.\
+If you use it you can return to village directly...\ \
+ <back/@questionprize> 
+
+
+[@repairoil]
+Repair oil can restore durability of hand carried weapon\
+It isn't like special repair so if you use it\
+don't forget that durability of that weapon will decrease slowly.\
+If weapon is not so expensive,It'll be helpful for long hunting to carry one\
+or twho bottle and apply it for repair\
+
+ <back/@questionprize>
+
+
+[goods]
+;item(can be Zen)     pieces       minute
+(HP)DrugSmall		200	1	
+(MP)DrugSmall		200	1
+(HP)Drugmedium		200	1
+(MP)Drugmedium		200	1
+(HP)DrugLarge		200	1
+(MP)DrugLarge		200	1
+(HP)Drugbundle		200	1
+(MP)Drugbundle		200	1
+(HP)MDrugbundl		200	1
+(MP)MDrugbundl		200	1
+(HP)SDrugbundl		200	1
+(MP)SDrugbundl		200	1
+Candle			200	1
+Torch			200	1
+EternalFlame		200	1
+DungeonEscape		200	1
+EscapeBundl		200	1
+RandomTeleport		200	1
+RandomBundl		200	1
+RepairOil		200	1
+TeleportHome		200	1
+Amulet			200	1
+AmuletBundle		200	1
+

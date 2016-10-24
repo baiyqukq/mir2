@@ -1,0 +1,5 @@
+1/5   gold 150
+1/10   (hp)drugmedium
+1/10   (mp)drugmedium
+1/50   townteleport
+1/50   townteleport

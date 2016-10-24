@@ -1,0 +1,199 @@
+[@main]
+#IF
+checklevel 50
+#SAY
+Welcome. Im BrightLights Teleporter Service\
+Where would u like to go?\ \
+Move to <Bichon Wall/@bmove>\
+<Room 40/@tmove> of gambling house\
+Game Maps <Map1/@gmove1> <Map2/@gmove2> <Map3/@gmove3> <Map4/@gmove4> <Map5/@gmove5> <Map6/@gmove6>\
+<Map7/@gmove7> <Map8/@gmove8> <Map9/@gmove9> <Map10/@gmove10> <Map11/@gmove11> <Map12/@gmove12> <Map13/@gmove13> <map14/@gmove14>\
+<Subak Inner Wall/@sumove>\
+<More.../@more>\
+<Cancel/@exit>\
+#ELSESAY
+U need to be a GM to use me :)\ \
+<Exit/@exit>\
+
+
+[@more]
+Move To RedMoonEvil <Map12/@mmove>\
+Move To New Town <Map11/@mmove1>\
+Move To Mystery Cave <Map/@mcmove>\
+Move To Serpent VAlley <move/@smove>\
+Move To <Mud Wall/@rmove>\ 
+Move To <Ghoul Cave/@gcmove>\
+<More.../@mmore>\
+<Cancel/@exit>\
+
+[@mmore]
+Move To <B1/@moves1> St\
+Move To <B7/@moves7> St\
+Move To <B1/@movez1> Zt\
+Move To <B7/@movez7> Zt\
+Move to <Kings Room/@movezt> Zt\
+<More.../@mmmore>\
+<Cancel/@exit>\
+<>
+
+[@mmmore]
+Move to <E701/@movee>\
+Move to <Q0001/@moveq>\
+Move to <kt0001/@movek>\
+Move to <Bug Cave/@bcmove>\
+<Cancel/@exit>\
+
+[@tmove]
+#ACT
+mapmove B140 5 5
+break
+
+[@gmove1]
+#ACT
+mapmove G001 30 30
+break
+
+[@gmove2]
+#ACT
+mapmove G002 30 30
+break
+
+[@gmove3]
+#ACT
+mapmove G003 30 30
+break
+
+[@gmove4]
+#ACT
+mapmove G004 30 30
+break
+
+[@gmove5]
+#ACT
+mapmove G005 30 30
+break
+
+[@gmove6]
+#ACT
+mapmove G006 30 30
+break
+
+[@gmove7]
+#ACT
+mapmove G007 30 30
+break
+
+[@gmove8]
+#ACT
+mapmove G008 30 30
+break
+
+[@gmove9]
+#ACT
+mapmove G009 30 30
+break
+
+[@gmove10]
+#ACT
+mapmove G010 30 30
+break
+
+[@gmove11]
+#ACT
+mapmove G011 30 30
+break
+
+[@gmove12]
+#ACT
+mapmove G012 30 30
+break
+
+[@gmove13]
+#ACT
+mapmove G013 30 30
+break
+
+[@gmove14]
+#ACT
+mapmove G014 30 30
+break
+
+[@mmove]
+#ACT
+mapmove 12 200 200
+break
+
+[@mmove1]
+#ACT
+mapmove 11 250 250
+break
+
+[@smove]
+#ACT
+mapmove 2 330 450
+break
+
+[@rmove]
+#ACT
+mapmove 3 330 330
+break
+
+[@moves7]
+#ACT
+mapmove D717 26 74
+break
+
+[@moves1]
+#ACT
+mapmove D710 27 19
+break
+
+[@movee]
+#ACT
+mapmove E701 15 15
+break
+
+[@moveq]
+#ACT
+mapmove Q0001 15 15
+break
+
+[@movek]
+#ACT
+mapmove kt0001 15 15
+break
+
+[@bmove]
+#ACT
+mapmove  0 330 267
+break
+
+[@mvmove]
+#ACT
+mapmove M001 200 200
+break
+
+[@gcmove]
+#ACT
+mapmove Q004 60 60
+break
+
+[@sumove]
+#ACT
+mapmove 0150 7 16
+break
+
+[@bcmove]
+#ACT
+mapmove D611 55 58
+break
+
+[@movezt]
+#ACT
+mapmove D515 14 31
+break
+
+[@movez1]
+#ACT
+mapmove D511 29 21
+break

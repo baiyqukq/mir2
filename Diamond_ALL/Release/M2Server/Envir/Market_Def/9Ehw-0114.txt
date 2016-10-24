@@ -1,0 +1,343 @@
+;;拳阿档 涅胶飘狼 侩趋急积
+;;檬焊 涅胶飘档 器窃
+;;指示的高级武士
+;;包含新手指示人
+[@main]
+#IF
+check [757] 1
+#ACT
+goto @Q707
+break 
+
+#IF
+check [756] 1
+#ACT
+goto @Q706
+break
+
+#IF
+check [205] 1
+#ACT
+goto @quit
+break
+
+#IF
+check [210] 1
+#ACT
+goto @quit
+break
+
+#IF
+check [209] 1
+#ACT
+goto @clear
+break
+
+#IF
+check [208] 1
+#ACT
+goto @notclear
+break
+
+#IF
+check [207] 1
+#ACT
+goto @accept_1
+break
+
+#IF
+check [206] 1
+#ACT
+goto @next
+break
+
+#IF
+check [204] 1
+#ACT
+goto @test
+break
+
+#ELSESAY
+What are you doing here in my house?\
+I don't seem to know who you are.\
+Are you sure you are in the right place?\ \
+ <Exit/@exit>
+
+[@Q707]
+;磊匙 国结 氓阑 罐瘤 臼疽唱?? 氓阑 罐疽栏搁 寇荐八过 \
+;捞扼绰 氓阑 歹喉努腐阑 秦焊霸(付快胶 哭率虐 滴锅努腐) \
+;弊烦 氓捞 绝绢瘤搁辑 公傍阑 硅款吧技 捞 公傍篮 磊匙狼 \
+;瓷仿吝俊 沥犬捞扼绰 瓷仿阑 虐况林霸 登瘤 捞 公傍捞 荐访 \
+;捞 登搁 登绢 龙荐废 磊匙狼 沥犬篮 棵扼 啊匙 \
+;捞力 厚玫泅俊 乐绰 辑痢俊 茄锅 啊焊矫霸唱 弊 辑痢 林牢捞 \
+;磊匙啊 歹宽 惯傈 且荐 乐绰 啊福媚 临巴技 \ 
+;厚玫 辑痢狼 谅钎绰 323,247 捞镑捞匙 茄锅 啊焊霸 \
+;<摧  扁/@exit>
+
+你不是已经收到书了吗？如果已收到书，\
+请双击那本基本剑术（双击鼠标的左键），\
+书会消失，你也已经学到了这个功夫，\
+它会使你的能力中增加命中率，\
+你的功夫越深你的命中率也就越高。\
+现在你可以去比奇省的书店， \
+书店的主人会交你更加厉害。 \ 
+比奇书店的坐标是323，247，你去吧。\
+<关闭/@exit>
+
+[@Q706]
+#IF
+checklevel 7
+#SAY
+;磊匙狼 瓷仿阑 抛胶飘 秦焊摆匙, 剧苞 荤娇苞 催捞扼绰 阁胶磐啊 \
+;腹捞 乐促匙, 捞 巴甸篮 5盒郴俊 棱绊 唱辑, 唱客 措拳甫 窍技 \ \
+;<摧 扁/@Q706_1>
+
+我来测验一下你的能力，\
+有很多绵羊，鹿，鸡等妖怪，限你在5分钟之内把它们抓完，再和我进行对话。\ \
+<关闭/@Q706_1>
+
+#ELSESAY
+;唱狼 捞抚篮 侩趋急积捞扼绊 窍匙 规癌备父...\
+;磊匙 傈荤扼绰 流诀俊 措窍咯辑绰 档快固丛俊霸 甸绢辑 \
+;腹篮 巴阑 舅绊 乐阑吧技. 傈荤狼 霉 公傍篮 寇荐八过捞扼绊 \
+;窍瘤. 弊 公傍阑 劳洒扁 困秦辑绰 磊脚狼 饭骇捞 7捞惑 登绢具 \
+;窍匙. 刚历 磊匙狼 瓷仿阑 虐况辑 促矫 唱茄抛 坷矫摆唱? \ \
+;<摧 扁/@exit>
+
+我是高级武士，很高兴见到你，\
+至于你的战士职业，我听向导听了解了很多，\
+战士的第一个功夫就是基础剑术，\
+练这个武功要求你的级别是7级，\
+先练练你的能力再来吧。\ \
+<关闭/@exit>
+
+[@Q706_1]
+#IF
+checkhum 01142 1
+#SAY
+;瘤陛 唱俊霸 抛胶飘甫 罐绰 荤恩捞 乐匙 弊 荤恩狼 抛胶飘啊 \
+;场捞 朝锭 鳖瘤 扁促妨 林霸唱.. 措窜洒 固救窍匙. \ \
+;<摧  扁/@exit>
+
+现在有人在接受我的测验，\
+请你等他测试完，很抱歉。\ \
+<关闭/@exit>
+#ELSEACT
+Monclear 01142
+Param1 01142
+Param2 19
+Param3 19
+;MonGen 荤娇 10 10
+MonGen Deer 10 10
+;MonGen 催 20 10
+MonGen Hen 20 10
+;MonGen 剧 10 10
+MonGen Sheep 10 10
+TimeRecall 5
+map 01142
+
+[@test]
+I see Bill has sent you to me.\
+But before i can let you rid the spirits\
+from the Book Room i want you take a\
+little test. Are you familliar with this game?\
+Choose one of the following.\ \
+ <Rock/@gawi>,  <Paper/@bawi>,  <Scissors/@bo>
+ 
+[@gawi]
+#IF
+random 10
+#ACT
+set [206] 1
+#SAY
+You won!\
+I had scissors.\ \
+ <Next/@next>
+#ELSEACT
+reset [200] 20
+#ELSESAY
+Ha Ha! I won, i had Paper!\
+You are not the right person for this.\
+Be gone!\ \
+ <Exit/@exit>
+
+[@bawi]
+#IF
+random 10
+#ACT
+set [206] 1
+#SAY
+You won!\
+I had rock.\ \
+ <Next/@next>
+#ELSEACT
+reset [200] 20
+#ELSESAY
+Ha Ha! I won, i had Scissors\
+You are not the right person for this.\
+Be gone!\ \
+ <Exit/@exit>
+
+[@bo]
+#IF
+random 10
+#ACT
+set [206] 1
+#SAY
+You won!\
+I had paper.\ \
+ <Next/@next>
+#ELSEACT
+reset [200] 20
+#ELSESAY
+Ha Ha! I won, i had Rock\
+You are not the right person for this.\
+Be gone!\ \
+ 
+[@next]
+Now that you have proven yourself worthy,\
+Are you ready to kill the evil spirits for me?\
+Be warned tho! they are evil and will try\
+anything to kill you and prevend you from taking\
+the book back for me.\
+ <No i don't want to kill them/@next_1>\
+ <Yes i will clear the room/@next_2>
+ 
+[@next_1]
+#IF
+#ACT
+reset [200] 20
+#SAY
+Fine your choice, Begone!!!\ \
+ <Exit/@exit>
+
+[@next_2]
+Ok before i send you in you will have to remember something.\
+Let me tell you about it. Or do you criticize my word?\ \
+ <Listen/@remember>\
+ <Critisize/@criticize>
+ 
+[@remember]
+Remember that these spirits are evil and they use flames.\
+They have wings but cannot fly due to evolutions.\
+But they will try and hurt you in any way they can.\ \
+ <Next/@remember_1>
+ 
+[@remember_1]
+They were once minions for the evil god WoomaTaurus.\
+He has banished them from his Temple after they made\
+him look foolish.\
+Now are you ready to do this? \
+ <Accept/@accept>\
+ <Don't Accept/@next_1>
+
+[@accept]
+#IF
+#ACT
+set [207] 1 
+#SAY
+I see that you are ready.\
+Are you sure you don't want to get a better weapon?\
+Or more potions? as they might drain your HitPoints fast!\ \
+ <Try Now/@next_3>\
+ <Try Later/@exit>
+
+[@accept_1]
+Welcome back <$USERNAME>\
+Want to try and clear the spirits now?\ \
+ <Next/@next_3>
+ 
+[@next_3]
+#IF
+checkhum 01141 1
+#SAY
+There is already someone fighting the spirits.\
+Please come back later\ \
+ <Exit/@exit>
+
+#ELSEACT
+close
+set [208] 1
+monclear 01141
+param1 01141
+param2 10 
+param3 10
+mongen FlamingWooma2 30 10
+map 01141
+break
+
+[@criticize]
+#IF
+#ACT
+reset [200] 20
+#SAY
+How dare you critisize me!\
+I don't want to see you here again!\
+Atleast not for a while!!\
+Be Gone!!\ \
+ <Exit/@exit>
+ 
+ 
+[@clear]
+#IF
+checkjob warrior
+checklevel 35
+check [209] 1
+#SAY
+You did a great Job!\
+I see you got the Book for me. As i am an old man\
+i have no use for the sword anymore. Go and see\
+Bill now. He will know what to do.\ \
+ <Exit/@exit>
+
+#ACT
+give FateSwordBook 1
+SET [210] 1
+break
+
+#IF
+checkjob wizard
+#SAY
+You did a great job!\
+But i am very sorry i did not see this before.\
+My eye sight is very bad and i did not see you are a Wizard.\
+Since wizards have no use for this sword i will give you another\
+prize. Thank you again. \ \
+<Exit/@exit>
+#ACT
+give benedictionoil 2
+reset [200] 20
+set [205] 1
+break
+
+
+#IF
+checkjob taoist
+#SAY
+You did a great job!\
+But i am very sorry i did not see this before.\
+My eye sight is very bad and i did not see you are a Taoist.\
+Since wizards have no use for this sword i will give you another\
+prize. Thank you again. \ \
+<Exit/@exit>
+#ACT
+give benedictionoil 2
+reset [200] 20
+set [205] 1
+break
+
+[@notclear]
+#IF
+#SAY
+I really thought you were the right person for this job.\
+Maybe i guessed wrong. You failed to kill the spirits.\
+I cannot give you another chance sorry.\ \
+<Exit/@exit>
+#ACT
+reset [200] 20
+
+[@quit]
+#IF
+#SAY
+You have no business here.\ \
+<Exit/@exit>

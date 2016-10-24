@@ -1,0 +1,37 @@
+[@Markets]
+{
+#IF
+    small p9 99
+#SAY
+离我远点，我不想与你这种人打交道。\ \
+ <退出/@exit>
+#ELSESAY
+MAINMSG\ \
+ <BUYITEMMSG/@buy>\
+ <HELPMSG/@helps>\ \
+ <退出/@exit>
+
+[@buy]
+
+#IF
+    equal p9 0
+#ACT
+    mov p7 1
+    goto @Punish
+    break
+
+#IF
+    small p9 99
+#ACT
+    mov p7 2
+    goto @Punish
+    break
+#ELSESAY
+MAINBUYMSG\ \
+ <返回/@Markets>
+
+[@Punish]
+#CALL	[\Common\Punish.txt]	@Punisher
+[@CheckAction]
+#CALL	[\Common\CheckAction.txt]	@Actions
+}

@@ -1,0 +1,2 @@
+TNMUDP component from FastNet is required to compile this server.
+It is a commercial component, therefore we cannot supply it.

@@ -1,0 +1,112 @@
+;武器
+(@buy @sell @repair)
+%100
++10
++11
+
+;对话, '*' : 对话tag
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+我不想和你这样的人打交道.. \ \
+<取消/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+Welcome, how may i help you ?\ \
+ <Buy/@buy> clothes\
+ <Sell/@sell> clothes\
+ <Repair/@repair> clothes\
+ <Cancel/@exit>
+<>
+
+[@Tmove]
+#IF
+random 8
+#ACT
+mapmove 3 320 303
+break
+
+#IF
+random 8
+#ACT
+mapmove 3 320 304
+break
+
+#IF
+random 8
+#ACT
+mapmove 3 321 304
+break
+
+#IF
+random 8
+#ACT
+mapmove 3 321 303
+break
+
+#IF
+random 8
+#ACT
+mapmove 3 310 293
+break
+
+#IF
+random 8
+#ACT
+mapmove 3 310 294
+break
+
+#IF
+random 8
+#ACT
+mapmove 3 311 294
+break
+
+#IF
+random 8
+#ACT
+mapmove 3 311 293
+break
+
+#ELSEACT
+goto @Tmove
+
+
+[@buy]
+What item do you want to buy ?\ \ \
+ <Back/@main>
+
+[@sell]
+Show me your clothes to be sold. I'll give you an appraisement.\
+So if you like my store please sell them to me.\ \
+ <Back/@main>
+
+[@repair]
+You can repair clothes here.\ \ \
+ <Back/@main>
+
+[~@repair]
+It seems repaired fine.\ \ \
+ <Back/@main>
+
+
+[goods]
+;Items (can be Zen)     Amount  hour
+BaseDress(M)		100	1	
+BaseDress(F)		100	1
+LightArmour(M)		100	1
+LightArmour(F)		100	1
+MediumArmor(M)		100	1
+MediumArmor(F)		100	1
+HeavyArmour(M)		100	1
+HeavyArmour(F)		100	1
+SoulArmour(M)		100	1
+SoulArmour(F)		100	1
+MagicRobe(M)		100	1
+MagicRobe(F)		100	1
+

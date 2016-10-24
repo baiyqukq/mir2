@@ -1,0 +1,33 @@
+1/1   gold 100
+1/5  gold 6000
+
+1/10    SunPotion
+1/10    SunPotion
+1/10    SunPotion
+1/10    SunPotion
+1/10 	Sunpotion(M)
+1/100   OldGinseng
+1/2 	(HP)Drugmedium
+1/2 	(MP)DrugMedium
+1/2 	(HP)Druglarge
+1/2 	(MP)Druglarge
+1/2 	(HP)Drugmedium
+1/2 	(MP)DrugMedium
+1/2 	(HP)Druglarge
+1/2 	(MP)Druglarge
+1/2 	(HP)Drugmedium
+1/2 	(MP)DrugMedium
+1/2 	(HP)Druglarge
+1/2 	(MP)Druglarge
+
+1/10  HeavyArmour(F)
+1/10  HeavyArmour(M)
+1/10 MagicRobe(F)
+1/10 MagicRobe(M) 
+1/10 SoulArmour(F)
+1/10 SoulArmour(M)
+
+1/20 PrinceSword
+1/20 MartialSword
+1/20 HookedSpear
+1/20 KrissSword

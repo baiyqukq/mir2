@@ -1,0 +1,104 @@
+[@main]
+#IF
+#SAY
+Hi there. You look like a bit of a gambler! \ 
+You want to gamble in our Casino?\ 
+Well You will have to Buy some chips...\ 
+or you can exahange your winnings if u wish.\\
+Gamble Chip<Buy/@changeGold> \
+Gamble Chip Bundle<Buy/@changeTupe> \ 
+Exchange Chips to GOld<Exchange/@changeMoney> \
+<Exit./@exit>
+
+[@changeGold]
+#IF
+   checkgold 1000
+#SAY
+It Seems you have enough money.\
+Do you STill Want to Buy?\\
+<환전한다./@changeGold_1> \
+<그만둔다./@exit>
+
+#ELSESAY
+It looks like you are a bit skint mate...\
+Go make some money\\
+<Ok/@Exit>
+
+[@changeGold_1]
+   checkbaggage
+   checkgold 1000
+#ACT
+   take gold 1000
+   give gamblechip 1
+#SAY
+There you go...\ 
+Do you want more?\ \
+
+<Yes/@changeGold> \
+<No/@exit>
+
+[@changeMoney]
+#IF
+   checkitem gamblechip 1
+#SAY 
+Ahh, you want to exchange those Chips?\
+Dont Fancy your Chances in the Casino do you?\
+Fine...\\
+<Exchange/@changeMoney_1> \
+<Err...No, dont bother/@exit>
+
+#ELSESAY
+Well...It looks like you havn't any Chips to Exchange\
+Quit wasting my time...\\
+<Sorry/@exit>
+
+[@changeMoney_1]
+#IF
+   checkitem gamblechip 1
+#ACT
+   goto @changeMoney_2
+
+[@changeMoney_2]
+#IF 
+   checkitem gamblechip 1
+#ACT
+   take gamblechip 1
+   give gold 900
+#SAY
+There you go.\ 
+Want to excahnge more?\\
+<Yeah ok./@changeMoney> \
+<No thanks./@exit>
+
+[@changeTupe]
+#IF
+   checkgold 6000
+#SAY
+OOO, you want a Bundle do you, rich boy?\
+You much be feeling lucky.\
+Do you still want a Bundle?\\
+<Yeah, Hand if over old man./@changeGold_5> \
+<Naaa, i cahnged my mind./@exit>
+
+#ELSESAY
+Looks like you aint got 6000 gold boy!\
+GO make some money if you wanna come here again\\
+<Damn, ok./@main>
+
+[@changeGold_5]
+#IF 
+   checkbaggage
+   checkgold 6000
+#ACT
+   take gold 6000
+   give gamblechipbun 1
+#SAY
+There you go...\
+Do you want more?\ \
+
+<You Bet!/@changeTupe> \
+<No thanks./@exit>
+
+#ELSESAY
+You aint rich enough!\
+<I aint?/@exit>

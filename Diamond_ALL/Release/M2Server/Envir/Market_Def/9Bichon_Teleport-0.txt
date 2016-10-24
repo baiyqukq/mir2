@@ -1,0 +1,40 @@
+[@main]
+#IF
+#SAY
+;이근처 있는 몃가지 상점으로는 제가 보내어 드릴수 있습니다. \ \
+;<책  방/@Gbo>  ,  <푸줏관/@Gpu>  ,  <잡화점/@Gza>\
+;<시약점/@Gpo>  ,  <포목점/@Gre>  ,  <무기점/@Gwe>\
+Welcome <$USERNAME>,\
+I can Teleport you into any shop you want. \ \
+<BookShop/@Gbo>  ,  <MeatShop/@Gpu>  ,  <Jewellry/@Gza>\
+<PotShop/@Gpo>  ,  <ClothesShop/@Gre>  ,  <WeaponShop/@Gwe>\
+[@Gbo]
+#IF
+#ACT
+map 0104
+
+[@Gpu]
+#IF
+#ACT
+map 0102
+
+[@Gza]
+#IF
+#ACT
+map 0105
+
+[@Gpo]
+#IF
+#ACT
+map 0108
+
+[@Gre]
+#IF
+#ACT
+map 0106
+
+[@Gwe]
+#IF
+#ACT
+map 0103
+

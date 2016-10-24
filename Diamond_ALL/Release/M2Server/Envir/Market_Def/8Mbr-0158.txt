@@ -1,0 +1,91 @@
+;武器
+(@buy @sell @repair)
+%100
+;手镯
++24
++26
+
+;对话框, '*' : 对话框 标签
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+我不想和你这样的人打交道.. \ \
+<取消/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+Welcome, how may I help you ?\ \
+<Buy/@buy> bracelet\
+<Sell/@sell> bracelet\
+<Repair/@repair> bracelet\
+<Cancel/@exit>
+<>
+
+
+[@Tmove]
+#IF
+random 5
+#ACT
+mapmove 3 300 294
+break
+
+#IF
+random 5
+#ACT
+mapmove 3 301 294
+break
+
+#IF
+random 5
+#ACT
+mapmove 3 301 293
+break
+
+#IF
+random 5
+#ACT
+mapmove 3 291 303
+break
+
+#IF
+random 5
+#ACT
+mapmove 3 290 303
+break
+
+#ELSEACT
+goto @Tmove
+
+[@buy]
+Which bracelet would you like ?\ \ \
+ <Back/@main>
+
+[@sell]
+Show me the bracelet you wish to sell.\ \ \
+ <Back/@main>
+
+[@repair]
+Give me the bracelet you want to repair.\ \ \
+ <Back/@main>
+
+[~@repair]
+Your bracelet seems repaired fine.\ \
+ <Back/@main>
+
+[goods]
+;商品          数量       时间
+IronBracelet	200	1
+ThinBracelet	200	1
+SilverBracelet  200	1
+LargeBracelet   200	1
+SteelBracelet   200	1
+MagicBracelet   200	1
+MonkBraclet	200	1
+EbonyBracelet	200	1
+StrainBracelet	200	1
+LeatherGlove	200	1
+HardGlove	200	1

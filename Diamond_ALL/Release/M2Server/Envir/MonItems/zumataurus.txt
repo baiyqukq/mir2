@@ -1,0 +1,114 @@
+1/1     gold 15000
+1/10    goldbar 
+1/1     Sunpotion(M)
+1/1     Sunpotion(M)
+1/1     Sunpotion(M)
+1/1     Sunpotion(M)
+1/1     Sunpotion(M)
+1/1     Sunpotion(M)
+1/1     Sunpotion(M)
+1/2     Sunpotion(M)
+1/2     Sunpotion(M)
+1/2     Sunpotion(M)
+1/2     Sunpotion(M)
+1/2     Sunpotion(M)
+1/2     Sunpotion(M)
+1/1     (HP)Druglarge
+1/1     (HP)Druglarge
+1/2     (HP)Druglarge
+1/2     (HP)Druglarge
+1/1     (MP)Druglarge
+1/1     (MP)Druglarge
+1/2     (MP)Druglarge
+1/2     (MP)Druglarge
+
+1/100   ZumaRelic
+
+1/30    spiritdrug
+1/30    magicdrug
+1/30    stormdrug
+
+1/10    GreenBead
+1/10    GaleNecklacelace
+1/10    SoulNecklacelace
+1/10    DemonicBells
+
+1/20    BlackIronHelm
+
+1/20    PowerRing
+1/20    VioletRing
+1/20    TitanRing
+
+1/30    Knightbracelet
+1/30    DragonBracelet
+1/30    SoulBraceletlet
+1/30    steelglove
+1/100   BlackIronGlove
+
+1/40    RevivalRing
+1/40    ProtectionRing
+1/40    FlameRing
+1/40    RecoveryRing
+1/40    SkillNecklacelace
+
+
+1/50    DragonSword
+1/50    PurifierSword
+1/50    greataxe
+1/50    serpentSword
+1/50    magestaff
+1/100   SoulSpringWand
+1/100   JudgementMace
+1/250   DragonSlayer
+1/250   WarMageStaff
+1/250   SoulSabre
+1/250   DragonStaff
+
+1/10    IceStorm
+1/10    SummonShinsu
+1/10    FlamingSword
+
+1/5     StrainBracelet
+1/5     MagicBracelet
+1/5     PearlRing
+1/5     BlackRing
+1/5     SerpentEyeRing
+1/5     HardGlove 
+1/5     LanternNeck
+1/5     TigerNecklace
+1/5 	GoldRing
+1/5 	SkeletonRing
+1/5	MonkBracelet
+1/5 	EbonyBracelet
+1/5 	IronRing
+1/5 	CharmRing
+1/5 	MoralRing
+1/5 	PlatinumNeck
+1/5 	DeathGauntlet
+1/5 	BlueJadeNeck
+1/5 	BambooPipe
+1/5 	Convexlens
+1/5 	GoldBracelet
+
+1/5 	ShamanHelmet
+1/5 	Skeletonhelmet
+1/5 	BronzeGlove
+1/5 	expelring
+1/5 	coralring
+1/10 	galering
+
+1/10 DragonRing
+1/10 PlatinumRing
+1/10 RubyRing
+1/20 SpellBracelet
+1/20 LifeNecklace
+1/20 ClawNecklace
+1/20 3rdEyeBracelet
+1/50 PearlNecklace
+
+1/3   HeavyArmour(M)
+1/3   HeavyArmour(F)
+1/3   SoulArmour(F)
+1/3   SoulArmour(M)
+1/3   MagicRobe(M)
+1/3   MagicRobe(F)

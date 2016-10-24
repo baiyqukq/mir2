@@ -1,0 +1,68 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+BreakTimeRecall 
+break
+
+#IF
+equal p9 1
+#ACT
+goto @race
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@main-1]
+#IF
+#ACT
+mov p9 0
+#SAY
+Welcome <$USERNAME>\
+This is room 40, Heaven Room, the last room\
+You have Almost won\
+There is only one more Task to survive\
+I wish you luck my freind\\
+<Continue/@next>
+
+[@next]
+#IF
+checkitem gamblechip 1
+#ACT
+take gamblechip 1
+mov p9 1
+TimeRecall 5
+map T140
+#ELSESAY
+<$USERNAME>, You haven't any Chips!!\
+Go get some if you want to gamble\\
+<Silly Me/@Quit>
+#ELSEACT
+mov p9 9
+
+[@race]
+#ACT
+mov p9 9
+#SAY
+Well done, you have won!!\
+Now leave this place, you dont need to be here any longer\\
+<Bye/@Quit>
+#ACT
+;give BeneditionOil 3
+;give GoldBar 2
+give BenedictionOil 1
+mov p9 9
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+

@@ -1,0 +1,342 @@
+;	Merchant	NPC	Setup	File			
+
+
+;	Bichon	Wall	NPC				
+1Bme	0102	9	7	Kim	0	11	0
+1Bme	0	313	271	Danielle	0	4	0
+
+2Bwe	0103	19	18	Vincent	0	1	0
+;    2bwe	0			???			
+2Bbl	0	302	219	Bill	0	0	0
+
+3Bdr	0106	19	6	Ann	0	7	0
+3Drapers_shop1	0	330	270	Tailor	0	1	0
+;    3drapers_shop	0156			???			
+4Bdu	0108	7	7	Larry	0	1	0
+4Bdu	0	324	291	Sam	0	5	0
+4Bdm	0109	4	8	Travis	0	9	0
+
+5Bbo	0104	5	8	Steven	0	2	0
+5Bichon_bookstore1	0	325	250	Steven	0	2	0
+
+6Bwh	0125	8	6	Mary	0	9	0
+6Bwh	0	301	257	Brittany	0	6	0
+
+7Bst	0	378	298	Tommas	0	3	0
+
+8Bri	0105	18	6	Diana	0	4	0
+8Bbr	0105	12	12	Olivia	0	5	0
+8Bne	0105	6	18	Kristin	0	6	0
+
+
+
+9teacher	0111	7	11	Teacher	0	3	0
+9snpc1	0	326	261	TownCrier	0	5	0
+
+
+;	Ginko	Tree	Village				
+
+4Gdu	0119	10	11	Spencer	0	1	0
+4Gdm	0119	14	14	Jack	0	9	0
+7Gst	0	643	611	Gabriel	0	3	0
+2Gwe	0	649	602	Peter	0	0	0
+3Gdr	0	643	601	Brenda	0	7	0
+1Gme	0	649	591	Daisy	0	11	0
+6Gwh	0	621	642	Monica	0	6	0
+9helper	0	628	601	Assistant	0	5	0
+
+
+;	Border	Village					
+
+4Tdu	0	291	610	Noah	0	1	0
+2Twe	0	297	612	Smith	0	0	0
+1Tme	0	293	603	Jim	0	11	0
+3Tdr	0	305	607	Whitney	0	7	0
+5Tbo	0132	5	18	Brian	0	2	0
+6Twh	0140	8	9	Anthony	0	9	
+;    6Twh	0			???			
+8Tri	0141	23	23	Alice	0	4	0
+8Tbr	0141	16	16	Betty	0	5	0
+8Tne	0141	10	10	Clara	0	6	0
+9helper	0	284	606	Assistant	0	5	0
+
+
+;	High	Level	Characters				
+							
+9Ehw	0114	14	9	HighWarrior	0	3	0
+9Ehw	01141	14	9	HighWarrior	0	3	0
+9Ehw	01142	11	10	HighWarrior	0	3	0
+9Eht	0113	7	5	HighPriest	0	3	0
+9Eht	01132	11	10	HighPriest	0	3	0
+9Ewi	0115	5	11	ArchMage	0	3	0
+9Ewi	01152	11	10	ArchMage	0	3	0
+
+
+;	Woomyon	Woods	NPC				
+
+2Wwe	1	314	72	David	0	0	0
+4Wdu	1	309	81	Annie	0	4	0
+9Wqu	1	235	305	Kunbun	0	9	0
+9woomaoldman	1	96	290	OldMan	0	3	0
+							
+							
+;	Oma	Caves	NPC				
+
+6Ewh	D002	174	216	Storage	0	3	0
+9Equ	D002	187	214	StrangeMan	0	9	0
+7Est	DM001	4	6	WickedTrader	0	9	0
+7Wicked_merchant1	DM011	4	6	WickedTrader	0	9	0
+
+
+;	Serpent	Village	NPC				
+
+2Swe	0120	7	8	Bradley	0	0	0
+2BlackSmith1	2	518	492	Bradley	0	0	0
+4Sdu	0117	4	10	Patrik	0	1	0
+4Serpent_valley_reagent_store1	2	505	497	Patrik	0	1	0
+7Sst	2	505	479	Robert	0	3	0
+3Sdr	2	517	477	Melissa	0	7	0
+6Swh	2	517	466	Nicole	0	5	0
+;   6swe	2						
+
+
+;	PK	Vil	Trader				
+
+7Est	3	855	661	Frank	0	3	0
+
+
+;Mongchon	Traders						
+
+6Mwh	0145	9	12	Ruben	0	9	0
+6Mwh	3	305	373	Jessica	0	6	0
+3Mdr	0149	23	20	Jennifer	0	7	0
+3Mga	0149	11	18	Laura	0	4	0
+3Mhe	0149	8	5	Michelle	0	5	0
+2Mwe	0159	5	9	Bruce	0	0	0
+4Mdu	0160	5	8	Raymond	0	1	0
+8Mri	0158	11	16	Kelly	0	5	0
+8Mbr	0158	16	11	Tiffany	0	6	0
+8Mne	0158	4	21	Rachel	0	4	0
+7Mst	3	346	334	Kevin	0	3	0
+1Mme	3	355	329	Rupert	0	11	0
+4Mdu	3	361	335	Daniel	0	1	0
+5Mbo	0161	11	16	Bookseller	0	2	0
+9snpc2	3	297	302	TownCrier	0	5	0
+
+
+;;Lottery		ticket					
+							
+9Mlo	3	284	343	Lottery	0	3	0
+9Blo	0	298	317	Lottery	0	3	0
+
+
+;	GuildWar	Teleport					
+
+9match1	3	480	350	GuildWar	0	2	0
+9match2	F003	41	41	GuildWar	0	2	0
+9match3	2	450	300	GuildWar	0	2	0
+
+
+;	Sabuk	Wall	Traders				
+
+1Ame	3	659	301	Milton	0	1	1
+2Are	0151	3	19	Dean	0	0	1
+2Awe	0151	7	14	Bill	0	0	1
+3Adr	0155	13	7	Sandra	0	7	1
+3Ahe	0155	9	11	Debora	0	5	1
+4Adm	0153	7	14	Milton	0	9	1
+4Adu	0153	14	7	Harry	0	1	1
+6Awh	0152	7	12	Vicky	0	6	1
+7Ast	3	663	304	Tony	0	3	1
+8Abr	0154	14	7	Cindy	0	6	1
+8Ane	0154	3	18	Sarah	0	6	1
+8Ari	0154	10	15	Peggy	0	5	1
+9Aup	0151	12	10	Carlos	0	0	1
+
+
+;	Bug	Cave	Armour	Repair			
+
+3Edr	D608	30	22	Jamey	0	3	0
+							
+;	Zuma	Temple	Traders				
+
+3Edr	D514	19	25	Alexander	0	3	0
+4Edu	D5063	62	36	Nelson	0	1	0
+
+;	Stone	Temple	Traders				
+
+2Ewe	D71650	23	27	Edward	0	0	0
+3Edr	D71651	23	27	Louise	0	7	0
+4Edu	D71653	23	27	Barry	0	3	0
+8Eac	D71652	23	27	Michelle	0	5	0
+;   8aac	D71652						
+
+;	Mystery	Cave	Quest	NPC			
+
+9Equ	E603	31	191	Yu	0	9	0
+9Equ	0148	10	9	Martha	0	13	0
+							
+
+;	Exchange	Characters					
+
+9Ech	0126	10	10	David	0	9	0
+9Ech	0152	4	15	Mark	0	9	1
+9Ech	0146	4	11	Robin	0	9	0
+9epl	3	850	662	FortuneTeller	0	9	0
+
+
+;	Quest	NPC	(Unknown)				
+
+9Equ	Q011	139	120	Man	0	9	0
+9Equ	Q016	14	21	Trader	0	12	0
+							
+							
+;	Gamble	House	Rooms				
+
+9Ega	0101	8	6	GambleMan	0	9	0
+9Ega	B010	48	45	Cashier	0	9	0
+9Ega	B011	8	10	GambleWomen	0	12	0
+9Ega	B012	8	10	GambleWomen	0	12	0
+9Ega	B013	8	10	GambleWomen	0	12	0
+
+
+;	Gamble	Betting	Rooms				
+
+9Ega	B101	10	6	GambleWoman	0	12	0
+9Ega	B102	10	6	GambleWoman	0	12	0
+9Ega	B103	10	6	GambleWoman	0	12	0
+9Ega	B104	10	6	GambleWoman	0	12	0
+9Ega	B105	10	6	GambleWoman	0	12	0
+9Ega	B106	10	6	GambleWoman	0	12	0
+9Ega	B107	10	6	GambleWoman	0	12	0
+9Ega	B108	10	6	GambleWoman	0	12	0
+9Ega	B109	10	6	GambleWoman	0	12	0
+9Ega	B110	10	6	GambleWoman	0	12	0
+9Ega	B111	10	6	GambleWoman	0	12	0
+9Ega	B112	10	6	GambleWoman	0	12	0
+9Ega	B113	10	6	GambleWoman	0	12	0
+9Ega	B114	10	6	GambleWoman	0	12	0
+9Ega	B115	10	6	GambleWoman	0	12	0
+9Ega	B116	10	6	GambleWoman	0	12	0
+9Ega	B117	10	6	GambleWoman	0	12	0
+9Ega	B118	10	6	GambleWoman	0	12	0
+9Ega	B119	10	6	GambleWoman	0	12	0
+9Ega	B120	10	6	GambleWoman	0	12	0
+9Ega	B121	10	6	GambleWoman	0	12	0
+9Ega	B122	10	6	GambleWoman	0	12	0
+9Ega	B123	10	6	GambleWoman	0	12	0
+9Ega	B124	10	6	GambleWoman	0	12	0
+9Ega	B125	10	6	GambleWoman	0	12	0
+9Ega	B126	10	6	GambleWoman	0	12	0
+9Ega	B127	10	6	GambleWoman	0	12	0
+9Ega	B128	10	6	GambleWoman	0	12	0
+9Ega	B129	10	6	GambleWoman	0	12	0
+9Ega	B130	10	6	GambleWoman	0	12	0
+9Ega	B131	10	6	GambleWoman	0	12	0
+9Ega	B132	10	6	GambleWoman	0	12	0
+9Ega	B133	10	6	GambleWoman	0	12	0
+9Ega	B134	10	6	GambleWoman	0	12	0
+9Ega	B135	10	6	GambleWoman	0	12	0
+9Ega	B136	10	6	GambleWoman	0	12	0
+9Ega	B137	10	6	GambleWoman	0	12	0
+9Ega	B138	10	6	GambleWoman	0	12	0
+9Ega	B139	10	6	GambleWoman	0	12	0
+9Ega	B140	10	6	GambleWoman	0	12	0
+
+
+;	Gamble	Quest	Rooms				
+
+9Ega1	T105	7	6	Rascal	0	11	0
+9Ega2	T105	6	5	Rascal	0	11	0
+9Ega3	T105	8	7	Rascal	0	11	0
+9Ega4	T105	9	8	Rascal	0	11	0
+9Ega5	T105	10	9	Rascal	0	11	0
+9Ega	T118	14	15	GambleWoman	0	12	0
+9Ega	T125	11	9	GambleWoman	0	12	0
+9Ega	T1363	10	6	GambleWoman	0	12	0
+9Ega	T138	9	10	GambleWoman	0	12	0
+							
+;	[Teleport	NPC]					
+							
+9Bichon_Teleport	0	329	267	ShopTeleport	0	9	0
+9Serpent_Teleport	2	504	485	ShopTeleport	0	9	0
+9Mongchon_Teleport	3	333	330	ShopTeleport	0	9	0
+
+
+;	Woomyon	Wall					
+
+2Wwe	1001	14	12	Jerald	0	15	0
+7Wst	1007	11	14	Jerry	0	17	0
+8Wac	1005	9	11	Ken	0	20	0
+3Wdr	1003	13	16	Sam	0	23	0
+3Wdr	11	203	321	Mike	0	23	0
+4Wdu	1006	9	10	Janey	0	25	0
+4Wdm	1006	12	7	Eugene	0	22	0
+5Wbo	1004	9	11	Huxley	0	18	0
+6Wwh	11	184	297	Britney	0	12	0
+;6Wwh	11	184	297	Hubert	0	18	0
+							
+6Wrt	1002	14	13	Perry	0	14	0
+							
+9Wae1	11	179	309	Apprentice	0	19	0
+9Wae2	11	181	311	Apprentice	0	19	0
+9Wae3	11	179	313	Apprentice	0	19	0
+9Wae4	11	177	311	Apprentice	0	19	0
+9Wae5	11	175	313	Apprentice	0	19	0
+9Wae6	11	177	315	Apprentice	0	19	0
+9Wtt	11	182	308	Trainertaoist	0	16	0
+							
+9Wae1	11	191	329	Apprentice	0	21	0
+9Wae2	11	189	327	Apprentice	0	21	0
+9Wae3	11	191	325	Apprentice	0	21	0
+9Wae4	11	193	327	Apprentice	0	21	0
+9Wae5	11	195	325	Apprentice	0	21	0
+9Wae6	11	193	323	Apprentice	0	21	0
+9Wtt	11	196	322	Trainertaoist	0	24	0
+							
+9Wbt	D10061	11	16	BigTaoist	0	15	0
+
+
+;	Spawn	139					
+spawn	0139	19	19	Spectator	0	9	0
+
+;	Slave	Cave	Quest				
+SlaveCaveNPC	0148	6	9	OldMan	0	9	0
+							
+;	GM	NPCs					
+majorcleanup	r001	104	93	MapCleaner	0	9	0
+GMservant	r001	100	93	GMServant	0	12	0
+
+;	Test	NPCs					
+test	r001	104	97	Test1	0	0	0
+test	r001	105	97	Test2	0	1	0
+test	r001	106	97	Test3	0	2	0
+test	r001	107	97	Test4	0	3	0
+test	r001	108	97	Test5	0	4	0
+test	r001	109	97	Test6	0	5	0
+test	r001	110	97	Test7	0	6	0
+test	r001	104	99	Test8	0	7	0
+test	r001	105	99	Test9	0	8	0
+test	r001	106	99	Test10	0	9	0
+test	r001	107	99	Test11	0	10	0
+test	r001	108	99	Test12	0	11	0
+test	r001	109	99	Test13	0	12	0
+test	r001	110	99	Test14	0	13	0
+test	r001	104	101	Test15	0	14	0
+test	r001	105	101	Test16	0	15	0
+test	r001	106	101	Test17	0	16	0
+test	r001	107	101	Test18	0	17	0
+test	r001	108	101	Test19	0	18	0
+test	r001	109	101	Test20	0	19	0
+test	r001	110	101	Test21	0	20	0
+test	r001	111	101	Test22	0	21	0
+test	r001	112	101	Test23	0	22	0
+test	r001	104	103	Test24	0	23	0
+test	r001	105	103	Test25	0	24	0
+test	r001	106	103	Test26	0	25	0
+
+:	Yet Unknown NPCS
+
+;    9xmasman1	0
+;    9xmasman2	0
+9pigman D717	67	39	PigMan	0	3	0

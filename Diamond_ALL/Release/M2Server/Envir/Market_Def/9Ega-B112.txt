@@ -1,0 +1,109 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+BreakTimeRecall 
+break
+
+#IF
+equal p9 1
+#ACT
+goto @cube
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@main-1]
+#IF
+#ACT
+mov p9 0
+#SAY
+Welcome to room 12 <$USERNAME>\
+Here you throw a dice\
+If the number is less than 5, you will move back 7 rooms\
+If more then 4, you will move forward the number in the dice\
+Goodluck\\
+<ThankYou/@pre_cube>
+
+[@pre_cube]
+#IF
+checkitem gamblechip 1
+#ACT
+mov p9 1
+movr d0 6
+inc d0 1
+playdice 1 @next1
+#SAY
+Continue\ \
+<Ok/@cube>
+#ELSESAY
+<$USERNAME>, You haven't any Chips!!\
+Go get some if you want to gamble\\
+<Silly Me/@Quit>
+#ELSEACT
+mov p9 9
+
+[@cube]
+#IF
+small d0 5
+#SAY
+You Roled a <$STR(D0)>\
+You will now move 7 rooms backwards\\
+<Oh God Damn it/@move>
+#ELSESAY
+You Roled a <$STR(D0)>\
+You will now move <$STR(D0)> rooms forward\\
+<Nice/@dicemove>
+
+[@dicemove]
+#IF
+equal d0 5 
+#ACT
+batchDelay 1
+addbatch B111
+addbatch B110
+addbatch B109
+addbatch B108
+addbatch B107
+batchmove
+break
+
+#IF
+equal d0 6 
+#ACT
+batchDelay 1
+addbatch B111
+addbatch B110
+addbatch B109
+addbatch B108
+addbatch B107
+addbatch B106
+batchmove
+break
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+[@move]
+#IF
+#ACT
+batchDelay 1
+addbatch B111
+addbatch B110
+addbatch B109
+addbatch B108
+addbatch B107
+addbatch B106
+addbatch B105
+batchmove
+
+

@@ -1,0 +1,39 @@
+;무기
+(@buy @sell)
+%100
++0
++42
+
+;대화, '*' : 대화 태그
+[@main]
+Welcome, how may I help you ?\ \
+ <Buy/@buy> drug\
+ <Sell/@sell> drug\
+ <Talk with/@talkwith>\
+ <Cancel/@exit>
+<>
+
+[@buy]
+Which item do you want to buy ?\ \ \
+ <Back/@main>
+
+
+[@sell]
+Show me your item, I'll offer you a good price.\ \ \
+ <Back/@main>
+
+
+[goods]
+;items(cab be Zen)      pieces      hour
+(HP)DrugSmall		200	1	
+(MP)DrugSmall		200	1
+(HP)Drugmedium		200	1
+(MP)Drugmedium		200	1
+(HP)DrugLarge		200	1
+(MP)DrugLarge		200	1
+(HP)Drugbundle		200	1
+(MP)Drugbundle		200	1
+(HP)MDrugbundl		200	1
+(MP)MDrugbundl		200	1
+(HP)SDrugbundl		200	1
+(MP)SDrugbundl		200	1

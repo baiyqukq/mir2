@@ -1,0 +1,555 @@
+;;Fortune Teller NPC
+
+[@main]
+#IF
+#ACT
+goto @horo
+
+[@horo]
+#IF
+#SAY
+Not knowing one's own destiny is same as sailing ocean without a compass \
+Do you want to know your own destiny? \
+Who am I ? I am an astrologist, \
+Who observes stars and read someone's destiny.\
+Do you want to know your destiny? \ \
+<Listen to destiny/@horo1> \ 
+<Refuse/@exit> \
+
+
+
+[@horo1]
+If you pay me Gold I can tell you Karma. Is paying Gold a burden to you ? \
+Don't worry about it. There are various category according to the amount of your Gold. \
+Now, what do you want to know? \ \
+<Check/@horo_1>one's own fortunate grade  \
+<Check/@point>one's own Karma(PK grade) \
+<Cancel/@exit>
+ 
+[@point]
+#IF
+#SAY
+Knowing own's own Karma is very important. In case of a person branded a criminal \
+The person will get a lot of disadvantage. the person should clean his own criminal report \
+as soon as possible to live as a regular person. Cleaning criminal record first  \
+the person should know how much his own crime is. \ 
+A charge is 2000 gold. Would you try knowing your Karma? \ \ 
+<Check Karma(PK grade)/@point1> \  
+<Refuse/@point2>
+
+[@point2]
+#IF
+#SAY
+You don't want. I got it. then see you later considering it \ \ 
+<Close/@exit>
+
+
+[@point1]
+#IF
+checkgold 2000
+#SAY
+You want to knwo your karma with the Gold \
+Wait in a while.. \ \ 
+<Next/@point1_1>
+#ACT
+take gold 2000
+#ELSESAY
+I don't tell you anything without Gold
+Because it hurts my pride. \
+Go back right now. \ \ 
+<Close/@exit>
+
+[@point1_1]
+#IF
+checkpkpoint 20
+#SAY
+You remimd me of some words suddenly. \
+Do you want to listen ? a rascal,ill-natured, malicious,delinquent... \
+I wonder if you listen to your Karma to become a regular person \
+Don't even think about it, Why don't you just close this character? \
+You had better begin a new game character. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkpkpoint 18
+#SAY
+No matter what it is a game, why do you treat me like this ? \
+Although I earn a living by this job, I don't like talking with \
+a conscienceless person like you. Get out of here. \ \
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkpkpoint 16
+#SAY
+Do you feel murderring joy ? You seem to begin getting interesting in PK \
+Evil flower begins blooming at your mind. \
+You will be died soon \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkpkpoint 14
+#SAY
+You have killed a lot of people. there is a word calling you \
+It's a butcher of human... have you heard ? Hum.. Why do you look at me so ? \
+Do you want to smash me? \ \
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkpkpoint 12
+#SAY
+Well... a lot of people hate you, they could attack you in revenge \
+Considering the situation I don't want to see your karma.... but \
+Let me see. You either should have chance to clean your guilty record....\ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkpkpoint 10
+#SAY
+The bud of evil grows in your mind. If it keeps going on \
+You will be the object of a disaster to people.... It is not late now. \
+Behave yourself for just a couple of days
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkpkpoint 8
+#SAY
+You seem to get some blame from others. if you were stung by conscience \
+Reflect and begin new life. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkpkpoint 6
+#SAY
+Repetitive fault will be a habit. at this moment it takes almost a day \
+for you to cleaning your guilty record. but if you keep going on like this \
+You will regret your behavior. take care.. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkpkpoint 4
+#SAY
+Uhm... I don't know why you made a crime but a crime is just a crime \
+You can't avoid the punishment of guard. as your crime is not heavy \
+If you behave yourself a little, your guilty record will be cleaned. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkpkpoint 2
+#SAY
+Recently you fighted against someone. but it is not serious. \
+Watch your bahavior since this time. just one fault could brand you as a criminal \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkpkpoint 0
+#SAY
+You have lived so good. Let me give you good information \
+because you have no guilty record. Do you listen? \
+Santa Claus doesn't give a gift to crying children. \
+Who is Santa Claus ?  Search it by yourself . \ \
+<Close/@exit>
+#ACT
+break
+
+[@horo_1]
+#IF
+#SAY
+If you wonder what your own dentiny is ,ask it to a god Chil-Sung . \
+If you want to know detaily, ask it to a senior god Buk-Du \
+The charge is really expensive. but Don't be disappointed due to lack of Gold. \
+Cheap category for the poor is prepared too. \ \ 
+<Next/@horo_2>
+
+[@horo_2]
+#IF
+#SAY
+Now~~ Would you select.. \ \ 
+<ask/@horo_1_1>of an astrologist  \ 
+<ask/@horo_1_2>of a god Chil-Sung  \
+<ask/@horo_1_3>of a senior god Buk-Du \
+<Cancel/@exit>
+
+[@horo_1_3]
+#IF
+#SAY
+As this is asked of a senoir god Buk-Du who controls the destiny of human \
+Never wrong and you can know your karma exactly.\
+You could think the charge expensive, but considering knowing one's own destiny \
+It is not expensive. If you commited a lot of crimes or your situation was not good \
+look over this. \ \ 
+<Pay/@horo_1_3_1>5000 gold \
+<Refuse/@horo_1_3_2>
+
+[@horo_1_3_2]
+#IF
+#SAY
+Don't you listen due to the lack of Gold ? \
+You are not generous. It's OK. \ \ 
+<Cancel/@exit>
+
+[@horo_1_3_1]
+#IF
+checkgold 5000
+#SAY
+Wow, I made a fault not recognizing a big customer like you. sorry. \
+Would like some Yogurt? wait with comfort and quiet... \ \
+<Next/@horo_1_3_1_1>
+#ACT
+take gold 5000
+#ELSESAY
+You don't have Gold.. Come again later. \ \ 
+<Close/@exit>
+
+[@horo_1_3_1_1]
+Holy 7 stars(Chil-Sung)at eastern sky ,Holy 7 stars(Chil-Sung) at northern sky , Holy 7 stars(Chil-Sung) at western sky \
+Holy 7 stars(Chil-Sung) at southern sky.  I pray the group of sir.Chil-Sung who are guardian gods of each sky \
+to read this person's destiny.  \
+Please lift the veil on route of stars. \ \
+<Next/@horo_1_3_1_1_1>
+
+[@horo_1_3_1_1_1]
+#IF
+checkluckypoint 5
+#SAY
+I have never seen this destiny... There is nothing to tell \
+It is time for you to receive reward for your good behavior until now. \
+When I find this destiny, I shout 'Wonderful' \
+I envy you ..... Would you share your destiny with me? \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint 4
+#SAY
+Your are great. The stack of your good behavior seems to reach sky \
+You never seem to run out of fortune. but Don't be conceited \
+Just one mistake could get rid of the stack of your good behavior...\
+It is so difficult to make good reputation. \ \ 
+<Close/@exit>
+#ACT
+break
+
+
+#IF
+checkluckypoint 3
+#SAY
+It is a good destiny. How is your business thesedays? 
+I guess the situation of all your business is good \ \
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint 2
+#SAY
+Very good. Uhm... Your destiny walks along the rule of heaven. \
+Therefore keep watching your behavior always and never go against the rule of heaven. \
+Then you will get a big fortune
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint 1
+#SAY
+Good destiny.. your guardian star turns the route of rotation. \
+Although there is not good omen if you maintain your behavior \
+Good result will come up soon. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint 0
+#SAY
+It's common destiny.. Your furture seems not to be bad \
+While there will be nothing good. kindly speaking it is regular \
+but criticaly speaking there is nothing special at your destiny. \
+But don't be disappointed. regular life is not bad.. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -1
+#SAY
+You need to be careful.. your destiny is not good. but it's not serious \
+Never mind much . \ \
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -2
+#SAY
+Be careful. Do you know what a unlucky person means ? \
+It means the person who fails everything. Do you want to be such person. \
+Stop bad behavior. when you regert it, it never returns. \
+Keep in mind.. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -3
+#SAY
+Be careful.. Your destiny has evil fate.. It is impossible for regular effort to get rid of the evil fate. \
+If you keep being diligent and watching your behavior, the evil fate will disappear naturally \
+keep in mind. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -4
+#SAY
+Don't live such like this.. if you keep going such like this, you could fall into  \
+bad situation never returning. you should watch your behavior and cultivate virtue. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -5
+#SAY
+Miserable destiny you are.. there are kinds of evil fate. Do you want to know what your evil fate is ? \
+It is not just one. Which one is good for starting story?...\
+I would like to skip it for you. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -6
+#SAY
+Poor destiny you are.. If you failed smelting or series of other jobs \
+Don't blame GM. Everything depends on your destiny. \
+Harvest owes to seeding. it is the principle of nature... \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -7
+#SAY
+Ugly destiny you are.. your destiny has a demon. I bet you never success anything \
+How did you reach this situation? You should have accumulated \
+good deeds. \ \
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -8
+#SAY
+Worst destiny you are.. I have seen a lot of unlucky people \
+But you are the worst person among people I have seen. What a terrible destiny you have \
+Have you heard that falling on one's back, one's knose was injured ? \
+It will be your case. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -9
+#SAY
+Cruel destiny you are.. Oh, god... Your destiny has a heavy demon. this is terrible too much \
+You will face disaster soon. Be careful always. Do you want to know how you escape from it? \
+Don't wish!  considering that in spite of this situation, you wish such like that \
+You are really courageous. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -10
+#SAY
+...... Nothing to tell.  Just regard all your situations as your destiny \
+in a certain view you beyond the retriction of human \
+It coulb be really great. \ \
+<Close/@exit>
+#ACT
+break
+
+[@horo_1_2]
+#IF
+#SAY
+Will you really see this ? well it could be not bad... Would you like to know more detail? \
+You would not ! I got it... the reason that I do this job is not making Gold \
+Don't misunderstand me... \ \
+<Pay/@horo_1_2_1> 3000 gold \
+<Refuse/@exit>
+
+
+[@horo_1_2_1]
+#IF
+checkgold 3000
+#SAY
+Now let me tell your destiny, Be quiet. \ \ 
+<Next/@horo_1_2_1_1>
+#ACT
+take gold 3000
+#ELSESAY
+You run out of Gold... come again later with Gold.. \ \
+<Close/@exit>
+
+[@horo_1_2_1_1]
+Twinkling seven Holy stars called Cheon-Chu, Cheon-Sun, Cheon-Ki, Cheon-Kweon, Ok-Hyung, Kai-Yang, Yo-Kwang \ 
+Might put an ability into my body to read the destiny of this person. \ \ 
+<Next/@horo_1_2_1_1_1>
+
+
+[@horo_1_2_1_1_1]
+#IF
+checkluckypoint 5
+#SAY
+Oh~~ your destiny is good. Do everything with a confidence. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint 3
+#SAY
+Uhm.. Although it is beginning , your destiny begins to be better \ \
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint 1
+#SAY
+Well there is nothing good or bad in your destiny, shortly your destiny is regular  \ \
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -1
+#SAY
+Your destiny is not good. for it's not terrible, do rigth from now \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -3
+#SAY
+Being unlucky is painful whoever.  you seem to get some hardship. there is a sentence says \
+that at the moment you think it's late, actually it's the best time to start. therefore never give up. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -5
+#SAY
+There is evil fate in your destiny. It is time for you to begin failing. If smelting is not done well \
+Don't blame GM. Have you heard the rule of cause and effect? it means every effect owes to it's own cause \ \
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -7
+#SAY
+Your destiny has a demon. it is time for disaster to come up. Please take care wherever. \
+Do you want to know how to escape from it? It takes pain and long time cutting your bone. \
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -10
+#SAY
+You are badly unlucky. It is time for you to close your own game character. \
+If you wish to win a lottery ticket or success smelting, you should begin a new character. It's better for you. \ \ 
+<Close/@exit>
+#ACT
+break
+
+
+[@horo_1_1]
+#IF
+#SAY
+Uhm... You seems to be poor terribly. Make Gold instead of \
+going around village to talk  well, you should pay me first before listening to destiny \ \ 
+<Pay/@horo_1_1_1>1000 gold \
+<Refuse/@horo_1_1_2>
+
+[@horo_1_1_2]
+#IF
+#SAY
+What? can't you pay Gold? then I can't tell your destiny, get out of here right now. \
+Well~~ Next customer ! come here \ \  
+<ask without paying/@horo_1_1_2_1> \
+<Cancel/@exit>
+
+[@horo_1_1_2_1]
+#IF
+#SAY
+Are you kidding me ? then do you think that I eat soil instead of meal ? \
+Get out of here right now. Who is there ? scatter salt outside. \ \ 
+
+[@horo_1_1_1]
+#IF
+checkgold 1000
+#SAY
+Now ! let me tell your destiny.. \ \ 
+<Next/@horo_1_1_1_1>
+#ACT
+take gold 1000
+#ELSESAY
+Why do you ask me telling your destiny without enough Gold ? \ \ 
+<Close/@exit>
+
+[@horo_1_1_1_1]
+Huh!! star's from sky, Gold could be on the ground. crying children. \
+receives no gift .  \ \
+<Next/@horo_1_1_1_1_1>
+
+[@horo_1_1_1_1_1]
+#IF
+checkluckypoint 1
+#SAY
+Your fortune is so so.. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -5
+#SAY
+A little bad luck covers you, take care.. \ \ 
+<Close/@exit>
+#ACT
+break
+
+#IF
+checkluckypoint -10
+#SAY
+You should take care of yourself always.. you will get hardship.. \ \ 
+<Close/@exit>
+#ACT
+break

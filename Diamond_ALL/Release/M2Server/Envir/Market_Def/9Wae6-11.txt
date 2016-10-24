@@ -1,0 +1,10 @@
+[@main]
+#IF
+#SAY
+;에혀... 다라 아퍼 죽겠네요.. \
+;어디서 쉴때 없을까요?? \ \
+;<닫  기/@exit>
+
+Ugh... I have pain in my legs.. \
+Where can I take a rest?? \ \
+<close/@exit>

@@ -1,0 +1,194 @@
+[@main]
+#IF
+equal p9 0
+#ACT
+goto @main-1
+BreakTimeRecall 
+break
+
+#IF
+equal p9 1
+#ACT
+goto @race
+BreakTimeRecall 
+break
+
+#IF
+equal p9 2
+#ACT
+goto @cube
+BreakTimeRecall 
+break
+
+#IF
+equal p9 9
+#ACT
+goto @quit
+BreakTimeRecall 
+break
+
+[@main-1]
+#IF
+#ACT
+mov p9 0
+#SAY
+Hello <$USERNAME>\
+Welcome to Room 14\
+Here you need to be lucky\
+But you might be unlucky...\
+We will see...\\
+<Continue/@penalty>
+
+[@Quit]
+#IF
+#ACT
+map B011
+
+
+[@Penalty]
+#IF
+random 2
+#SAY
+YOu Win 5 Gamble Chips\\
+<Cool/@race>
+#ACT
+take gamblechip 5
+mov p9 1
+break
+
+#IF
+random 2
+#SAY
+YOu Win 4 Gamble Chips\\
+<Cool/@race>
+#ACT
+give gamblechip 3
+mov p9 1
+break
+#ELSEACT
+goto @Penalty
+
+[@race]
+Lets Get you out of here\
+Role the Dice\\
+<Rollin/@pre_cube>
+
+[@pre_cube]
+#IF
+checkitem gamblechip 1
+#ACT
+mov p9 2
+take gamblechip 1
+movr d0 6
+inc d0 1
+playdice 1 @cube
+#SAY
+Continue\ \
+<Ok/@cube>
+#ELSESAY
+<$USERNAME>, You haven't any Chips!!\
+Go get some if you want to gamble\\
+<Silly Me/@Quit>
+mov p9 9
+
+[@cube]
+#SAY
+Hey, you roled a <$STR(D0)> \
+You can now move <$STR(D0)> rooms forward.\\
+<Sweet, lets move!/@next_cube>
+
+[@next_cube]
+#IF
+equal d0 1 
+#ACT
+goto @posi1
+break
+
+#IF
+equal d0 2 
+#ACT
+goto @posi2
+break
+
+#IF
+equal d0 3 
+#ACT
+goto @posi3
+break
+
+#IF
+equal d0 4 
+#ACT
+goto @posi4
+break
+
+#IF
+equal d0 5
+#ACT
+goto @posi5
+break
+
+#IF
+equal d0 6 
+#ACT
+goto @posi6
+break
+
+[@Posi1]
+#IF
+#ACT
+batchDelay 1
+addbatch B115
+batchmove
+
+[@Posi2]
+#IF
+#ACT
+batchDelay 1
+addbatch B115
+addbatch B116
+batchmove
+
+[@Posi3]
+#IF
+#ACT
+batchDelay 1
+addbatch B115
+addbatch B116
+addbatch B117
+batchmove
+
+[@Posi4]
+#IF
+#ACT
+batchDelay 1
+addbatch B115
+addbatch B116
+addbatch B117
+addbatch B118
+batchmove
+
+[@Posi5]
+#IF
+#ACT
+batchDelay 1
+addbatch B115
+addbatch B116
+addbatch B117
+addbatch B118
+addbatch B119
+batchmove
+
+[@Posi6]
+#IF
+#ACT
+batchDelay 1
+addbatch B115
+addbatch B116
+addbatch B117
+addbatch B118
+addbatch B119
+addbatch B120
+batchmove
+
+

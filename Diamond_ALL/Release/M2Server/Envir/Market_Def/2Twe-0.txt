@@ -1,0 +1,159 @@
+;武器
+(@buy @sell @repair)
+%100
++5
++6
++43
+
+;对话, '*' : 对话tag
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+我不想和你这样的人打交道.. \ \
+<close/@exit>
+;<取消/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+Welcome. Thanks for dropping in\ \
+ <Buy/@buy>  weapon\
+ <Sell/@sell>  weapon\
+ <Repair/@repair> weapon\
+ <Ask/@QUEST> about weapon \
+ <close/@exit>
+<>
+
+[@QUEST]
+#IF
+check [755] 1
+#ACT
+goto @Q705
+break 
+
+#IF
+check [754] 1
+#ACT
+goto @Q704
+break
+
+#IF
+check [753] 1
+#ACT
+goto @Q703
+#ELSEACT
+goto @normal
+
+[@Q705]
+快去找向导吧，他有话要和你说. \ \
+<close/@exit>
+;<取消/@exit>
+
+
+[@Q704]
+#IF
+check [754] 1
+checklevel 5
+#ACT
+goto @Q704_1
+#ELSEACT
+goto @Q704_2
+
+[@Q704_2]
+#IF
+#SAY
+您的级别还没有到5，慢慢升级吧 \
+我会等你升到5级的.. \ \
+<close/@exit>
+;<取消/@exit>
+
+[@Q704_1]
+#IF
+#SAY 
+<$USERNAME>,您升到5级了.. \ 
+看到您升级，我心里也很开心.. \
+升级了，看来得需要适合您级别的剑. \
+来，这是青铜剑，会对您升级有帮助的. \ 
+好了，现在可以再去找一下向导了.. \ \
+<close/@exit>
+;<取消/@exit>
+#ACT
+SET [755] 1
+give BronzeSword 1
+
+[@Q703]
+#IF
+checklevel 3
+#SAY
+<$USERNAME>, 您好? 您是听向导的话来找我的? \
+嗯，我的要求是等你升级之后来找我.. \ 
+把级别升到5级就可以了.. \ \
+<close/@exit> \
+;<接受/@exit>请求 \
+;<拒绝/@Q703_2>请求
+<next/@q703_2>
+#ACT
+SET [754] 1
+#ELSESAY
+<$USERNAME>,  您好? 您是听向导的话来找我的? \
+但是您的级别太低了，我没办法给您任务.. \
+等级别升到3之后再来找我吧 \
+那就祝你好运了\ \
+<close/@exit>
+;<取消/@exit>
+
+[@Q703_2]
+#IF
+#SAY
+等下次机会吧，再见.. \ \
+<close/@exit>
+;<取消/@exit>
+
+[@normal]
+#IF
+#SAY
+<$USERNAME>您对传奇世界了解得足够多了. \
+我认为您自己一个人完全可以开拓自己的路 \
+我是帮不上忙了，祝你好运. \ \
+<close/@exit>
+;<取消/@exit>
+
+[@buy]
+Which item would you like to buy?\ \ \
+<back/@main>
+
+[@sell]
+Show me your weapon to be sold.\ \ \
+<back/@main>
+
+[@repair]
+Would like to repair weapon? Show me your weapon that need it.\ \
+<back/@main>
+
+[~@repair]
+It Seems in good condition now.
+ <Back/@main>
+
+
+[goods]
+;items(Gen)   pieces     minute
+WoodenSword     100         	1
+Dagger		100		1
+EbonySword	100		1	
+BronzeSword	100		1 
+ShortSword 	100		1
+Ironsword	100		1
+BronzeAxe	100		1
+Trident		100		1
+HookedSword	100		1
+Scimitar	100		1
+SteelSword	100		1
+PickAxe		100		1
+Copp		100		1
+IronOre		100		1
+SilverOre	100		1
+GoldOre		100		1
+BlackOre	100		1

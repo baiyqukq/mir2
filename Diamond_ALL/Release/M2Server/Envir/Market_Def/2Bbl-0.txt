@@ -1,0 +1,222 @@
+;公扁
+;武器
+(@s_repair)
+%100
++5
++6
+
+;; 拳阿档 涅胶飘 力2盒扁痢
+;#######################################
+;;厘揪酒历揪啊 娟扁秦拎辑 柯版快
+;; 命运之刃指示第二分歧点
+;#######################################
+;;听卫家店的话来时
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+Sorry but i dont want to help such an evil person..\\
+<Exit/@exit>
+#ELSEACT
+goto @main-1
+
+[@main-1]
+
+Glad to see you, how can i help you ?\ \
+ <Special repair/@s_repair> weapon\
+ <Talk With/@talk>\
+ <Cancel/@exit>
+<>
+
+[goods]
+;商品 数量  时间(hour)
+
+;#######################################
+
+;措拳, '*' : 措拳 怕弊
+;对话, '*' : 对话tag
+
+
+;--------------------------------------------
+[@talk]
+#IF
+check [205] 1
+#ACT
+goto @quit
+break
+
+#IF
+check [211] 1
+#ACT
+goto @givekundo
+break
+
+#IF
+check [210] 1
+#ACT
+goto @kundo
+break
+
+#IF
+check [204] 1
+#ACT
+goto @accept
+break
+
+#IF
+check [203] 1
+#ACT
+goto @talk_1
+break
+
+#ELSEACT
+goto @quit
+
+[@quit]
+#IF
+#SAY
+Nice weather we have today.\\
+<Exit/@exit>
+
+[@talk_1]
+Aaah! I see you have visited my friend Vincent.\
+He is a luttle loony but hes an ok guy.\
+So you want me to tell you about this FateSword?\ \
+ <Listen/@okheard>\
+ <Dont Listen/@noheard>
+
+
+[@okheard]
+#IF
+checklevel 35
+#ACT
+goto @w_t_ok
+
+
+#ELSESAY
+I'm sorry little one. But the things that need\
+to be done are just to hard for such a little.\
+one as you. Here is a prize for your efforts.\ \
+
+#ELSEACT
+reset [200] 20
+give LotteryTicket 5
+
+[@noheard]
+#IF
+#ACT
+reset [210] 10
+#SAY
+Fine, you choose not to listen.\
+Go away..\ \
+ <Exit/@exit>
+
+
+[@w_t_ok]
+Great that you chose to listen.\
+I will tell you something about this sword,\
+and how me and Vincent can make it.\ \
+ <Next/@next>
+
+[@next]
+It all started a while back when our master\
+showed us a book called FateSwordBook.\
+In that book it is said how to create this sword.\
+But as our master said that we were not readu for\
+this powerfull sword he closed the book infront of\
+our eyes.\ \
+ <Next/@next_1>
+
+[@next_1]
+The only thing we could see from the needed\
+ingrediants were that you needed high purity\
+Gold Ore. After our master closed the book\
+evil spirits came and stole his book.\ \
+ <Next/@next_2>
+ 
+[@next_2]
+He told us to go find a Warrior that would be\
+able to get his book back from these spirits.\
+And if this warrior was strong enough to rid \
+him from these spirits and bring his book back\
+he would send this warrior to me with this book\
+to make this FateSword.\ \
+ <Next/@next_3>
+ 
+[@next_3]
+That is basicly the story about it.\
+All i ask you to do is go and see my master.\
+He can decide if you are strong enough to\
+complete this task. He might be a little sceptic\
+and let you do one of his weird mind games.\ \
+ <Next/@next_4>
+ 
+[@next_4]
+My master also is known as a rather shy man\
+that doesnt always want to talk.\
+So pick the right time to go and see him.\ \
+ <Next/@next_5>
+
+[@next_5]
+So my friend.\
+Do you think you are ready to take on this\
+task, or have i scared you?\
+ <Accept/@accept>\
+ <Don't Accept/@exit>
+
+[@accept]
+#IF
+#ACT
+set [204] 1
+#SAY
+Go and talk to my Master.\
+He is somewhere in the woods.\ \
+<Exit/@exit>
+ 
+[@kundo]
+#IF
+checkitem FateSwordBook
+#ACT
+set [211] 1
+take FateSwordBook 1
+#SAY
+
+I see that you have the book!\
+It took us a long time to find the right person\
+to take on this hard quest and really finish it.\
+Manye have died before you. I will now go research\
+this book and make the FateSword.\
+Please come back later and i will have it for you.\ \
+ <Exit/@exit>
+
+#ELSESAY
+Where is the book my master gave you? \ 
+Quick go and get it! \
+<Exit/@exit>
+
+ 
+[@givekundo]
+#IF
+random 10
+#ACT
+goto @rankundo
+#ELSESAY
+Please Come Back later. \ \
+<Exit/@exit>
+
+
+[@rankundo]
+#IF
+checkjob warrior
+checklevel 35
+#ACT
+reset [200] 20
+set [205] 1
+give FateSword
+#SAY
+I have studied the book and made you this sword.\
+I hope you will like it!\
+It took some time to decifer all the ingrediants\
+but i finally made it.\
+Maybe we will speak again some time.\
+ <Exit/@exit>

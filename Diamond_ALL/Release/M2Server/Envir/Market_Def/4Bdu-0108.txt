@@ -1,0 +1,151 @@
+;公扁
+(@buy @sell)
+%100
++0
++42
+
+;对话, '*' : 对话tag
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+我不想和你这样的人打交道.. \ \
+<取消/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+Welcome, how may I help you ?\ \
+ <Buy/@buy> drug\
+ <Sell/@sell> drug\
+ <Talk with/@talkwith>\
+ <Cancel/@exit>
+<>
+
+[@Tmove]
+#IF
+random 2
+#ACT
+mapmove 0 326 289
+break
+
+#IF
+random 2
+#ACT
+mapmove 0 327 288
+break
+
+#ELSEACT
+goto @Tmove
+
+[@buy]
+Which item do you want to buy ?\ \ \
+ <Back/@main>
+
+
+[@sell]
+Show me your item, I'll offer you a good price.\ \ \
+ <Back/@main>
+
+
+
+;#####################################################
+
+[@talkwith]
+#IF
+checkunit  [1] 0
+#ACT
+goto  @talkwith_1
+
+;#####################################################
+
+
+[@talkwith_1]
+;问有关许中医的事情时
+#IF
+check  [103]  1
+check  [104]  0
+#SAY
+欢迎光临，最近还好，\
+没有怪物进入村里。\ \
+ <问有关许中医的事情。/@about_her_doctor>\
+#ACT
+break
+
+;问有关刘老头的事情时
+#IF
+check [108] 1
+check [109] 0
+#SAY
+欢迎光临，最近还好，\
+没有怪物进入村里。\ \
+ <问有关刘老头的事情。/@about_yu_oldman>\
+
+#ACT
+break
+
+#IF
+#SAY
+欢迎光临，最近还好，\
+没有怪物进入村里。\ \
+
+
+
+
+;-----------------------------------------------------
+
+[@about_her_doctor]
+你说的是银杏山谷的名医许中医吗？\
+你去银杏山谷的药店就可以很容易找到他。\
+
+
+
+;-----------------------------------------------------
+
+[@about_yu_oldman]
+#IF
+RANDOM  3
+#SAY
+最近有很多人在找刘老头。\
+看来是许中医在找他。\
+好好找吧，可能又是躲在什么地方。\
+
+#ACT
+break
+
+#IF
+RANDOM  3
+#SAY
+安家布衣对刘老头很熟悉，\
+你可以去找。\
+#ACT
+break
+
+#IF
+#SAY
+你说刘老头？那个老人最近都没见过，\
+原本就是一个很怪的老人，\
+没想到现如今还有人找他。\
+
+
+
+
+;-----------------------------------------------------
+
+
+[goods]
+;items(cab be Zen)      pieces      hour
+(HP)DrugSmall		200	1	
+(MP)DrugSmall		200	1
+(HP)Drugmedium		200	1
+(MP)Drugmedium		200	1
+(HP)DrugLarge		200	1
+(MP)DrugLarge		200	1
+(HP)Drugbundle		200	1
+(MP)Drugbundle		200	1
+(HP)MDrugbundl		200	1
+(MP)MDrugbundl		200	1
+(HP)SDrugbundl		200	1
+(MP)SDrugbundl		200	1

@@ -1,0 +1,69 @@
+[@main]
+This is the palace of Bichon Wall. I'm and administrator\
+who is in charge of many things. How may i help you?\ \
+ <Request Guild Creation./@@buildguildnow>\
+ <Request GuildWar/@guildwar>\
+ <Ask how to establish Guild/@buildguildexp>\
+ <Ask about Guild war/@guildwarexp>\
+ <Request Subak Conquest War./@requestcastlewar>\
+; <기부금을 낸다./@donate>\
+
+[@buildguildexp]
+In order to build a guild you should prove that u qualify.\
+To verify your qualification u should provide 1 million gold\
+and horn of Woomataurus who lives deep in side of WoomaTemple\ 
+located in Woomyon woods.\\
+<Back/@main>
+
+[@guildwar]
+Let me know name of opponent Guild you wish to war.\
+Allowing legal Guild war will cost u 30000 Gold\ \
+ <Click then type name of Guild to war/@@guildwar>\
+ <Back/@main>\
+
+[@guildwarexp]
+<GuildWar/@guildwar2>Means war done by legal conquest.\
+At present, because there are many guilds and many stiggles,\
+goverment will approve <legal/@warrule> Guild war.\
+If it is <requested/@propose> war will be allowed for 3 hours.\
+You should pay<$GUILDWARFEE> Gold as request fee.\ \
+<Back/@main>
+
+[@guildwar2]
+when you request guild war, ID of same guild member will appear\
+in blue collor. on the other side, ID of enemy guild member will\
+appear orange.\
+If you are connected during a Guild war, the message:\
+'war with certain guild' will appear in chatting window and even\
+if you kill a member of the enemy guild now fighting with, you.\
+will not be regarded as PK. \
+<back/@guildwarexp>
+
+[@warrule]
+Guild war cannot take place in village.\
+It can be executed out of certain ranges from village\
+or inside contest area (like inside some buildings)\
+However, if you PK your ID will be red in colour\
+even during war.\ \
+<back/@guildwarexp>
+
+[@propose]
+Proposal of guild war can only be requested\
+by Guildchief. \ \
+<back/@guildwarexp>
+
+;[@donate]
+;아직 기부금을 받지 않고 있다오.\ \
+;<뒤로/@main>\
+
+[@requestcastlewar]
+To request wall conquest war you should have piece of ZumaTaurus.\
+Do u have it?\
+If requested war will be started in 3 days.\ \
+ <Give Zuma Relice/@requestcastlewarnow>\
+ <Cancel/@main>\
+
+[~@request_ok]
+your request was excepted, the war will occur at\
+ <$CASTLEWARDATE> have a nice day.\
+

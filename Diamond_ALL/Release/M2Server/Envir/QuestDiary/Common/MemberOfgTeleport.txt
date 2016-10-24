@@ -1,0 +1,47 @@
+[@GernalTeleport]
+{
+#IF
+    large p1 0
+#ELSEACT
+    goto @Punish
+#SAY
+请选择你想去的地方: \ \
+<比奇省/@zymove>   <盟重土城/@mcmove>    <白日门/@brmmove>
+<沙巴克/@sbkmove>   <神龙岛/@srdmove>\ \
+<返回/@main>
+[@zymove]
+#IF
+    large p1 0
+#ELSEACT
+    goto @Punish
+#ACT
+    mapmove 0 330 266
+[@mcmove]
+#IF
+    large p1 0
+#ELSEACT
+    goto @Punish
+#ACT
+    mapmove 3 330 330
+[@brmmove]
+#IF
+    large p1 0
+#ELSEACT
+    goto @Punish
+#ACT
+    mapmove 11 180 306
+[@sbkmove]
+#IF
+    large p1 0
+#ELSEACT
+    goto @Punish
+#ACT
+    mapmove 3 676 334
+[@srdmove]
+#IF
+    large p1 0
+#ELSEACT
+    goto @Punish
+#ACT
+    mapmove 5 139 336
+}

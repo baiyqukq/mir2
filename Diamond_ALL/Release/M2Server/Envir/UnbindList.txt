@@ -1,0 +1,14 @@
+100    (HP)DrugSmall
+101    (MP)DrugSmall
+102    (HP)DrugMedium
+103    (MP)DrugMedium
+104    (HP)DrugLarge
+105    (MP)DrugLarge
+106    超级金创药
+107    超级魔法药
+108    DungeonEscape
+109    RandomTeleport
+110    TownTeleport
+111    TeleportHome
+112    GambleChip
+113    Amulet

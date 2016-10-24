@@ -1,0 +1,57 @@
+;武器
+(@buy @sell @repair)
+%100
+;Neckalace
++20
++19
++21
+
+;对话框, '*' : 对话框 标签
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+我不想和你这样的人打交道.. \ \
+<取消/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+Welcome, how may I help you ?\ \
+<Buy/@buy> necklace\
+<Sell/@sell> necklace\
+<Repair/@repair> necklace\
+<Cancel/@exit>
+<>
+
+[@buy]
+Which necklace would you like ?\ \ \
+ <Back/@main>
+
+[@sell]
+Show me the necklace you wish to sell.\ \ \
+ <Back/@main>
+
+[@repair]
+Give me the necklace you want to repair.\ \ \
+ <Back/@main>
+
+[~@repair]
+Your necklace seems repaired fine.\ \
+ <Back/@main>
+
+[goods]
+;商品          数量       时间
+GoldNecklace		200	1
+PrecisionNeck		200	1
+YellowNecklace		200	1
+EbonyNecklace		200	1
+BlackNecklace		200	1
+PlatinumNeck		200	1
+TigerNecklace		200	1
+LanternNeck		200	1
+AmberNecklace		200	1
+NagaNecklace		200	1
+PhoenixBead		200	1

@@ -1,0 +1,36 @@
+1/1   gold 3500
+
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/1    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/2    Sunpotion(M)
+1/1    SunPotion
+1/1    SunPotion
+1/1    SunPotion
+1/1    SunPotion
+1/1    SunPotion
+1/1    SunPotion
+1/1    SunPotion
+1/2    SunPotion
+1/2    SunPotion
+1/2    SunPotion
+1/2    SunPotion
+1/2    SunPotion
+1/2    SunPotion
+1/2    SunPotion
+1/2    (HP)Druglarge
+1/2    (HP)Druglarge
+1/2    (HP)Druglarge
+1/2    (HP)Druglarge
+1/2    (HP)Druglarge
+1/2    (MP)Druglarge
+1/2    (MP)Druglarge
+1/2    (MP)Druglarge
+1/2    (MP)Druglarge
+1/2    (MP)Druglarge

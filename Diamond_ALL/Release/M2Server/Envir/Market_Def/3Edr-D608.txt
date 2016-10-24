@@ -1,0 +1,26 @@
+(@repair)
+%200
+;Clothes
++10
++11
+
+;dialogue, '*' : dialogue tag
+
+[@main]
+Welcome to this dangerous place my friend,\
+here you can repair your Armour.\
+ <repair/@repair> armour\
+ <Cancel/@exit>
+<>
+
+[@repair]
+Put in your armour for repair\
+ <Back/@main>
+
+[~@repair]
+Your armour seems repaired fine again.\ \ \
+ <Back/@main>
+
+[goods]
+;商品    数量       时间
+

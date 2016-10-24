@@ -1,0 +1,161 @@
+;武器
+(@buy @sell)
+%100
++0
++42
+
+;对话, '*' : 对话tag
+[@main]
+#IF
+checkpkpoint 2
+#SAY
+我不想和你这样的人打交道.. \ \
+<取消/@exit>
+
+#ELSEACT
+goto @main-1
+
+
+[@main-1]
+Welcome, how may I help you ?\ \
+ <Buy/@buy> Item\
+ <Sell/@sell> Item\
+  <Talk with/@Q318>\
+ <Cancel/@exit>
+<>
+
+
+
+[@Q318]
+#IF
+check [321] 1
+#ACT
+goto @Q321
+break
+
+#IF
+check [320] 1
+#ACT
+goto @Q320
+break
+
+#IF
+check [318] 1
+#SAY
+我之前听陶氏说过你要来， \ 
+看来你来是想知道天水... \
+天水是借助你的内功，\
+将体力提升到一定程度的药水 \
+天水的制作方法很简单， \
+但是制作天水所需要的资料可是很难找的 \
+其药效也很难判断 \ \
+<继续/@Q318_1>
+#ACT
+break
+
+#IF
+check [319] 1
+#SAY
+我之前听陶氏说过你要来， \ 
+看来你来是想知道天水... \
+天水是借助你的内功，\
+将体力提升到一定程度的药水 \
+天水的制作方法很简单， \
+但是制作天水所需要的材料可是很难找的 \
+其药效也很难判断 \ \
+<继续/@Q318_1>
+#ACT
+break
+
+#ELSESAY
+我这里卖的东西不多，但是你可以在其中挑一下看看? \
+<继续/@buy>
+
+[@Q321] 
+你到药店老板那里去确认一下 \
+一定要记住，一旦吃了这个药你就会消失的 \ \
+<取消/@exit>
+
+[@Q320]
+#IF
+daytime sunset
+#SAY
+你来了, 我已经为你炼好药了 \
+想知道药效，\
+就要到沙巴克城的药店老板那里去， \
+他会给你确认药效的，祝你好运.. \ \
+<取消/@exit>
+#ACT
+SET [321] 1
+give 天水 1
+#ELSESAY
+还没到晚上呢，这么快就来了? 要有耐心才行 \
+好了，晚上再来吧... \ \
+<取消/@exit>
+
+[@Q318_1]
+首先, 要炼天水需要以下材料， \
+鹿茸 1, 鹿血 3, 食人树的果实 5,毒蜘蛛牙齿 5, \
+食人树叶 5,蝎子的尾巴 10,蛆卵 10  \
+快去准备这些材料吧，只要有材料，我就可以马上给你炼药 \ 
+你把材料带齐了吗？\ \
+<准备好材料/@Q318_1_1> \
+<没准备好材料/@Q318_1_2>
+
+[@Q318_1_1]
+#IF
+checkitem 鹿茸 1
+checkitem 鹿血 3
+checkitem 食人树的果实 5
+checkitem 毒蜘蛛牙齿 5
+checkitem 食人树叶 5
+checkitem 蝎子的尾巴 10
+checkitem 蛆卵 10
+#SAY
+你材料准备得很好.. \ 
+晚上再来找我怎么样? 到时候我把炼好的药给你... \ \
+<取消/@exit>
+#ACT
+SET [320] 1
+take 鹿茸 1
+take 鹿血 3
+take 食人树的果实 5
+take 毒蜘蛛牙齿 5
+take 食人树叶 5
+take 蝎子的尾巴 10
+take 蛆卵 
+#ELSESAY 
+你准备的材料不齐全, 你知道材料种类， \
+就快去准备材料吧，我会在这里等你的。 \ \
+<取消/@exit>
+
+[@Q318_1_2]
+你准备的材料不齐全, 你知道材料种类， \
+就快去准备材料吧，我会在这里等你的。 \ \
+<取消/@exit>
+
+
+[@buy]
+Which item do you want to buy ?\ \ \
+ <Back/@main>
+
+
+[@sell]
+Show me your item, I'll offer you a good price.\ \ \
+ <Back/@main>
+
+
+[goods]
+;items(cab be Zen)      pieces      hour
+(HP)DrugSmall		200	1	
+(MP)DrugSmall		200	1
+(HP)Drugmedium		200	1
+(MP)Drugmedium		200	1
+(HP)DrugLarge		200	1
+(MP)DrugLarge		200	1
+(HP)Drugbundle		200	1
+(MP)Drugbundle		200	1
+(HP)MDrugbundl		200	1
+(MP)MDrugbundl		200	1
+(HP)SDrugbundl		200	1
+(MP)SDrugbundl		200	1

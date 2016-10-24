@@ -1,0 +1,83 @@
+[@Actions]
+{
+[@buy]
+#ACT
+    mov p7 1
+    SENDMSG 2 %s因犯强行购买罪被捕入狱，在此提醒大家不要使用非法外挂。
+    SENDMSG 4 %s因犯强行购买罪被捕入狱，在此提醒大家不要使用非法外挂。
+    goto @Punish1
+[@sell]
+#ACT
+    mov p7 1
+    SENDMSG 2 %s因犯强行出售罪被捕入狱，在此提醒大家不要使用非法外挂。
+    SENDMSG 4 %s因犯强行出售罪被捕入狱，在此提醒大家不要使用非法外挂。
+    goto @Punish1
+[@repair]
+#ACT
+    mov p7 1
+    SENDMSG 2 %s因犯强行修理罪被捕入狱，在此提醒大家不要使用非法外挂。
+    SENDMSG 4 %s因犯强行修理罪被捕入狱，在此提醒大家不要使用非法外挂。
+    goto @Punish1
+[@srepair]
+#ACT
+    mov p7 1
+    SENDMSG 2 %s因犯强行特修罪被捕入狱，在此提醒大家不要使用非法外挂。
+    SENDMSG 4 %s因犯强行特修罪被捕入狱，在此提醒大家不要使用非法外挂。
+    goto @Punish1
+[@s_repair]
+#ACT
+    mov p7 1
+    SENDMSG 2 %s因犯强行特修罪被捕入狱，在此提醒大家不要使用非法外挂。
+    SENDMSG 4 %s因犯强行特修罪被捕入狱，在此提醒大家不要使用非法外挂。
+    goto @Punish1
+[@storage]
+#ACT
+    mov p7 1
+    SENDMSG 2 %s因犯强行保管物品罪被捕入狱，在此提醒大家不要使用非法外挂。
+    SENDMSG 4 %s因犯强行保管物品罪被捕入狱，在此提醒大家不要使用非法外挂。
+    goto @Punish1
+[@getback]
+#ACT
+    mov p7 1
+    SENDMSG 2 %s因犯强行取回物品罪被捕入狱，在此提醒大家不要使用非法外挂。
+    SENDMSG 4 %s因犯强行取回物品罪被捕入狱，在此提醒大家不要使用非法外挂。
+    goto @Punish1
+[@makedrug]
+#ACT
+    mov p7 1
+    SENDMSG 2 %s因犯抢劫罪被捕入狱，在此提醒大家不要使用非法外挂。
+    SENDMSG 4 %s因犯抢劫罪被捕入狱，在此提醒大家不要使用非法外挂。
+    goto @Punish1
+[@prices]
+#ACT
+    mov p7 1
+    SENDMSG 2 %s因犯未知罪被捕入狱，在此提醒大家不要使用非法外挂。
+    SENDMSG 4 %s因犯未知罪被捕入狱，在此提醒大家不要使用非法外挂。
+    goto @Punish1
+[@upgradenow]
+#ACT
+    mov p7 1
+    SENDMSG 2 %s因犯强行升级武器罪被捕入狱，在此提醒大家不要使用非法外挂。
+    SENDMSG 4 %s因犯强行升级武器罪被捕入狱，在此提醒大家不要使用非法外挂。
+    goto @Punish1
+[@getbackupgnow]
+#ACT
+    mov p7 1
+    SENDMSG 2 %s因犯强行升级武器罪被捕入狱，在此提醒大家不要使用非法外挂。
+    SENDMSG 4 %s因犯强行升级武器罪被捕入狱，在此提醒大家不要使用非法外挂。
+    goto @Punish1
+[~@s_repair]
+你的物品已经恢复到全新状态了。 \ \
+<返回/@main>
+[@fail_s_repair]
+此物品无法修理！！！\ \
+<返回/@main>
+[~@repair]
+你的物品已经修理好了。 \ \
+<返回/@main>
+
+[@helps]
+#CALL	[\Quest\CheckQuests.txt]	@CheckQuest
+[@Punish1]
+#CALL	[\Common\Punish.txt]	@Punisher
+}

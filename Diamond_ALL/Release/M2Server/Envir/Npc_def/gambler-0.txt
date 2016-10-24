@@ -1,0 +1,934 @@
+[@main]
+#IF
+#SAY
+Welcome to the Bichon Wall game market. \ \
+<Listen to an explanation of the game./@display> \
+<Play the game now./@play_dice> \
+<Don't play./@exit> \
+#ACT
+mov p2 0
+
+[@display]
+#IF
+#SAY
+<$USERNAME>님 안녕하세요? 이 게임에 룰을 설명 \
+드리겠습니다. 이 게임은 <$USERNAME>님이 먼저 주사위 \
+3개를 굴립니다. 이 3개의 주사위의 눈의 값을 모두 합쳐서 \
+9 가 나와서 이기면 거신 금액에 2배를 받을 수가 있습니다. \
+만약 10이 넘는 숫자가 나오면 10을 빼고 나온 숫자가 \
+당신의 숫자 입니다. 그럼 해보시면서 알아 보시기 바랍니다. \ \
+<이전 메뉴로 돌아 갑니다./@main>
+
+[@play_dice]
+#IF
+#SAY
+<$USERNAME>님 게임을 하도록 하겠습니다. \ \
+게임을 1판 진행 할때 마다 1000전씩 지불을 하셔야 합니다. \ \
+<1000전을 지불 하고 게임을 하겠습니다./@event> \
+<돈이 아까워서 게임 하지 않겠습니다./@exit>
+
+[@event]
+#IF
+checkgold 1000
+random 5
+#SAY
+헉 잠깐 이벤트 입니다. 당신의 주사위가 6,6,6 이 나오면 \
+거신 돈에 5배를 드리겠습니다. 대신 이벤트 참가비 1000전 \
+을 주셔야 합니다. \ \
+<1000전을 지불 하고 게임을 하겠습니다./@event1> \
+<그냥 게임을 하겠습니다./@play_dice1>
+#ELSEACT
+goto @play_dice1
+
+[@event1]
+#IF
+#ACT
+mov p2 1
+goto @play_dice1
+
+[@play_dice1]
+#IF
+checkgold 1000
+#ACT
+take gold 1000
+#SAY
+당신이 이게임에 거실 돈을 정하십시요. \ \
+<2000전을 건다./@M2000> \
+<5000전을 건다./@M5000> \
+<10000전을 건다./@M10000> \
+<20000전을 건다./@M20000> \
+<50000전을 건다./@M50000> \
+<100000전을 건다./@M100000> \
+<포기한다./@play_dice>
+#ELSESAY
+당신은 돈이 없으시네요.. \
+돈이 준비 되시면 다시 하시기 바랍니다. \ \
+<닫  기/@exit>
+
+[@M2000]
+#IF
+checkgold 2000
+#SAY
+당신은 2000전을 거셨습니다. \
+주사위를 굴리겠습니다. \ \
+<다  음/@play_dice2>
+#ACT
+take gold 2000
+mov p0 0
+#ELSESAY
+당신은 돈이 모자르시네요.. \ \
+<이  전/@play_dice>
+
+[@M5000]
+#IF
+checkgold 5000
+#SAY
+당신은 5000전을 거셨습니다. \
+주사위를 굴리겠습니다. \ \
+<다  음/@play_dice2>
+#ACT
+take gold 5000
+mov p0 1
+#ELSESAY
+당신은 돈이 모자르시네요.. \ \
+<이  전/@play_dice>
+
+
+[@M10000]
+#IF
+checkgold 10000
+#SAY
+당신은 10000전을 거셨습니다. \
+주사위를 굴리겠습니다. \ \
+<다  음/@play_dice2>
+#ACT
+take gold 10000
+mov p0 2
+#ELSESAY
+당신은 돈이 모자르시네요.. \ \
+<이  전/@play_dice>
+
+[@M20000]
+#IF
+checkgold 20000
+#SAY
+당신은 20000전을 거셨습니다. \
+주사위를 굴리겠습니다. \ \
+<다  음/@play_dice2>
+#ACT
+take gold 20000
+mov p0 3
+#ELSESAY
+당신은 돈이 모자르시네요.. \ \
+<이  전/@play_dice>
+
+[@M50000]
+#IF
+checkgold 50000
+#SAY
+당신은 50000전을 거셨습니다. \
+주사위를 굴리겠습니다. \ \
+<다  음/@play_dice2>
+#ACT
+take gold 50000
+mov p0 4
+#ELSESAY
+당신은 돈이 모자르시네요.. \ \
+<이  전/@play_dice>
+
+[@M100000]
+#IF
+checkgold 100000
+#SAY
+당신은 100000전을 거셨습니다. \
+주사위를 굴리겠습니다. \ \
+<다  음/@play_dice2>
+#ACT
+take gold 100000
+mov p0 5
+#ELSESAY
+당신은 돈이 모자르시네요.. \ \
+<이  전/@play_dice>
+
+[@play_dice2]
+#IF
+#SAY
+그럼 당신의 주사위를 3개 굴리겠습니다. 행운을 빕니다. \ \
+#ACT
+movr d0 6
+movr d1 6
+movr d2 6
+inc d0 1
+inc d1 1
+inc d2 1
+mov d9 0
+sum d0 d1
+sum d2
+playdice 3 @check_event
+
+[@check_event]
+#IF
+equal p2 1
+#ACT
+goto @event_next
+#ELSEACT
+goto @check_gold
+
+[@event_next]
+#IF
+check d0 9
+check d1 9
+check d2 9
+#ACT
+goto @event_result
+#ELSEACT
+goto @check_gold
+
+[@check_gold]
+#IF
+large d9 9
+#ACT
+dec d9 10
+goto @play_dice3
+#ELSEACT
+goto @play_dice3
+
+[@play_dice3]
+#IF
+equal d9 0
+#ACT
+mov p1 0
+goto @check_message
+break
+
+#IF
+equal d9 1
+#ACT
+mov p1 1
+goto @check_message
+break
+
+#IF
+equal d9 2
+#ACT
+mov p1 2
+goto @check_message
+break
+
+#IF
+equal d9 3
+#ACT
+mov p1 3
+goto @check_message
+break
+
+#IF
+equal d9 4
+#ACT
+mov p1 4
+goto @check_message
+break
+
+#IF
+equal d9 5
+#ACT
+mov p1 5
+goto @check_message
+break
+
+#IF
+equal d9 6
+#ACT
+mov p1 6
+goto @check_message
+break
+
+#IF
+equal d9 7
+#ACT
+mov p1 7
+goto @check_message
+break
+
+#IF
+equal d9 8
+#ACT
+mov p1 8
+goto @check_message
+break
+
+#IF
+equal d9 9
+#ACT
+mov p1 9
+goto @check_message
+break
+
+[@check_message]
+#IF
+#SAY
+저의 숫자는 <$STR(P1)> 입니다.\
+다음은 제가 주사위를 굴릴 차례 이네요. \ \
+<다  음/@play_dice4>
+
+[@play_dice4]
+#IF
+#SAY
+그럼 저의 주사위를 3개 굴리겠습니다. \ \
+#ACT
+movr d0 6
+movr d1 6
+movr d2 6
+inc d0 1
+inc d1 1
+inc d2 1
+mov d9 0
+sum d0 d1
+sum d2
+playdice 3 @play_dice5
+
+[@play_dice5]
+#IF
+large d9 9
+#ACT
+dec d9 10
+goto @play_dice6
+#ELSEACT
+goto @play_dice6
+
+[@play_dice6]
+#IF
+equal d9 0
+#ACT
+goto @result0
+break
+
+#IF
+equal d9 1
+#ACT
+goto @result1
+break
+
+#IF
+equal d9 2
+#ACT
+goto @result2
+break
+
+#IF
+equal d9 3
+#ACT
+goto @result3
+break
+
+#IF
+equal d9 4
+#ACT
+goto @result4
+break
+
+#IF
+equal d9 5
+#ACT
+goto @result5
+break
+
+#IF
+equal d9 6
+#ACT
+goto @result6
+break
+
+#IF
+equal d9 7
+#ACT
+goto @result7
+break
+
+#IF
+equal d9 8
+#ACT
+goto @result8
+break
+
+#IF
+equal d9 9
+#ACT
+goto @result9
+break
+
+[@result0]
+#IF
+equal p0 0
+#ACT
+goto @draw
+break
+
+#IF
+large p0 0
+#ACT
+goto @win 
+#ELSEACT
+goto @defeat
+
+[@result1]
+#IF
+equal p1 1
+#ACT
+goto @draw
+break
+
+#IF
+large p1 1
+#ACT
+goto @win 
+#ELSEACT
+goto @defeat
+
+[@result2]
+#IF
+equal p1 2
+#ACT
+goto @draw
+break
+
+#IF
+large p1 2
+#ACT
+goto @win 
+#ELSEACT
+goto @defeat
+
+[@result3]
+#IF
+equal p1 3
+#ACT
+goto @draw
+break
+
+#IF
+large p1 3
+#ACT
+goto @win 
+#ELSEACT
+goto @defeat
+
+[@result4]
+#IF
+equal p1 4
+#ACT
+goto @draw
+break
+
+#IF
+large p1 4
+#ACT
+goto @win 
+#ELSEACT
+goto @defeat
+
+[@result5]
+#IF
+equal p1 5
+#ACT
+goto @draw
+break
+
+#IF
+large p1 5
+#ACT
+goto @win 
+#ELSEACT
+goto @defeat
+
+[@result6]
+#IF
+equal p1 6
+#ACT
+goto @draw
+break
+
+#IF
+large p1 6
+#ACT
+goto @win 
+#ELSEACT
+goto @defeat
+
+[@result7]
+#IF
+equal p1 7
+#ACT
+goto @draw
+break
+
+#IF
+large p1 7
+#ACT
+goto @win 
+#ELSEACT
+goto @defeat
+
+[@result8]
+#IF
+equal p1 8
+#ACT
+goto @draw
+break
+
+#IF
+large p1 8
+#ACT
+goto @win 
+#ELSEACT
+goto @defeat
+
+[@result9]
+#IF
+equal p1 9
+#ACT
+goto @draw
+break
+
+#IF
+large p1 9
+#ACT
+goto @win 
+#ELSEACT
+goto @defeat
+
+[@draw]
+#IF
+equal p0 0
+#ACT
+give gold 2000
+break
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+당신과 내가 비겼네요 (ㅡㅡ;) 에구 아깝네요.. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+#IF
+equal p0 1
+#ACT
+give gold 5000
+break
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+당신과 내가 비겼네요 (ㅡㅡ;) 에구 아깝네요.. \ \ 
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+#IF
+equal p0 2
+#ACT
+give gold 10000
+break
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+당신과 내가 비겼네요 (ㅡㅡ;) 에구 아깝네요.. \ \ 
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+#IF
+equal p0 3
+#ACT
+give gold 20000
+break
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+당신과 내가 비겼네요 (ㅡㅡ;) 에구 아깝네요.. \ \ 
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+#IF
+equal p0 4
+#ACT
+give gold 50000
+break
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+당신과 내가 비겼네요 (ㅡㅡ;) 에구 아깝네요.. \ \ 
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+#IF
+equal p0 5
+#ACT
+give gold 100000
+break
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+당신과 내가 비겼네요 (ㅡㅡ;) 에구 아깝네요.. \ \ 
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+[@win]
+#IF
+equal p0 0
+#ACT
+goto @win0
+break
+
+#IF
+equal p0 1
+#ACT
+goto @win1
+break
+
+#IF
+equal p0 2
+#ACT
+goto @win2
+
+#IF
+equal p0 3
+#ACT
+goto @win3
+
+#IF
+equal p0 4
+#ACT
+goto @win4
+
+#IF
+equal p0 5
+#ACT
+goto @win5
+
+[@defeat]
+#IF
+equal p0 0
+#ACT
+goto @defeat0
+break
+
+#IF
+equal p0 1
+#ACT
+goto @defeat1
+break
+
+#IF
+equal p0 2
+#ACT
+goto @defeat2
+
+#IF
+equal p0 3
+#ACT
+goto @defeat3
+
+#IF
+equal p0 4
+#ACT
+goto @defeat4
+
+#IF
+equal p0 5
+#ACT
+goto @defeat5
+
+[@win0]
+#IF
+equal p1 9
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+헉 당신이 이기셨네요 그것도 9라는 숫자로 \ 
+에구 돈을 2배로 드려야 겠네요..(ㅜㅜ;) \
+자, 2000전 여기 있습니다. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ACT
+give gold 4000
+give gold 2000
+#ELSESAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+당신이 게임에 이기셨네요.. 에구에구 돈나가는 소리 (ㅜㅜ;) \
+자 여기 있습니다. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ELSEACT
+give gold 4000
+
+[@win1]
+#IF
+equal p1 9
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+헉 당신이 이기셨네요 그것도 9라는 숫자로 \
+에구 돈을 2배로 드려야 겠네요..(ㅜㅜ;) \
+자, 5000전 여기 있습니다. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ACT
+give gold 10000
+give gold 5000
+#ELSESAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+당신이 게임에 이기셨네요.. 에구에구 돈나가는 소리 (ㅜㅜ;) \
+자 여기 있습니다. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ELSEACT
+give gold 10000
+
+[@win2]
+#IF
+equal p1 9
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+헉 당신이 이기셨네요 그것도 9라는 숫자로 \
+에구 돈을 2배로 드려야 겠네요..(ㅜㅜ;) \
+자, 10000전 여기 있습니다. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ACT
+give gold 20000
+give gold 10000
+#ELSESAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+당신이 게임에 이기셨네요.. 에구에구 돈나가는 소리 (ㅜㅜ;) \
+자 여기 있습니다. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ELSEACT
+give gold 20000
+
+[@win3]
+#IF
+equal p1 9
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+헉 당신이 이기셨네요 그것도 9라는 숫자로 \
+에구 돈을 2배로 드려야 겠네요..(ㅜㅜ;) \
+자, 20000전 여기 있습니다. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ACT
+give gold 40000
+give gold 20000
+#ELSESAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+당신이 게임에 이기셨네요.. 에구에구 돈나가는 소리 (ㅜㅜ;) \
+자 여기 있습니다. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ELSEACT
+give gold 40000
+
+[@win4]
+#IF
+equal p1 9
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+헉 당신이 이기셨네요 그것도 9라는 숫자로 \
+에구 돈을 2배로 드려야 겠네요..(ㅜㅜ;) \
+자, 50000전 여기 있습니다. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ACT
+give gold 100000
+give gold 50000
+#ELSESAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+당신이 게임에 이기셨네요.. 에구에구 돈나가는 소리 (ㅜㅜ;) \
+자 여기 있습니다. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ELSEACT
+give gold 100000
+
+[@win5]
+#IF
+equal p1 9
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+헉 당신이 이기셨네요 그것도 9라는 숫자로 \
+에구 돈을 2배로 드려야 겠네요..(ㅜㅜ;) \
+자, 100000전 여기 있습니다. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ACT
+give gold 200000
+give gold 100000
+#ELSESAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+당신이 게임에 이기셨네요.. 에구에구 돈나가는 소리 (ㅜㅜ;) \
+자 여기 있습니다. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ELSEACT
+give gold 200000
+
+[@defeat0]
+#IF
+equal d9 9
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+헉 제가 이겼네요 그것도 9라는 숫자로 \
+에구 돈을 2배로 주셔야 겠네요..(^^;) \
+돈을 2000전 더 주세요. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ACT
+take gold 2000
+#ELSESAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+제가 게임에서 이겼네요.. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+[@defeat1]
+#IF
+equal d9 9
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+헉 제가 이겼네요 그것도 9라는 숫자로 \ 
+에구 돈을 2배로 주셔야 겠네요..(^^;) \
+돈을 5000전 더 주세요. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ACT
+take gold 5000
+#ELSESAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+제가 게임에서 이겼네요.. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+[@defeat2]
+#IF
+equal d9 9
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+헉 제가 이겼네요 그것도 9라는 숫자로 \
+에구 돈을 2배로 주셔야 겠네요..(^^;) \
+돈을 10000전 더 주세요. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ACT
+take gold 10000
+#ELSESAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+제가 게임에서 이겼네요.. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+[@defeat3]
+#IF
+equal d9 9
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+헉 제가 이겼네요 그것도 9라는 숫자로 \
+에구 돈을 2배로 주셔야 겠네요..(^^;) \
+돈을 20000전 더 주세요. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ACT
+take gold 20000
+#ELSESAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+제가 게임에서 이겼네요.. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+[@defeat4]
+#IF
+equal d9 9
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+헉 제가 이겼네요 그것도 9라는 숫자로 \
+에구 돈을 2배로 주셔야 겠네요..(^^;) \
+돈을 50000전 더 주세요. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ACT
+take gold 50000
+#ELSESAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+제가 게임에서 이겼네요.. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+[@defeat5]
+#IF
+equal d9 9
+#SAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+헉 제가 이겼네요 그것도 9라는 숫자로 \
+에구 돈을 2배로 주셔야 겠네요..(^^;) \
+돈을 100000전 더 주세요. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+#ACT
+take gold 100000
+#ELSESAY
+당신의 숫자는 <$STR(P1)>, 저의 숫자는 <$STR(D9)> 입니다. \
+제가 게임에서 이겼네요.. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+[@event_result]
+#IF
+equal p0 0
+#ACT
+give gold 10000
+break
+#SAY
+축하 합니다. 행운에 번호에 걸렸네요. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+#IF
+equal p0 1
+#ACT
+give gold 25000
+break
+#SAY
+축하 합니다. 행운에 번호에 걸렸네요. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+#IF
+equal p0 2
+#ACT
+give gold 50000
+break
+#SAY
+축하 합니다. 행운에 번호에 걸렸네요. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+#IF
+equal p0 3
+#ACT
+give gold 100000
+break
+#SAY
+축하 합니다. 행운에 번호에 걸렸네요. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+#IF
+equal p0 4
+#ACT
+give gold 250000
+break
+#SAY
+축하 합니다. 행운에 번호에 걸렸네요. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+#IF
+equal p0 5
+#ACT
+give gold 500000
+break
+#SAY
+축하 합니다. 행운에 번호에 걸렸네요. \ \
+<다시 게임을 하겠습니다./@play_dice> \
+<게임을 그만 두겠습니다./@exit>
+
+

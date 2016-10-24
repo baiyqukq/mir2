@@ -1,0 +1,41 @@
+;武器
+(@buy @sell)
+%100
++30
++3
++25
+
+;对话框, '*' : 对话框 标签
+[@main]
+I will Sell and Buy Items to you .\ \
+Members of <$OWNERGUILD> will Get a Discount on my \
+Prices because <$LORD> said So.\
+
+ <Buy/@buy> Items\
+ <Sell/@sell> Items\
+ <Exit/@exit>
+<>
+
+[@buy]
+Which items do you need ?\ \ \
+ <Back/@main>
+
+[@sell]
+We buy Candles, Amulets, Scrolls RepairOils, etc.\
+ <Back/@main>
+
+
+[goods]
+;商品           数量       时间
+Candle		200	1
+Torch		200	1
+EternalFlame	200	1
+DungeonEscape	200	1
+EscapeBundle	200	1
+RandomTeleport	200	1
+RandomBundle	200	1
+RepairOil	200	1
+TeleportHome	200	1
+Telehomebundle  200	1
+Amulet		200	1
+AmuletBundle	200	1
