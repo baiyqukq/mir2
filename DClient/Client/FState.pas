@@ -8,8 +8,8 @@ uses
   MapUnit, SoundUtil;
 
 const
-   BOTTOMBOARD800 = 1;//主操作介面图形号
-   BOTTOMBOARD1024 = 2;//主操作介面图形号
+   BOTTOMBOARD800 = 1;		// BottomBoard(Dashboard) 800*600 index
+   BOTTOMBOARD1024 = 2;		// BottomBoard(Dashboard) 1024 (Not used)
    VIEWCHATLINE = 9;
    MAXSTATEPAGE = 4;
    LISTLINEHEIGHT = 13;
@@ -38,13 +38,13 @@ type
   pTClickPoint = ^TClickPoint;
 
   TDiceInfo = record
-    nDicePoint :Integer;      //0x66C
-    nPlayPoint :Integer;//0x670 当前骰子点数
-    nX         :Integer;      //0x674
-    nY         :Integer;      //0x678
-    n67C       :Integer;      //0x67C
-    n680       :Integer;      //0x680
-    dwPlayTick :LongWord; //0x684
+    nDicePoint :Integer;		//0x66C
+    nPlayPoint :Integer;		//0x670 //Current point value
+    nX         :Integer;		//0x674
+    nY         :Integer;		//0x678
+    n67C       :Integer;		//0x67C
+    n680       :Integer;		//0x680
+    dwPlayTick :LongWord;		//0x684
   end;
 
   pTDiceInfo = ^TDiceInfo;
@@ -168,7 +168,7 @@ type
     DKsNone: TDButton;
     DKsOk: TDButton;
 
-	{ Bottom} {Dashboard}
+	{ Bottom Board } {Dashboard}
     DBottom: TDWindow;
     DBotGroup: TDButton;
     DBotTrade: TDButton;
@@ -794,7 +794,7 @@ begin
 
    {-----------------------------------------------------------}
 
-   //登录窗口
+   // Login Window
    d := g_WMainImages.Images[60];
    if d <> nil then begin
       DLogIn.SetImgIndex (g_WMainImages, 60);
@@ -815,7 +815,7 @@ begin
    DLoginClose.Top := 28;
 
    {-----------------------------------------------------------}
-   //服务器选择窗口
+   // Select Server Window
    if not EnglishVersion then begin
       d := g_WMainImages.Images[160]; //81];
       if d <> nil then begin
@@ -917,7 +917,7 @@ begin
 
    {-----------------------------------------------------------}
 
-   //修改密码窗口
+   // Change Password Window
    d := g_WMainImages.Images[50];
    if d <> nil then begin
       DChgPw.SetImgIndex (g_WMainImages, 50);
@@ -936,7 +936,7 @@ begin
 
    {-----------------------------------------------------------}
 
-   //选择角色窗口
+   // Select Charactor Window
    DSelectChr.Left := 0;
    DSelectChr.Top := 0;
    DSelectChr.Width := SCREENWIDTH;
@@ -966,7 +966,7 @@ begin
 
    {-----------------------------------------------------------}
 
-   //创建角色窗口
+   // Create Charactor Window
    d := g_WMainImages.Images[73];
 
    if d <> nil then begin
@@ -1020,7 +1020,7 @@ begin
    DChgGamePwdClose.SetImgIndex (g_WMainImages, 64);
 
 
-   //人物状态窗口
+   // Charactor State Window
    d := g_WMainImages.Images[370];  //惑怕
 
    if d <> nil then begin
@@ -1130,7 +1130,7 @@ begin
 
    {-----------------------------------------------------------}
 
-   //人物状态窗口(查看别人信息)
+   // Charactor State Window(Show other persons)
    d := g_WMainImages.Images[370];  //惑怕
    if d <> nil then begin
       DUserState1.SetImgIndex (g_WMainImages, 370);
@@ -1208,7 +1208,7 @@ begin
 
   {-------------------------------------------------------------}
 
-   //背包物品窗口
+   // Item Bag Window
    DItemBag.SetImgIndex (g_WMainImages, 3);
    DItemBag.Left := 0;
    DItemBag.Top := 0;
@@ -1222,7 +1222,7 @@ begin
    DGold.Left := 10;
    DGold.Top  := 190;
 
-   {Use Button}
+   // Use Button
    DRepairItem.SetImgIndex (g_WMainImages, 26);
    DRepairItem.Left := 254;
    DRepairItem.Top := 183;
@@ -1235,9 +1235,38 @@ begin
    DCloseBag.Width := 14;
    DCloseBag.Height := 20;
 
+  {
+   // Item Bag Window
+   DItemBag.SetImgIndex (g_WMain3Images, 6);
+   DItemBag.Left := 0;
+   DItemBag.Top := 0;
+
+   DItemGrid.Left := 29;
+   DItemGrid.Top  := 41;
+   DItemGrid.Width := 286;
+   DItemGrid.Height := 162;
+
+//   DClosebag.SetImgIndex (g_WMainImages, 372);
+   DClosebag.Downed:=True;
+   DCloseBag.Left := 336;
+   DCloseBag.Top := 59;
+   DCloseBag.Width := 14;
+   DCloseBag.Height := 20;
+
+   DGold.Left := 18;
+   DGold.Top  := 218;
+
+   d := g_WMain3Images.Images[207];  //惑怕
+   if d <> nil then begin
+      DStateWin.SetImgIndex (g_WMain3Images, 207);
+      DStateWin.Left := SCREENWIDTH - d.Width;
+      DStateWin.Top := 0;
+   end;
+   }
+
    {-----------------------------------------------------------}
 
-   //主控面板
+   // Bottom Board(Dashboard)
 {$IF SWH = SWH800}
    d := g_WMainImages.Images[BOTTOMBOARD800];
 {$ELSEIF SWH = SWH1024}
@@ -1252,7 +1281,7 @@ begin
 
    {-----------------------------------------------------------}
 
-   //功能按钮
+   // Feature Buttons
    DMyState.SetImgIndex (g_WMainImages, 8);
    DMyState.Left := SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 243)){643};
    DMyState.Top := 61;
@@ -1268,7 +1297,7 @@ begin
 
    {-----------------------------------------------------------}
 
-   //快捷按钮
+   // Shortcut Buttons
    DBotMiniMap.SetImgIndex (g_WMainImages, DlgConf.DBotMiniMap.Image{130});
    DBotMiniMap.Left := DlgConf.DBotMiniMap.Left{219};
    DBotMiniMap.Top := DlgConf.DBotMiniMap.Top{104};
@@ -1303,7 +1332,7 @@ begin
 
    {-----------------------------------------------------------}
 
-   //Belt 快捷栏
+   //Belt(Shortcut Item Bar)
    DBelt1.Left := SCREENWIDTH div 2 - 115;//285;
    DBelt1.Width := 32;
    DBelt1.Top := 59;
@@ -1349,7 +1378,7 @@ begin
 
    {-----------------------------------------------------------}
 
-   //配置窗口
+   // Configure Dialog
    d := g_WMainImages.Images[204];
    if d <> nil then begin
       DConfigDlg.SetImgIndex (g_WMainImages, 204);
@@ -1407,7 +1436,7 @@ begin
 
    {-----------------------------------------------------------}
 
-   //设置魔法快捷对话框
+   // Key Select Dialog
    {
    d := g_WMainImages.Images[229];
    if d <> nil then begin
@@ -1827,35 +1856,7 @@ begin
    DButtonMP.Width  := 45;
    DButtonMP.Height := 90;
 
-   {
-   //背包物品窗口
-   DItemBag.SetImgIndex (g_WMain3Images, 6);
-   DItemBag.Left := 0;
-   DItemBag.Top := 0;
-
-   DItemGrid.Left := 29;
-   DItemGrid.Top  := 41;
-   DItemGrid.Width := 286;
-   DItemGrid.Height := 162;
-
-//   DClosebag.SetImgIndex (g_WMainImages, 372);
-   DClosebag.Downed:=True;
-   DCloseBag.Left := 336;
-   DCloseBag.Top := 59;
-   DCloseBag.Width := 14;
-   DCloseBag.Height := 20;
-
-   DGold.Left := 18;
-   DGold.Top  := 218;
-
-   d := g_WMain3Images.Images[207];  //惑怕
-   if d <> nil then begin
-      DStateWin.SetImgIndex (g_WMain3Images, 207);
-      DStateWin.Left := SCREENWIDTH - d.Width;
-      DStateWin.Top := 0;
-   end;
-   }
-end;
+ end;
 
 
 
@@ -1884,7 +1885,6 @@ begin
    DUserState1.Visible := TRUE;
 end;
 
-// 显示背包
 procedure TFrmDlg.OpenItemBag;
 begin
    DItemBag.Visible := not DItemBag.Visible;
@@ -2023,9 +2023,8 @@ end;
 
 
 {------------------------------------------------------------------------}
-////消息对话框
 
-
+//Message Dialog
 function  TFrmDlg.DMessageDlg (msgstr: string; DlgButtons: TMsgDlgButtons): TModalResult;
 const
    XBase = 324;
@@ -2084,7 +2083,7 @@ var
       
   end;
 begin
-   if DConfigDlg.Visible  then begin //打开提示框时关闭选项框
+   if DConfigDlg.Visible  then begin //When open hint frame, close option frame
      DOptionClick();
    end;
      
@@ -2342,23 +2341,23 @@ try
       Color:=clYellow;
       {case nStatus of    //
         0: begin
-          tStr:=tStr + '(维护)';
+          tStr:=tStr + '(Maintain)';
           Color:=clDkGray;
         end;
         1: begin
-          tStr:=tStr + '(空闲)';
+          tStr:=tStr + '(Free)';
           Color:=clLime;
         end;
         2: begin
-          tStr:=tStr + '(良好)';
+          tStr:=tStr + '(Normal)';
           Color:=clGreen;
         end;
         3: begin
-          tStr:=tStr + '(繁忙)';
+          tStr:=tStr + '(Busy)';
           Color:=clMaroon;
         end;
         4: begin
-          tStr:=tStr + '(满员)';
+          tStr:=tStr + '(Full)';
           Color:=clRed;
         end;
       end;}
@@ -2428,7 +2427,7 @@ end;
 
 
 {------------------------------------------------------------------------}
-//登录窗口
+//Login New Window
 
 procedure TFrmDlg.DLoginNewDirectPaint(Sender: TObject;
   dsurface: TDirectDrawSurface);
@@ -2477,8 +2476,8 @@ end;
 
 
 {------------------------------------------------------------------------}
-//选择服务器对话框
 
+// Select Server Dialog
 {
 procedure TFrmDlg.ShowSelectServerDlg;
 var
@@ -2726,7 +2725,7 @@ end;
 
 
 {------------------------------------------------------------------------}
-//处理注册窗口的回调
+// Deal LoginNewWindow
 
 procedure TFrmDlg.DNewAccountOkClick(Sender: TObject; X, Y: Integer);
 begin
@@ -2765,7 +2764,7 @@ end;
 
 
 {------------------------------------------------------------------------}
-// 处理修改密码窗口的回调
+// Deal ChgpwWindow
 
 procedure TFrmDlg.DChgpwOkClick(Sender: TObject; X, Y: Integer);
 begin
@@ -3092,7 +3091,7 @@ begin
             end;
          end;
       end;
-      {原为打开，本代码为显示人物身上所带物品信息，显示位置为人物下方
+	  { Previous work is open, this code is to show equip, appear under charactor
       if g_MouseStateItem.S.Name <> '' then begin
          g_MouseItem := g_MouseStateItem;
          GetMouseItemInfo (iname, d1, d2, d3, useable);
@@ -3534,7 +3533,7 @@ begin
    
    if sel >= 0 then begin
       g_MouseStateItem := g_UseItems[sel];
-      //原为注释掉 显示人物身上带的物品信息
+	  // Previous is commented, show charactor's equip
       g_MouseItem := g_UseItems[sel];
       GetMouseItemInfo (iname, d1, d2, d3, useable);
       if iname <> '' then begin
@@ -3697,7 +3696,7 @@ begin
      dsurface.Draw (SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 348)){748}, 79+DBottom.Top, d.ClientRect, d, FALSE);
 
    if g_MySelf <> nil then begin
-      //显示HP及MP 图形
+      // Show HP and MP
       if (g_MySelf.m_Abil.MaxHP > 0) and (g_MySelf.m_Abil.MaxMP > 0) then begin
          if (g_MySelf.m_btJob = 0) and (g_MySelf.m_Abil.Level < 28) then begin //武士
             d := g_WMainImages.Images[5];
@@ -3716,12 +3715,12 @@ begin
          end else begin
             d := g_WMainImages.Images[4];
             if d <> nil then begin
-               //HP 图形
+               //HP Bar
                rc := d.ClientRect;
                rc.Right := d.ClientRect.Right div 2 - 1;
                rc.Top := Round(rc.Bottom / g_MySelf.m_Abil.MaxHP * (g_MySelf.m_Abil.MaxHP - g_MySelf.m_Abil.HP));
                dsurface.Draw (40, btop+91+rc.Top, rc, d, FALSE);
-               //MP 图形
+               //MP Bar
                rc := d.ClientRect;
                rc.Left := d.ClientRect.Right div 2 + 1;
                rc.Right := d.ClientRect.Right - 1;
@@ -3731,7 +3730,7 @@ begin
          end;
       end;
 
-      //等级
+      //Level
       with dsurface.Canvas do begin
         PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 104, IntToStr(g_MySelf.m_Abil.Level));
       end;
@@ -3739,7 +3738,7 @@ begin
       if (g_MySelf.m_Abil.MaxExp > 0) and (g_MySelf.m_Abil.MaxWeight > 0) then begin
          d := g_WMainImages.Images[7];
          if d <> nil then begin
-            //经验条
+            //Experience
             rc := d.ClientRect;
             if g_MySelf.m_Abil.Exp > 0 then r := g_MySelf.m_Abil.MaxExp / g_MySelf.m_Abil.Exp
             else r := 0;
@@ -3753,7 +3752,7 @@ begin
             //PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 72, FloatToStrFixFmt (100 * g_MySelf.m_Abil.Exp / g_MySelf.m_Abil.MaxExp, 3, 2) + '%');
             //PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 57, IntToStr(g_MySelf.m_Abil.MaxExp));
 
-            //背包重量条
+            // Item bag wight bar
             rc := d.ClientRect;
             if g_MySelf.m_Abil.Weight > 0 then r := g_MySelf.m_Abil.MaxWeight / g_MySelf.m_Abil.Weight
             else r := 0;
@@ -3769,7 +3768,7 @@ begin
          end;
       end;
       //PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 355)){755}, SCREENHEIGHT - 15, IntToStr(g_nMyHungryState));
-      //饥饿程度
+      // Hungry State
       if g_nMyHungryState in [1..4] then begin
         d := g_WMainImages.Images[16 + g_nMyHungryState-1];
         if d <> nil then begin
@@ -3780,7 +3779,7 @@ begin
 
    end;
 
-   //显示聊天框文字
+   // Show Chat text
    sx := 208;
    sy := SCREENHEIGHT - 130;
    with DScreen do begin
@@ -4049,7 +4048,7 @@ begin
       iname := g_MouseItem.S.Name + ' ';
       sWgt := 'W.';
       case g_MouseItem.S.StdMode of
-         0: begin //药品
+         0: begin //Drug
                if g_MouseItem.S.AC > 0 then
                   line1 := '+' + IntToStr(g_MouseItem.S.AC) + 'HP ';
                if g_MouseItem.S.MAC > 0 then
@@ -4083,7 +4082,7 @@ begin
                      end;
                end;
             end;
-         5..6: //武器
+         5..6: // Weapon
             begin
                useable := FALSE;
                if g_MouseItem.S.Reserved and $01 <> 0 then
@@ -4124,7 +4123,7 @@ begin
                   1: begin
                         if HiWord (g_MySelf.m_Abil.DC) >= g_MouseItem.S.NeedLevel then
                            useable := TRUE;
-                        line3 := line3 + 'Necessay DC ' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'Necessary DC ' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   2: begin
                         if HiWord(g_MySelf.m_Abil.MC) >= g_MouseItem.S.NeedLevel then
@@ -4138,69 +4137,69 @@ begin
                      end;
                   4: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生等级' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'Necessary reincarnate level' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   40: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&等级' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'Necessary reincarnate &level' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   41: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&攻击力' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'Necessary reincarnate &DC' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   42: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&魔法力' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'Necessary reincarnate &MC' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   43: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&道术' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'Necessary reincarnate &SC' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   44: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&声望点' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'Necessary reincarnate &reputation' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   5: begin
                         useable := TRUE;
-                        line3 := line3 + '所需声望点' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'Necessary reputation' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   6: begin
                         useable := TRUE;
-                        line3 := line3 + '行会成员专用';
+                        line3 := line3 + 'Guild member private';
                      end;
                   60: begin
                         useable := TRUE;
-                        line3 := line3 + '行会掌门专用';
+                        line3 := line3 + 'Guild manager private';
                      end;
                   7: begin
                         useable := TRUE;
-                        line3 := line3 + '沙城成员专用';
+                        line3 := line3 + 'Sabuk member private';
                      end;
                   70: begin
                         useable := TRUE;
-                        line3 := line3 + '沙城城主专用';
+                        line3 := line3 + 'Sabuk lord private';
                      end;
                   8: begin
                         useable := TRUE;
-                        line3 := line3 + '会员专用';
+                        line3 := line3 + 'VIP private';
                      end;
                   81: begin
                         useable := TRUE;
-                        line3 := line3 + '会员类型 =' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + '会员等级 >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
+                        line3 := line3 + 'VIP Type=' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + '会员等级 >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
                      end;
                   82: begin
                         useable := TRUE;
-                        line3 := line3 + '会员类型 >=' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + '会员等级 >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
+                        line3 := line3 + 'VIP Type>=' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + '会员等级 >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
                      end;
                end;
             end;
-         10, 11:  //男衣服, 女衣服
+         10, 11:  //Male cloth, Female cloth
             begin
                useable := FALSE;
                line1 := line1 + sWgt + IntToStr(g_MouseItem.S.Weight) +
                         ' Dura'+ GetDuraStr(g_MouseItem.Dura, g_MouseItem.DuraMax);
-               //line1 := line1 + '重量' + IntToStr(MouseItem.S.Weight) +
-               //      ' 持久'+ IntToStr(Round(MouseItem.Dura/1000)) + '/' + IntToStr(Round(MouseItem.DuraMax/1000));
+               //line1 := line1 + 'Weight' + IntToStr(MouseItem.S.Weight) +
+               //      ' endurance'+ IntToStr(Round(MouseItem.Dura/1000)) + '/' + IntToStr(Round(MouseItem.DuraMax/1000));
                if g_MouseItem.S.AC > 0 then
                   line2 := 'AC' + IntToStr(LoWord(g_MouseItem.S.AC)) + '-' + IntToStr(HiWord(g_MouseItem.S.AC)) + ' ';
                if g_MouseItem.S.MAC > 0 then
@@ -5350,7 +5349,7 @@ begin
       d := WLib.Images[FaceIndex];
       if d <> nil then
          dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
-      //魔法快捷键
+      //Magic Key shortcut
       with dsurface.Canvas do begin
          SetBkMode (Handle, TRANSPARENT);
          Font.Color := clSilver;
@@ -5610,7 +5609,7 @@ end;
 
 procedure TFrmDlg.DBotLogoutClick(Sender: TObject; X, Y: Integer);
 begin
-               //强行退出
+               //Force exit
                g_dwLatestStruckTick:=GetTickCount() + 10001;
                g_dwLatestMagicTick:=GetTickCount() + 10001;
                g_dwLatestHitTick:=GetTickCount() + 10001;
@@ -5626,7 +5625,7 @@ end;
 
 procedure TFrmDlg.DBotExitClick(Sender: TObject; X, Y: Integer);
 begin
-               //强行退出
+               // Force exit
                g_dwLatestStruckTick:=GetTickCount() + 10001;
                g_dwLatestMagicTick:=GetTickCount() + 10001;
                g_dwLatestHitTick:=GetTickCount() + 10001;
@@ -5975,7 +5974,7 @@ begin
       end;
 
 
-      {原为打开，显示其它人物信息里的装备信息，显示在人物下方
+	  { Previous work is open, this code is to show equip, appear under charactor
       if MouseUserStateItem.S.Name <> '' then begin
          MouseItem := MouseUserStateItem;
          GetMouseItemInfo (iname, d1, d2, d3, useable);
@@ -6061,7 +6060,7 @@ begin
 
    if sel >= 0 then begin
       g_MouseUserStateItem := UserState1.UseItems[sel];
-      //原为注释掉 显示人物身上带的物品信息
+	  // Previous is commented, show charactor's equip
       g_MouseItem := UserState1.UseItems[sel];
       GetMouseItemInfo (iname, d1, d2, d3, useable);
       if iname <> '' then begin
