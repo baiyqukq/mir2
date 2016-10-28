@@ -1378,42 +1378,45 @@ end;
 procedure TSelectChrScene.PlayScene (MSurface: TDirectDrawSurface);
 var
    n, bx, by, fx, fy, img: integer;
-   ex, ey:Integer; //Ñ¡ÔñÈËÎïÊ±ÏÔÊ¾µÄÐ§¹û¹âÎ»ÖÃ
+   ex, ey:Integer;		// The position of effect light when a charactor is selected
    d, e, dd: TDirectDrawSurface;
    svname: string;
 begin
-   bx:=0;
-   by:=0;
-   fx:=0;
-   fy:=0;//Jacky
 {$IF SWH = SWH800}
    d := g_WMainImages.Images[65];
 {$ELSEIF SWH = SWH1024}
 //   d := g_WMainImages.Images[82];
    d := g_WMainImages.Images[65];
 {$IFEND}
-   //ÏÔÊ¾Ñ¡ÔñÈËÎï±³¾°»­Ãæ
+   // Show select charactor background image
    if d <> nil then begin
 //      MSurface.Draw (0, 0, d.ClientRect, d, FALSE);
       MSurface.Draw ((SCREENWIDTH - d.Width) div 2,(SCREENHEIGHT - d.Height) div 2, d.ClientRect, d, FALSE);
-
    end;
+
+   bx:=0;
+   by:=0;
+   fx:=0;
+   fy:=0;//Jacky
+
    for n:=0 to 1 do begin
       if ChrArr[n].Valid then begin
+		 // e: effect, b: back, f: front
          ex := (SCREENWIDTH - 800) div 2 + 90{90};
          ey := (SCREENHEIGHT - 600) div 2 + 60-2{60-2};
+
          case ChrArr[n].UserChr.Job of
             0: begin
-               if ChrArr[n].UserChr.Sex = 0 then begin
+               if ChrArr[n].UserChr.Sex = 0 then begin	// Male
                   bx := (SCREENWIDTH - 800) div 2 + 71{71};
-                  by := (SCREENHEIGHT - 600) div 2 + 75-23{75-23}; //³²ÀÚ
+                  by := (SCREENHEIGHT - 600) div 2 + 75-23{75-23}; 
                   fx := bx;
                   fy := by;
-               end else begin
+               end else begin	// Female
                   bx := (SCREENWIDTH - 800) div 2 + 65{65};
-                  by := (SCREENHEIGHT - 600) div 2 + 75-2-18{75-2-18};  //¿©ÀÚ  µ¹»óÅÂ
+                  by := (SCREENHEIGHT - 600) div 2 + 75-2-18{75-2-18};  //Stone state
                   fx := bx-28+28;
-                  fy := by-16+16;    //¿òÁ÷ÀÌ´Â »óÅÂ
+                  fy := by-16+16;    // Move state
                end;
             end;
             1: begin
@@ -1443,6 +1446,8 @@ begin
                end;
             end;
          end;
+
+		 // Right
          if n = 1 then begin
             ex := (SCREENWIDTH - 800) div 2 + 430{430};
             ey := (SCREENHEIGHT - 600) div 2 + 60{60};
@@ -1451,49 +1456,58 @@ begin
             fx := fx + 340;
             fy := fy + 2;
          end;
-         if ChrArr[n].Unfreezing then begin //³ì°í ÀÖ´Â Áß
+         
+		 if ChrArr[n].Unfreezing then begin 
             img := 140 - 80 + ChrArr[n].UserChr.Job * 40 + ChrArr[n].UserChr.Sex * 120;
             d := g_WChrSelImages.Images[img + ChrArr[n].aniIndex];
             e := g_WChrSelImages.Images[4 + ChrArr[n].effIndex];
             if d <> nil then MSurface.Draw (bx, by, d.ClientRect, d, TRUE);
             if e <> nil then DrawBlend (MSurface, ex, ey, e, 1);
+
             if GetTickCount - ChrArr[n].StartTime > 50{120} then begin
                ChrArr[n].StartTime := GetTickCount;
                ChrArr[n].aniIndex := ChrArr[n].aniIndex + 1;
             end;
+
             if GetTickCount - ChrArr[n].startefftime >50{ 110} then begin
                ChrArr[n].startefftime := GetTickCount;
                ChrArr[n].effIndex := ChrArr[n].effIndex + 1;
                //if ChrArr[n].effIndex > EFFECTFRAME-1 then
                //   ChrArr[n].effIndex := EFFECTFRAME-1;
             end;
+
             if ChrArr[n].aniIndex > FREEZEFRAME-1 then begin
-               ChrArr[n].Unfreezing := FALSE; //´Ù ³ì¾ÒÀ½
-               ChrArr[n].FreezeState := FALSE; //
+               ChrArr[n].Unfreezing := FALSE; 
+               ChrArr[n].FreezeState := FALSE;
                ChrArr[n].aniIndex := 0;
             end;
+
          end else
             if not ChrArr[n].Selected and (not ChrArr[n].FreezeState and not ChrArr[n].Freezing) then begin //¼±ÅÃµÇÁö ¾Ê¾Ò´Âµ¥ ³ì¾ÆÀÖÀ¸¸é
                ChrArr[n].Freezing := TRUE;
                ChrArr[n].aniIndex := 0;
                ChrArr[n].StartTime := GetTickCount;
             end;
-         if ChrArr[n].Freezing then begin //¾ó°í ÀÖ´Â Áß
-            img := 140 - 80 + ChrArr[n].UserChr.Job * 40 + ChrArr[n].UserChr.Sex * 120;
-            d := g_WChrSelImages.Images[img + FREEZEFRAME - ChrArr[n].aniIndex - 1];
-            if d <> nil then MSurface.Draw (bx, by, d.ClientRect, d, TRUE);
-            if GetTickCount - ChrArr[n].StartTime > 50 then begin
-               ChrArr[n].StartTime := GetTickCount;
-               ChrArr[n].aniIndex := ChrArr[n].aniIndex + 1;
-            end;
-            if ChrArr[n].aniIndex > FREEZEFRAME-1 then begin
-               ChrArr[n].Freezing := FALSE; //´Ù ¾ó¾úÀ½
-               ChrArr[n].FreezeState := TRUE; //
-               ChrArr[n].aniIndex := 0;
-            end;
-         end;
-         if not ChrArr[n].Unfreezing and not ChrArr[n].Freezing then begin
-            if not ChrArr[n].FreezeState then begin  //³ì¾ÆÀÖ´Â»óÅÂ
+
+			if ChrArr[n].Freezing then begin 
+			   img := 140 - 80 + ChrArr[n].UserChr.Job * 40 + ChrArr[n].UserChr.Sex * 120;
+			   d := g_WChrSelImages.Images[img + FREEZEFRAME - ChrArr[n].aniIndex - 1];
+			   if d <> nil then MSurface.Draw (bx, by, d.ClientRect, d, TRUE);
+
+			   if GetTickCount - ChrArr[n].StartTime > 50 then begin
+				  ChrArr[n].StartTime := GetTickCount;
+				  ChrArr[n].aniIndex := ChrArr[n].aniIndex + 1;
+			   end;
+
+			   if ChrArr[n].aniIndex > FREEZEFRAME-1 then begin
+				  ChrArr[n].Freezing := FALSE; 
+				  ChrArr[n].FreezeState := TRUE;
+				  ChrArr[n].aniIndex := 0;
+			  end;
+			end;
+
+			if not ChrArr[n].Unfreezing and not ChrArr[n].Freezing then begin
+			   if not ChrArr[n].FreezeState then begin  //³ì¾ÆÀÖ´Â»óÅÂ
                img := 120 - 80 + ChrArr[n].UserChr.Job * 40 + ChrArr[n].aniIndex + ChrArr[n].UserChr.Sex * 120;
                d := g_WChrSelImages.Images[img];
                if d <> nil then begin
@@ -1507,14 +1521,15 @@ begin
                      dd.Free;
                   end else
                      MSurface.Draw (fx, fy, d.ClientRect, d, TRUE);
-
                end;
-            end else begin      //¾ó¾îÀÖ´Â»óÅÂ
+
+            end else begin      // Freeze state
                img := 140 - 80 + ChrArr[n].UserChr.Job * 40 + ChrArr[n].UserChr.Sex * 120;
                d := g_WChrSelImages.Images[img];
                if d <> nil then
                   MSurface.Draw (bx, by, d.ClientRect, d, TRUE);
             end;
+
             if ChrArr[n].Selected then begin
                if GetTickCount - ChrArr[n].StartTime > 300 then begin
                   ChrArr[n].StartTime := GetTickCount;
@@ -1529,8 +1544,9 @@ begin
                end;
             end;
          end;
-         //ÏÔÊ¾Ñ¡Ôñ½ÇÉ«Ê±ÈËÎïÃû³ÆµÈ¼¶
-         if n = 0 then begin
+
+         // Show charactors' data
+         if n = 0 then begin	// Left
             if ChrArr[n].UserChr.Name <> '' then begin
                with MSurface do begin
                   SetBkMode (Canvas.Handle, TRANSPARENT);
@@ -1540,7 +1556,7 @@ begin
                   Canvas.Release;
                end;
             end;
-         end else begin
+         end else begin			// Right
             if ChrArr[n].UserChr.Name <> '' then begin
                with MSurface do begin
                   SetBkMode (Canvas.Handle, TRANSPARENT);
@@ -1551,9 +1567,11 @@ begin
                end;
             end;
          end;
+
+		 // Show server's name
          with MSurface do begin
             SetBkMode (Canvas.Handle, TRANSPARENT);
-            if BO_FOR_TEST then svname := 'Å×½ºÆ®¼­¹ö'
+            if BO_FOR_TEST then svname := 'Debug Server'
             else svname := g_sServerName;
             BoldTextOut (MSurface, SCREENWIDTH div 2{405} - Canvas.TextWidth(svname) div 2, (SCREENHEIGHT - 600) div 2 + 8{8}, clWhite, clBlack, svname);
             Canvas.Release;

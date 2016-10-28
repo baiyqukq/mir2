@@ -38,6 +38,7 @@ const
       (1,3,1),
       (0,1,0)
    );
+
    LightMask1 : array[0..4, 0..4] of shortint = (
       (0,1,1,1,0),
       (1,1,3,1,1),
@@ -45,6 +46,7 @@ const
       (1,1,3,1,1),
       (0,1,2,1,0)
    );
+
    LightMask2 : array[0..8, 0..8] of shortint = (
       (0,0,0,1,1,1,0,0,0),
       (0,0,1,2,3,2,1,0,0),
@@ -56,6 +58,7 @@ const
       (0,0,1,2,3,2,1,0,0),
       (0,0,0,1,1,1,0,0,0)
    );
+
    LightMask3 : array[0..10, 0..10] of shortint = (
       (0,0,0,0,1,1,1,0,0,0,0),
       (0,0,0,1,2,2,2,1,0,0,0),
@@ -184,13 +187,13 @@ type
       EdChgRePwd: TEdit;
       }
             
-     m_ActorList        :TList;
-     m_TempList         :TList;
-     m_GroundEffectList :TList;  //바닥에 깔리는 마법 리스트
-     m_EffectList       :TList; //마법효과 리스트
-     m_FlyList          :TList;  //날아다니는 것 (던진도끼, 창, 화살)
-     m_dwBlinkTime      :LongWord;
-     m_boViewBlink      :Boolean;
+      m_ActorList        :TList;
+	  m_TempList         :TList;
+	  m_GroundEffectList :TList;  //바닥에 깔리는 마법 리스트
+	  m_EffectList       :TList; //마법효과 리스트
+	  m_FlyList          :TList;  //날아다니는 것 (던진도끼, 창, 화살)
+	  m_dwBlinkTime      :LongWord;
+	  m_boViewBlink      :Boolean;
       constructor Create;
       destructor Destroy; override;
       procedure Initialize; override;
