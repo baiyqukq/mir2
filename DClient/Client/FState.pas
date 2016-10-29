@@ -5930,14 +5930,20 @@ begin
       hair := HAIRfeature (UserState1.Feature);
       if sex = 1 then pgidx := 377   //여자
       else pgidx := 376;     //남자
-      bbx := Left + 38;
+
+      bbx := Left + 38;	// EquipPanel(38, 52)
       bby := Top + 52;
+
+	  // Draw body
       d := g_WMainImages.Images[pgidx];
       if d <> nil then
          dsurface.Draw (SurfaceX(bbx), SurfaceY(bby), d.ClientRect, d, FALSE);
+
       bbx := bbx - 7;
       bby := bby + 44;
-      //옷, 무기, 머리 스타일
+      
+	  //옷, 무기, 머리 스타일
+	  // Draw hair
       idx := 440 + hair div 2; //머리 스타일
       if sex = 1 then idx := 480 + hair div 2;
       if idx > 0 then begin
@@ -5945,6 +5951,8 @@ begin
          if d <> nil then
             dsurface.Draw (SurfaceX(bbx+ax), SurfaceY(bby+ay), d.ClientRect, d, TRUE);
       end;
+
+	  // Draw dress
       if UserState1.UseItems[U_DRESS].S.Name <> '' then begin
          idx := UserState1.UseItems[U_DRESS].S.Looks; //옷 if m_btSex = 1 then idx := 80; //여자옷
          if idx >= 0 then begin
@@ -5954,6 +5962,8 @@ begin
                dsurface.Draw (SurfaceX(bbx+ax), SurfaceY(bby+ay), d.ClientRect, d, TRUE);
          end;
       end;
+
+	  // Draw weapon
       if UserState1.UseItems[U_WEAPON].S.Name <> '' then begin
          idx := UserState1.UseItems[U_WEAPON].S.Looks;
          if idx >= 0 then begin
@@ -5963,6 +5973,8 @@ begin
                dsurface.Draw (SurfaceX(bbx+ax), SurfaceY(bby+ay), d.ClientRect, d, TRUE);
          end;
       end;
+
+	  // Draw Helmet
       if UserState1.UseItems[U_HELMET].S.Name <> '' then begin
          idx := UserState1.UseItems[U_HELMET].S.Looks;
          if idx >= 0 then begin
