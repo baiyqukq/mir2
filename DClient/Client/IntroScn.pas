@@ -1,3 +1,9 @@
+{
+ \file IntroScn.pas
+
+ Funtions and procedures about "Login scene" and "select charactor scene" 
+}
+
 unit IntroScn;
 
 interface

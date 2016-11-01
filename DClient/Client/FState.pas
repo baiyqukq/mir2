@@ -3,325 +3,329 @@ unit FState;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  DWinCtl, StdCtrls, DXDraws, Grids, Grobal2, clFunc, hUtil32, cliUtil,
-  MapUnit, SoundUtil;
+	Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+	DWinCtl, StdCtrls, DXDraws, Grids, Grobal2, clFunc, hUtil32, cliUtil,
+	MapUnit, SoundUtil;
 
 const
-   BOTTOMBOARD800 = 1;		// BottomBoard(Dashboard) 800*600 index
-   BOTTOMBOARD1024 = 2;		// BottomBoard(Dashboard) 1024 (Not used)
-   VIEWCHATLINE = 9;
-   MAXSTATEPAGE = 4;
-   LISTLINEHEIGHT = 13;
-   MAXMENU = 10;
+	BOTTOMBOARD800 = 1;		// BottomBoard(Dashboard) 800*600 index
+	BOTTOMBOARD1024 = 2;		// BottomBoard(Dashboard) 1024 (Not used)
+	VIEWCHATLINE = 9;
+	MAXSTATEPAGE = 4;
+	LISTLINEHEIGHT = 13;
+	MAXMENU = 10;
 
-   AdjustAbilHints : array[0..8] of string = (
-      'Destructive power',
-      'Magic power (for Wizard)',
-      'Zen power (for Taoist)',
-      'Defense ability',
-      'Magical defense strength',
-      'Physical strength',
-      'Magic power',
-      'Accuracy',
-      'Evasion ability'
-   );
+	AdjustAbilHints : array[0..8] of string = 
+	(
+	'Destructive power',
+	'Magic power (for Wizard)',
+	'Zen power (for Taoist)',
+	'Defense ability',
+	'Magical defense strength',
+	'Physical strength',
+	'Magic power',
+	'Accuracy',
+	'Evasion ability'
+	);
 
 type
-  TSpotDlgMode = (dmSell, dmRepair, dmStorage);
+	TSpotDlgMode = (dmSell, dmRepair, dmStorage);
 
-  TClickPoint = record
-     rc: TRect;
-     RStr: string;
-  end;
+	TClickPoint = record
+		rc: TRect;
+		RStr: string;
+	end;
 
-  pTClickPoint = ^TClickPoint;
+	pTClickPoint = ^TClickPoint;
 
-  TDiceInfo = record
-    nDicePoint :Integer;		//0x66C
-    nPlayPoint :Integer;		//0x670 //Current point value
-    nX         :Integer;		//0x674
-    nY         :Integer;		//0x678
-    n67C       :Integer;		//0x67C
-    n680       :Integer;		//0x680
-    dwPlayTick :LongWord;		//0x684
-  end;
+	TDiceInfo = record
+		nDicePoint :Integer;		//0x66C
+		nPlayPoint :Integer;		//0x670 //Current point value
+		nX         :Integer;		//0x674
+		nY         :Integer;		//0x678
+		n67C       :Integer;		//0x67C
+		n680       :Integer;		//0x680
+		dwPlayTick :LongWord;		//0x684
+	end;
 
-  pTDiceInfo = ^TDiceInfo;
+	pTDiceInfo = ^TDiceInfo;
 
-  TFrmDlg = class(TForm)
-    DStateWin: TDWindow;
-    DBackground: TDWindow;
+	TFrmDlg = class(TForm)
+		{Backgound}
+		DBackground: TDWindow;
 
+		{Login}
+		DLogIn: TDWindow;
+		DLoginNew: TDButton;
+		DLoginOk: TDButton;
+		DLoginClose: TDButton;
+		DLoginChgPw: TDButton;
 
-    DGold: TDButton;
-    DPrevState: TDButton;
-    DRepairItem: TDButton;
-    DCloseBag: TDButton;
-    DCloseState: TDButton;
+		{New Account}
+		DNewAccount: TDWindow;
+		DNewAccountClose: TDButton;
+		DNewAccountOk: TDButton;
+		DNewAccountCancel: TDButton;
 
-	{ Login }
-    DLogIn: TDWindow;
-    DLoginNew: TDButton;
-    DLoginOk: TDButton;
-    DLoginClose: TDButton;
-    DLoginChgPw: TDButton;
+		{Change Password}
+		DChgPw: TDWindow;
+		DChgpwOk: TDButton;
+		DChgpwCancel: TDButton;
 
-	{ New Account}
-    DNewAccount: TDWindow;
-    DNewAccountClose: TDButton;
-    DNewAccountOk: TDButton;
-    DNewAccountCancel: TDButton;
+		{Select Charctor}
+		DSelectChr: TDWindow;
+		DscSelect1: TDButton;
+		DscSelect2: TDButton;
+		DscStart: TDButton;
+		DscNewChr: TDButton;
+		DscEraseChr: TDButton;
+		DscCredits: TDButton;
+		DscExit: TDButton;
 
-	{ Change Password}
-    DChgPw: TDWindow;
-    DChgpwOk: TDButton;
-    DChgpwCancel: TDButton;
+		{New Charctor}
+		DCreateChr: TDWindow;
+		DccWarrior: TDButton;
+		DccWizzard: TDButton;
+		DccMonk: TDButton;
+		DccReserved: TDButton;
+		DccMale: TDButton;
+		DccFemale: TDButton;
+		DccLeftHair: TDButton;
+		DccRightHair: TDButton;
+		DccOk: TDButton;
+		DccClose: TDButton;
 
-	{ Select Charctor}
-    DSelectChr: TDWindow;
-    DscSelect1: TDButton;
-    DscSelect2: TDButton;
-    DscStart: TDButton;
-    DscNewChr: TDButton;
-    DscEraseChr: TDButton;
-    DscCredits: TDButton;
-    DscExit: TDButton;
+		{Message Dialog}
+		DMsgDlg: TDWindow;
+		DMsgDlgOk: TDButton;
+		DMsgDlgYes: TDButton;
+		DMsgDlgCancel: TDButton;
+		DMsgDlgNo: TDButton;
 
-	{ New Charctor}
-    DCreateChr: TDWindow;
-    DccWarrior: TDButton;
-    DccWizzard: TDButton;
-    DccMonk: TDButton;
-    DccReserved: TDButton;
-    DccMale: TDButton;
-    DccFemale: TDButton;
-    DccLeftHair: TDButton;
-    DccRightHair: TDButton;
-    DccOk: TDButton;
-    DccClose: TDButton;
+		{State Window}
+		DStateWin: TDWindow;
+		DCloseState: TDButton;
+		DPrevState: TDButton;
+		DNextState: TDButton;
 
-	{ Message Dialog}
-    DMsgDlg: TDWindow;
-    DMsgDlgOk: TDButton;
-    DMsgDlgYes: TDButton;
-    DMsgDlgCancel: TDButton;
-    DMsgDlgNo: TDButton;
+		{State Window - Dressed Page}
+		DSWNecklace: TDButton;
+		DSWLight: TDButton;
+		DSWArmRingR: TDButton;
+		DSWArmRingL: TDButton;
+		DSWRingR: TDButton;
+		DSWRingL: TDButton;
+		DSWWeapon: TDButton;
+		DSWDress: TDButton;
+		DSWHelmet: TDButton;
+		DSWBujuk: TDButton;
+		DSWBelt: TDButton;
+		DSWBoots: TDButton;
+		DSWCharm: TDButton;
 
-	{ State Window}
-    DNextState: TDButton;
-    DSWNecklace: TDButton;
-    DSWLight: TDButton;
-    DSWArmRingR: TDButton;
-    DSWArmRingL: TDButton;
-    DSWRingR: TDButton;
-    DSWRingL: TDButton;
-    DSWWeapon: TDButton;
-    DSWDress: TDButton;
-    DSWHelmet: TDButton;
-    DSWBujuk: TDButton;
-    DSWBelt: TDButton;
-    DSWBoots: TDButton;
-    DSWCharm: TDButton;
+		{Item Bar}
+		DBelt1: TDButton;
+		DBelt2: TDButton;
+		DBelt3: TDButton;
+		DBelt4: TDButton;
+		DBelt5: TDButton;
+		DBelt6: TDButton;
 
-	{ Item Bar}
-    DBelt1: TDButton;
-    DBelt2: TDButton;
-    DBelt3: TDButton;
-    DBelt4: TDButton;
-    DBelt5: TDButton;
-    DBelt6: TDButton;
+		{Bag}
+		DItemBag: TDWindow;
+		DItemGrid: TDGrid;
+		DGold: TDButton;
+		DRepairItem: TDButton;
+		DCloseBag: TDButton;
 
-	{ Bag}
-    DItemBag: TDWindow;
-    DItemGrid: TDGrid;
+		{Mechant Dialog}
+		DMerchantDlg: TDWindow;
+		DMerchantDlgClose: TDButton;
+		DMenuDlg: TDWindow;
+		DMenuPrev: TDButton;
+		DMenuNext: TDButton;
+		DMenuBuy: TDButton;
+		DMenuClose: TDButton;
+		DSellDlg: TDWindow;
+		DSellDlgOk: TDButton;
+		DSellDlgClose: TDButton;
+		DSellDlgSpot: TDButton;
+		DStMag1: TDButton;
+		DStMag2: TDButton;
+		DStMag3: TDButton;
+		DStMag4: TDButton;
+		DStMag5: TDButton;
 
-	{Mechant Dialog}
-    DMerchantDlg: TDWindow;
-    DMerchantDlgClose: TDButton;
-    DMenuDlg: TDWindow;
-    DMenuPrev: TDButton;
-    DMenuNext: TDButton;
-    DMenuBuy: TDButton;
-    DMenuClose: TDButton;
-    DSellDlg: TDWindow;
-    DSellDlgOk: TDButton;
-    DSellDlgClose: TDButton;
-    DSellDlgSpot: TDButton;
-    DStMag1: TDButton;
-    DStMag2: TDButton;
-    DStMag3: TDButton;
-    DStMag4: TDButton;
-    DStMag5: TDButton;
+		{Key Select Dialog}
+		DKeySelDlg: TDWindow;
+		DKsIcon: TDButton;
+		DKsF1: TDButton;
+		DKsF2: TDButton;
+		DKsF3: TDButton;
+		DKsF4: TDButton;
+		DKsF5: TDButton;
+		DKsF6: TDButton;
+		DKsF7: TDButton;
+		DKsF8: TDButton;
+		DKsNone: TDButton;
+		DKsOk: TDButton;
 
-	{ Key Select Dialog}
-    DKeySelDlg: TDWindow;
-    DKsIcon: TDButton;
-    DKsF1: TDButton;
-    DKsF2: TDButton;
-    DKsF3: TDButton;
-    DKsF4: TDButton;
-    DKsF5: TDButton;
-    DKsF6: TDButton;
-    DKsF7: TDButton;
-    DKsF8: TDButton;
-    DKsNone: TDButton;
-    DKsOk: TDButton;
+		{Bottom Board} {Dashboard}
+		DBottom: TDWindow;
+		DBotGroup: TDButton;
+		DBotTrade: TDButton;
+		DBotMiniMap: TDButton;
+		DBotFriend: TDButton;
+		DBotPlusAbil: TDButton;
+		DBotMemo: TDButton;
+		DBotLogout: TDButton;
+		DBotExit: TDButton;
+		DBotGuild: TDButton;
+		DMyState: TDButton;
+		DMyBag: TDButton;
+		DMyMagic: TDButton;
+		DOption: TDButton;
 
-	{ Bottom Board } {Dashboard}
-    DBottom: TDWindow;
-    DBotGroup: TDButton;
-    DBotTrade: TDButton;
-    DBotMiniMap: TDButton;
-    DBotFriend: TDButton;
-    DBotPlusAbil: TDButton;
-    DBotMemo: TDButton;
-    DBotLogout: TDButton;
-    DBotExit: TDButton;
-    DBotGuild: TDButton;
-    DMyState: TDButton;
-    DMyBag: TDButton;
-    DMyMagic: TDButton;
-    DOption: TDButton;
+		{Group Dialog}
+		DGroupDlg: TDWindow;
+		DGrpAllowGroup: TDButton;
+		DGrpDlgClose: TDButton;
+		DGrpCreate: TDButton;
+		DGrpAddMem: TDButton;
+		DGrpDelMem: TDButton;
+		DStPageUp: TDButton;
+		DStPageDown: TDButton;
+		DDealRemoteDlg: TDWindow;
+		DDealDlg: TDWindow;
+		DDRGrid: TDGrid;
+		DDGrid: TDGrid;
+		DDealOk: TDButton;
+		DDealClose: TDButton;
+		DDGold: TDButton;
+		DDRGold: TDButton;
 
-	{ Group Dialog}
-    DGroupDlg: TDWindow;
-    DGrpAllowGroup: TDButton;
-    DGrpDlgClose: TDButton;
-    DGrpCreate: TDButton;
-    DGrpAddMem: TDButton;
-    DGrpDelMem: TDButton;
-    DStPageUp: TDButton;
-    DStPageDown: TDButton;
-    DDealRemoteDlg: TDWindow;
-    DDealDlg: TDWindow;
-    DDRGrid: TDGrid;
-    DDGrid: TDGrid;
-    DDealOk: TDButton;
-    DDealClose: TDButton;
-    DDGold: TDButton;
-    DDRGold: TDButton;
+		{Select Server Dialog}
+		DSelServerDlg: TDWindow;
+		DSSrvClose: TDButton;
+		DSServer1: TDButton;
+		DSServer2: TDButton;
+		DSServer3: TDButton;
+		DSServer4: TDButton;
+		DSServer5: TDButton;
+		DSServer6: TDButton;
 
-	{ Select Server Dialog}
-    DSelServerDlg: TDWindow;
-    DSSrvClose: TDButton;
-    DSServer1: TDButton;
-    DSServer2: TDButton;
-    DSServer3: TDButton;
-    DSServer4: TDButton;
-    DSServer5: TDButton;
-    DSServer6: TDButton;
+		{User State 1}{Other user}
+		DUserState1: TDWindow;
+		DCloseUS1: TDButton;
+		DWeaponUS1: TDButton;
+		DHelmetUS1: TDButton;
+		DNecklaceUS1: TDButton;
+		DDressUS1: TDButton;
+		DLightUS1: TDButton;
+		DArmringRUS1: TDButton;
+		DRingRUS1: TDButton;
+		DArmringLUS1: TDButton;
+		DRingLUS1: TDButton;
+		DBujukUS1: TDButton;
+		DBeltUS1: TDButton;
+		DBootsUS1: TDButton;
+		DCharmUS1: TDButton;
 
-	{ User State 1}{Other user}
-    DUserState1: TDWindow;
-    DCloseUS1: TDButton;
-    DWeaponUS1: TDButton;
-    DHelmetUS1: TDButton;
-    DNecklaceUS1: TDButton;
-    DDressUS1: TDButton;
-    DLightUS1: TDButton;
-    DArmringRUS1: TDButton;
-    DRingRUS1: TDButton;
-    DArmringLUS1: TDButton;
-    DRingLUS1: TDButton;
-    DBujukUS1: TDButton;
-    DBeltUS1: TDButton;
-    DBootsUS1: TDButton;
-    DCharmUS1: TDButton;
+		{Guild Dialog}
+		DGuildDlg: TDWindow;
+		DGDHome: TDButton;
+		DGDList: TDButton;
+		DGDChat: TDButton;
+		DGDAddMem: TDButton;
+		DGDDelMem: TDButton;
+		DGDEditNotice: TDButton;
+		DGDEditGrade: TDButton;
+		DGDAlly: TDButton;
+		DGDBreakAlly: TDButton;
+		DGDWar: TDButton;
+		DGDCancelWar: TDButton;
+		DGDUp: TDButton;
+		DGDDown: TDButton;
+		DGDClose: TDButton;
+		DGuildEditNotice: TDWindow;
+		DGEClose: TDButton;
+		DGEOk: TDButton;
 
-	{ Guild Dialog}
-    DGuildDlg: TDWindow;
-    DGDHome: TDButton;
-    DGDList: TDButton;
-    DGDChat: TDButton;
-    DGDAddMem: TDButton;
-    DGDDelMem: TDButton;
-    DGDEditNotice: TDButton;
-    DGDEditGrade: TDButton;
-    DGDAlly: TDButton;
-    DGDBreakAlly: TDButton;
-    DGDWar: TDButton;
-    DGDCancelWar: TDButton;
-    DGDUp: TDButton;
-    DGDDown: TDButton;
-    DGDClose: TDButton;
-    DGuildEditNotice: TDWindow;
-    DGEClose: TDButton;
-    DGEOk: TDButton;
+		{Adjust Abitlity}
+		DAdjustAbility: TDWindow;
+		DPlusDC: TDButton;
+		DPlusMC: TDButton;
+		DPlusSC: TDButton;
+		DPlusAC: TDButton;
+		DPlusMAC: TDButton;
+		DPlusHP: TDButton;
+		DPlusMP: TDButton;
+		DPlusHit: TDButton;
+		DPlusSpeed: TDButton;
+		DMinusDC: TDButton;
+		DMinusMC: TDButton;
+		DMinusSC: TDButton;
+		DMinusAC: TDButton;
+		DMinusMAC: TDButton;
+		DMinusMP: TDButton;
+		DMinusHP: TDButton;
+		DMinusHit: TDButton;
+		DMinusSpeed: TDButton;
+		DAdjustAbilClose: TDButton;
+		DAdjustAbilOk: TDButton;
 
-	{Adjust Abitlity}
-    DAdjustAbility: TDWindow;
-    DPlusDC: TDButton;
-    DPlusMC: TDButton;
-    DPlusSC: TDButton;
-    DPlusAC: TDButton;
-    DPlusMAC: TDButton;
-    DPlusHP: TDButton;
-    DPlusMP: TDButton;
-    DPlusHit: TDButton;
-    DPlusSpeed: TDButton;
-    DMinusDC: TDButton;
-    DMinusMC: TDButton;
-    DMinusSC: TDButton;
-    DMinusAC: TDButton;
-    DMinusMAC: TDButton;
-    DMinusMP: TDButton;
-    DMinusHP: TDButton;
-    DMinusHit: TDButton;
-    DMinusSpeed: TDButton;
-    DAdjustAbilClose: TDButton;
-    DAdjustAbilOk: TDButton;
+		DEngServer1: TDButton;
 
-    DEngServer1: TDButton;
-    DConfigDlg: TDWindow;
-    DConfigDlgClose: TDButton;
-    DConfigDlgOK: TDButton;
-    DKsConF1: TDButton;
-    DKsConF2: TDButton;
-    DKsConF3: TDButton;
-    DKsConF4: TDButton;
-    DKsConF5: TDButton;
-    DKsConF6: TDButton;
-    DKsConF7: TDButton;
-    DKsConF8: TDButton;
+		{Configure Dialog}
+		DConfigDlg: TDWindow;
+		DConfigDlgClose: TDButton;
+		DConfigDlgOK: TDButton;
+		DKsConF1: TDButton;
+		DKsConF2: TDButton;
+		DKsConF3: TDButton;
+		DKsConF4: TDButton;
+		DKsConF5: TDButton;
+		DKsConF6: TDButton;
+		DKsConF7: TDButton;
+		DKsConF8: TDButton;
 
-	{Firend Dialog}
-    DFriendDlg: TDWindow;
-    DFrdFriend: TDButton;
-    DFrdBlackList: TDButton;
-    DFrdClose: TDButton;
-    DFrdPgUp: TDButton;
-    DFrdPgDn: TDButton;
-    DFrdAdd: TDButton;
-    DFrdDel: TDButton;
-    DFrdMemo: TDButton;
-    DFrdMail: TDButton;
-    DFrdWhisper: TDButton;
-    DMLReply: TDButton;
-    DMLRead: TDButton;
-    DMLLock: TDButton;
-    DMLDel: TDButton;
-    DMLBlock: TDButton;
-    DBLDel: TDButton;
-    DBLAdd: TDButton;
-    DMemoB2: TDButton;
-    DMemoB1: TDButton;
-    DMailListDlg: TDWindow;
-    DMailListClose: TDButton;
-    DMailListPgUp: TDButton;
-    DMailListPgDn: TDButton;
-    DBlockListDlg: TDWindow;
-    DBLPgUp: TDButton;
-    DBLPgDn: TDButton;
-    DBlockListClose: TDButton;
-    DMemo: TDWindow;
-    DMemoClose: TDButton;
-    DButton1: TDButton;
-    DButton2: TDButton;
-    DChgGamePwd: TDWindow;
-    DChgGamePwdClose: TDButton;
-    DButtonHP: TDButton;
-    DButtonMP: TDButton;
+		{Firend Dialog}
+		DFriendDlg: TDWindow;
+		DFrdFriend: TDButton;
+		DFrdBlackList: TDButton;
+		DFrdClose: TDButton;
+		DFrdPgUp: TDButton;
+		DFrdPgDn: TDButton;
+		DFrdAdd: TDButton;
+		DFrdDel: TDButton;
+		DFrdMemo: TDButton;
+		DFrdMail: TDButton;
+		DFrdWhisper: TDButton;
+		DMLReply: TDButton;
+		DMLRead: TDButton;
+		DMLLock: TDButton;
+		DMLDel: TDButton;
+		DMLBlock: TDButton;
+		DBLDel: TDButton;
+		DBLAdd: TDButton;
+		DMemoB2: TDButton;
+		DMemoB1: TDButton;
+		DMailListDlg: TDWindow;
+		DMailListClose: TDButton;
+		DMailListPgUp: TDButton;
+		DMailListPgDn: TDButton;
+		DBlockListDlg: TDWindow;
+		DBLPgUp: TDButton;
+		DBLPgDn: TDButton;
+		DBlockListClose: TDButton;
+		DMemo: TDWindow;
+		DMemoClose: TDButton;
+		DButton1: TDButton;
+		DButton2: TDButton;
+		DChgGamePwd: TDWindow;
+		DChgGamePwdClose: TDButton;
+		DButtonHP: TDButton;
+		DButtonMP: TDButton;
 
     procedure DBottomInRealArea(Sender: TObject; X, Y: Integer;
       var IsRealArea: Boolean);
@@ -2869,7 +2873,7 @@ end;
 
 {------------------------------------------------------------------------}
 
-//惑怕芒...
+// Draw state window
 
 {------------------------------------------------------------------------}
 
@@ -2891,7 +2895,7 @@ begin
          dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
 
       case StatePage of
-         0: begin //馒侩惑怕
+         0: begin // Dress state
             pgidx := 376;
             if g_MySelf <> nil then
                if g_MySelf.m_btSex = 1 then pgidx := 377;
@@ -2938,7 +2942,9 @@ begin
                end;
             end;
          end;
-         1: begin //瓷仿摹
+
+		 // Statistics
+         1: begin 
             l := Left + 112; //66;
             m := Top + 99;
             with dsurface.Canvas do begin
@@ -2954,7 +2960,9 @@ begin
                Release;
             end;
          end;
-         2: begin //瓷仿摹 汲疙芒
+
+		 // Abitlity statistics
+         2: begin 
             bbx := Left + 38;
             bby := Top + 52;
             d := g_WMainImages.Images[382];
@@ -2966,6 +2974,7 @@ begin
             with dsurface.Canvas do begin
                SetBkMode (Handle, TRANSPARENT);
                mmx := bbx + 85;
+
                Font.Color := clSilver;
                TextOut (bbx, bby, 'Exp.');
                TextOut (mmx, bby, FloatToStrFixFmt (100 * g_MySelf.m_Abil.Exp / g_MySelf.m_Abil.MaxExp, 3, 2) + '%');
@@ -3014,6 +3023,7 @@ begin
                Release;
             end;
          end;
+
          3: begin //魔法 芒
             bbx := Left + 38;
             bby := Top + 52;
@@ -3687,10 +3697,10 @@ begin
 
    d := nil;
    case g_nDayBright of
-      0: d := g_WMainImages.Images[15];  //早上
+      0: d := g_WMainImages.Images[15];  //早??
       1: d := g_WMainImages.Images[12];  //白天
       2: d := g_WMainImages.Images[13];  //傍晚
-      3: d := g_WMainImages.Images[14];  //晚上
+      3: d := g_WMainImages.Images[14];  //晚??
    end;
    if d <> nil then
      dsurface.Draw (SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 348)){748}, 79+DBottom.Top, d.ClientRect, d, FALSE);
@@ -4239,31 +4249,31 @@ begin
                      end;
                   4: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生等级' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转?燃?' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   40: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&等级' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转??&等级' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   41: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&攻击力' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转??&攻击力' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   42: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&魔法力' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转??&魔法力' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   43: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&道术' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转??&道术' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   44: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&声望点' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转??&??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   5: begin
                         useable := TRUE;
-                        line3 := line3 + '所需声望点' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   6: begin
                         useable := TRUE;
@@ -4275,11 +4285,11 @@ begin
                      end;
                   7: begin
                         useable := TRUE;
-                        line3 := line3 + '沙城成员专用';
+                        line3 := line3 + '?吵浅?员专用';
                      end;
                   70: begin
                         useable := TRUE;
-                        line3 := line3 + '沙城城主专用';
+                        line3 := line3 + '?吵浅侵髯ㄓ?';
                      end;
                   8: begin
                         useable := TRUE;
@@ -4404,31 +4414,31 @@ begin
                      end;
                   4: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生等级' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转?燃?' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   40: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&等级' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转??&等级' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   41: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&攻击力' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转??&攻击力' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   42: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&魔法力' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转??&魔法力' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   43: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&道术' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转??&道术' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   44: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转生&声望点' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转??&??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   5: begin
                         useable := TRUE;
-                        line3 := line3 + '所需声望点' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   6: begin
                         useable := TRUE;
@@ -4440,11 +4450,11 @@ begin
                      end;
                   7: begin
                         useable := TRUE;
-                        line3 := line3 + '沙城成员专用';
+                        line3 := line3 + '?吵浅?员专用';
                      end;
                   70: begin
                         useable := TRUE;
-                        line3 := line3 + '沙城城主专用';
+                        line3 := line3 + '?吵浅侵髯ㄓ?';
                      end;
                   8: begin
                         useable := TRUE;
@@ -4460,7 +4470,7 @@ begin
                      end;
                end;
             end;
-         25: //护身符及毒药
+         25: //护?矸岸疽?
             begin
                line1 := line1 + sWgt +  IntToStr(g_MouseItem.S.Weight);
                line2 := 'Count '+ GetDura100Str(g_MouseItem.Dura, g_MouseItem.DuraMax);
@@ -5910,7 +5920,7 @@ end;
 
 {--------------------------------------------------------------}
 
-
+{Draw other charactor state panel}
 procedure TFrmDlg.DUserState1DirectPaint(Sender: TObject;
   dsurface: TDirectDrawSurface);
 var
@@ -5925,11 +5935,11 @@ begin
       if d <> nil then
          dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
 
-      //馒侩惑怕
+      // Dressed state
       sex := DRESSfeature (UserState1.Feature) mod 2;
       hair := HAIRfeature (UserState1.Feature);
-      if sex = 1 then pgidx := 377   //咯磊
-      else pgidx := 376;     //巢磊
+      if sex = 1 then pgidx := 377   // Female
+      else pgidx := 376;     // Male
 
       bbx := Left + 38;	// EquipPanel(38, 52)
       bby := Top + 52;
@@ -5942,9 +5952,8 @@ begin
       bbx := bbx - 7;
       bby := bby + 44;
       
-	  //渴, 公扁, 赣府 胶鸥老
 	  // Draw hair
-      idx := 440 + hair div 2; //赣府 胶鸥老
+      idx := 440 + hair div 2;
       if sex = 1 then idx := 480 + hair div 2;
       if idx > 0 then begin
          d := g_WMainImages.GetCachedImage (idx, ax, ay);
@@ -5954,7 +5963,7 @@ begin
 
 	  // Draw dress
       if UserState1.UseItems[U_DRESS].S.Name <> '' then begin
-         idx := UserState1.UseItems[U_DRESS].S.Looks; //渴 if m_btSex = 1 then idx := 80; //咯磊渴
+         idx := UserState1.UseItems[U_DRESS].S.Looks; // if m_btSex = 1 then idx := 80; // Female dress
          if idx >= 0 then begin
             //d := FrmMain.WStateItem.GetCachedImage (idx, ax, ay);
             d := FrmMain.GetWStateImg(idx,ax,ay);
@@ -6007,7 +6016,8 @@ begin
          MouseItem.S.Name := '';
       end;
       }
-      //捞抚
+      
+      // Draw charactor name and guild rank name
       with dsurface.Canvas do begin
          SetBkMode (Handle, TRANSPARENT);
          Font.Color := UserState1.NameColor;
@@ -6553,7 +6563,7 @@ end;
 
 
 {--------------------------------------------------------------}
-//瓷仿摹 炼沥 芒
+// [Ability adjust window
 
 procedure TFrmDlg.DAdjustAbilCloseClick(Sender: TObject; X, Y: Integer);
 begin
@@ -6790,6 +6800,9 @@ begin
    end;
 end;
 
+{--------------------------------------------------------------}
+{Bottom}
+
 procedure TFrmDlg.DBotMouseMove(Sender: TObject; Shift: TShiftState;
   X, Y: Integer);
 var
@@ -6823,7 +6836,7 @@ begin
   DScreen.ShowHint(nHintX,nHintY,sMsg, clYellow, FALSE);
 end;
 
-
+{--------------------------------------------------------------}
 procedure TFrmDlg.DFrdFriendDirectPaint(Sender: TObject;
   dsurface: TDirectDrawSurface);
 var
@@ -6856,6 +6869,8 @@ begin
   OpenFriendDlg();
 end;
 
+{-------------------------------------------------------------}
+{Change Game Window}
 procedure TFrmDlg.DChgGamePwdCloseClick(Sender: TObject; X, Y: Integer);
 begin
   DChgGamePwd.Visible:=False;

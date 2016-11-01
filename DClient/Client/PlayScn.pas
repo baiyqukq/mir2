@@ -3,49 +3,48 @@ unit PlayScn;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  DXDraws, DXClass, DirectX, IntroScn, Grobal2, CliUtil, HUtil32,
-  Actor, HerbActor, AxeMon, SoundUtil, ClEvent, Wil,
-  StdCtrls, clFunc, magiceff, extctrls, MShare, Share;
+	Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+	DXDraws, DXClass, DirectX, IntroScn, Grobal2, CliUtil, HUtil32,
+	Actor, HerbActor, AxeMon, SoundUtil, ClEvent, Wil,
+	StdCtrls, clFunc, magiceff, extctrls, MShare, Share;
 
 
 const
 //   MAPSURFACEWIDTH = 800;
 //   MAPSURFACEHEIGHT = 445;
-
-   LONGHEIGHT_IMAGE = 35;
-   FLASHBASE = 410;
-   AAX = 16;
-   SOFFX = 0;
-   SOFFY = 0;
-   LMX = 30;
-   LMY = 26;
-
+	LONGHEIGHT_IMAGE = 35;
+	FLASHBASE = 410;
+	AAX = 16;
+	SOFFX = 0;
+	SOFFY = 0;
+	LMX = 30;
+	LMY = 26;
 
 
-   MAXLIGHT = 5;
-   LightFiles : array[0..MAXLIGHT] of string = (
-      'Data\lig0a.dat',
-      'Data\lig0b.dat',
-      'Data\lig0c.dat',
-      'Data\lig0d.dat',
-      'Data\lig0e.dat',
-      'Data\lig0f.dat'
-   );
 
-   LightMask0 : array[0..2, 0..2] of shortint = (
-      (0,1,0),
-      (1,3,1),
-      (0,1,0)
-   );
+	MAXLIGHT = 5;
+	LightFiles : array[0..MAXLIGHT] of string = (
+		'Data\lig0a.dat',
+		'Data\lig0b.dat',
+		'Data\lig0c.dat',
+		'Data\lig0d.dat',
+		'Data\lig0e.dat',
+		'Data\lig0f.dat'
+	);
 
-   LightMask1 : array[0..4, 0..4] of shortint = (
-      (0,1,1,1,0),
-      (1,1,3,1,1),
-      (1,3,4,3,1),
-      (1,1,3,1,1),
-      (0,1,2,1,0)
-   );
+	LightMask0 : array[0..2, 0..2] of shortint = (
+		(0,1,0),
+		(1,3,1),
+		(0,1,0)
+	);
+
+	LightMask1 : array[0..4, 0..4] of shortint = (
+		(0,1,1,1,0),
+		(1,1,3,1,1),
+		(1,3,4,3,1),
+		(1,1,3,1,1),
+		(0,1,2,1,0)
+	);
 
    LightMask2 : array[0..8, 0..8] of shortint = (
       (0,0,0,1,1,1,0,0,0),
@@ -131,118 +130,123 @@ const
    );
 
 type
-   PShoftInt = ^ShortInt;
-   TLightEffect = record
-      Width: integer;
-      Height: integer;
-      PFog: Pbyte;
-   end;
-   TLightMapInfo = record
-      ShiftX: integer;
-      ShiftY: integer;
-      light:  integer;
-      bright: integer;
-   end;
+	PShoftInt = ^ShortInt;
 
-   TPlayScene = class (TScene)
-   private
-     m_MapSurface    :TDirectDrawSurface;
-     m_ObjSurface    :TDirectDrawSurface; //0x0C
+	TLightEffect = record
+		Width: integer;
+		Height: integer;
+		PFog: Pbyte;
+	end;
 
-     m_FogScreen     :array[0..MAPSURFACEHEIGHT, 0..MAPSURFACEWIDTH] of byte;
-     m_PFogScreen    :PByte;
-     m_nFogWidth     :Integer;
-     m_nFogHeight    :Integer;
-     m_Lights        :array[0..MAXLIGHT] of TLightEffect;
-     m_dwMoveTime    :LongWord;
-     m_nMoveStepCount:Integer;
-     m_dwAniTime     :LongWord;
-     m_nAniCount     :Integer;
-     m_nDefXX        :Integer;
-     m_nDefYY        :Integer;
-     m_MainSoundTimer:TTimer;
-     m_MsgList       :TList;
-     m_LightMap      :array[0..LMX, 0..LMY] of TLightMapInfo;
-     procedure DrawTileMap;
-     procedure LoadFog;
-     procedure ClearLightMap;
-     procedure AddLight (x, y, shiftx, shifty, light: integer; nocheck: Boolean);
-     procedure UpdateBright (x, y, light: integer);
-     function  CheckOverLight (x, y, light: integer): Boolean;
-     procedure ApplyLightMap;
-     procedure DrawLightEffect (lx, ly, bright: integer);
-     procedure EdChatKeyPress (Sender: TObject; var Key: Char);
-     procedure SoundOnTimer (Sender: TObject);
-     function  CrashManEx(mx, my: integer): Boolean;
-     procedure ClearDropItem();
-   public
-      EdChat: TEdit;
-      MemoLog: TMemo;
-      EdAccountt: TEdit;//2004/05/17
-      EdChrNamet: TEdit;//2004/05/17
-      {
-      EdChgChrName: TEdit;
-      EdChgCurPwd: TEdit;
-      EdChgNewPwd: TEdit;
-      EdChgRePwd: TEdit;
-      }
+	TLightMapInfo = record
+		ShiftX: integer;
+		ShiftY: integer;
+		light:  integer;
+		bright: integer;
+	end;
+
+	TPlayScene = class (TScene)
+		private
+			m_MapSurface    :TDirectDrawSurface;
+			m_ObjSurface    :TDirectDrawSurface; //0x0C
+
+			m_FogScreen     :array[0..MAPSURFACEHEIGHT, 0..MAPSURFACEWIDTH] of byte;
+			m_PFogScreen    :PByte;
+			m_nFogWidth     :Integer;
+			m_nFogHeight    :Integer;
+			m_Lights        :array[0..MAXLIGHT] of TLightEffect;
+			m_dwMoveTime    :LongWord;
+			m_nMoveStepCount:Integer;
+			m_dwAniTime     :LongWord;
+			m_nAniCount     :Integer;
+			m_nDefXX        :Integer;
+			m_nDefYY        :Integer;
+			m_MainSoundTimer:TTimer;
+			m_MsgList       :TList;
+			m_LightMap      :array[0..LMX, 0..LMY] of TLightMapInfo;
+
+			procedure DrawTileMap;
+			procedure LoadFog;
+			procedure ClearLightMap;
+			procedure AddLight (x, y, shiftx, shifty, light: integer; nocheck: Boolean);
+			procedure UpdateBright (x, y, light: integer);
+			function  CheckOverLight (x, y, light: integer): Boolean;
+			procedure ApplyLightMap;
+			procedure DrawLightEffect (lx, ly, bright: integer);
+			procedure EdChatKeyPress (Sender: TObject; var Key: Char);
+			procedure SoundOnTimer (Sender: TObject);
+			function  CrashManEx(mx, my: integer): Boolean;
+			procedure ClearDropItem();
+		public
+			EdChat: TEdit;
+			MemoLog: TMemo;
+			EdAccountt: TEdit;
+			EdChrNamet: TEdit;
+			{
+			EdChgChrName: TEdit;
+			EdChgCurPwd: TEdit;
+			EdChgNewPwd: TEdit;
+			EdChgRePwd: TEdit;
+			}
             
-      m_ActorList        :TList;
-	  m_TempList         :TList;
-	  m_GroundEffectList :TList;  //¹Ù´Ú¿¡ ±ò¸®´Â ¸¶¹ý ¸®½ºÆ®
-	  m_EffectList       :TList; //¸¶¹ýÈ¿°ú ¸®½ºÆ®
-	  m_FlyList          :TList;  //³¯¾Æ´Ù´Ï´Â °Í (´øÁøµµ³¢, Ã¢, È­»ì)
-	  m_dwBlinkTime      :LongWord;
-	  m_boViewBlink      :Boolean;
-      constructor Create;
-      destructor Destroy; override;
-      procedure Initialize; override;
-      procedure Finalize; override;
-      procedure OpenScene; override;
-      procedure CloseScene; override;
-      procedure OpeningScene; override;
-      procedure DrawMiniMap (surface: TDirectDrawSurface);
-      procedure PlayScene (MSurface: TDirectDrawSurface); override;
-      function  ButchAnimal (x, y: integer): TActor;
+			m_ActorList        :TList;
+			m_TempList         :TList;
+			m_GroundEffectList :TList;  //¹Ù´Ú¿¡ ±ò¸®´Â ¸¶¹ý ¸®½ºÆ®
+			m_EffectList       :TList; //¸¶¹ýÈ¿°ú ¸®½ºÆ®
+			m_FlyList          :TList;  //³¯¾Æ´Ù´Ï´Â °Í (´øÁøµµ³¢, Ã¢, È­»ì)
+			m_dwBlinkTime      :LongWord;
+			m_boViewBlink      :Boolean;
 
-      function  FindActor (id: integer): TActor;overload;
-      function  FindActor (sName:String): TActor;overload;
-      function  FindActorXY (x, y: integer): TActor;
-      function  IsValidActor (actor: TActor): Boolean;
-      function  NewActor (chrid: integer; cx, cy, cdir: word; cfeature, cstate: integer): TActor;
-      procedure ActorDied (actor: TObject); //Á×Àº actor´Â ¸Ç À§·Î
-      procedure SetActorDrawLevel (actor: TObject; level: integer);
-      procedure ClearActors;
-      function  DeleteActor (id: integer): TActor;
-      procedure DelActor (actor: TObject);
-      procedure SendMsg (ident, chrid, x, y, cdir, feature, state: integer; str: string);
+			constructor Create;
+			destructor Destroy; override;
+			procedure Initialize; override;
+			procedure Finalize; override;
+			procedure OpenScene; override;
+			procedure CloseScene; override;
+			procedure OpeningScene; override;
+			procedure DrawMiniMap (surface: TDirectDrawSurface);
+			procedure PlayScene (MSurface: TDirectDrawSurface); override;
+			function  ButchAnimal (x, y: integer): TActor;
 
-      procedure NewMagic (aowner: TActor;
-                          magid, magnumb, cx, cy, tx, ty, targetcode: integer;
-                          mtype: TMagicType;
-                          Recusion: Boolean;
-                          anitime: integer;
-                          var bofly: Boolean);
-      procedure DelMagic (magid: integer);
-      function  NewFlyObject (aowner: TActor; cx, cy, tx, ty, targetcode: integer;  mtype: TMagicType): TMagicEff;
-      //function  NewStaticMagic (aowner: TActor; tx, ty, targetcode, effnum: integer);
+			function  FindActor (id: integer): TActor;overload;
+			function  FindActor (sName:String): TActor;overload;
+			function  FindActorXY (x, y: integer): TActor;
+			function  IsValidActor (actor: TActor): Boolean;
+			function  NewActor (chrid: integer; cx, cy, cdir: word; cfeature, cstate: integer): TActor;
+			procedure ActorDied (actor: TObject); //Á×Àº actor´Â ¸Ç À§·Î
+			procedure SetActorDrawLevel (actor: TObject; level: integer);
+			procedure ClearActors;
+			function  DeleteActor (id: integer): TActor;
+			procedure DelActor (actor: TObject);
+			procedure SendMsg (ident, chrid, x, y, cdir, feature, state: integer; str: string);
 
-      procedure ScreenXYfromMCXY (cx, cy: integer; var sx, sy: integer);
-      procedure CXYfromMouseXY (mx, my: integer; var ccx, ccy: integer);
-      function  GetCharacter (x, y, wantsel: integer; var nowsel: integer; liveonly: Boolean): TActor;
-      function  GetAttackFocusCharacter (x, y, wantsel: integer; var nowsel: integer; liveonly: Boolean): TActor;
-      function  IsSelectMyself (x, y: integer): Boolean;
-      function  GetDropItems (x, y: integer; var inames: string): PTDropItem;
-      function  GetXYDropItems (nX,nY:Integer):pTDropItem;
-      procedure GetXYDropItemsList (nX,nY:Integer;var ItemList:TList);
-      function  CanRun (sx, sy, ex, ey: integer): Boolean;
-      function  CanWalk (mx, my: integer): Boolean;
-      function  CanWalkEx (mx, my: integer): Boolean;
-      function  CrashMan (mx, my: integer): Boolean; //»ç¶÷³¢¸® °ãÄ¡´Â°¡?
-      function  CanFly (mx, my: integer): Boolean;
-      procedure RefreshScene;
-      procedure CleanObjects;
-   end;
+			procedure NewMagic (aowner: TActor;
+				magid, magnumb, cx, cy, tx, ty, targetcode: integer;
+				mtype: TMagicType;
+				Recusion: Boolean;
+				anitime: integer;
+				var bofly: Boolean);
+
+			procedure DelMagic (magid: integer);
+			function  NewFlyObject (aowner: TActor; cx, cy, tx, ty, targetcode: integer;  mtype: TMagicType): TMagicEff;
+			//function  NewStaticMagic (aowner: TActor; tx, ty, targetcode, effnum: integer);
+
+			procedure ScreenXYfromMCXY (cx, cy: integer; var sx, sy: integer);
+			procedure CXYfromMouseXY (mx, my: integer; var ccx, ccy: integer);
+			function  GetCharacter (x, y, wantsel: integer; var nowsel: integer; liveonly: Boolean): TActor;
+			function  GetAttackFocusCharacter (x, y, wantsel: integer; var nowsel: integer; liveonly: Boolean): TActor;
+			function  IsSelectMyself (x, y: integer): Boolean;
+			function  GetDropItems (x, y: integer; var inames: string): PTDropItem;
+			function  GetXYDropItems (nX,nY:Integer):pTDropItem;
+			procedure GetXYDropItemsList (nX,nY:Integer;var ItemList:TList);
+			function  CanRun (sx, sy, ex, ey: integer): Boolean;
+			function  CanWalk (mx, my: integer): Boolean;
+			function  CanWalkEx (mx, my: integer): Boolean;
+			function  CrashMan (mx, my: integer): Boolean; //»ç¶÷³¢¸® °ãÄ¡´Â°¡?
+			function  CanFly (mx, my: integer): Boolean;
+			procedure RefreshScene;
+			procedure CleanObjects;
+		end;
 
 
 implementation
@@ -253,246 +257,245 @@ uses
 
 constructor TPlayScene.Create;
 var
-  nx,ny:Integer;
+	nx,ny:Integer;
 begin
-   m_MapSurface := nil;
-   m_ObjSurface := nil;
-   m_MsgList := TList.Create;
-   m_ActorList := TList.Create;
-   m_TempList := TList.Create;
-   m_GroundEffectList := TList.Create;
-   m_EffectList := TList.Create;
-   m_FlyList := TList.Create;
-   m_dwBlinkTime := GetTickCount;
-   m_boViewBlink := FALSE;
+	m_MapSurface := nil;
+	m_ObjSurface := nil;
+	m_MsgList := TList.Create;
+	m_ActorList := TList.Create;
+	m_TempList := TList.Create;
+	m_GroundEffectList := TList.Create;
+	m_EffectList := TList.Create;
+	m_FlyList := TList.Create;
+	m_dwBlinkTime := GetTickCount;
+	m_boViewBlink := FALSE;
 
-   EdChat := TEdit.Create (FrmMain.Owner);
-   with EdChat do begin
-      Parent := FrmMain;
-      BorderStyle := bsNone;
-      OnKeyPress := EdChatKeyPress;
-      Visible := FALSE;
-      MaxLength := 70;
-      Ctl3D := FALSE;
-      Left   := 208;
-      Top    := SCREENHEIGHT - 19;
-      Height := 12;
-      Width  := (SCREENWIDTH div 2 - 207) * 2{387};
-      Color := clSilver;
-   end;
-   MemoLog:=TMemo.Create(FrmMain.Owner);
-   with MemoLog do begin
-      Parent := FrmMain;
-      BorderStyle := bsNone;
-      Visible := False;
-     // Visible := True;
-      Ctl3D := True;
-    Left := 0;
-    Top := 250;
-    Width := 300;
-    Height := 150;
-   end;
-   //2004/05/17
-   EdAccountt := TEdit.Create (FrmMain.Owner);
-   with EdAccountt do begin
-      Parent := FrmMain;
-      BorderStyle := bsSingle;
-      Visible := False;
-      MaxLength := 70;
-      Ctl3D := True;
-      Left   := (SCREENWIDTH - 194) div 2;
-      Top    := SCREENHEIGHT - 200;
-      Height := 12;
-      Width  := 194;
-   end;
-   //2004/05/17
-   //2004/05/17
-   EdChrNamet := TEdit.Create (FrmMain.Owner);
-   with EdChrNamet do begin
-      Parent := FrmMain;
-      BorderStyle := bsSingle;
-      Visible := False;
-      MaxLength := 70;
-      Ctl3D := True;
-      Left   := (SCREENWIDTH - 194) div 2;
-      Top    := SCREENHEIGHT - 176;
-      Height := 12;
-      Width  := 194;
-   end;
-   //2004/05/17
+	EdChat := TEdit.Create (FrmMain.Owner);
+	with EdChat do begin
+		Parent := FrmMain;
+		BorderStyle := bsNone;
+		OnKeyPress := EdChatKeyPress;
+		Visible := FALSE;
+		MaxLength := 70;
+		Ctl3D := FALSE;
+		Left   := 208;
+		Top    := SCREENHEIGHT - 19;
+		Height := 12;
+		Width  := (SCREENWIDTH div 2 - 207) * 2{387};
+		Color := clSilver;
+	end;
 
-   m_dwMoveTime := GetTickCount;
-   m_dwAniTime := GetTickCount;
-   m_nAniCount := 0;
-   m_nMoveStepCount := 0;
-   m_MainSoundTimer := TTimer.Create (FrmMain.Owner);
-   with m_MainSoundTimer do begin
-      OnTimer := SoundOnTimer;
-      Interval := 1;
-      Enabled := FALSE;
-   end;
-   {
-   nx:=192;
-   ny:=150;
-   }
-   nx := SCREENWIDTH div 2 - 210 {192}{192};
-   ny := SCREENHEIGHT div 2 - 150{146}{150};
-   {
-   EdChgChrName := TEdit.Create (FrmMain.Owner);
-   with EdChgChrName do begin
-      Parent:=FrmMain;
-      Height:=16;
-      Width:=137;
-      Left:=nx + 239;
-      Top:=ny + 117;
-      BorderStyle:=bsNone;
-      Color:=clBlack;
-      Font.Color:=clWhite;
-      MaxLength:=10;
-      Visible:=FALSE;
-      //OnKeyPress:=EdNewIdKeyPress;
-      //OnEnter:=EdNewOnEnter;
-      Tag:=12;
-   end;
+	MemoLog := TMemo.Create(FrmMain.Owner);
+	with MemoLog do begin
+		Parent := FrmMain;
+		BorderStyle := bsNone;
+		Visible := False;
+		// Visible := True;
+		Ctl3D := True;
+		Left := 0;
+		Top := 250;
+		Width := 300;
+		Height := 150;
+	end;
 
-   EdChgCurPwd := TEdit.Create (FrmMain.Owner);
-   with EdChgCurPwd do begin
-      Parent:=FrmMain;
-      Height:=16;
-      Width:=137;
-      Left:=nx+239;
-      Top:=ny+149;
-      BorderStyle:=bsNone;
-      Color:=clBlack;
-      Font.Color:=clWhite;
-      MaxLength:=10;
-      PasswordChar:='*';
-      Visible:=FALSE;
-      //OnKeyPress:=EdNewIdKeyPress;
-      //OnEnter:=EdNewOnEnter;
-      Tag := 12;
-   end;
-   EdChgNewPwd := TEdit.Create (FrmMain.Owner);
-   with EdChgNewPwd do begin
-      Parent:=FrmMain;
-      Height:=16;
-      Width:=137;
-      Left:=nx+239;
-      Top:=ny+176;
-      BorderStyle:=bsNone;
-      Color:=clBlack;
-      Font.Color:=clWhite;
-      MaxLength:=10;
-      PasswordChar:='*';
-      Visible:=FALSE;
-      //OnKeyPress:=EdNewIdKeyPress;
-      //OnEnter:=EdNewOnEnter;
-      Tag:=12;
-   end;
-   EdChgRePwd := TEdit.Create (FrmMain.Owner);
-   with EdChgRePwd do begin
-      Parent := FrmMain;
-      Height := 16;
-      Width  := 137;
-      Left := nx+239;
-      Top  := ny+208;
-      BorderStyle := bsNone;
-      Color := clBlack;
-      Font.Color := clWhite;
-      MaxLength := 10;
-      PasswordChar := '*';
-      Visible := FALSE;
-      //OnKeyPress := EdNewIdKeyPress;
-      //OnEnter := EdNewOnEnter;
-      Tag := 12;
-   end;
-   }
+	EdAccountt := TEdit.Create (FrmMain.Owner);
+	with EdAccountt do begin
+		Parent := FrmMain;
+		BorderStyle := bsSingle;
+		Visible := False;
+		MaxLength := 70;
+		Ctl3D := True;
+		Left   := (SCREENWIDTH - 194) div 2;
+		Top    := SCREENHEIGHT - 200;
+		Height := 12;
+		Width  := 194;
+	end;
+
+	EdChrNamet := TEdit.Create (FrmMain.Owner);
+	with EdChrNamet do begin
+		Parent := FrmMain;
+		BorderStyle := bsSingle;
+		Visible := False;
+		MaxLength := 70;
+		Ctl3D := True;
+		Left   := (SCREENWIDTH - 194) div 2;
+		Top    := SCREENHEIGHT - 176;
+		Height := 12;
+		Width  := 194;
+	end;
+
+	m_dwMoveTime := GetTickCount;
+	m_dwAniTime := GetTickCount;
+	m_nAniCount := 0;
+	m_nMoveStepCount := 0;
+	m_MainSoundTimer := TTimer.Create (FrmMain.Owner);
+	with m_MainSoundTimer do begin
+		OnTimer := SoundOnTimer;
+		Interval := 1;
+		Enabled := FALSE;
+	end;
+	{
+	nx:=192;
+	ny:=150;
+	}
+	nx := SCREENWIDTH div 2 - 210 {192}{192};
+	ny := SCREENHEIGHT div 2 - 150{146}{150};
+	{
+	EdChgChrName := TEdit.Create (FrmMain.Owner);
+	with EdChgChrName do begin
+		Parent:=FrmMain;
+		Height:=16;
+		Width:=137;
+		Left:=nx + 239;
+		Top:=ny + 117;
+		BorderStyle:=bsNone;
+		Color:=clBlack;
+		Font.Color:=clWhite;
+		MaxLength:=10;
+		Visible:=FALSE;
+		//OnKeyPress:=EdNewIdKeyPress;
+		//OnEnter:=EdNewOnEnter;
+		Tag:=12;
+	end;
+
+	EdChgCurPwd := TEdit.Create (FrmMain.Owner);
+	with EdChgCurPwd do begin
+		Parent:=FrmMain;
+		Height:=16;
+		Width:=137;
+		Left:=nx+239;
+		Top:=ny+149;
+		BorderStyle:=bsNone;
+		Color:=clBlack;
+		Font.Color:=clWhite;
+		MaxLength:=10;
+		PasswordChar:='*';
+		Visible:=FALSE;
+		//OnKeyPress:=EdNewIdKeyPress;
+		//OnEnter:=EdNewOnEnter;
+		Tag := 12;
+	end;
+	EdChgNewPwd := TEdit.Create (FrmMain.Owner);
+	with EdChgNewPwd do begin
+		Parent:=FrmMain;
+		Height:=16;
+		Width:=137;
+		Left:=nx+239;
+		Top:=ny+176;
+		BorderStyle:=bsNone;
+		Color:=clBlack;
+		Font.Color:=clWhite;
+		MaxLength:=10;
+		PasswordChar:='*';
+		Visible:=FALSE;
+		//OnKeyPress:=EdNewIdKeyPress;
+		//OnEnter:=EdNewOnEnter;
+		Tag:=12;
+	end;
+	EdChgRePwd := TEdit.Create (FrmMain.Owner);
+	with EdChgRePwd do begin
+		Parent := FrmMain;
+		Height := 16;
+		Width  := 137;
+		Left := nx+239;
+		Top  := ny+208;
+		BorderStyle := bsNone;
+		Color := clBlack;
+		Font.Color := clWhite;
+		MaxLength := 10;
+		PasswordChar := '*';
+		Visible := FALSE;
+		//OnKeyPress := EdNewIdKeyPress;
+		//OnEnter := EdNewOnEnter;
+		Tag := 12;
+	end;
+	}
 end;
 
 destructor TPlayScene.Destroy;
 begin
-   m_MsgList.Free;
-   m_ActorList.Free;
-   m_TempList.Free;
-   m_GroundEffectList.Free;
-   m_EffectList.Free;
-   m_FlyList.Free;
-   inherited Destroy;
+	m_MsgList.Free;
+	m_ActorList.Free;
+	m_TempList.Free;
+	m_GroundEffectList.Free;
+	m_EffectList.Free;
+	m_FlyList.Free;
+	inherited Destroy;
 end;
 
 procedure TPlayScene.SoundOnTimer (Sender: TObject);
 begin
-   PlaySound (s_main_theme);
-   m_MainSoundTimer.Interval := 46 * 1000;
+	PlaySound (s_main_theme);
+	m_MainSoundTimer.Interval := 46 * 1000;
 end;
 
 procedure TPlayScene.EdChatKeyPress (Sender: TObject; var Key: Char);
 begin
-   if Key = #13 then begin
-      FrmMain.SendSay (EdChat.Text);
-      EdChat.Text := '';
-      EdChat.Visible := FALSE;
-      Key := #0;
-   end;
-   if Key = #27 then begin
-      EdChat.Text := '';
-      EdChat.Visible := FALSE;
-      Key := #0;
-   end;
+	if Key = #13 then begin
+		FrmMain.SendSay (EdChat.Text);
+		EdChat.Text := '';
+		EdChat.Visible := FALSE;
+		Key := #0;
+	end;
+
+	if Key = #27 then begin
+		EdChat.Text := '';
+		EdChat.Visible := FALSE;
+		Key := #0;
+	end;
 end;
 
 procedure TPlayScene.Initialize;
 var
-   i: integer;
+	i: integer;
 begin
-   m_MapSurface := TDirectDrawSurface.Create (frmMain.DxDraw.DDraw);
-   m_MapSurface.SystemMemory := TRUE;
-   m_MapSurface.SetSize (MAPSURFACEWIDTH+UNITX*4+30, MAPSURFACEHEIGHT+UNITY*4);
-   m_ObjSurface := TDirectDrawSurface.Create (frmMain.DxDraw.DDraw);
-   m_ObjSurface.SystemMemory := TRUE;
-   m_ObjSurface.SetSize (MAPSURFACEWIDTH-SOFFX*2, MAPSURFACEHEIGHT);
+	m_MapSurface := TDirectDrawSurface.Create (frmMain.DxDraw.DDraw);
+	m_MapSurface.SystemMemory := TRUE;
+	m_MapSurface.SetSize (MAPSURFACEWIDTH+UNITX*4+30, MAPSURFACEHEIGHT+UNITY*4);
+	m_ObjSurface := TDirectDrawSurface.Create (frmMain.DxDraw.DDraw);
+	m_ObjSurface.SystemMemory := TRUE;
+	m_ObjSurface.SetSize (MAPSURFACEWIDTH-SOFFX*2, MAPSURFACEHEIGHT);
 
-   m_nFogWidth := MAPSURFACEWIDTH - SOFFX * 2;
-   m_nFogHeight := MAPSURFACEHEIGHT;
-   m_PFogScreen := @m_FogScreen;
-   //PFogScreen := AllocMem (FogWidth * FogHeight);
-   ZeroMemory (m_PFogScreen, MAPSURFACEHEIGHT * MAPSURFACEWIDTH);
+	m_nFogWidth := MAPSURFACEWIDTH - SOFFX * 2;
+	m_nFogHeight := MAPSURFACEHEIGHT;
+	m_PFogScreen := @m_FogScreen;
+	//PFogScreen := AllocMem (FogWidth * FogHeight);
+	ZeroMemory (m_PFogScreen, MAPSURFACEHEIGHT * MAPSURFACEWIDTH);
 
-   g_boViewFog := FALSE;
-   for i:=0 to MAXLIGHT do
-      m_Lights[i].PFog := nil;
-   LoadFog;
-
+	g_boViewFog := FALSE;
+	for i:=0 to MAXLIGHT do
+		m_Lights[i].PFog := nil;
+	LoadFog;
 end;
 
 procedure TPlayScene.Finalize;
 begin
-   if m_MapSurface <> nil then
-      m_MapSurface.Free;
-   if m_ObjSurface <> nil then
-      m_ObjSurface.Free;
-   m_MapSurface := nil;
-   m_ObjSurface := nil;
+	if m_MapSurface <> nil then
+		m_MapSurface.Free;
+	if m_ObjSurface <> nil then
+		m_ObjSurface.Free;
+	m_MapSurface := nil;
+	m_ObjSurface := nil;
 end;
 
 procedure TPlayScene.OpenScene;
 begin
-   g_WMainImages.ClearCache;  //·Î±×ÀÎ ÀÌ¹ÌÁö Ä³½Ã¸¦ Áö¿î´Ù.
-   FrmDlg.ViewBottomBox (TRUE);
-   //EdChat.Visible := TRUE;
-   //EdChat.SetFocus;
-   SetImeMode (FrmMain.Handle, LocalLanguage);
-   //MainSoundTimer.Interval := 1000;
-   //MainSoundTimer.Enabled := TRUE;
+	g_WMainImages.ClearCache;  //·Î±×ÀÎ ÀÌ¹ÌÁö Ä³½Ã¸¦ Áö¿î´Ù.
+	FrmDlg.ViewBottomBox (TRUE);
+	//EdChat.Visible := TRUE;
+	//EdChat.SetFocus;
+	SetImeMode (FrmMain.Handle, LocalLanguage);
+	//MainSoundTimer.Interval := 1000;
+	//MainSoundTimer.Enabled := TRUE;
 end;
 
 procedure TPlayScene.CloseScene;
 begin
-   //MainSoundTimer.Enabled := FALSE;
-   SilenceSound;
+	//MainSoundTimer.Enabled := FALSE;
+	SilenceSound;
 
-   EdChat.Visible := FALSE;
-   FrmDlg.ViewBottomBox (FALSE);
+	EdChat.Visible := FALSE;
+	FrmDlg.ViewBottomBox (FALSE);
 end;
 
 procedure TPlayScene.OpeningScene;
@@ -501,103 +504,107 @@ end;
 
 procedure TPlayScene.RefreshScene;
 var
-   i: integer;
+	i: integer;
 begin
-   Map.m_OldClientRect.Left := -1;
-   for i:=0 to m_ActorList.Count-1 do
-      TActor (m_ActorList[i]).LoadSurface;
+	Map.m_OldClientRect.Left := -1;
+	for i:=0 to m_ActorList.Count-1 do
+		TActor (m_ActorList[i]).LoadSurface;
 end;
 
 procedure TPlayScene.CleanObjects;
 var
-   i: integer;
+	i: integer;
 begin
-   for i := m_ActorList.Count-1 downto 0 do begin
-      if TActor(m_ActorList[i]) <> g_MySelf then begin
-         TActor(m_ActorList[i]).Free;
-         m_ActorList.Delete (i);
-      end;
-   end;
-   m_MsgList.Clear;
-   g_TargetCret := nil;
-   g_FocusCret := nil;
-   g_MagicTarget := nil;
-   //
-   for i:=0 to m_GroundEffectList.Count-1 do
-      TMagicEff (m_GroundEffectList[i]).Free;
-   m_GroundEffectList.Clear;
-   for i:=0 to m_EffectList.Count-1 do
-      TMagicEff (m_EffectList[i]).Free;
-   m_EffectList.Clear;
+	for i := m_ActorList.Count-1 downto 0 do begin
+		if TActor(m_ActorList[i]) <> g_MySelf then begin
+			TActor(m_ActorList[i]).Free;
+			m_ActorList.Delete (i);
+		end;
+	end;
+
+	m_MsgList.Clear;
+	g_TargetCret := nil;
+	g_FocusCret := nil;
+	g_MagicTarget := nil;
+
+	for i:=0 to m_GroundEffectList.Count-1 do
+		TMagicEff (m_GroundEffectList[i]).Free;
+
+	m_GroundEffectList.Clear;
+
+	for i:=0 to m_EffectList.Count-1 do
+		TMagicEff (m_EffectList[i]).Free;
+
+	m_EffectList.Clear;
 end;
 
-{---------------------- Draw Map -----------------------}
-
+{-------------------------------------------------------}
+// Draw tile map
 procedure TPlayScene.DrawTileMap;
 var
-  i,j, nY,nX,nImgNumber:integer;
-  DSurface: TDirectDrawSurface;
+	i,j, nY,nX,nImgNumber:integer;
+	DSurface: TDirectDrawSurface;
 begin
-  with Map do
-    if (m_ClientRect.Left = m_OldClientRect.Left) and (m_ClientRect.Top = m_OldClientRect.Top) then exit;
+	with Map do
+		if (m_ClientRect.Left = m_OldClientRect.Left) and (m_ClientRect.Top = m_OldClientRect.Top) then exit;
 
-  Map.m_OldClientRect := Map.m_ClientRect;
-  m_MapSurface.Fill(0);
+	Map.m_OldClientRect := Map.m_ClientRect;
+	m_MapSurface.Fill(0);
 
-//µØÍ¼±³¾°
- if not g_boDrawTileMap then exit;
-  with Map.m_ClientRect do begin
-    nY := -UNITY * 2;
-    for j:=(Top - Map.m_nBlockTop - 1) to (Bottom - Map.m_nBlockTop + 1) do begin
-      nX := AAX + 14 -UNITX;
-      for i:=(Left - Map.m_nBlockLeft -2) to (Right - Map.m_nBlockLeft + 1) do begin
-        if (i >= 0) and (i < LOGICALMAPUNIT * 3) and (j >= 0) and (j < LOGICALMAPUNIT *3) then begin
-          nImgNumber := (Map.m_MArr[i, j].wBkImg and $7FFF);
-          if nImgNumber > 0 then begin
-            if (i mod 2 = 0) and (j mod 2 = 0) then begin
-              nImgNumber := nImgNumber - 1;
-              DSurface := g_WTilesImages.Images[nImgNumber];
-              if Dsurface <> nil then begin
-                //Jacky ÏÔÊ¾µØÍ¼ÄÚÈÝ
-//                DrawLine(DSurface);
-                m_MapSurface.Draw (nX, nY, DSurface.ClientRect, DSurface, FALSE);
-              end;
-             end;
-           end;
-         end;
-         Inc (nX, UNITX);
-       end;
-       Inc (nY, UNITY);
-    end;
-  end;
+	//µØÍ¼±³¾°
+	if not g_boDrawTileMap then exit;
+	with Map.m_ClientRect do begin
+		nY := -UNITY * 2;
+		for j:=(Top - Map.m_nBlockTop - 1) to (Bottom - Map.m_nBlockTop + 1) do begin
+			nX := AAX + 14 -UNITX;
+			for i:=(Left - Map.m_nBlockLeft -2) to (Right - Map.m_nBlockLeft + 1) do begin
+				if (i >= 0) and (i < LOGICALMAPUNIT * 3) and (j >= 0) and (j < LOGICALMAPUNIT *3) then begin
+					nImgNumber := (Map.m_MArr[i, j].wBkImg and $7FFF);
+					if nImgNumber > 0 then begin
+						if (i mod 2 = 0) and (j mod 2 = 0) then begin
+							nImgNumber := nImgNumber - 1;
+							DSurface := g_WTilesImages.Images[nImgNumber];
+							if Dsurface <> nil then begin
+								//Jacky ÏÔÊ¾µØÍ¼ÄÚÈÝ
+								//                DrawLine(DSurface);
+								m_MapSurface.Draw (nX, nY, DSurface.ClientRect, DSurface, FALSE);
+							end;
+						end;
+					end;
+				end;
+				Inc (nX, UNITX);
+			end;
+			Inc (nY, UNITY);
+		end;
+	end;
 
-//µØÍ¼ÖÐ¼ä²ã
-   with Map.m_ClientRect do begin
-      nY := -UNITY;
-      for j:=(Top - Map.m_nBlockTop-1) to (Bottom - Map.m_nBlockTop+1) do begin
-         nX := AAX + 14 -UNITX;
-         for i:=(Left - Map.m_nBlockLeft-2) to (Right - Map.m_nBlockLeft+1) do begin
-            if (i >= 0) and (i < LOGICALMAPUNIT * 3) and (j >= 0) and (j < LOGICALMAPUNIT * 3) then begin
-               nImgNumber := Map.m_MArr[i, j].wMidImg;
-               if nImgNumber > 0 then begin
-                  nImgNumber := nImgNumber - 1;
-                  DSurface := g_WSmTilesImages.Images[nImgNumber];
-                  if Dsurface <> nil then
-                     m_MapSurface.Draw (nX, nY, DSurface.ClientRect, DSurface, TRUE);
-               end;
-            end;
-            Inc (nX, UNITX);
-         end;
-         Inc (nY, UNITY);
-      end;
-   end;
+	//µØÍ¼ÖÐ¼ä²ã
+	with Map.m_ClientRect do begin
+		nY := -UNITY;
+		for j:=(Top - Map.m_nBlockTop-1) to (Bottom - Map.m_nBlockTop+1) do begin
+			nX := AAX + 14 -UNITX;
+			for i:=(Left - Map.m_nBlockLeft-2) to (Right - Map.m_nBlockLeft+1) do begin
+				if (i >= 0) and (i < LOGICALMAPUNIT * 3) and (j >= 0) and (j < LOGICALMAPUNIT * 3) then begin
+					nImgNumber := Map.m_MArr[i, j].wMidImg;
+					if nImgNumber > 0 then begin
+						nImgNumber := nImgNumber - 1;
+						DSurface := g_WSmTilesImages.Images[nImgNumber];
+						if Dsurface <> nil then
+							m_MapSurface.Draw (nX, nY, DSurface.ClientRect, DSurface, TRUE);
+					end;
+				end;
+				Inc (nX, UNITX);
+			end;
+			Inc (nY, UNITY);
+		end;
+	end;
 
 end;
 
 
 
 {----------------------- Æ÷±×, ¶óÀÌÆ® Ã³¸® -----------------------}
-
+// light treatment
 
 procedure TPlayScene.LoadFog;  //¶óÀÌÆ® µ¥ÀÌÅ¸ ÀÐ±â
 var
@@ -739,105 +746,114 @@ end;
 
 procedure TPlayScene.ApplyLightMap;
 var
-   i, j, light, defx, defy, lx, ly, lxx, lyy, lcount: integer;
+	i, j, light, defx, defy, lx, ly, lxx, lyy, lcount: integer;
 begin
-   defx := -UNITX*2 + AAX + 14 - g_MySelf.m_nShiftX;
-   defy := -UNITY*3 - g_MySelf.m_nShiftY;
-   lcount := 0;
-   for i:=1 to LMX-1 do
-      for j:=1 to LMY-1 do begin
-         light := m_LightMap[i, j].light;
-         if light >= 0 then begin
-            lx := (i + g_MySelf.m_nRx - LMX div 2);
-            ly := (j + g_MySelf.m_nRy - LMY div 2);
-            lxx := (lx-Map.m_ClientRect.Left)*UNITX + defx + m_LightMap[i, j].ShiftX;
-            lyy := (ly-Map.m_ClientRect.Top)*UNITY + defy + m_LightMap[i, j].ShiftY;
+	defx := -UNITX*2 + AAX + 14 - g_MySelf.m_nShiftX;
+	defy := -UNITY*3 - g_MySelf.m_nShiftY;
+	lcount := 0;
+	for i:=1 to LMX-1 do begin
+		for j:=1 to LMY-1 do begin
+			light := m_LightMap[i, j].light;
+			if light >= 0 then begin
+				lx := (i + g_MySelf.m_nRx - LMX div 2);
+				ly := (j + g_MySelf.m_nRy - LMY div 2);
+				lxx := (lx-Map.m_ClientRect.Left)*UNITX + defx + m_LightMap[i, j].ShiftX;
+				lyy := (ly-Map.m_ClientRect.Top)*UNITY + defy + m_LightMap[i, j].ShiftY;
 
-            FogCopy (m_Lights[light].PFog,
-                     0,
-                     0,
-                     m_Lights[light].Width,
-                     m_Lights[light].Height,
-                     m_PFogScreen,
-                     lxx - (m_Lights[light].Width-UNITX) div 2,
-                     lyy - (m_Lights[light].Height-UNITY) div 2 - 5,
-                     m_nFogWidth,
-                     m_nFogHeight,
-                     20);
-            inc (lcount);
-         end;
-      end;
+				FogCopy (m_Lights[light].PFog,
+					0,
+					0,
+					m_Lights[light].Width,
+					m_Lights[light].Height,
+					m_PFogScreen,
+					lxx - (m_Lights[light].Width-UNITX) div 2,
+					lyy - (m_Lights[light].Height-UNITY) div 2 - 5,
+					m_nFogWidth,
+					m_nFogHeight,
+					20);
+
+				inc (lcount);
+			end;
+		end;
+	end;
 end;
 
 procedure TPlayScene.DrawLightEffect (lx, ly, bright: integer);
 begin
-   if (bright > 0) and (bright <= MAXLIGHT) then
-      FogCopy (m_Lights[bright].PFog,
-               0,
-               0,
-               m_Lights[bright].Width,
-               m_Lights[bright].Height,
-               m_PFogScreen,
-               lx - (m_Lights[bright].Width-UNITX) div 2,
-               ly - (m_Lights[bright].Height-UNITY) div 2,
-               m_nFogWidth,
-               m_nFogHeight,
-               15);
+	if (bright > 0) and (bright <= MAXLIGHT) then begin
+		FogCopy (m_Lights[bright].PFog,
+			0,
+			0,
+			m_Lights[bright].Width,
+			m_Lights[bright].Height,
+			m_PFogScreen,
+			lx - (m_Lights[bright].Width-UNITX) div 2,
+			ly - (m_Lights[bright].Height-UNITY) div 2,
+			m_nFogWidth,
+			m_nFogHeight,
+			15);
+	end;
 end;
 
 {-----------------------------------------------------------------------}
 
 procedure TPlayScene.DrawMiniMap (surface: TDirectDrawSurface);
 var
-  d: TDirectDrawSurface;
-  v: Boolean;
-  mx, my,nx,ny, i: integer;
-  rc: TRect;
-  actor:TActor;
-  x,y:integer;
-  btColor:Byte;
+	d: TDirectDrawSurface;
+	v: Boolean;
+	mx, my,nx,ny, i: integer;
+	rc: TRect;
+	actor:TActor;
+	x,y:integer;
+	btColor:Byte;
 begin
-  if GetTickCount > m_dwBlinkTime + 300 then begin
-    m_dwBlinkTime := GetTickCount;
-    m_boViewBlink := not m_boViewBlink;
-  end;
-  if g_nMiniMapIndex < 0 then exit; //Jacky
-  d := g_WMMapImages.Images[g_nMiniMapIndex];
-  if d = nil then exit;
-  mx := (g_MySelf.m_nCurrX*48) div 32;
-  my := (g_MySelf.m_nCurrY*32) div 32;
-  rc.Left := _MAX(0, mx-60);
-  rc.Top := _MAX(0, my-60);
-  rc.Right := _MIN(d.ClientRect.Right, rc.Left + 120);
-  rc.Bottom := _MIN(d.ClientRect.Bottom, rc.Top + 120);
+	if GetTickCount > m_dwBlinkTime + 300 then begin
+		m_dwBlinkTime := GetTickCount;
+		m_boViewBlink := not m_boViewBlink;
+	end;
 
-  if g_nViewMinMapLv = 1 then
-    DrawBlendEx (surface, (SCREENWIDTH-120), 0, d, rc.Left, rc.Top, 120, 120, 0)
-  else surface.Draw ((SCREENWIDTH-120), 0, rc, d, FALSE);
-     //À×´ï
-  if not m_boViewBlink then exit;
-  mx := (SCREENWIDTH-120) + (g_MySelf.m_nCurrX * 48) div 32 - rc.Left;
-  my := (g_MySelf.m_nCurrY * 32) div 32 - rc.Top;
-  surface.Pixels[mx, my] := 255;
+	if g_nMiniMapIndex < 0 then exit; //Jacky
 
-  for nx:=g_MySelf.m_nCurrX - 10  to g_MySelf.m_nCurrX + 10 do begin
-    for ny:=g_MySelf.m_nCurrY - 10 to g_MySelf.m_nCurrY + 10 do begin
-      actor := FindActorXY(nx,ny);
-      if (actor <> nil) and (actor <> g_MySelf) and (not actor.m_boDeath) then begin
-        mx := (SCREENWIDTH-120) + (actor.m_nCurrX * 48) div 32 - rc.Left;
-        my := (actor.m_nCurrY * 32) div 32 - rc.Top;
+	d := g_WMMapImages.Images[g_nMiniMapIndex];
 
-        case actor.m_btRace of    //
-          50,45,12: btColor:=218;
-          0: btColor:=255;
-          else btColor:=249;
-        end;    // case
-        for x:=0 to 1 do
-          for y:=0 to 1 do
-            surface.Pixels[mx+x, my+y] := btColor
-      end;
-    end;
-  end;
+	if d = nil then exit;
+
+	mx := (g_MySelf.m_nCurrX*48) div 32;
+	my := (g_MySelf.m_nCurrY*32) div 32;
+	rc.Left := _MAX(0, mx-60);
+	rc.Top := _MAX(0, my-60);
+	rc.Right := _MIN(d.ClientRect.Right, rc.Left + 120);
+	rc.Bottom := _MIN(d.ClientRect.Bottom, rc.Top + 120);
+
+	if g_nViewMinMapLv = 1 then
+		DrawBlendEx (surface, (SCREENWIDTH-120), 0, d, rc.Left, rc.Top, 120, 120, 0)
+	else surface.Draw ((SCREENWIDTH-120), 0, rc, d, FALSE);
+	//À×´ï
+	if not m_boViewBlink then exit;
+	mx := (SCREENWIDTH-120) + (g_MySelf.m_nCurrX * 48) div 32 - rc.Left;
+	my := (g_MySelf.m_nCurrY * 32) div 32 - rc.Top;
+	surface.Pixels[mx, my] := 255;
+
+	for nx:=g_MySelf.m_nCurrX - 10  to g_MySelf.m_nCurrX + 10 do begin
+		for ny:=g_MySelf.m_nCurrY - 10 to g_MySelf.m_nCurrY + 10 do begin
+			actor := FindActorXY(nx,ny);
+			if (actor <> nil) and (actor <> g_MySelf) and (not actor.m_boDeath) then begin
+				mx := (SCREENWIDTH-120) + (actor.m_nCurrX * 48) div 32 - rc.Left;
+				my := (actor.m_nCurrY * 32) div 32 - rc.Top;
+
+				case actor.m_btRace of    //
+				50,45,12: btColor:=218;
+				0: btColor:=255;
+				else btColor:=249;
+				end;    // case
+
+				for x:=0 to 1 do
+					for y:=0 to 1 do
+						surface.Pixels[mx+x, my+y] := btColor
+
+			end;
+		end;
+	end;
 end;
 
 
@@ -1343,7 +1359,7 @@ begin
       DebugOutStr ('109');
    end;
 
-   //µØÃæÎïÆ·ÉÁÁÁ
+   //µØÃæÎïÆ·?ÁÁ?
   try
     for k:=0 to g_DropedItemList.Count-1 do begin
       DropItem := PTDropItem (g_DropedItemList[k]);
@@ -1780,7 +1796,7 @@ begin
    end;
 end;
 
-//È¡µÃÊó±êËùÖ¸×ø±êµÄ½ÇÉ«
+//È¡µÃÊó±êËùÖ¸×ø±êµÄ½Ç??
 function  TPlayScene.GetAttackFocusCharacter (x, y, wantsel: integer; var nowsel: integer; liveonly: Boolean): TActor;
 var
    k, i, ccx, ccy, dx, dy, centx, centy: integer;
@@ -2064,7 +2080,7 @@ begin
       31: actor := TCatMon.Create;                //½ÇÓ¬
       32: actor := TScorpionMon.Create;           //Ð«×Ó
 
-      33: actor := TCentipedeKingMon.Create;      //´¥ÁúÉñ
+      33: actor := TCentipedeKingMon.Create;      //´¥Áú??
       34: actor := TBigHeartMon.Create;           //³àÔÂ¶ñÄ§
       35: actor := TSpiderHouseMon.Create;        //»ÃÓ°Ö©Öë
       36: actor := TExplosionSpider.Create;       //ÔÂÄ§Ö©Öë
@@ -2085,8 +2101,8 @@ begin
 
       52: actor := TGasKuDeGi.Create;             //Ð¨¶ê
       53: actor := TGasKuDeGi.Create;             //·à³æ
-      54: actor := TSmallElfMonster.Create;       //ÉñÊÞ
-      55: actor := TWarriorElfMonster.Create;     //ÉñÊÞ1
+      54: actor := TSmallElfMonster.Create;       //?ñÊ?
+      55: actor := TWarriorElfMonster.Create;     //?ñÊ?1
 
       60: actor := TElectronicScolpionMon.Create;
       61: actor := TBossPigMon.Create;

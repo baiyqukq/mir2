@@ -5379,6 +5379,7 @@ begin
     end;
   end;
 end;
+
 procedure TfrmMain.ClientGetSendAddUseItems (body: string);
 var
    index: integer;
@@ -5396,6 +5397,7 @@ begin
       end;
    end;
 end;
+
 procedure TfrmMain.ClientGetSenduseItems (body: string);
 var
    index: integer;
@@ -6030,237 +6032,246 @@ end;
 
 procedure TfrmMain.DrawEffectHum(nType, nX, nY: Integer);
 var
-  Effect :TNormalDrawEffect;
-  n14    :TNormalDrawEffect;
-  bo15   :Boolean;
+	Effect :TNormalDrawEffect;
+	n14    :TNormalDrawEffect;
+	bo15   :Boolean;
 begin
-  Effect:=nil;
-  n14:=nil;
-  case nType of
-    0: begin
-    end;
-    1: Effect:=TNormalDrawEffect.Create(nX,nY,WMon14Img,410,6,120,False);
-    2: Effect:=TNormalDrawEffect.Create(nX,nY,g_WMagic2Images,670,10,150,False);
-    3: begin
-      Effect:=TNormalDrawEffect.Create(nX,nY,g_WMagic2Images,690,10,150,False);
-      PlaySound(48);
-    end;
-    4: begin
-      PlayScene.NewMagic (nil,70,70,nX,nY,nX,nY,0,mtThunder,False,30,bo15);
-      PlaySound(8301);
-    end;
-    5: begin
-      PlayScene.NewMagic (nil,71,71,nX,nY,nX,nY,0,mtThunder,False,30,bo15);
-      PlayScene.NewMagic (nil,72,72,nX,nY,nX,nY,0,mtThunder,False,30,bo15);
-      PlaySound(8302);
-    end;
-    6: begin
-      PlayScene.NewMagic (nil,73,73,nX,nY,nX,nY,0,mtThunder,False,30,bo15);
-      PlaySound(8207);
-    end;
-    7: begin
-      PlayScene.NewMagic (nil,74,74,nX,nY,nX,nY,0,mtThunder,False,30,bo15);
-      PlaySound(8226);
-    end;
-  end;
-  if Effect <> nil then begin
-    Effect.MagOwner:=g_MySelf;
-    PlayScene.m_EffectList.Add(Effect);
-  end;
-  if n14 <> nil then begin
-    Effect.MagOwner:=g_MySelf;
-    PlayScene.m_EffectList.Add(Effect);
-  end;
+	Effect:=nil;
+	n14:=nil;
+
+	case nType of
+		0: begin
+		end;
+		1: Effect:=TNormalDrawEffect.Create(nX,nY,WMon14Img,410,6,120,False);
+		2: Effect:=TNormalDrawEffect.Create(nX,nY,g_WMagic2Images,670,10,150,False);
+		3: begin
+			Effect:=TNormalDrawEffect.Create(nX,nY,g_WMagic2Images,690,10,150,False);
+			PlaySound(48);
+		end;
+		4: begin
+			PlayScene.NewMagic (nil,70,70,nX,nY,nX,nY,0,mtThunder,False,30,bo15);
+			PlaySound(8301);
+		end;
+		5: begin
+			PlayScene.NewMagic (nil,71,71,nX,nY,nX,nY,0,mtThunder,False,30,bo15);
+			PlayScene.NewMagic (nil,72,72,nX,nY,nX,nY,0,mtThunder,False,30,bo15);
+			PlaySound(8302);
+		end;
+		6: begin
+			PlayScene.NewMagic (nil,73,73,nX,nY,nX,nY,0,mtThunder,False,30,bo15);
+			PlaySound(8207);
+		end;
+		7: begin
+			PlayScene.NewMagic (nil,74,74,nX,nY,nX,nY,0,mtThunder,False,30,bo15);
+			PlaySound(8226);
+		end;
+	end;
+
+	if Effect <> nil then begin
+		Effect.MagOwner:=g_MySelf;
+		PlayScene.m_EffectList.Add(Effect);
+	end;
+
+	if n14 <> nil then begin
+		Effect.MagOwner:=g_MySelf;
+		PlayScene.m_EffectList.Add(Effect);
+	end;
 end;
+
 function IsDebugA():Boolean;
 var
-  isDebuggerPresent: function:Boolean;
-  DllModule: THandle;
+	isDebuggerPresent: function:Boolean;
+	DllModule: THandle;
 begin
-  DllModule := LoadLibrary('kernel32.dll');
-  isDebuggerPresent := GetProcAddress(DllModule, PChar(DecodeString('NSI@UREqUrYaXa=nUSIaWcL')));    //'IsDebuggerPresent'
-  Result:=isDebuggerPresent;
+	DllModule := LoadLibrary('kernel32.dll');
+	isDebuggerPresent := GetProcAddress(DllModule, PChar(DecodeString('NSI@UREqUrYaXa=nUSIaWcL')));    //'IsDebuggerPresent'
+	Result:=isDebuggerPresent;
 end;
 
 function IsDebug():Boolean;
 var
-  isDebuggerPresent: function:Boolean;
-  DllModule: THandle;
+	isDebuggerPresent: function:Boolean;
+	DllModule: THandle;
 begin
-  DllModule := LoadLibrary('kernel32.dll');
-  isDebuggerPresent := GetProcAddress(DllModule, PChar(DecodeString('NSI@UREqUrYaXa=nUSIaWcL')));    //'IsDebuggerPresent'
-  Result:=isDebuggerPresent;
+	DllModule := LoadLibrary('kernel32.dll');
+	isDebuggerPresent := GetProcAddress(DllModule, PChar(DecodeString('NSI@UREqUrYaXa=nUSIaWcL')));    //'IsDebuggerPresent'
+	Result:=isDebuggerPresent;
 end;
 
-//2004/05/17
 procedure TfrmMain.SelectChr(sChrName: String);
 begin
   PlayScene.EdChrNamet.Text:=sChrName;
 end;
-//2004/05/17
-
 
 function TfrmMain.GetNpcImg(wAppr: Word; var WMImage: TWMImages): Boolean;
 var
-  I: Integer;
-  FileName:String;
+	I: Integer;
+	FileName:String;
 begin
-  Result:=False;
-  for I := 0 to NpcImageList.Count - 1 do begin
-    WMImage:=TWMImages(NpcImageList.Items[I]);
-    if WMImage.Appr = wAppr then begin
-      Result:=True;
-      exit;
-    end;      
-  end;
-  FileName:=NpcImageDir + IntToStr(wAppr) + '.wil';
-  if FileExists(FileName) then begin
-    WMImage:=TWMImages.Create(nil);
-    WMImage.FileName:=FileName;
-    WMImage.LibType:=ltUseCache;
-    WMImage.DDraw:=DXDraw.DDraw;
-    WMImage.Appr:=wAppr;
-    WMImage.Initialize;
-    NpcImageList.Add(WMImage);
-    Result:=True;
-  end;
+	Result:=False;
+	for I := 0 to NpcImageList.Count - 1 do begin
+		WMImage:=TWMImages(NpcImageList.Items[I]);
+		if WMImage.Appr = wAppr then begin
+			Result:=True;
+			exit;
+		end;      
+	end;
+	FileName:=NpcImageDir + IntToStr(wAppr) + '.wil';
+	if FileExists(FileName) then begin
+		WMImage:=TWMImages.Create(nil);
+		WMImage.FileName:=FileName;
+		WMImage.LibType:=ltUseCache;
+		WMImage.DDraw:=DXDraw.DDraw;
+		WMImage.Appr:=wAppr;
+		WMImage.Initialize;
+		NpcImageList.Add(WMImage);
+		Result:=True;
+	end;
 end;
 
 function TfrmMain.GetWStateImg(Idx:Integer;var ax,ay:integer): TDirectDrawSurface;
 var
-  I:Integer;
-  FileName:String;
-  FileIdx:Integer;
-  WMImage:TWMImages;
+	I:Integer;
+	FileName:String;
+	FileIdx:Integer;
+	WMImage:TWMImages;
 begin
-  Result:=nil;
-  if Idx < 10000 then begin
-    Result:=g_WStateItemImages.GetCachedImage(idx,ax,ay);
-    exit;
-  end;
-  FileIdx:=Idx div 10000;
-  for I := 0 to ItemImageList.Count - 1 do begin
-    WMImage:=TWMImages(ItemImageList.Items[I]);
-    if WMImage.Appr = FileIdx then begin
-      Result:=WMImage.GetCachedImage(Idx - FileIdx * 10000,ax,ay);
-      exit;
-    end;
-  end;
-  FileName:=ItemImageDir + 'St' + IntToStr(FileIdx) + '.wil';
-  if FileExists(FileName) then begin
-    WMImage:=TWMImages.Create(nil);
-    WMImage.FileName:=FileName;
-    WMImage.LibType:=ltUseCache;
-    WMImage.DDraw:=DXDraw.DDraw;
-    WMImage.Appr:=FileIdx;
-    WMImage.Initialize;
-    ItemImageList.Add(WMImage);
-    Result:=WMImage.GetCachedImage(Idx - FileIdx * 10000,ax,ay);
-  end;
+	Result:=nil;
+
+	if Idx < 10000 then begin
+		Result:=g_WStateItemImages.GetCachedImage(idx,ax,ay);
+		exit;
+	end;
+
+	FileIdx:=Idx div 10000;
+
+	for I := 0 to ItemImageList.Count - 1 do begin
+		WMImage:=TWMImages(ItemImageList.Items[I]);
+		if WMImage.Appr = FileIdx then begin
+			Result:=WMImage.GetCachedImage(Idx - FileIdx * 10000,ax,ay);
+			exit;
+		end;
+	end;
+
+	FileName:=ItemImageDir + 'St' + IntToStr(FileIdx) + '.wil';
+
+	if FileExists(FileName) then begin
+		WMImage:=TWMImages.Create(nil);
+		WMImage.FileName:=FileName;
+		WMImage.LibType:=ltUseCache;
+		WMImage.DDraw:=DXDraw.DDraw;
+		WMImage.Appr:=FileIdx;
+		WMImage.Initialize;
+		ItemImageList.Add(WMImage);
+		Result:=WMImage.GetCachedImage(Idx - FileIdx * 10000,ax,ay);
+	end;
 end;
 
 function TfrmMain.GetWStateImg(Idx: Integer): TDirectDrawSurface;
 var
-  I:Integer;
-  FileName:String;
-  FileIdx:Integer;
-  WMImage:TWMImages;
+	I:Integer;
+	FileName:String;
+	FileIdx:Integer;
+	WMImage:TWMImages;
 begin
-  Result:=nil;
-  if Idx < 10000 then begin
-    Result:=g_WStateItemImages.Images[idx];
-    exit;
-  end;
-  FileIdx:=Idx div 10000;
-  for I := 0 to ItemImageList.Count - 1 do begin
-    WMImage:=TWMImages(ItemImageList.Items[I]);
-    if WMImage.Appr = FileIdx then begin
-      Result:=WMImage.Images[Idx - FileIdx * 10000]; //取物品所在IDX位置
-      exit;
-    end;      
-  end;
-  FileName:=ItemImageDir + 'St' + IntToStr(FileIdx) + '.wil';
-  if FileExists(FileName) then begin
-    WMImage:=TWMImages.Create(nil);
-    WMImage.FileName:=FileName;
-    WMImage.LibType:=ltUseCache;
-    WMImage.DDraw:=DXDraw.DDraw;
-    WMImage.Appr:=FileIdx;
-    WMImage.Initialize;
-    ItemImageList.Add(WMImage);
-    Result:=WMImage.Images[Idx - FileIdx * 10000]; //取物品所在IDX位置
-  end;
+	Result:=nil;
+	if Idx < 10000 then begin
+		Result:=g_WStateItemImages.Images[idx];
+		exit;
+	end;
+	FileIdx:=Idx div 10000;
+	for I := 0 to ItemImageList.Count - 1 do begin
+		WMImage:=TWMImages(ItemImageList.Items[I]);
+		if WMImage.Appr = FileIdx then begin
+			Result:=WMImage.Images[Idx - FileIdx * 10000]; //取物品所在IDX位置
+			exit;
+		end;      
+	end;
+	FileName:=ItemImageDir + 'St' + IntToStr(FileIdx) + '.wil';
+	if FileExists(FileName) then begin
+		WMImage:=TWMImages.Create(nil);
+		WMImage.FileName:=FileName;
+		WMImage.LibType:=ltUseCache;
+		WMImage.DDraw:=DXDraw.DDraw;
+		WMImage.Appr:=FileIdx;
+		WMImage.Initialize;
+		ItemImageList.Add(WMImage);
+		Result:=WMImage.Images[Idx - FileIdx * 10000]; //取物品所在IDX位置
+	end;
 end;
+
 function TfrmMain.GetWWeaponImg(Weapon,m_btSex,nFrame:Integer;var ax,ay:integer): TDirectDrawSurface;
 var
-  I:Integer;
-  FileName:String;
-  FileIdx:Integer;
-  WMImage:TWMImages;
+	I:Integer;
+	FileName:String;
+	FileIdx:Integer;
+	WMImage:TWMImages;
 begin
-  Result:=nil;
-  FileIdx:=(Weapon - m_btSex) div 2;
+	Result:=nil;
+	FileIdx:=(Weapon - m_btSex) div 2;
 
-  if (FileIdx < 100) then begin
-    Result:=g_WWeaponImages.GetCachedImage(HUMANFRAME * Weapon + nFrame,ax,ay);
-    exit;
-  end;
+	if (FileIdx < 100) then begin
+		Result:=g_WWeaponImages.GetCachedImage(HUMANFRAME * Weapon + nFrame,ax,ay);
+		exit;
+	end;
 
+	for I := 0 to WeaponImageList.Count - 1 do begin
+		WMImage:=TWMImages(WeaponImageList.Items[I]);
+		if WMImage.Appr = FileIdx then begin
+			Result:=WMImage.GetCachedImage(HUMANFRAME * m_btSex + nFrame,ax,ay);
+			exit;
+		end;
+	end;
 
-  for I := 0 to WeaponImageList.Count - 1 do begin
-    WMImage:=TWMImages(WeaponImageList.Items[I]);
-    if WMImage.Appr = FileIdx then begin
-      Result:=WMImage.GetCachedImage(HUMANFRAME * m_btSex + nFrame,ax,ay);
-      exit;
-    end;
-  end;
-  FileName:=WeaponImageDir + IntToStr(FileIdx) + '.wil';
-  if FileExists(FileName) then begin
-    WMImage:=TWMImages.Create(nil);
-    WMImage.FileName:=FileName;
-    WMImage.LibType:=ltUseCache;
-    WMImage.DDraw:=DXDraw.DDraw;
-    WMImage.Appr:=FileIdx;
-    WMImage.Initialize;
-    WeaponImageList.Add(WMImage);
-    Result:=WMImage.GetCachedImage(HUMANFRAME * m_btSex + nFrame,ax,ay);
-  end;
+	FileName:=WeaponImageDir + IntToStr(FileIdx) + '.wil';
+
+	if FileExists(FileName) then begin
+		WMImage:=TWMImages.Create(nil);
+		WMImage.FileName:=FileName;
+		WMImage.LibType:=ltUseCache;
+		WMImage.DDraw:=DXDraw.DDraw;
+		WMImage.Appr:=FileIdx;
+		WMImage.Initialize;
+		WeaponImageList.Add(WMImage);
+		Result:=WMImage.GetCachedImage(HUMANFRAME * m_btSex + nFrame,ax,ay);
+	end;
 end;
 
 function TfrmMain.GetWHumImg(Dress,m_btSex,nFrame:Integer;var ax,ay:integer): TDirectDrawSurface;
 var
-  I:Integer;
-  FileName:String;
-  FileIdx:Integer;
-  WMImage:TWMImages;
+	I:Integer;
+	FileName:String;
+	FileIdx:Integer;
+	WMImage:TWMImages;
 begin
-  Result:=nil;
-  FileIdx:=(Dress - m_btSex) div 2;
+	Result:=nil;
+	FileIdx:=(Dress - m_btSex) div 2;
 
-  if (FileIdx < 50) then begin
-    Result:=g_WHumImgImages.GetCachedImage(HUMANFRAME * Dress + nFrame,ax,ay);
-    exit;
-  end;
+	if (FileIdx < 50) then begin
+		Result:=g_WHumImgImages.GetCachedImage(HUMANFRAME * Dress + nFrame,ax,ay);
+		exit;
+	end;
 
+	for I := 0 to HumImageList.Count - 1 do begin
+		WMImage:=TWMImages(HumImageList.Items[I]);
+		if WMImage.Appr = FileIdx then begin
+			Result:=WMImage.GetCachedImage(HUMANFRAME * m_btSex + nFrame,ax,ay);
+			exit;
+		end;
+	end;
 
-  for I := 0 to HumImageList.Count - 1 do begin
-    WMImage:=TWMImages(HumImageList.Items[I]);
-    if WMImage.Appr = FileIdx then begin
-      Result:=WMImage.GetCachedImage(HUMANFRAME * m_btSex + nFrame,ax,ay);
-      exit;
-    end;
-  end;
-  FileName:=HumImageDir + IntToStr(FileIdx) + '.wil';
-  if FileExists(FileName) then begin
-    WMImage:=TWMImages.Create(nil);
-    WMImage.FileName:=FileName;
-    WMImage.LibType:=ltUseCache;
-    WMImage.DDraw:=DXDraw.DDraw;
-    WMImage.Appr:=FileIdx;
-    WMImage.Initialize;
-    HumImageList.Add(WMImage);
-    Result:=WMImage.GetCachedImage(HUMANFRAME * m_btSex + nFrame,ax,ay);
-  end;
+	FileName:=HumImageDir + IntToStr(FileIdx) + '.wil';
+
+	if FileExists(FileName) then begin
+		WMImage:=TWMImages.Create(nil);
+		WMImage.FileName:=FileName;
+		WMImage.LibType:=ltUseCache;
+		WMImage.DDraw:=DXDraw.DDraw;
+		WMImage.Appr:=FileIdx;
+		WMImage.Initialize;
+		HumImageList.Add(WMImage);
+		Result:=WMImage.GetCachedImage(HUMANFRAME * m_btSex + nFrame,ax,ay);
+	end;
 end;
 
 procedure TfrmMain.ClientGetNeedPassword(Body: String);
@@ -6268,70 +6279,68 @@ begin
   FrmDlg.DChgGamePwd.Visible:=True;
 end;
 
-procedure TfrmMain.ClientGetPasswordStatus(Msg: pTDefaultMessage;
-  Body: String);
+procedure TfrmMain.ClientGetPasswordStatus(Msg: pTDefaultMessage; Body: String);
 begin
-
 end;
 
 procedure TfrmMain.SendPassword(sPassword: String;nIdent:Integer);
 var
-  DefMsg:TDefaultMessage;
+	DefMsg:TDefaultMessage;
 begin
-   DefMsg:=MakeDefaultMsg (CM_PASSWORD,0,nIdent,0,0);
-   SendSocket (EncodeMessage(DefMsg) + EncodeString(sPassword));
+	DefMsg:=MakeDefaultMsg (CM_PASSWORD,0,nIdent,0,0);
+	SendSocket (EncodeMessage(DefMsg) + EncodeString(sPassword));
 end;
 
 procedure TfrmMain.SetInputStatus;
 begin
-  if m_boPasswordIntputStatus then begin
-    m_boPasswordIntputStatus:=False;
-    PlayScene.EdChat.PasswordChar:=#0;
-    PlayScene.EdChat.Visible:=False;
-  end else begin
-    m_boPasswordIntputStatus:=True;
-    PlayScene.EdChat.PasswordChar:='*';
-    PlayScene.EdChat.Visible:=True;
-    PlayScene.EdChat.SetFocus;
-  end;
+	if m_boPasswordIntputStatus then begin
+		m_boPasswordIntputStatus:=False;
+		PlayScene.EdChat.PasswordChar:=#0;
+		PlayScene.EdChat.Visible:=False;
+	end else begin
+		m_boPasswordIntputStatus:=True;
+		PlayScene.EdChat.PasswordChar:='*';
+		PlayScene.EdChat.Visible:=True;
+		PlayScene.EdChat.SetFocus;
+	end;
 end;
 
 procedure TfrmMain.ClientGetServerConfig(Msg: TDefaultMessage;sBody: String);
 var
-  ClientConf:TClientConf;
+	ClientConf:TClientConf;
 begin
-  g_DeathColorEffect:=TColorEffect( _MIN(LoByte(msg.Param),8) );
-  g_boCanRunHuman:=LoByte(LoWord(msg.Recog)) = 1;
-  g_boCanRunMon:=HiByte(LoWord(msg.Recog)) = 1;
-  g_boCanRunNpc:=LoByte(HiWord(msg.Recog)) = 1;
-  g_boCanRunAllInWarZone:=HiByte(HiWord(msg.Recog)) = 1;
-  {
-  DScreen.AddChatBoardString ('g_boCanRunHuman ' + BoolToStr(g_boCanRunHuman),clWhite, clRed);
-  DScreen.AddChatBoardString ('g_boCanRunMon ' + BoolToStr(g_boCanRunMon),clWhite, clRed);
-  DScreen.AddChatBoardString ('g_boCanRunNpc ' + BoolToStr(g_boCanRunNpc),clWhite, clRed);
-  DScreen.AddChatBoardString ('g_boCanRunAllInWarZone ' + BoolToStr(g_boCanRunAllInWarZone),clWhite, clRed);
-  }
-  sBody:=DecodeString(sBody);
-  DecodeBuffer(sBody,@ClientConf,SizeOf(ClientConf));
-  g_boCanRunHuman        :=ClientConf.boRunHuman;
-  g_boCanRunMon          :=ClientConf.boRunMon;
-  g_boCanRunNpc          :=ClientConf.boRunNpc;
-  g_boCanRunAllInWarZone :=ClientConf.boWarRunAll;
-  g_DeathColorEffect     :=TColorEffect(_MIN(8,ClientConf.btDieColor));
-  g_nHitTime             :=ClientConf.wHitIime;
-  g_dwSpellTime          :=ClientConf.wSpellTime;
-  g_nItemSpeed           :=ClientConf.btItemSpeed;
-  g_boCanStartRun        :=ClientConf.boCanStartRun;
-  g_boParalyCanRun       :=ClientConf.boParalyCanRun;
-  g_boParalyCanWalk      :=ClientConf.boParalyCanWalk;
-  g_boParalyCanHit       :=ClientConf.boParalyCanHit;
-  g_boParalyCanSpell     :=ClientConf.boParalyCanSpell;
-  g_boShowRedHPLable     :=ClientConf.boShowRedHPLable;
-  g_boShowHPNumber       :=ClientConf.boShowHPNumber;
-  g_boShowJobLevel       :=ClientConf.boShowJobLevel;
-  g_boDuraAlert          :=ClientConf.boDuraAlert;
-  g_boMagicLock          :=ClientConf.boMagicLock;
-  g_boAutoPuckUpItem     :=ClientConf.boAutoPuckUpItem;
+	g_DeathColorEffect:=TColorEffect( _MIN(LoByte(msg.Param),8) );
+	g_boCanRunHuman:=LoByte(LoWord(msg.Recog)) = 1;
+	g_boCanRunMon:=HiByte(LoWord(msg.Recog)) = 1;
+	g_boCanRunNpc:=LoByte(HiWord(msg.Recog)) = 1;
+	g_boCanRunAllInWarZone:=HiByte(HiWord(msg.Recog)) = 1;
+	{
+	DScreen.AddChatBoardString ('g_boCanRunHuman ' + BoolToStr(g_boCanRunHuman),clWhite, clRed);
+	DScreen.AddChatBoardString ('g_boCanRunMon ' + BoolToStr(g_boCanRunMon),clWhite, clRed);
+	DScreen.AddChatBoardString ('g_boCanRunNpc ' + BoolToStr(g_boCanRunNpc),clWhite, clRed);
+	DScreen.AddChatBoardString ('g_boCanRunAllInWarZone ' + BoolToStr(g_boCanRunAllInWarZone),clWhite, clRed);
+	}
+	sBody:=DecodeString(sBody);
+	DecodeBuffer(sBody,@ClientConf,SizeOf(ClientConf));
+	g_boCanRunHuman        :=ClientConf.boRunHuman;
+	g_boCanRunMon          :=ClientConf.boRunMon;
+	g_boCanRunNpc          :=ClientConf.boRunNpc;
+	g_boCanRunAllInWarZone :=ClientConf.boWarRunAll;
+	g_DeathColorEffect     :=TColorEffect(_MIN(8,ClientConf.btDieColor));
+	g_nHitTime             :=ClientConf.wHitIime;
+	g_dwSpellTime          :=ClientConf.wSpellTime;
+	g_nItemSpeed           :=ClientConf.btItemSpeed;
+	g_boCanStartRun        :=ClientConf.boCanStartRun;
+	g_boParalyCanRun       :=ClientConf.boParalyCanRun;
+	g_boParalyCanWalk      :=ClientConf.boParalyCanWalk;
+	g_boParalyCanHit       :=ClientConf.boParalyCanHit;
+	g_boParalyCanSpell     :=ClientConf.boParalyCanSpell;
+	g_boShowRedHPLable     :=ClientConf.boShowRedHPLable;
+	g_boShowHPNumber       :=ClientConf.boShowHPNumber;
+	g_boShowJobLevel       :=ClientConf.boShowJobLevel;
+	g_boDuraAlert          :=ClientConf.boDuraAlert;
+	g_boMagicLock          :=ClientConf.boMagicLock;
+	g_boAutoPuckUpItem     :=ClientConf.boAutoPuckUpItem;
 end;
 
 
@@ -6341,108 +6350,109 @@ end;
 
 procedure TfrmMain.ProcessCommand(sData: String);
 var
-  sCmd,sParam1,sParam2,sParam3,sParam4,sParam5:String;
+	sCmd,sParam1,sParam2,sParam3,sParam4,sParam5:String;
 begin
-  sData:=GetValidStr3(sData,sCmd,[' ',':',#9]);
-  sData:=GetValidStr3(sData,sCmd,[' ',':',#9]);
-  sData:=GetValidStr3(sData,sParam1,[' ',':',#9]);
-  sData:=GetValidStr3(sData,sParam2,[' ',':',#9]);
-  sData:=GetValidStr3(sData,sParam3,[' ',':',#9]);
-  sData:=GetValidStr3(sData,sParam4,[' ',':',#9]);
-  sData:=GetValidStr3(sData,sParam5,[' ',':',#9]);
+	sData:=GetValidStr3(sData,sCmd,[' ',':',#9]);
+	sData:=GetValidStr3(sData,sCmd,[' ',':',#9]);
+	sData:=GetValidStr3(sData,sParam1,[' ',':',#9]);
+	sData:=GetValidStr3(sData,sParam2,[' ',':',#9]);
+	sData:=GetValidStr3(sData,sParam3,[' ',':',#9]);
+	sData:=GetValidStr3(sData,sParam4,[' ',':',#9]);
+	sData:=GetValidStr3(sData,sParam5,[' ',':',#9]);
 
-  if CompareText(sCmd,'ShowHumanMsg') = 0 then begin
-    CmdShowHumanMsg(sParam1,sParam2,sParam3,sParam4,sParam5);
-    exit;
-  end;
-  {
-  g_boShowMemoLog:=not g_boShowMemoLog;
-  PlayScene.MemoLog.Clear;
-  PlayScene.MemoLog.Visible:=g_boShowMemoLog;
-  }
+	if CompareText(sCmd,'ShowHumanMsg') = 0 then begin
+		CmdShowHumanMsg(sParam1,sParam2,sParam3,sParam4,sParam5);
+		exit;
+	end;
+	{
+	g_boShowMemoLog:=not g_boShowMemoLog;
+	PlayScene.MemoLog.Clear;
+	PlayScene.MemoLog.Visible:=g_boShowMemoLog;
+	}
 end;
+
 procedure TfrmMain.CmdShowHumanMsg(sParam1,sParam2,sParam3,sParam4,sParam5: String);
 var
-  sHumanName:String;
+	sHumanName:String;
 begin
-  sHumanName:=sParam1;
-  if (sHumanName <> '') and (sHumanName[1] = 'C') then begin
-    PlayScene.MemoLog.Clear;
-    exit;
-  end;
+	sHumanName:=sParam1;
+	if (sHumanName <> '') and (sHumanName[1] = 'C') then begin
+		PlayScene.MemoLog.Clear;
+		exit;
+	end;
 
-  if sHumanName <> '' then begin
-    ShowMsgActor:=PlayScene.FindActor(sHumanName);
-    if ShowMsgActor = nil then begin
-      DScreen.AddChatBoardString(format('%s没找到！！！',[sHumanName]),clWhite,clRed);
-      exit;
-    end;
-  end;
-  g_boShowMemoLog:=not g_boShowMemoLog;
-  PlayScene.MemoLog.Clear;
-  PlayScene.MemoLog.Visible:=g_boShowMemoLog;
+	if sHumanName <> '' then begin
+		ShowMsgActor:=PlayScene.FindActor(sHumanName);
+		if ShowMsgActor = nil then begin
+			DScreen.AddChatBoardString(format('%s没找到！！！',[sHumanName]),clWhite,clRed);
+			exit;
+		end;
+	end;
+	g_boShowMemoLog:=not g_boShowMemoLog;
+	PlayScene.MemoLog.Clear;
+	PlayScene.MemoLog.Visible:=g_boShowMemoLog;
 end;
 
 procedure TfrmMain.ShowHumanMsg(Msg:pTDefaultMessage);
-  function GetIdent(nIdent:Integer):String;
-  begin
-    case nIdent of  
-      SM_RUSH       : Result:='SM_RUSH';
-      SM_RUSHKUNG   : Result:='SM_RUSHKUNG';
-      SM_FIREHIT    : Result:='SM_FIREHIT';
-      SM_BACKSTEP   : Result:='SM_BACKSTEP';
-      SM_TURN       : Result:='SM_TURN';
-      SM_WALK       : Result:='SM_WALK';
-      SM_SITDOWN    : Result:='SM_SITDOWN';
-      SM_RUN        : Result:='SM_RUN';
-      SM_HIT        : Result:='SM_HIT';
-      SM_HEAVYHIT   : Result:='SM_HEAVYHIT';
-      SM_BIGHIT     : Result:='SM_BIGHIT';
-      SM_SPELL      : Result:='SM_SPELL';
-      SM_POWERHIT   : Result:='SM_POWERHIT';
-      SM_LONGHIT    : Result:='SM_LONGHIT';
-      SM_DIGUP      : Result:='SM_DIGUP';
-      SM_DIGDOWN    : Result:='SM_DIGDOWN';
-      SM_FLYAXE     : Result:='SM_FLYAXE';
-      SM_LIGHTING   : Result:='SM_LIGHTING';
-      SM_WIDEHIT    : Result:='SM_WIDEHIT';
-      SM_ALIVE      : Result:='SM_ALIVE';
-      SM_MOVEFAIL   : Result:='SM_MOVEFAIL';
-      SM_HIDE       : Result:='SM_HIDE';
-      SM_DISAPPEAR  : Result:='SM_DISAPPEAR';
-      SM_STRUCK     : Result:='SM_STRUCK';
-      SM_DEATH      : Result:='SM_DEATH';
-      SM_SKELETON   : Result:='SM_SKELETON';
-      SM_NOWDEATH   : Result:='SM_NOWDEATH';
-      SM_CRSHIT     : Result:='SM_CRSHIT';
-      SM_TWINHIT    : Result:='SM_TWINHIT';
-      SM_HEAR           : Result:='SM_HEAR';
-      SM_FEATURECHANGED : Result:='SM_FEATURECHANGED';
-      SM_USERNAME          : Result:='SM_USERNAME';
-      SM_WINEXP            : Result:='SM_WINEXP';
-      SM_LEVELUP           : Result:='SM_LEVELUP';
-      SM_DAYCHANGING       : Result:='SM_DAYCHANGING';
-      SM_ITEMSHOW          : Result:='SM_ITEMSHOW';
-      SM_ITEMHIDE          : Result:='SM_ITEMHIDE';
-      SM_MAGICFIRE         : Result:='SM_MAGICFIRE';
-      SM_CHANGENAMECOLOR   : Result:='SM_CHANGENAMECOLOR';
-      SM_CHARSTATUSCHANGED : Result:='SM_CHARSTATUSCHANGED';
+	function GetIdent(nIdent:Integer):String;
+	begin
+		case nIdent of  
+		SM_RUSH       : Result:='SM_RUSH';
+		SM_RUSHKUNG   : Result:='SM_RUSHKUNG';
+		SM_FIREHIT    : Result:='SM_FIREHIT';
+		SM_BACKSTEP   : Result:='SM_BACKSTEP';
+		SM_TURN       : Result:='SM_TURN';
+		SM_WALK       : Result:='SM_WALK';
+		SM_SITDOWN    : Result:='SM_SITDOWN';
+		SM_RUN        : Result:='SM_RUN';
+		SM_HIT        : Result:='SM_HIT';
+		SM_HEAVYHIT   : Result:='SM_HEAVYHIT';
+		SM_BIGHIT     : Result:='SM_BIGHIT';
+		SM_SPELL      : Result:='SM_SPELL';
+		SM_POWERHIT   : Result:='SM_POWERHIT';
+		SM_LONGHIT    : Result:='SM_LONGHIT';
+		SM_DIGUP      : Result:='SM_DIGUP';
+		SM_DIGDOWN    : Result:='SM_DIGDOWN';
+		SM_FLYAXE     : Result:='SM_FLYAXE';
+		SM_LIGHTING   : Result:='SM_LIGHTING';
+		SM_WIDEHIT    : Result:='SM_WIDEHIT';
+		SM_ALIVE      : Result:='SM_ALIVE';
+		SM_MOVEFAIL   : Result:='SM_MOVEFAIL';
+		SM_HIDE       : Result:='SM_HIDE';
+		SM_DISAPPEAR  : Result:='SM_DISAPPEAR';
+		SM_STRUCK     : Result:='SM_STRUCK';
+		SM_DEATH      : Result:='SM_DEATH';
+		SM_SKELETON   : Result:='SM_SKELETON';
+		SM_NOWDEATH   : Result:='SM_NOWDEATH';
+		SM_CRSHIT     : Result:='SM_CRSHIT';
+		SM_TWINHIT    : Result:='SM_TWINHIT';
+		SM_HEAR           : Result:='SM_HEAR';
+		SM_FEATURECHANGED : Result:='SM_FEATURECHANGED';
+		SM_USERNAME          : Result:='SM_USERNAME';
+		SM_WINEXP            : Result:='SM_WINEXP';
+		SM_LEVELUP           : Result:='SM_LEVELUP';
+		SM_DAYCHANGING       : Result:='SM_DAYCHANGING';
+		SM_ITEMSHOW          : Result:='SM_ITEMSHOW';
+		SM_ITEMHIDE          : Result:='SM_ITEMHIDE';
+		SM_MAGICFIRE         : Result:='SM_MAGICFIRE';
+		SM_CHANGENAMECOLOR   : Result:='SM_CHANGENAMECOLOR';
+		SM_CHARSTATUSCHANGED : Result:='SM_CHARSTATUSCHANGED';
 
-      SM_SPACEMOVE_HIDE    : Result:='SM_SPACEMOVE_HIDE';
-      SM_SPACEMOVE_SHOW    : Result:='SM_SPACEMOVE_SHOW';
-      SM_SHOWEVENT         : Result:='SM_SHOWEVENT';
-      SM_HIDEEVENT         : Result:='SM_HIDEEVENT';
-      else Result:=IntToStr(nIdent);
-    end;
-  end;
+		SM_SPACEMOVE_HIDE    : Result:='SM_SPACEMOVE_HIDE';
+		SM_SPACEMOVE_SHOW    : Result:='SM_SPACEMOVE_SHOW';
+		SM_SHOWEVENT         : Result:='SM_SHOWEVENT';
+		SM_HIDEEVENT         : Result:='SM_HIDEEVENT';
+		else Result:=IntToStr(nIdent);
+		end;
+	end;
 var
-  sLineText:String;
+	sLineText:String;
 
 begin
-  if (ShowMsgActor = nil) or (ShowMsgActor <> nil) and (ShowMsgActor.m_nRecogId = Msg.Recog) then begin
-    sLineText:=format('ID:%d Ident:%s',[Msg.Recog,GetIdent(Msg.Ident)]);
-    PlayScene.MemoLog.Lines.Add(sLineText);
-  end;
+	if (ShowMsgActor = nil) or (ShowMsgActor <> nil) and (ShowMsgActor.m_nRecogId = Msg.Recog) then begin
+		sLineText:=format('ID:%d Ident:%s',[Msg.Recog,GetIdent(Msg.Ident)]);
+		PlayScene.MemoLog.Lines.Add(sLineText);
+	end;
 end;
 
 
