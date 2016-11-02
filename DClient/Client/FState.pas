@@ -17,15 +17,15 @@ const
 
 	AdjustAbilHints : array[0..8] of string = 
 	(
-	'Destructive power',
-	'Magic power (for Wizard)',
-	'Zen power (for Taoist)',
-	'Defense ability',
-	'Magical defense strength',
-	'Physical strength',
-	'Magic power',
-	'Accuracy',
-	'Evasion ability'
+		'Destructive power',
+		'Magic power (for Wizard)',
+		'Zen power (for Taoist)',
+		'Defense ability',
+		'Magical defense strength',
+		'Physical strength',
+		'Magic power',
+		'Accuracy',
+		'Evasion ability'
 	);
 
 type
@@ -82,7 +82,7 @@ type
 		DscCredits: TDButton;
 		DscExit: TDButton;
 
-		{New Charctor}
+		{Create Charctor}
 		DCreateChr: TDWindow;
 		DccWarrior: TDButton;
 		DccWizzard: TDButton;
@@ -108,7 +108,7 @@ type
 		DPrevState: TDButton;
 		DNextState: TDButton;
 
-		{State Window - Dressed Page}
+		{State Weapon - Dressed Page}
 		DSWNecklace: TDButton;
 		DSWLight: TDButton;
 		DSWArmRingR: TDButton;
@@ -122,6 +122,15 @@ type
 		DSWBelt: TDButton;
 		DSWBoots: TDButton;
 		DSWCharm: TDButton;
+
+		{State Magic - Skill Page} 
+		DStMag1: TDButton;
+		DStMag2: TDButton;
+		DStMag3: TDButton;
+		DStMag4: TDButton;
+		DStMag5: TDButton;
+		DStPageUp: TDButton;
+		DStPageDown: TDButton;
 
 		{Item Bar}
 		DBelt1: TDButton;
@@ -146,15 +155,12 @@ type
 		DMenuNext: TDButton;
 		DMenuBuy: TDButton;
 		DMenuClose: TDButton;
+
+		{Sell Dialog}
 		DSellDlg: TDWindow;
 		DSellDlgOk: TDButton;
 		DSellDlgClose: TDButton;
 		DSellDlgSpot: TDButton;
-		DStMag1: TDButton;
-		DStMag2: TDButton;
-		DStMag3: TDButton;
-		DStMag4: TDButton;
-		DStMag5: TDButton;
 
 		{Key Select Dialog}
 		DKeySelDlg: TDWindow;
@@ -167,6 +173,14 @@ type
 		DKsF6: TDButton;
 		DKsF7: TDButton;
 		DKsF8: TDButton;
+		DKsConF1: TDButton;
+		DKsConF2: TDButton;
+		DKsConF3: TDButton;
+		DKsConF4: TDButton;
+		DKsConF5: TDButton;
+		DKsConF6: TDButton;
+		DKsConF7: TDButton;
+		DKsConF8: TDButton;
 		DKsNone: TDButton;
 		DKsOk: TDButton;
 
@@ -193,16 +207,18 @@ type
 		DGrpCreate: TDButton;
 		DGrpAddMem: TDButton;
 		DGrpDelMem: TDButton;
-		DStPageUp: TDButton;
-		DStPageDown: TDButton;
+
+		{Deal Remote Dialog}
 		DDealRemoteDlg: TDWindow;
-		DDealDlg: TDWindow;
 		DDRGrid: TDGrid;
+		DDRGold: TDButton;
+
+		{Deal Dialog}
+		DDealDlg: TDWindow;
 		DDGrid: TDGrid;
 		DDealOk: TDButton;
 		DDealClose: TDButton;
 		DDGold: TDButton;
-		DDRGold: TDButton;
 
 		{Select Server Dialog}
 		DSelServerDlg: TDWindow;
@@ -247,6 +263,8 @@ type
 		DGDUp: TDButton;
 		DGDDown: TDButton;
 		DGDClose: TDButton;
+
+		{Guild Edit Notice Window}
 		DGuildEditNotice: TDWindow;
 		DGEClose: TDButton;
 		DGEOk: TDButton;
@@ -280,15 +298,7 @@ type
 		DConfigDlg: TDWindow;
 		DConfigDlgClose: TDButton;
 		DConfigDlgOK: TDButton;
-		DKsConF1: TDButton;
-		DKsConF2: TDButton;
-		DKsConF3: TDButton;
-		DKsConF4: TDButton;
-		DKsConF5: TDButton;
-		DKsConF6: TDButton;
-		DKsConF7: TDButton;
-		DKsConF8: TDButton;
-
+		
 		{Firend Dialog}
 		DFriendDlg: TDWindow;
 		DFrdFriend: TDButton;
@@ -301,25 +311,32 @@ type
 		DFrdMemo: TDButton;
 		DFrdMail: TDButton;
 		DFrdWhisper: TDButton;
+
+		{Mail List Dialog}
+		DMailListDlg: TDWindow;
+		DMailListClose: TDButton;
+		DMailListPgUp: TDButton;
+		DMailListPgDn: TDButton;
 		DMLReply: TDButton;
 		DMLRead: TDButton;
 		DMLLock: TDButton;
 		DMLDel: TDButton;
 		DMLBlock: TDButton;
-		DBLDel: TDButton;
-		DBLAdd: TDButton;
-		DMemoB2: TDButton;
-		DMemoB1: TDButton;
-		DMailListDlg: TDWindow;
-		DMailListClose: TDButton;
-		DMailListPgUp: TDButton;
-		DMailListPgDn: TDButton;
+
+		{Block List Dialog}
 		DBlockListDlg: TDWindow;
+		DBlockListClose: TDButton;
 		DBLPgUp: TDButton;
 		DBLPgDn: TDButton;
-		DBlockListClose: TDButton;
+		DBLDel: TDButton;
+		DBLAdd: TDButton;
+
+		{Memo Window}
 		DMemo: TDWindow;
 		DMemoClose: TDButton;
+		DMemoB2: TDButton;
+		DMemoB1: TDButton;
+
 		DButton1: TDButton;
 		DButton2: TDButton;
 		DChgGamePwd: TDWindow;
@@ -3769,7 +3786,7 @@ begin
             //PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 72, FloatToStrFixFmt (100 * g_MySelf.m_Abil.Exp / g_MySelf.m_Abil.MaxExp, 3, 2) + '%');
             //PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 57, IntToStr(g_MySelf.m_Abil.MaxExp));
 
-            // Item bag wight bar
+            // Item bag weight bar
             rc := d.ClientRect;
             if g_MySelf.m_Abil.Weight > 0 then r := g_MySelf.m_Abil.MaxWeight / g_MySelf.m_Abil.Weight
             else r := 0;
@@ -6812,36 +6829,36 @@ end;
 {Bottom}
 
 procedure TFrmDlg.DBotMouseMove(Sender: TObject; Shift: TShiftState;
-  X, Y: Integer);
+	X, Y: Integer);
 var
-  nLocalX,nLocalY:Integer;
-  nHintX,nHintY:Integer;
-  Butt:TDButton;
-  sMsg:String;
+	nLocalX,nLocalY:Integer;
+	nHintX,nHintY:Integer;
+	Butt:TDButton;
+	sMsg:String;
 begin
-  Butt:=TDButton(Sender);
-  if Sender = DBotMiniMap then sMsg:= 'View(V)';
-  if Sender = DBotTrade then sMsg:= 'Trade(T)';
-  if Sender = DBotGuild then sMsg:= 'Guild(G)';
-  if Sender = DBotGroup then sMsg:= 'Party(P)';
-  if Sender = DBotPlusAbil then sMsg:= 'Ability(M)';
-  if Sender = DBotFriend then sMsg:= 'Friend(W)';
-  if Sender = DBotLogout then sMsg:= 'LogOut\Alt-X';
-  if Sender = DBotExit then sMsg:= 'Exit\Alt-Q';
+	Butt:=TDButton(Sender);
+	if Sender = DBotMiniMap then sMsg:= 'View(V)';
+	if Sender = DBotTrade then sMsg:= 'Trade(T)';
+	if Sender = DBotGuild then sMsg:= 'Guild(G)';
+	if Sender = DBotGroup then sMsg:= 'Party(P)';
+	if Sender = DBotPlusAbil then sMsg:= 'Ability(M)';
+	if Sender = DBotFriend then sMsg:= 'Friend(W)';
+	if Sender = DBotLogout then sMsg:= 'LogOut\Alt-X';
+	if Sender = DBotExit then sMsg:= 'Exit\Alt-Q';
 
-  if Sender = DMyState then sMsg:= 'CharacterStatus(F10,C)';
-  if Sender = DMyBag then sMsg:= 'Inventory(F9,I)';
-  if Sender = DMyMagic then sMsg:= 'Skill(F11,S)';
-  if Sender = DOption then sMsg:= 'SoundEffect(F12)';
-  if Sender = DButtonHP then sMsg:= format('HP(%d/%d)',[g_MySelf.m_Abil.HP,g_MySelf.m_Abil.MaxHP]);
-  if Sender = DButtonMP then sMsg:= format('MP(%d/%d)',[g_MySelf.m_Abil.MP,g_MySelf.m_Abil.MaxMP]);
+	if Sender = DMyState then sMsg:= 'CharacterStatus(F10,C)';
+	if Sender = DMyBag then sMsg:= 'Inventory(F9,I)';
+	if Sender = DMyMagic then sMsg:= 'Skill(F11,S)';
+	if Sender = DOption then sMsg:= 'SoundEffect(F12)';
+	if Sender = DButtonHP then sMsg:= format('HP(%d/%d)',[g_MySelf.m_Abil.HP,g_MySelf.m_Abil.MaxHP]);
+	if Sender = DButtonMP then sMsg:= format('MP(%d/%d)',[g_MySelf.m_Abil.MP,g_MySelf.m_Abil.MaxMP]);
 
 
-  nLocalX:=Butt.LocalX(X - Butt.Left);
-  nLocalY:=Butt.LocalY(Y - Butt.Top);
-  nHintX:=Butt.SurfaceX(Butt.Left) + DBottom.SurfaceX(DBottom.Left) + nLocalX;
-  nHintY:=Butt.SurfaceY(Butt.Top) + DBottom.SurfaceY(DBottom.Top) + nLocalY;
-  DScreen.ShowHint(nHintX,nHintY,sMsg, clYellow, FALSE);
+	nLocalX:=Butt.LocalX(X - Butt.Left);
+	nLocalY:=Butt.LocalY(Y - Butt.Top);
+	nHintX:=Butt.SurfaceX(Butt.Left) + DBottom.SurfaceX(DBottom.Left) + nLocalX;
+	nHintY:=Butt.SurfaceY(Butt.Top) + DBottom.SurfaceY(DBottom.Top) + nLocalY;
+	DScreen.ShowHint(nHintX,nHintY,sMsg, clYellow, FALSE);
 end;
 
 {--------------------------------------------------------------}

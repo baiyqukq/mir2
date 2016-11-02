@@ -820,6 +820,7 @@ begin
 
 	mx := (g_MySelf.m_nCurrX*48) div 32;
 	my := (g_MySelf.m_nCurrY*32) div 32;
+
 	rc.Left := _MAX(0, mx-60);
 	rc.Top := _MAX(0, my-60);
 	rc.Right := _MIN(d.ClientRect.Right, rc.Left + 120);
@@ -828,6 +829,7 @@ begin
 	if g_nViewMinMapLv = 1 then
 		DrawBlendEx (surface, (SCREENWIDTH-120), 0, d, rc.Left, rc.Top, 120, 120, 0)
 	else surface.Draw ((SCREENWIDTH-120), 0, rc, d, FALSE);
+
 	//À×´ï
 	if not m_boViewBlink then exit;
 	mx := (SCREENWIDTH-120) + (g_MySelf.m_nCurrX * 48) div 32 - rc.Left;
