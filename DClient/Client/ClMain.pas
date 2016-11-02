@@ -3,74 +3,72 @@ unit ClMain;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  JSocket, ExtCtrls, DXDraws, DirectX, DXClass, DrawScrn,
-  IntroScn, PlayScn, MapUnit, WIL, Grobal2, SDK,
-  Actor, DIB, StdCtrls, CliUtil, HUtil32, EdCode,
-  DWinCtl, ClFunc, magiceff, SoundUtil, DXSounds, clEvent, Wave, IniFiles,
-  Spin, ComCtrls, Grids, Mpeg, Menus, Mask, MShare, Share;
+	Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+	JSocket, ExtCtrls, DXDraws, DirectX, DXClass, DrawScrn,
+	IntroScn, PlayScn, MapUnit, WIL, Grobal2, SDK,
+	Actor, DIB, StdCtrls, CliUtil, HUtil32, EdCode,
+	DWinCtl, ClFunc, magiceff, SoundUtil, DXSounds, clEvent, Wave, IniFiles,
+	Spin, ComCtrls, Grids, Mpeg, Menus, Mask, MShare, Share;
 
 const
-   BO_FOR_TEST = FALSE;
-   EnglishVersion = True; //TRUE;
-   BoNeedPatch = TRUE;
+	BO_FOR_TEST = FALSE;
+	EnglishVersion = True; //TRUE;
+	BoNeedPatch = TRUE;
 
-   NEARESTPALETTEINDEXFILE = 'Data\npal.idx';
+	NEARESTPALETTEINDEXFILE = 'Data\npal.idx';
 
-   MonImageDir = '.\Graphics\Monster\';
-   NpcImageDir = '.\Graphics\Npc\';
-   ItemImageDir = '.\Graphics\Items\';
-   WeaponImageDir = '.\Graphics\Weapon\';
-   HumImageDir = '.\Graphics\Human\';
+	MonImageDir = '.\Graphics\Monster\';
+	NpcImageDir = '.\Graphics\Npc\';
+	ItemImageDir = '.\Graphics\Items\';
+	WeaponImageDir = '.\Graphics\Weapon\';
+	HumImageDir = '.\Graphics\Human\';
 
 type
-  TKornetWorld = record
-    CPIPcode:  string;
-    SVCcode:   string;
-    LoginID:   string;
-    CheckSum:  string;
-  end;
+	TKornetWorld = record
+		CPIPcode:  string;
+		SVCcode:   string;
+		LoginID:   string;
+		CheckSum:  string;
+	end;
 
-  TOneClickMode = (toNone, toKornetWorld);
+	TOneClickMode = (toNone, toKornetWorld);
 
-
-
-  TfrmMain = class(TDxForm)
-    CSocket: TClientSocket;
-    Timer1: TTimer;
-    MouseTimer: TTimer;
-    WaitMsgTimer: TTimer;
-    SelChrWaitTimer: TTimer;
-    CmdTimer: TTimer;
-    MinTimer: TTimer;
-    SpeedHackTimer: TTimer;
-    DXDraw: TDXDraw;
-    WMonImg: TWMImages;
-    WMon2Img: TWMImages;
-    WMon3Img: TWMImages;
-    WMon4Img: TWMImages;
-    WMon5Img: TWMImages;
-    WMon6Img: TWMImages;
-    WMon7Img: TWMImages;
-    WMon8Img: TWMImages;
-    WMon9Img: TWMImages;
-    WMon10Img: TWMImages;
-    WMon11Img: TWMImages;
-    WMon12Img: TWMImages;
-    WMon13Img: TWMImages;
-    WMon14Img: TWMImages;
-    WMon15Img: TWMImages;
-    WMon16Img: TWMImages;
-    WMon17Img: TWMImages;
-    WMon18Img: TWMImages;
-    WMon19Img: TWMImages;
-    WMon20Img: TWMImages;
-    WMon21Img: TWMImages;
-    WMon22Img: TWMImages;
-    WMon23Img: TWMImages;
-    WMon50Img: TWMImages;
-    WMon51Img: TWMImages;
-    WMon52Img: TWMImages;
+	TfrmMain = class(TDxForm)
+	CSocket: TClientSocket;
+	Timer1: TTimer;
+	MouseTimer: TTimer;
+	WaitMsgTimer: TTimer;
+	SelChrWaitTimer: TTimer;
+	CmdTimer: TTimer;
+	MinTimer: TTimer;
+	SpeedHackTimer: TTimer;
+	DXDraw: TDXDraw;
+	WMonImg: TWMImages;
+	WMon2Img: TWMImages;
+	WMon3Img: TWMImages;
+	WMon4Img: TWMImages;
+	WMon5Img: TWMImages;
+	WMon6Img: TWMImages;
+	WMon7Img: TWMImages;
+	WMon8Img: TWMImages;
+	WMon9Img: TWMImages;
+	WMon10Img: TWMImages;
+	WMon11Img: TWMImages;
+	WMon12Img: TWMImages;
+	WMon13Img: TWMImages;
+	WMon14Img: TWMImages;
+	WMon15Img: TWMImages;
+	WMon16Img: TWMImages;
+	WMon17Img: TWMImages;
+	WMon18Img: TWMImages;
+	WMon19Img: TWMImages;
+	WMon20Img: TWMImages;
+	WMon21Img: TWMImages;
+	WMon22Img: TWMImages;
+	WMon23Img: TWMImages;
+	WMon50Img: TWMImages;
+	WMon51Img: TWMImages;
+	WMon52Img: TWMImages;
     WMon53Img: TWMImages;
     WMon54Img: TWMImages;
     WEffectImg: TWMImages;
@@ -304,33 +302,33 @@ type
   procedure DebugOutStr (msg: string);
 
 var
-  nLeft            :integer = 10;
-  nTop             :integer = 10;
-  nWidth           :integer;
-  nHeight          :integer;
-  g_boShowMemoLog  :Boolean = False;
-  g_boShowRecog    :Integer = 0;
-  frmMain          :TfrmMain;
-  DScreen          :TDrawScreen;
-  IntroScene       :TIntroScene;
-  LoginScene       :TLoginScene;
-  SelectChrScene   :TSelectChrScene;
-  PlayScene        :TPlayScene;
-  LoginNoticeScene :TLoginNotice;
+	nLeft            :integer = 10;
+	nTop             :integer = 10;
+	nWidth           :integer;
+	nHeight          :integer;
+	g_boShowMemoLog  :Boolean = False;
+	g_boShowRecog    :Integer = 0;
+	frmMain          :TfrmMain;
+	DScreen          :TDrawScreen;
+	IntroScene       :TIntroScene;
+	LoginScene       :TLoginScene;
+	SelectChrScene   :TSelectChrScene;
+	PlayScene        :TPlayScene;
+	LoginNoticeScene :TLoginNotice;
 
-  LocalLanguage    :TImeMode = imSHanguel;
-  
-  MP3              :TMPEG;
-  TestServerAddr   :String = '127.0.0.1';
-  BGMusicList      :TStringList;
-  //DObjList: TList;  //바닥에 변경된 지형의 표현
-  EventMan         :TClEventManager;
-  KornetWorld      :TKornetWorld;
-  Map              :TMap;
-  BoOneClick       :Boolean;
-  OneClickMode     :TOneClickMode;
-  m_boPasswordIntputStatus:Boolean = False;
-  
+	LocalLanguage    :TImeMode = imSHanguel;
+
+	MP3              :TMPEG;
+	TestServerAddr   :String = '127.0.0.1';
+	BGMusicList      :TStringList;
+	//DObjList: TList;  //바닥에 변경된 지형의 표현
+	EventMan         :TClEventManager;
+	KornetWorld      :TKornetWorld;
+	Map              :TMap;
+	BoOneClick       :Boolean;
+	OneClickMode     :TOneClickMode;
+	m_boPasswordIntputStatus:Boolean = False;
+
 implementation
 
 uses

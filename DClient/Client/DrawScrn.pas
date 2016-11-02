@@ -204,15 +204,18 @@ begin
    HintHeight := 0;
    HintUp := drawup;
    HintColor := color;
+
    while TRUE do begin
       if str = '' then break;
       str := GetValidStr3 (str, data, ['\']);
-      w := FrmMain.Canvas.TextWidth (data) + 4{咯归} * 2;
+      w := FrmMain.Canvas.TextWidth (data) + 4{Margin} * 2;
       if w > HintWidth then HintWidth := w;
       if data <> '' then
          HintList.Add (data)
    end;
-   HintHeight := (FrmMain.Canvas.TextHeight('A') + 1) * HintList.Count + 3{咯归} * 2;
+
+   HintHeight := (FrmMain.Canvas.TextHeight('A') + 1) * HintList.Count + 3{Margin} * 2;
+
    if HintUp then
       HintY := HintY - HintHeight;
 end;
@@ -325,7 +328,7 @@ begin
 
          Canvas.Font.Color := clWhite;
 
-         //显示角色说话文字
+         //显示角?祷拔淖?
          with PlayScene do begin
             for k:=0 to m_ActorList.Count-1 do begin
                actor := m_ActorList[k];
@@ -387,7 +390,7 @@ begin
       end;
    end;
 end;
-//显示左上角信息文字
+//显示左?辖切畔⑽淖?
 procedure TDrawScreen.DrawScreenTop (MSurface: TDirectDrawSurface);
 var
    i, sx, sy: integer;
@@ -424,11 +427,19 @@ begin
       d := g_WMainImages.Images[394];
       if d <> nil then begin
          if HintWidth > d.Width then HintWidth := d.Width;
+
          if HintHeight > d.Height then HintHeight := d.Height;
-         if HintX + HintWidth > SCREENWIDTH then hx := SCREENWIDTH - HintWidth
-         else hx := HintX;
-         if HintY < 0 then hy := 0
-         else hy := HintY;
+
+         if HintX + HintWidth > SCREENWIDTH then 
+			hx := SCREENWIDTH - HintWidth
+         else 
+			hx := HintX;
+
+         if HintY < 0 then 
+			hy := 0
+         else 
+			hy := HintY;
+
          if hx < 0 then hx := 0;
 
          DrawBlendEx (MSurface, hx, hy, d, 0, 0, HintWidth, HintHeight, 0);

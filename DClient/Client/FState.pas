@@ -3656,52 +3656,59 @@ end;
 
 {------------------------------------------------------------------------}
 
-//官蹿 惑怕
+// Background scene
 
 {------------------------------------------------------------------------}
-
-
+// Draw dashboard
 procedure TFrmDlg.DBottomDirectPaint(Sender: TObject;
-  dsurface: TDirectDrawSurface);
+	dsurface: TDirectDrawSurface);
 var
-  d:TDirectDrawSurface;
-  rc:TRect;
-  btop, sx, sy, i, fcolor, bcolor: integer;
-  r: Real;
-  str: string;
+	d:TDirectDrawSurface;
+	rc:TRect;
+	btop, sx, sy, i, fcolor, bcolor: integer;
+	r: Real;
+	str: string;
 begin
 
 {$IF SWH = SWH800}
-  d:=g_WMainImages.Images[BOTTOMBOARD800];
+	d:=g_WMainImages.Images[BOTTOMBOARD800];
 {$ELSEIF SWH = SWH1024}
-  d:=g_WMainImages.Images[BOTTOMBOARD1024];
+	d:=g_WMainImages.Images[BOTTOMBOARD1024];
 {$IFEND}
-  if d <> nil then
-    dsurface.Draw (DBottom.Left, DBottom.Top, d.ClientRect, d, TRUE);
-  btop := 0;
-  if d <> nil then begin
-    with d.ClientRect do
-       rc := Rect (Left, Top, Right, Top+120);
-    btop := SCREENHEIGHT - d.height;
-    dsurface.Draw (0,
-                   btop,
-                   rc,
-                   d, TRUE);
-    with d.ClientRect do
-      rc := Rect (Left, Top+120, Right, Bottom);
-    dsurface.Draw (0,
+
+	if d <> nil then
+		dsurface.Draw (DBottom.Left, DBottom.Top, d.ClientRect, d, TRUE);
+
+	btop := 0;
+
+	if d <> nil then begin
+		with d.ClientRect do
+			rc := Rect (Left, Top, Right, Top+120);
+
+		btop := SCREENHEIGHT - d.height;
+		dsurface.Draw (0,
+			btop,
+			rc,
+			d, TRUE);
+
+		with d.ClientRect do
+			rc := Rect (Left, Top+120, Right, Bottom);
+
+		dsurface.Draw (0,
                    btop + 120,
                    rc,
                    d, FALSE);
-  end;
+   end;
 
    d := nil;
+
    case g_nDayBright of
-      0: d := g_WMainImages.Images[15];  //早??
-      1: d := g_WMainImages.Images[12];  //白天
-      2: d := g_WMainImages.Images[13];  //傍晚
-      3: d := g_WMainImages.Images[14];  //晚??
+      0: d := g_WMainImages.Images[15];  // morning
+      1: d := g_WMainImages.Images[12];  // noon
+      2: d := g_WMainImages.Images[13];  // evening
+      3: d := g_WMainImages.Images[14];  // night 
    end;
+
    if d <> nil then
      dsurface.Draw (SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 348)){748}, 79+DBottom.Top, d.ClientRect, d, FALSE);
 
@@ -3744,7 +3751,7 @@ begin
       with dsurface.Canvas do begin
         PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 104, IntToStr(g_MySelf.m_Abil.Level));
       end;
-      //
+
       if (g_MySelf.m_Abil.MaxExp > 0) and (g_MySelf.m_Abil.MaxWeight > 0) then begin
          d := g_WMainImages.Images[7];
          if d <> nil then begin
@@ -3789,7 +3796,7 @@ begin
 
    end;
 
-   // Show Chat text
+   // Draw chat text
    sx := 208;
    sy := SCREENHEIGHT - 130;
    with DScreen do begin
@@ -4249,7 +4256,7 @@ begin
                      end;
                   4: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转?燃?' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转??等??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   40: begin
                         useable := TRUE;
@@ -4269,11 +4276,11 @@ begin
                      end;
                   44: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转??&??' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转??&??望??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   5: begin
                         useable := TRUE;
-                        line3 := line3 + '所需??' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需??望??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   6: begin
                         useable := TRUE;
@@ -4414,7 +4421,7 @@ begin
                      end;
                   4: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转?燃?' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转??等??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   40: begin
                         useable := TRUE;
@@ -4434,11 +4441,11 @@ begin
                      end;
                   44: begin
                         useable := TRUE;
-                        line3 := line3 + '所需转??&??' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需转??&??望??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   5: begin
                         useable := TRUE;
-                        line3 := line3 + '所需??' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '所需??望??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   6: begin
                         useable := TRUE;
@@ -4470,7 +4477,7 @@ begin
                      end;
                end;
             end;
-         25: //护?矸岸疽?
+         25: //护?矸?及毒??
             begin
                line1 := line1 + sWgt +  IntToStr(g_MouseItem.S.Weight);
                line2 := 'Count '+ GetDura100Str(g_MouseItem.Dura, g_MouseItem.DuraMax);
@@ -5920,7 +5927,7 @@ end;
 
 {--------------------------------------------------------------}
 
-{Draw other charactor state panel}
+// Draw other charactor state panel
 procedure TFrmDlg.DUserState1DirectPaint(Sender: TObject;
   dsurface: TDirectDrawSurface);
 var
@@ -6056,29 +6063,30 @@ begin
   g_MouseUserStateItem.S.Name := '';
 end;
 
+// Show other person's equip data.
 procedure TFrmDlg.DWeaponUS1MouseMove(Sender: TObject; Shift: TShiftState;
   X, Y: Integer);
 var
-   sel: integer;
-   iname, d1, d2, d3: string;
-   useable: Boolean;
-   hcolor: TColor;   
+	sel: integer;
+	iname, d1, d2, d3: string;
+	useable: Boolean;
+	hcolor: TColor;   
 begin
-   sel := -1;
-   if Sender = DDressUS1 then sel := U_DRESS;
-   if Sender = DWeaponUS1 then sel := U_WEAPON;
-   if Sender = DHelmetUS1 then sel := U_HELMET;
-   if Sender = DNecklaceUS1 then sel := U_NECKLACE;
-   if Sender = DLightUS1 then sel := U_RIGHTHAND;
-   if Sender = DRingLUS1 then sel := U_RINGL;
-   if Sender = DRingRUS1 then sel := U_RINGR;
-   if Sender = DArmRingLUS1 then sel := U_ARMRINGL;
-   if Sender = DArmRingRUS1 then sel := U_ARMRINGR;
+	sel := -1;
+	if Sender = DDressUS1 then sel := U_DRESS;
+	if Sender = DWeaponUS1 then sel := U_WEAPON;
+	if Sender = DHelmetUS1 then sel := U_HELMET;
+	if Sender = DNecklaceUS1 then sel := U_NECKLACE;
+	if Sender = DLightUS1 then sel := U_RIGHTHAND;
+	if Sender = DRingLUS1 then sel := U_RINGL;
+	if Sender = DRingRUS1 then sel := U_RINGR;
+	if Sender = DArmRingLUS1 then sel := U_ARMRINGL;
+	if Sender = DArmRingRUS1 then sel := U_ARMRINGR;
 
-   if Sender = DBujukUS1 then sel := U_BUJUK;
-   if Sender = DBeltUS1 then sel := U_BELT;
-   if Sender = DBootsUS1 then sel := U_BOOTS;
-   if Sender = DCharmUS1 then sel := U_CHARM;
+	if Sender = DBujukUS1 then sel := U_BUJUK;
+	if Sender = DBeltUS1 then sel := U_BELT;
+	if Sender = DBootsUS1 then sel := U_BOOTS;
+	if Sender = DCharmUS1 then sel := U_CHARM;
 
    if sel >= 0 then begin
       g_MouseUserStateItem := UserState1.UseItems[sel];
