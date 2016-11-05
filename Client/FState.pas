@@ -2905,34 +2905,43 @@ var
    iname, d1, d2, d3: string;
    useable: Boolean;
 begin
-   if g_MySelf = nil then exit;
-   with DStateWin do begin
-      d := WLib.Images[FaceIndex];
-      if d <> nil then
-         dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
+	if g_MySelf = nil then exit;
+	with DStateWin do begin
+		d := WLib.Images[FaceIndex];
 
-      case StatePage of
-         0: begin // Dress state
-            pgidx := 376;
-            if g_MySelf <> nil then
-               if g_MySelf.m_btSex = 1 then pgidx := 377;
-            bbx := Left + 38;
-            bby := Top + 52;
-            d := g_WMainImages.Images[pgidx];
-            if d <> nil then
-               dsurface.Draw (SurfaceX(bbx), SurfaceY(bby), d.ClientRect, d, FALSE);
+		if d <> nil then
+			dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
+
+		case StatePage of
+		0: begin // Dress state
+			pgidx := 376;
+
+			if g_MySelf <> nil then
+				if g_MySelf.m_btSex = 1 then pgidx := 377;
+
+			bbx := Left + 38;
+			bby := Top + 52;
+			d := g_WMainImages.Images[pgidx];
+
+			if d <> nil then
+				dsurface.Draw (SurfaceX(bbx), SurfaceY(bby), d.ClientRect, d, FALSE);
+
             bbx := bbx - 7;
             bby := bby + 44;
-            //¿Ê, ¹«±â, ¸Ó¸® ½ºÅ¸ÀÏ
-            idx := 440 + g_MySelf.m_btHair div 2; //¸Ó¸® ½ºÅ¸ÀÏ
-            if g_MySelf.m_btSex = 1 then idx := 480 + g_MySelf.m_btHair div 2;
-            if idx > 0 then begin
-               d := g_WMainImages.GetCachedImage (idx, ax, ay);
-               if d <> nil then
-                  dsurface.Draw (SurfaceX(bbx+ax), SurfaceY(bby+ay), d.ClientRect, d, TRUE);
-            end;
+
+			// Cloths, weapons, hair style
+			idx := 440 + g_MySelf.m_btHair div 2; // Hair style
+			if g_MySelf.m_btSex = 1 then idx := 480 + g_MySelf.m_btHair div 2;
+
+			if idx > 0 then begin
+				d := g_WMainImages.GetCachedImage (idx, ax, ay);
+
+				if d <> nil then
+					dsurface.Draw (SurfaceX(bbx+ax), SurfaceY(bby+ay), d.ClientRect, d, TRUE);
+			end;
+
             if g_UseItems[U_DRESS].S.Name <> '' then begin
-               idx := g_UseItems[U_DRESS].S.Looks; //¿Ê if Myself.m_btSex = 1 then idx := 80; //¿©ÀÚ¿Ê
+               idx := g_UseItems[U_DRESS].S.Looks; //¿Ê if Myself.m_btSex = 1 then idx := 80; // Women's cloths
                if idx >= 0 then begin
                   //d := FrmMain.WStateItem.GetCachedImage (idx, ax, ay);
                   d := FrmMain.GetWStateImg(idx,ax,ay);
@@ -3041,21 +3050,25 @@ begin
             end;
          end;
 
-         3: begin //Ä§·¨ Ã¢
-            bbx := Left + 38;
-            bby := Top + 52;
-            d := g_WMainImages.Images[383];
+		//! [Magic page
+		3: begin 
+			bbx := Left + 38;
+			bby := Top + 52;
+			d := g_WMainImages.Images[383];
+
             if d <> nil then
                dsurface.Draw (SurfaceX(bbx), SurfaceY(bby), d.ClientRect, d, FALSE);
 
-            //Å° Ç¥½Ã, lv, exp
+            // Show key, lv, exp
             magtop := MagicPage * 5;
             magline := _MIN(MagicPage*5+5, g_MagicList.Count);
-            for i:=magtop to magline-1 do begin
-               pm := PTClientMagic (g_MagicList[i]);
-               m := i - magtop;
-               keyimg := 0;
-               case byte(pm.Key) of
+
+			for i:=magtop to magline-1 do begin
+				pm := PTClientMagic (g_MagicList[i]);
+				m := i - magtop;
+				keyimg := 0;
+
+				case byte(pm.Key) of
                   {
                   byte('1'): keyimg := 248;
                   byte('2'): keyimg := 249;
@@ -3066,58 +3079,65 @@ begin
                   byte('7'): keyimg := 254;
                   byte('8'): keyimg := 255;
                   }
-                  byte('1'): keyimg := 650;
-                  byte('2'): keyimg := 651;
-                  byte('3'): keyimg := 652;
-                  byte('4'): keyimg := 653;
-                  byte('5'): keyimg := 654;
-                  byte('6'): keyimg := 655;
-                  byte('7'): keyimg := 656;
-                  byte('8'): keyimg := 657;
-                  byte('E'): keyimg := 642;
-                  byte('F'): keyimg := 643;
-                  byte('G'): keyimg := 644;
-                  byte('H'): keyimg := 645;
-                  byte('I'): keyimg := 646;
-                  byte('J'): keyimg := 647;
-                  byte('K'): keyimg := 648;
-                  byte('L'): keyimg := 649;
-               end;
-               if keyimg > 0 then begin
-                  d := g_WMainImages.Images[keyimg];
-                  if d <> nil then
-                     dsurface.Draw (bbx + 145, bby+8+m*37, d.ClientRect, d, TRUE);
-               end;
-               d := g_WMainImages.Images[112]; //lv
-               if d <> nil then
-                  dsurface.Draw (bbx + 48, bby+8+15+m*37, d.ClientRect, d, TRUE);
-               d := g_WMainImages.Images[111]; //exp
-               if d <> nil then
-                  dsurface.Draw (bbx + 48 + 26, bby+8+15+m*37, d.ClientRect, d, TRUE);
-            end;
+				byte('1'): keyimg := 650;
+				byte('2'): keyimg := 651;
+				byte('3'): keyimg := 652;
+				byte('4'): keyimg := 653;
+				byte('5'): keyimg := 654;
+				byte('6'): keyimg := 655;
+				byte('7'): keyimg := 656;
+				byte('8'): keyimg := 657;
+				byte('E'): keyimg := 642;
+				byte('F'): keyimg := 643;
+				byte('G'): keyimg := 644;
+				byte('H'): keyimg := 645;
+				byte('I'): keyimg := 646;
+				byte('J'): keyimg := 647;
+				byte('K'): keyimg := 648;
+				byte('L'): keyimg := 649;
+				end;
 
-            with dsurface.Canvas do begin
-               SetBkMode (Handle, TRANSPARENT);
-               Font.Color := clSilver;
-               for i:=magtop to magline-1 do begin
-                  pm := PTClientMagic (g_MagicList[i]);
-                  m := i - magtop;
-                  if not (pm.Level in [0..3]) then pm.Level := 0;
-                  TextOut (bbx + 48, bby + 8 + m*37,
-                              pm.Def.sMagicName);
-                  if pm.Level in [0..3] then trainlv := pm.Level
-                  else trainlv := 0;
-                  TextOut (bbx + 48 + 16, bby + 8 + 15 + m*37, IntToStr(pm.Level));
-                  if pm.Def.MaxTrain[trainlv] > 0 then begin
-                     if trainlv < 3 then
-                        TextOut (bbx + 48 + 46, bby + 8 + 15 + m*37, IntToStr(pm.CurTrain) + '/' + IntToStr(pm.Def.MaxTrain[trainlv]))
-                     else TextOut (bbx + 48 + 46, bby + 8 + 15 + m*37, '-');
-                  end;
-               end;
-               Release;
-            end;
-         end;
-      end;
+				if keyimg > 0 then begin
+					d := g_WMainImages.Images[keyimg];
+					if d <> nil then
+						dsurface.Draw (bbx + 145, bby+8+m*37, d.ClientRect, d, TRUE);
+				end;
+
+				d := g_WMainImages.Images[112]; //lv
+				if d <> nil then
+					dsurface.Draw (bbx + 48, bby+8+15+m*37, d.ClientRect, d, TRUE);
+				d := g_WMainImages.Images[111]; //exp
+				if d <> nil then
+					dsurface.Draw (bbx + 48 + 26, bby+8+15+m*37, d.ClientRect, d, TRUE);
+			end;
+
+			with dsurface.Canvas do begin
+				SetBkMode (Handle, TRANSPARENT);
+				Font.Color := clSilver;
+
+				for i:=magtop to magline-1 do begin
+					pm := PTClientMagic (g_MagicList[i]);
+					m := i - magtop;
+					if not (pm.Level in [0..3]) then pm.Level := 0;
+					TextOut (bbx + 48, bby + 8 + m*37, pm.Def.sMagicName);
+					if pm.Level in [0..3] then 
+						trainlv := pm.Level
+					else 
+						trainlv := 0;
+						
+					TextOut (bbx + 48 + 16, bby + 8 + 15 + m*37, IntToStr(pm.Level));
+
+					if pm.Def.MaxTrain[trainlv] > 0 then begin
+						if trainlv < 3 then
+							TextOut (bbx + 48 + 46, bby + 8 + 15 + m*37, IntToStr(pm.CurTrain) + '/' + IntToStr(pm.Def.MaxTrain[trainlv]))
+						else TextOut (bbx + 48 + 46, bby + 8 + 15 + m*37, '-');
+					end;
+				end;
+
+				Release;
+			end;
+		end;
+	end;
 	  { Previous work is open, this code is to show equip, appear under charactor
       if g_MouseStateItem.S.Name <> '' then begin
          g_MouseItem := g_MouseStateItem;
