@@ -123,8 +123,8 @@ type
 		DSWBoots: TDButton;
 		DSWCharm: TDButton;
 
-		{State Magic - Skill Page} 
-		DStMag1: TDButton;
+		{State Magic - Magic Page} 
+		DStMag1: TDButton;	// Magic icon
 		DStMag2: TDButton;
 		DStMag3: TDButton;
 		DStMag4: TDButton;
@@ -1108,12 +1108,12 @@ begin
       DSWCharm.Height := 31;
 
       DStMag1.Left := 38 + 8;
-      DStMag1.Top := 52 + 7;
+      DStMag1.Top := 52 + 8;	// 52 + 7 (Previous)
       DStMag1.Width := 31;
       DStMag1.Height := 33;
 
       DStMag2.Left := 38 + 8;
-      DStMag2.Top := 52 + 44;
+      DStMag2.Top := 52 + 45;	// 52 + 44 (Previous)
       DStMag2.Width := 31;
       DStMag2.Height := 33;
 
@@ -3118,8 +3118,11 @@ begin
 				for i:=magtop to magline-1 do begin
 					pm := PTClientMagic (g_MagicList[i]);
 					m := i - magtop;
+
 					if not (pm.Level in [0..3]) then pm.Level := 0;
+
 					TextOut (bbx + 48, bby + 8 + m*37, pm.Def.sMagicName);
+
 					if pm.Level in [0..3] then 
 						trainlv := pm.Level
 					else 
@@ -3130,7 +3133,8 @@ begin
 					if pm.Def.MaxTrain[trainlv] > 0 then begin
 						if trainlv < 3 then
 							TextOut (bbx + 48 + 46, bby + 8 + 15 + m*37, IntToStr(pm.CurTrain) + '/' + IntToStr(pm.Def.MaxTrain[trainlv]))
-						else TextOut (bbx + 48 + 46, bby + 8 + 15 + m*37, '-');
+						else 
+							TextOut (bbx + 48 + 46, bby + 8 + 15 + m*37, '-');
 					end;
 				end;
 
@@ -3615,33 +3619,33 @@ begin
 end;
 
 
-//상태창 : 침랬 페이지
+//State window : Magic page 
 
 procedure TFrmDlg.DStMag1DirectPaint(Sender: TObject;
-  dsurface: TDirectDrawSurface);
+	dsurface: TDirectDrawSurface);
 var
-   idx, icon: integer;
-   d: TDirectDrawSurface;
-   pm: PTClientMagic;
+	idx, icon: integer;
+	d: TDirectDrawSurface;
+	pm: PTClientMagic;
 begin
-   with Sender as TDButton do begin
-      idx := _Max(Tag + MagicPage * 5, 0);
-      if idx < g_MagicList.Count then begin
-         pm := PTClientMagic (g_MagicList[idx]);
-         icon := pm.Def.btEffect * 2;
-         if icon >= 0 then begin //아이콘이 없는거..
-            if not Downed then begin
-               d := g_WMagIconImages.Images[icon];
-               if d <> nil then
-                  dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
-            end else begin
-               d := g_WMagIconImages.Images[icon+1];
-               if d <> nil then
-                  dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
-            end;
-         end;
-      end;
-   end;
+	with Sender as TDButton do begin
+		idx := _Max(Tag + MagicPage * 5, 0);
+		if idx < g_MagicList.Count then begin
+			pm := PTClientMagic (g_MagicList[idx]);
+			icon := pm.Def.btEffect * 2;
+			if icon >= 0 then begin 
+				if not Downed then begin
+					d := g_WMagIconImages.Images[icon];
+					if d <> nil then
+						dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
+				end else begin
+					d := g_WMagIconImages.Images[icon+1];
+					if d <> nil then
+						dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
+				end;
+			end;
+		end;
+	end;
 end;
 
 procedure TFrmDlg.DStMag1Click(Sender: TObject; X, Y: Integer);
