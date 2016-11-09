@@ -123,8 +123,8 @@ type
 		DSWBoots: TDButton;
 		DSWCharm: TDButton;
 
-		{State Magic - Skill Page} 
-		DStMag1: TDButton;
+		{State Magic - Magic Page} 
+		DStMag1: TDButton;	// Magic icon
 		DStMag2: TDButton;
 		DStMag3: TDButton;
 		DStMag4: TDButton;
@@ -567,7 +567,7 @@ type
     MagicPage: integer;
 
     BlinkTime: longword;
-    BlinkCount: integer;  //0..9»çÀÌ¸¦ ¹Ýº¹
+    BlinkCount: integer;  //0..9ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ýºï¿½
 
     procedure HideAllControls;
     procedure RestoreHideControls;
@@ -674,19 +674,19 @@ uses
 
 {
    ##  MovingItem.Index
-      1~n : °¡¹æÃ¢ÀÇ ¾ÆÀÌÅÛ ¼ø¼­
-      -1~-8 : ÀåÂøÃ¢¿¡¼­ÀÇ ¾ÆÀÌÅÛ ¼ø¼­
-      -97 : ±³È¯Ã¢ÀÇ µ·
-      -98 : µ·
-      -99 : ÆÈ±â Ã¢¿¡¼­ÀÇ ¾ÆÀÌÅÛ ¼ø¼­
-      -20~29: ±³È¯Ã¢¿¡¼­ÀÇ ¾ÆÀÌÅÛ ¼ø¼­
+      1~n : ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+      -1~-8 : ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+      -97 : ï¿½ï¿½È¯Ã¢ï¿½ï¿½ ï¿½ï¿½
+      -98 : ï¿½ï¿½
+      -99 : ï¿½È±ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+      -20~29: ï¿½ï¿½È¯Ã¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 }
 
 procedure TFrmDlg.FormCreate(Sender: TObject);
 begin
    StatePage := 0;
    DlgTemp := TList.Create;
-   DialogSize := 1; //±âº» Å©±â
+   DialogSize := 1; //ï¿½âº» Å©ï¿½ï¿½
    m_nDiceCount:=0;
    m_boPlayDice:=False;
    magcur := 0;
@@ -710,7 +710,7 @@ begin
    GuildFlag := '';
    GuildCommanderMode := FALSE;
    GuildStrs := TStringList.Create;
-   GuildStrs2 := TStringList.Create; //¹é¾÷¿ë
+   GuildStrs2 := TStringList.Create; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
    GuildNotice := TStringList.Create;
    GuildMembers := TStringList.Create;
    GuildChats := TStringList.Create;
@@ -744,7 +744,7 @@ end;
 procedure TFrmDlg.FormDestroy(Sender: TObject);
 begin
    DlgTemp.Free;
-   MDlgPoints.Free;  //°£´ÜÈ÷..
+   MDlgPoints.Free;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..
    MenuList.Free;
    NAHelps.Free;
    GuildStrs.Free;
@@ -781,7 +781,7 @@ begin
    end;
 end;
 
-procedure TFrmDlg.Initialize;  //°ÔÀÓÀ» ¸®½ºÅä¾îÇÒ¶§¸¶´Ù È£ÃâµÊ
+procedure TFrmDlg.Initialize;  //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½
 var
    i: integer;
    d: TDirectDrawSurface;
@@ -797,7 +797,7 @@ begin
 
    {-----------------------------------------------------------}
 
-   //¸Þ¼¼Áö ´ÙÀÌ¾ó·Î±× Ã¢
+   //ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½Î±ï¿½ Ã¢
    d := g_WMainImages.Images[360];
    if d <> nil then begin
       DMsgDlg.SetImgIndex (g_WMainImages, 360);
@@ -919,7 +919,7 @@ begin
 
    {-----------------------------------------------------------}
 
-   //µÇÂ¼´°¿Ú
+   //ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
    d := g_WMainImages.Images[63];
    if d <> nil then begin
       DNewAccount.SetImgIndex (g_WMainImages, 63);
@@ -1042,7 +1042,7 @@ begin
 
 
    // Charactor State Window
-   d := g_WMainImages.Images[370];  //»óÅÂ
+   d := g_WMainImages.Images[370];  //ï¿½ï¿½ï¿½ï¿½
 
    if d <> nil then begin
       DStateWin.SetImgIndex (g_WMainImages, 370);
@@ -1108,12 +1108,12 @@ begin
       DSWCharm.Height := 31;
 
       DStMag1.Left := 38 + 8;
-      DStMag1.Top := 52 + 7;
+      DStMag1.Top := 52 + 8;	// 52 + 7 (Previous)
       DStMag1.Width := 31;
       DStMag1.Height := 33;
 
       DStMag2.Left := 38 + 8;
-      DStMag2.Top := 52 + 44;
+      DStMag2.Top := 52 + 45;	// 52 + 44 (Previous)
       DStMag2.Width := 31;
       DStMag2.Height := 33;
 
@@ -1152,7 +1152,7 @@ begin
    {-----------------------------------------------------------}
 
    // Charactor State Window(Show other persons)
-   d := g_WMainImages.Images[370];  //»óÅÂ
+   d := g_WMainImages.Images[370];  //ï¿½ï¿½ï¿½ï¿½
    if d <> nil then begin
       DUserState1.SetImgIndex (g_WMainImages, 370);
       DUserState1.Left := SCREENWIDTH - d.Width - d.Width;
@@ -1277,7 +1277,7 @@ begin
    DGold.Left := 18;
    DGold.Top  := 218;
 
-   d := g_WMain3Images.Images[207];  //»óÅÂ
+   d := g_WMain3Images.Images[207];  //ï¿½ï¿½ï¿½ï¿½
    if d <> nil then begin
       DStateWin.SetImgIndex (g_WMain3Images, 207);
       DStateWin.Left := SCREENWIDTH - d.Width;
@@ -1592,7 +1592,7 @@ begin
    {-----------------------------------------------------------}
  
    {Deal Dialog} {Exchange Dialog}
-   d := g_WMainImages.Images[389];  //³» ±³È¯Ã¢
+   d := g_WMainImages.Images[389];  //ï¿½ï¿½ ï¿½ï¿½È¯Ã¢
    if d <> nil then begin
       DDealDlg.Left := SCREENWIDTH - d.Width;
       DDealDlg.Top  := 0;
@@ -1613,7 +1613,7 @@ begin
    DDGold.Top  := 202-65;
 
    {Deal Remote Dialog} {Exchange Object Dialog}
-   d := g_WMainImages.Images[390];  //»ó´ë¹æ ±³È¯Ã¢
+   d := g_WMainImages.Images[390];  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯Ã¢
    if d <> nil then begin
       DDealRemoteDlg.Left := DDealDlg.Left - d.Width;
       DDealRemoteDlg.Top  := 0;
@@ -1679,7 +1679,7 @@ begin
    DGDDown.Top  := 291;
    DGDDown.SetImgIndex (g_WMainImages, 372);
 
-   //¹®ÆÄ °øÁö»çÇ× ¿¡µðÆ®
+   //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
    DGuildEditNotice.SetImgIndex (g_WMainImages, 204);
    DGEOk.SetImgIndex (g_WMainImages, 361);
    DGEOk.Left := 514;
@@ -1913,14 +1913,14 @@ begin
       ArrangeItemBag;
 end;
 
-//ÇÏ´Ü »óÅÂ¹Ù º¸±â
+//ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Â¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 procedure TFrmDlg.ViewBottomBox (visible: Boolean);
 begin
    DBottom.Visible := visible;
 end;
 
 
-// ¾ÆÀÌÅÛ ¸¶¿ì½º·Î ÀÌµ¿Áß Ãë¼Ò
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 procedure TFrmDlg.CancelItemMoving;
 var
    idx, n: integer;
@@ -1950,8 +1950,8 @@ begin
    ArrangeItemBag;
 end;
 
-//ÀÌµ¿ÁßÀÎ ¾ÆÀÌÅÛÀ» ¹Ù´Ú¿¡ ¶³¾î ¶ß¸²...
-//°¡¹æ(º§Æ®)¿¡¼­ ¹ö¸°°Í¸¸ È£ÃâµÊ
+//ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß¸ï¿½...
+//ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Æ®)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Í¸ï¿½ È£ï¿½ï¿½ï¿½ï¿½
 procedure TFrmDlg.DropMovingItem;
 var
    idx: integer;
@@ -1982,10 +1982,10 @@ var
 begin
    if g_boItemMoving then begin
       DBackground.WantReturn := TRUE;
-      if g_MovingItem.Item.S.Name = g_sGoldName{'½ð±Ò'} then begin
+      if g_MovingItem.Item.S.Name = g_sGoldName{'ï¿½ï¿½ï¿½ï¿½'} then begin
          g_boItemMoving := FALSE;
          g_MovingItem.Item.S.Name := '';
-         //¾ó¸¶¸¦ ¹ö¸± °ÇÁö ¹°¾îº»´Ù.
+         //ï¿½ó¸¶¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½îº»ï¿½ï¿½.
          DialogSize := 1;
          DMessageDlg ('How much ' +g_sGoldName+ ' do you want to drop?', [mbOk, mbAbort]);
          GetValidStrVal (DlgEditText, valstr, [' ']);
@@ -1993,7 +1993,7 @@ begin
          //
          FrmMain.SendDropGold (dropgold);
       end;
-      if g_MovingItem.Index >= 0 then //¾ÆÀÌÅÛ °¡¹æ¿¡¼­ ¹ö¸°°Í¸¸..
+      if g_MovingItem.Index >= 0 then //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½æ¿¡ï¿½ï¿½ ï¿½ï¿½Í¸ï¿½..
          DropMovingItem;
    end;
 end;
@@ -2023,7 +2023,7 @@ var
    n: integer;
    str: string;
 begin
-   //Ã¤ÆÃÃ¢¿¡ Å¬¸¯ÇÏ¸é, '/'±Ó¼Ó¸» ÀÏ¶§ Å¬¸¯ÇÑ ´ëÈ­¸¦ ÇÑ»ç¶÷ÀÇ ÀÌ¸§ÀÌ ±Ó¸»´ë»óÀÚ°¡ µÇ°Ô ÇÑ´Ù.
+   //Ã¤ï¿½ï¿½Ã¢ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ï¸ï¿½, '/'ï¿½Ó¼Ó¸ï¿½ ï¿½Ï¶ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½Ñ»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½Ç°ï¿½ ï¿½Ñ´ï¿½.
    if (X >= 208) and (X <= 208+374) and (Y >= SCREENHEIGHT-130) and (Y <= SCREENHEIGHT-130 + 12*9) then begin
       n := DScreen.ChatBoardTop + (Y - (SCREENHEIGHT-130)) div 12;
       if (n < DScreen.ChatStrs.Count) then begin
@@ -2111,7 +2111,7 @@ begin
    lx := XBase;
    ly := 126;
    case DialogSize of
-      0:  //ÀÛÀº°Å
+      0:  //ï¿½ï¿½ï¿½ï¿½ï¿½
          begin
             d := g_WMainImages.Images[381];
             if d <> nil then begin
@@ -2124,7 +2124,7 @@ begin
                ly := 36;
             end;
          end;
-      1:  //³Ð°í Å«°Å
+      1:  //ï¿½Ð°ï¿½ Å«ï¿½ï¿½
          begin
             d := g_WMainImages.Images[360];
             if d <> nil then begin
@@ -2137,7 +2137,7 @@ begin
                ly := 126;
             end;
          end;
-      2:  //±æÀº°Å
+      2:  //ï¿½ï¿½ï¿½ï¿½ï¿½
          begin
             d := g_WMainImages.Images[380];
             if d <> nil then begin
@@ -2153,7 +2153,7 @@ begin
    end;
    MsgText := msgstr;
    ViewDlgEdit := FALSE;
-   DMsgDlg.Floating := TRUE;   //¸Þ¼¼Áö ¹Ú½º°¡ ¶°´Ù´Ô..
+   DMsgDlg.Floating := TRUE;   //ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù´ï¿½..
    DMsgDlgOk.Visible := FALSE;
    DMsgDlgYes.Visible := FALSE;
    DMsgDlgCancel.Visible := FALSE;
@@ -2195,7 +2195,7 @@ begin
    HideAllControls;
    DMsgDlg.ShowModal;
    if mbAbort in DlgButtons then begin
-      ViewDlgEdit := TRUE; //¿¡µåÆ® ÄÁÆ®·ÑÀÌ º¸¿©¾ß ÇÏ´Â °æ¿ì.
+      ViewDlgEdit := TRUE; //ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½.
       DMsgDlg.Floating := FALSE;
       with EdDlgEdit do begin
          Text := '';
@@ -2233,7 +2233,7 @@ begin
    if PlayScene.EdChat.Visible then PlayScene.EdChat.SetFocus;
    ViewDlgEdit := FALSE;
    Result := DMsgDlg.DialogResult;
-   DialogSize := 1; //±âº»»óÅÂ
+   DialogSize := 1; //ï¿½âº»ï¿½ï¿½ï¿½ï¿½
    m_nDiceCount:=0;
    m_boPlayDice:=False;
 end;
@@ -2648,35 +2648,35 @@ begin
       svname :=tServer.ServerName;
       ServerMiniName :=tServer.ServerName;
    end;
-   if Sender = DSServer2 then begin //¼­¹ö 4¹ø..
+   if Sender = DSServer2 then begin //ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½..
      tServer:=tGame.ServerList.Items[1];
       svname :=tServer.ServerName;
       ServerMiniName :=tServer.ServerName;
    end;
-   if Sender = DSServer3 then begin //¼­¹ö 1¹ø..
+   if Sender = DSServer3 then begin //ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½..
      tServer:=tGame.ServerList.Items[2];
       svname :=tServer.ServerName;
       ServerMiniName :=tServer.ServerName;
    end;
-   if Sender = DSServer4 then begin //¼­¹ö 2¹ø..
+   if Sender = DSServer4 then begin //ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½..
      tServer:=tGame.ServerList.Items[3];
       svname :=tServer.ServerName;
       ServerMiniName :=tServer.ServerName;
    end;
-   if Sender = DSServer5 then begin //¼­¹ö 3¹ø..
+   if Sender = DSServer5 then begin //ï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½..
      tServer:=tGame.ServerList.Items[4];
       svname :=tServer.ServerName;
       ServerMiniName :=tServer.ServerName;
    end;
-   if Sender = DSServer6 then begin //¼­¹ö 4¹ø..
+   if Sender = DSServer6 then begin //ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½..
      tServer:=tGame.ServerList.Items[5];
       svname :=tServer.ServerName;
       ServerMiniName :=tServer.ServerName;
    end;
    if svname <> '' then begin
       if BO_FOR_TEST then begin
-         svname := 'Çö¹«¼­¹ö';
-         ServerMiniName := 'Çö¹«';
+         svname := 'ï¿½ï¿½ï¿½ï¿½ï¿½';
+         ServerMiniName := 'ï¿½ï¿½ï¿½ï¿½';
       end;
       FrmMain.SendSelectServer (svname);
       DSelServerDlg.Visible := FALSE;
@@ -2693,30 +2693,30 @@ begin
      svname:=g_ServerList.Strings[0];
      g_sServerMiniName:=svname;
    end;
-   if Sender = DSServer2 then begin //¼­¹ö 4¹ø..
+   if Sender = DSServer2 then begin //ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½..
      svname:=g_ServerList.Strings[1];
      g_sServerMiniName:=svname;
    end;
-   if Sender = DSServer3 then begin //¼­¹ö 1¹ø..
+   if Sender = DSServer3 then begin //ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½..
      svname:=g_ServerList.Strings[2];
      g_sServerMiniName:=svname;
    end;
-   if Sender = DSServer4 then begin //¼­¹ö 2¹ø..
+   if Sender = DSServer4 then begin //ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½..
      svname:=g_ServerList.Strings[3];
      g_sServerMiniName:=svname;
    end;
-   if Sender = DSServer5 then begin //¼­¹ö 3¹ø..
+   if Sender = DSServer5 then begin //ï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½..
      svname:=g_ServerList.Strings[4];
      g_sServerMiniName:=svname;
    end;
-   if Sender = DSServer6 then begin //¼­¹ö 4¹ø..
+   if Sender = DSServer6 then begin //ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½..
      svname:=g_ServerList.Strings[5];
      g_sServerMiniName:=svname;
    end;
    if svname <> '' then begin
       if BO_FOR_TEST then begin
-         svname := 'Çö¹«¼­¹ö';
-         g_sServerMiniName := 'Çö¹«';
+         svname := 'ï¿½ï¿½ï¿½ï¿½ï¿½';
+         g_sServerMiniName := 'ï¿½ï¿½ï¿½ï¿½';
       end;
       FrmMain.SendSelectServer (svname);
       DSelServerDlg.Visible := FALSE;
@@ -2797,7 +2797,7 @@ end;
 
 
 {------------------------------------------------------------------------}
-//Ä³¸¯ÅÍ ¼±ÅÃ
+//Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
 procedure TFrmDlg.DscSelect1DirectPaint(Sender: TObject;
@@ -2829,7 +2829,7 @@ end;
 
 
 {------------------------------------------------------------------------}
-//»õ Ä³¸¯ÅÍ ¸¸µé±â Ã¢
+//ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¢
 
 
 procedure TFrmDlg.DccCloseDirectPaint(Sender: TObject;
@@ -2941,7 +2941,7 @@ begin
 			end;
 
             if g_UseItems[U_DRESS].S.Name <> '' then begin
-               idx := g_UseItems[U_DRESS].S.Looks; //¿Ê if Myself.m_btSex = 1 then idx := 80; // Women's cloths
+               idx := g_UseItems[U_DRESS].S.Looks; //ï¿½ï¿½ if Myself.m_btSex = 1 then idx := 80; // Women's cloths
                if idx >= 0 then begin
                   //d := FrmMain.WStateItem.GetCachedImage (idx, ax, ay);
                   d := FrmMain.GetWStateImg(idx,ax,ay);
@@ -3004,7 +3004,7 @@ begin
                Font.Color := clSilver;
                TextOut (bbx, bby, 'Exp.');
                TextOut (mmx, bby, FloatToStrFixFmt (100 * g_MySelf.m_Abil.Exp / g_MySelf.m_Abil.MaxExp, 3, 2) + '%');
-               //TextOut (bbx, bby+14*1, 'ÃÖ´ë°æÇè');
+               //TextOut (bbx, bby+14*1, 'ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½');
                //TextOut (mmx, bby+14*1, IntToStr(Myself.Abil.MaxExp));
 
                TextOut (bbx, bby+14*1, 'Bag weight');
@@ -3120,7 +3120,8 @@ begin
 					pm := PTClientMagic (g_MagicList[i]);
 					m := i - magtop;
 
-					if not (pm.Level in [0..3]) then 
+					if not (pm.Level in [0..3]) then
+						pm.Level := 0;
 						pm.Level := 0;
 					
 					TextOut (bbx + 48, bby + 8 + m*37, pm.Def.sMagicName);
@@ -3135,7 +3136,8 @@ begin
 					if pm.Def.MaxTrain[trainlv] > 0 then begin
 						if trainlv < 3 then
 							TextOut (bbx + 48 + 46, bby + 8 + 15 + m*37, IntToStr(pm.CurTrain) + '/' + IntToStr(pm.Def.MaxTrain[trainlv]))
-						else TextOut (bbx + 48 + 46, bby + 8 + 15 + m*37, '-');
+						else 
+							TextOut (bbx + 48 + 46, bby + 8 + 15 + m*37, '-');
 					end;
 				end;
 
@@ -3168,7 +3170,7 @@ begin
       end;
       }
 
-      //ÀÌ¸§
+      //ï¿½Ì¸ï¿½
       with dsurface.Canvas do begin
          SetBkMode (Handle, TRANSPARENT);
          Font.Color := g_MySelf.m_nNameColor;
@@ -3366,7 +3368,7 @@ procedure TFrmDlg.PageChanged;
 begin
    DScreen.ClearHint;
    case StatePage of
-      3: begin //Ä§·¨ »óÅÂÃ¢
+      3: begin //Ä§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢
          DStMag1.Visible := TRUE;  DStMag2.Visible := TRUE;
          DStMag3.Visible := TRUE;  DStMag4.Visible := TRUE;
          DStMag5.Visible := TRUE;
@@ -3417,11 +3419,11 @@ begin
          case where of
             U_DRESS: begin
                if Sender = DSWDress then begin
-                  if g_MySelf.m_btSex = 0 then //³²ÀÚ
-                     if g_MovingItem.Item.S.StdMode <> 10 then //³²ÀÚ¿Ê
+                  if g_MySelf.m_btSex = 0 then //ï¿½ï¿½ï¿½ï¿½
+                     if g_MovingItem.Item.S.StdMode <> 10 then //ï¿½ï¿½ï¿½Ú¿ï¿½
                         exit;
-                  if g_MySelf.m_btSex = 1 then //¿©ÀÚ
-                     if g_MovingItem.Item.S.StdMode <> 11 then //¿©ÀÚ¿Ê
+                  if g_MySelf.m_btSex = 1 then //ï¿½ï¿½ï¿½ï¿½
+                     if g_MovingItem.Item.S.StdMode <> 11 then //ï¿½ï¿½ï¿½Ú¿ï¿½
                         exit;
                   flag := TRUE;
                end;
@@ -3453,7 +3455,7 @@ begin
                   flag := TRUE;
                end;
             end;
-            U_ARMRINGR: begin  //ÆÈÂî
+            U_ARMRINGR: begin  //ï¿½ï¿½ï¿½ï¿½
                if Sender = DSWArmRingL then begin
                   where := U_ARMRINGL;
                   flag := TRUE;
@@ -3463,7 +3465,7 @@ begin
                   flag := TRUE;
                end;
             end;
-            U_ARMRINGL: begin  //25,  µ¶°¡·ç,ÆÈÂî
+            U_ARMRINGL: begin  //25,  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½
                if Sender = DSWArmRingL then begin
                   where := U_ARMRINGL;
                   flag := TRUE;
@@ -3620,33 +3622,33 @@ begin
 end;
 
 
-//»óÅÂÃ¢ : Ä§·¨ ÆäÀÌÁö
+//State window : Magic page 
 
 procedure TFrmDlg.DStMag1DirectPaint(Sender: TObject;
-  dsurface: TDirectDrawSurface);
+	dsurface: TDirectDrawSurface);
 var
-   idx, icon: integer;
-   d: TDirectDrawSurface;
-   pm: PTClientMagic;
+	idx, icon: integer;
+	d: TDirectDrawSurface;
+	pm: PTClientMagic;
 begin
-   with Sender as TDButton do begin
-      idx := _Max(Tag + MagicPage * 5, 0);
-      if idx < g_MagicList.Count then begin
-         pm := PTClientMagic (g_MagicList[idx]);
-         icon := pm.Def.btEffect * 2;
-         if icon >= 0 then begin //¾ÆÀÌÄÜÀÌ ¾ø´Â°Å..
-            if not Downed then begin
-               d := g_WMagIconImages.Images[icon];
-               if d <> nil then
-                  dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
-            end else begin
-               d := g_WMagIconImages.Images[icon+1];
-               if d <> nil then
-                  dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
-            end;
-         end;
-      end;
-   end;
+	with Sender as TDButton do begin
+		idx := _Max(Tag + MagicPage * 5, 0);
+		if idx < g_MagicList.Count then begin
+			pm := PTClientMagic (g_MagicList[idx]);
+			icon := pm.Def.btEffect * 2;
+			if icon >= 0 then begin 
+				if not Downed then begin
+					d := g_WMagIconImages.Images[icon];
+					if d <> nil then
+						dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
+				end else begin
+					d := g_WMagIconImages.Images[icon+1];
+					if d <> nil then
+						dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
+				end;
+			end;
+		end;
+	end;
 end;
 
 procedure TFrmDlg.DStMag1Click(Sender: TObject; X, Y: Integer);
@@ -3673,7 +3675,7 @@ begin
             end;
          end;
          pm := PTClientMagic (g_MagicList[idx]);
-         //if pm.Def.EffectType <> 0 then begin //°Ë¹ýÀº Å°¼³Á¤À» ¸øÇÔ.
+         //if pm.Def.EffectType <> 0 then begin //ï¿½Ë¹ï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
          pm.Key := keych;
          FrmMain.SendMagicKeyChange (pm.Def.wMagicId, keych);
          //end;
@@ -3757,7 +3759,7 @@ begin
    if g_MySelf <> nil then begin
       // Show HP and MP
       if (g_MySelf.m_Abil.MaxHP > 0) and (g_MySelf.m_Abil.MaxMP > 0) then begin
-         if (g_MySelf.m_btJob = 0) and (g_MySelf.m_Abil.Level < 28) then begin //ÎäÊ¿
+         if (g_MySelf.m_btJob = 0) and (g_MySelf.m_Abil.Level < 28) then begin //ï¿½ï¿½Ê¿
             d := g_WMainImages.Images[5];
             if d <> nil then begin
                rc := d.ClientRect;
@@ -3860,7 +3862,7 @@ end;
 
 
 {--------------------------------------------------------------}
-//¹Ù´Ú »óÅÂ¹ÙÀÇ 4°³ ¹öÆ°
+//ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½ 4ï¿½ï¿½ ï¿½ï¿½Æ°
 
 
 procedure TFrmDlg.DBottomInRealArea(Sender: TObject; X, Y: Integer;
@@ -3895,7 +3897,7 @@ begin
    end;
 end;
 
-//±×·ì, ±³È¯, ¸Ê ¹öÆ°
+//ï¿½×·ï¿½, ï¿½ï¿½È¯, ï¿½ï¿½ ï¿½ï¿½Æ°
 procedure TFrmDlg.DBotGroupDirectPaint(Sender: TObject;
   dsurface: TDirectDrawSurface);
 var
@@ -3977,7 +3979,7 @@ end;
 
 {------------------------------------------------------------------------}
 
-// º§Æ®
+// ï¿½ï¿½Æ®
 
 {------------------------------------------------------------------------}
 
@@ -4031,7 +4033,7 @@ begin
          end;
       end else begin
          if (g_MovingItem.Index = -97) or (g_MovingItem.Index = -98) then exit;
-         if g_MovingItem.Item.S.StdMode <= 3 then begin //Æ÷¼Ç,À½½Ä,½ºÅ©·Ñ
+         if g_MovingItem.Item.S.StdMode <= 3 then begin //ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½,ï¿½ï¿½Å©ï¿½ï¿½
             //ItemClickSound (MovingItem.Item.S.StdMode);
             if g_ItemArr[idx].S.Name <> '' then begin
                temp := g_ItemArr[idx];
@@ -4055,7 +4057,7 @@ begin
    idx := TDButton(Sender).Tag;
    if idx in [0..5] then begin
       if g_ItemArr[idx].S.Name <> '' then begin
-         if (g_ItemArr[idx].S.StdMode <= 4) or (g_ItemArr[idx].S.StdMode = 31) then begin //»ç¿ëÇÒ ¼ö ÀÖ´Â ¾ÆÀÌÅÛ
+         if (g_ItemArr[idx].S.StdMode <= 4) or (g_ItemArr[idx].S.StdMode = 31) then begin //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             FrmMain.EatItem (idx);
          end;
       end else begin
@@ -4075,7 +4077,7 @@ end;
 
 {----------------------------------------------------------}
 
-//¾ÆÀÌÅÛ °¡¹æ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 {----------------------------------------------------------}
 
@@ -4244,11 +4246,11 @@ begin
                      end;
                   81: begin
                         useable := TRUE;
-                        line3 := line3 + 'VIP Type=' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + '»áÔ±µÈ¼¶ >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
+                        line3 := line3 + 'VIP Type=' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + 'ï¿½ï¿½Ô±ï¿½È¼ï¿½ >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
                      end;
                   82: begin
                         useable := TRUE;
-                        line3 := line3 + 'VIP Type>=' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + '»áÔ±µÈ¼¶ >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
+                        line3 := line3 + 'VIP Type>=' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + 'ï¿½ï¿½Ô±ï¿½È¼ï¿½ >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
                      end;
                end;
             end;
@@ -4298,92 +4300,92 @@ begin
                      end;
                   4: begin
                         useable := TRUE;
-                        line3 := line3 + 'ËùÐè×ª??µÈ??' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'ï¿½ï¿½ï¿½ï¿½×ª??ï¿½ï¿½??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   40: begin
                         useable := TRUE;
-                        line3 := line3 + 'ËùÐè×ª??&µÈ¼¶' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'ï¿½ï¿½ï¿½ï¿½×ª??&ï¿½È¼ï¿½' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   41: begin
                         useable := TRUE;
-                        line3 := line3 + 'ËùÐè×ª??&¹¥»÷Á¦' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'ï¿½ï¿½ï¿½ï¿½×ª??&ï¿½ï¿½ï¿½ï¿½ï¿½' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   42: begin
                         useable := TRUE;
-                        line3 := line3 + 'ËùÐè×ª??&Ä§·¨Á¦' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'ï¿½ï¿½ï¿½ï¿½×ª??&Ä§ï¿½ï¿½ï¿½' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   43: begin
                         useable := TRUE;
-                        line3 := line3 + 'ËùÐè×ª??&µÀÊõ' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'ï¿½ï¿½ï¿½ï¿½×ª??&ï¿½ï¿½ï¿½ï¿½' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   44: begin
                         useable := TRUE;
-                        line3 := line3 + 'ËùÐè×ª??&??Íû??' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'ï¿½ï¿½ï¿½ï¿½×ª??&??ï¿½ï¿½??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   5: begin
                         useable := TRUE;
-                        line3 := line3 + 'ËùÐè??Íû??' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'ï¿½ï¿½ï¿½ï¿½??ï¿½ï¿½??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   6: begin
                         useable := TRUE;
-                        line3 := line3 + 'ÐÐ»á³ÉÔ±×¨ÓÃ';
+                        line3 := line3 + 'ï¿½Ð»ï¿½ï¿½ï¿½Ô±×¨ï¿½ï¿½';
                      end;
                   60: begin
                         useable := TRUE;
-                        line3 := line3 + 'ÐÐ»áÕÆÃÅ×¨ÓÃ';
+                        line3 := line3 + 'ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½×¨ï¿½ï¿½';
                      end;
                   7: begin
                         useable := TRUE;
-                        line3 := line3 + '?³³Ç³?Ô±×¨ÓÃ';
+                        line3 := line3 + '?ï¿½ï¿½Ç³?Ô±×¨ï¿½ï¿½';
                      end;
                   70: begin
                         useable := TRUE;
-                        line3 := line3 + '?³³Ç³ÇÖ÷×¨Ó?';
+                        line3 := line3 + '?ï¿½ï¿½Ç³ï¿½ï¿½ï¿½×¨ï¿½?';
                      end;
                   8: begin
                         useable := TRUE;
-                        line3 := line3 + '»áÔ±×¨ÓÃ';
+                        line3 := line3 + 'ï¿½ï¿½Ô±×¨ï¿½ï¿½';
                      end;
                   81: begin
                         useable := TRUE;
-                        line3 := line3 + '»áÔ±ÀàÐÍ =' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + '»áÔ±µÈ¼¶ >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
+                        line3 := line3 + 'ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ =' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + 'ï¿½ï¿½Ô±ï¿½È¼ï¿½ >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
                      end;
                   82: begin
                         useable := TRUE;
-                        line3 := line3 + '»áÔ±ÀàÐÍ >=' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + '»áÔ±µÈ¼¶ >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
+                        line3 := line3 + 'ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ >=' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + 'ï¿½ï¿½Ô±ï¿½È¼ï¿½ >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
                      end;
                end;
             end;
-         15,     //Í·¿ø,Åõ±¸
-         19,20,21,  //ÏîÁ´
-         22,23,  //½äÖ¸
-         24,26, //ÊÖïí
+         15,     //Í·ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½
+         19,20,21,  //ï¿½ï¿½ï¿½
+         22,23,  //ï¿½ï¿½Ö¸
+         24,26, //ï¿½ï¿½ï¿½ï¿½
          51,
          52,62,   //Ð¬
          53,63,
-         54,64:   //Ñü´ø
+         54,64:   //ï¿½ï¿½ï¿½ï¿½
             begin
                useable := FALSE;
                line1 := line1 + sWgt + IntToStr(g_MouseItem.S.Weight) +
                         ' Dura'+ GetDuraStr(g_MouseItem.Dura, g_MouseItem.DuraMax);
 
                case g_MouseItem.S.StdMode of
-                  19,53: //ÏîÁ´
+                  19,53: //ï¿½ï¿½ï¿½
                      begin
                         if g_MouseItem.S.AC > 0 then
                            line2 := line2 + 'MR+' + IntToStr(HiWord(g_MouseItem.S.AC)) + '0% ';
                         if LoWord(g_MouseItem.S.MAC) > 0 then line2 := line2 + 'Curse+' + IntToStr(LoWord(g_MouseItem.S.MAC)) + ' ';
                         if HiWord(g_MouseItem.S.MAC) > 0 then line2 := line2 + 'Luck+' + IntToStr(HiWord(g_MouseItem.S.MAC)) + ' ';
-                           //¼ýÀÚ Ç¥½Ã¾ÈµÊ + IntToStr(Hibyte(MouseItem.S.MAC)) + ' ';
+                           //ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½Ã¾Èµï¿½ + IntToStr(Hibyte(MouseItem.S.MAC)) + ' ';
                      end;
-                  20, 24,52: //ÏîÁ´ ¼° ÊÖïí: MaxAC -> Hit,  MaxMac -> Speed
+                  20, 24,52: //ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: MaxAC -> Hit,  MaxMac -> Speed
                      begin
                         if g_MouseItem.S.AC > 0 then
                            line2 := line2 + 'Acc+' + IntToStr(HiWord(g_MouseItem.S.AC)) + ' ';
                         if g_MouseItem.S.MAC > 0 then
                            line2 := line2 + 'Agil+' + IntToStr(HiWord(g_MouseItem.S.MAC)) + ' ';
                      end;
-                  21,54:  //ÏîÁ´
+                  21,54:  //ï¿½ï¿½ï¿½
                      begin
                         if HiWord(g_MouseItem.S.AC) > 0 then
                            line2 := line2 + 'HPR+' + IntToStr(HiWord(g_MouseItem.S.AC)) + '0% ';
@@ -4394,7 +4396,7 @@ begin
                         if LoWord(g_MouseItem.S.MAC) > 0 then
                            line2 := line2 + 'A.speed-' + IntToStr(LoWord(g_MouseItem.S.MAC)) + ' ';
                      end;
-                  23:  //½äÖ¸
+                  23:  //ï¿½ï¿½Ö¸
                      begin
                         if HiWord(g_MouseItem.S.AC) > 0 then
                            line2 := line2 + 'PA+' + IntToStr(HiWord(g_MouseItem.S.AC)) + '0% ';
@@ -4463,80 +4465,80 @@ begin
                      end;
                   4: begin
                         useable := TRUE;
-                        line3 := line3 + 'ËùÐè×ª??µÈ??' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'ï¿½ï¿½ï¿½ï¿½×ª??ï¿½ï¿½??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   40: begin
                         useable := TRUE;
-                        line3 := line3 + 'ËùÐè×ª??&µÈ¼¶' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'ï¿½ï¿½ï¿½ï¿½×ª??&ï¿½È¼ï¿½' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   41: begin
                         useable := TRUE;
-                        line3 := line3 + 'ËùÐè×ª??&¹¥»÷Á¦' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'ï¿½ï¿½ï¿½ï¿½×ª??&ï¿½ï¿½ï¿½ï¿½ï¿½' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   42: begin
                         useable := TRUE;
-                        line3 := line3 + 'ËùÐè×ª??&Ä§·¨Á¦' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'ï¿½ï¿½ï¿½ï¿½×ª??&Ä§ï¿½ï¿½ï¿½' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   43: begin
                         useable := TRUE;
-                        line3 := line3 + 'ËùÐè×ª??&µÀÊõ' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'ï¿½ï¿½ï¿½ï¿½×ª??&ï¿½ï¿½ï¿½ï¿½' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   44: begin
                         useable := TRUE;
-                        line3 := line3 + 'ËùÐè×ª??&??Íû??' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'ï¿½ï¿½ï¿½ï¿½×ª??&??ï¿½ï¿½??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   5: begin
                         useable := TRUE;
-                        line3 := line3 + 'ËùÐè??Íû??' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + 'ï¿½ï¿½ï¿½ï¿½??ï¿½ï¿½??' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   6: begin
                         useable := TRUE;
-                        line3 := line3 + 'ÐÐ»á³ÉÔ±×¨ÓÃ';
+                        line3 := line3 + 'ï¿½Ð»ï¿½ï¿½ï¿½Ô±×¨ï¿½ï¿½';
                      end;
                   60: begin
                         useable := TRUE;
-                        line3 := line3 + 'ÐÐ»áÕÆÃÅ×¨ÓÃ';
+                        line3 := line3 + 'ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½×¨ï¿½ï¿½';
                      end;
                   7: begin
                         useable := TRUE;
-                        line3 := line3 + '?³³Ç³?Ô±×¨ÓÃ';
+                        line3 := line3 + '?ï¿½ï¿½Ç³?Ô±×¨ï¿½ï¿½';
                      end;
                   70: begin
                         useable := TRUE;
-                        line3 := line3 + '?³³Ç³ÇÖ÷×¨Ó?';
+                        line3 := line3 + '?ï¿½ï¿½Ç³ï¿½ï¿½ï¿½×¨ï¿½?';
                      end;
                   8: begin
                         useable := TRUE;
-                        line3 := line3 + '»áÔ±×¨ÓÃ';
+                        line3 := line3 + 'ï¿½ï¿½Ô±×¨ï¿½ï¿½';
                      end;
                   81: begin
                         useable := TRUE;
-                        line3 := line3 + '»áÔ±ÀàÐÍ =' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + '»áÔ±µÈ¼¶ >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
+                        line3 := line3 + 'ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ =' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + 'ï¿½ï¿½Ô±ï¿½È¼ï¿½ >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
                      end;
                   82: begin
                         useable := TRUE;
-                        line3 := line3 + '»áÔ±ÀàÐÍ >=' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + '»áÔ±µÈ¼¶ >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
+                        line3 := line3 + 'ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ >=' + IntToStr(LoWord(g_MouseItem.S.NeedLevel)) + 'ï¿½ï¿½Ô±ï¿½È¼ï¿½ >=' + IntToStr(HiWord(g_MouseItem.S.NeedLevel));
                      end;
                end;
             end;
-         25: //»¤?í·?¼°¶¾??
+         25: //ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½??
             begin
                line1 := line1 + sWgt +  IntToStr(g_MouseItem.S.Weight);
                line2 := 'Count '+ GetDura100Str(g_MouseItem.Dura, g_MouseItem.DuraMax);
             end;
-         30: //ÕÕÃ÷Îï
+         30: //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             begin
                line1 := line1 + sWgt +  IntToStr(g_MouseItem.S.Weight) + ' Usage'+ GetDuraStr(g_MouseItem.Dura, g_MouseItem.DuraMax);
             end;
-         40: //Èâ
+         40: //ï¿½ï¿½
             begin
                line1 := line1 + sWgt +  IntToStr(g_MouseItem.S.Weight) + ' Quality'+ GetDuraStr(g_MouseItem.Dura, g_MouseItem.DuraMax);
             end;
-         42: //Ò©²Ä
+         42: //Ò©ï¿½ï¿½
             begin
                line1 := line1 + sWgt +  IntToStr(g_MouseItem.S.Weight) + ' PoisonIngredient';
             end;
-         43: //¿óÊ¯
+         43: //ï¿½ï¿½Ê¯
             begin
                line1 := line1 + sWgt +  IntToStr(g_MouseItem.S.Weight) + ' Purity'+ IntToStr(Round(g_MouseItem.Dura/1000));
             end;
@@ -4645,7 +4647,7 @@ begin
       if g_boItemMoving then
          DItemGridGridSelect (self, ACol, ARow, Shift);
    end else begin
-      idx := ACol + ARow * DItemGrid.ColCount + 6{º§Æ®°ø°£};
+      idx := ACol + ARow * DItemGrid.ColCount + 6{ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½};
       if idx in [6..MAXBAGITEM-1] then begin
          g_MouseItem := g_ItemArr[idx];
          {GetMouseItemInfo (iname, d1, d2, d3, useable);
@@ -4668,7 +4670,7 @@ var
    idx, mi: integer;
    temp: TClientItem;
 begin
-   idx := ACol + ARow * DItemGrid.ColCount + 6{º§Æ®°ø°£};
+   idx := ACol + ARow * DItemGrid.ColCount + 6{ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½};
    if idx in [6..MAXBAGITEM-1] then begin
       if not g_boItemMoving then begin
          if g_ItemArr[idx].S.Name <> '' then begin
@@ -4681,9 +4683,9 @@ begin
       end else begin
          //ItemClickSound (MovingItem.Item.S.StdMode);
          mi := g_MovingItem.Index;
-         if (mi = -97) or (mi = -98) then exit; //µ·...
-         if (mi < 0) and (mi >= -13 {-9}) then begin  //-99: SellÃ¢¿¡¼­ °¡¹æÀ¸·Î
-            //»óÅÂÃ¢¿¡¼­ °¡¹æÀ¸·Î
+         if (mi = -97) or (mi = -98) then exit; //ï¿½ï¿½...
+         if (mi < 0) and (mi >= -13 {-9}) then begin  //-99: SellÃ¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             g_WaitingUseItem := g_MovingItem;
             FrmMain.SendTakeOffItem (-(g_MovingItem.Index+1), g_MovingItem.Item.MakeIndex, g_MovingItem.Item.S.Name);
             g_MovingItem.Item.S.name := '';
@@ -4719,12 +4721,12 @@ begin
          FillChar(keyvalue, sizeof(TKeyboardState), #0);
          GetKeyboardState (keyvalue);
          if keyvalue[VK_CONTROL] = $80 then begin
-            //º§Æ®Ã¢À¸·Î ¿Å±è
+            //ï¿½ï¿½Æ®Ã¢ï¿½ï¿½ï¿½ ï¿½Å±ï¿½
             cu := g_ItemArr[idx];
             g_ItemArr[idx].S.Name := '';
             AddItemBag (cu);
          end else
-            if (g_ItemArr[idx].S.StdMode <= 4) or (g_ItemArr[idx].S.StdMode = 31) then begin //ÊýÁ¿ÇÒ ¼ö ÀÖ´Â ¾ÆÀÌÅÛ
+            if (g_ItemArr[idx].S.StdMode <= 4) or (g_ItemArr[idx].S.StdMode = 31) then begin //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                FrmMain.EatItem (idx);
             end;
       end else begin
@@ -4732,7 +4734,7 @@ begin
             FillChar(keyvalue, sizeof(TKeyboardState), #0);
             GetKeyboardState (keyvalue);
             if keyvalue[VK_CONTROL] = $80 then begin
-               //º§Æ®Ã¢À¸·Î ¿Å±è
+               //ï¿½ï¿½Æ®Ã¢ï¿½ï¿½ï¿½ ï¿½Å±ï¿½
                cu := g_MovingItem.Item;
                g_MovingItem.Item.S.Name := '';
                g_boItemMoving := FALSE;
@@ -4775,14 +4777,14 @@ begin
       if g_MySelf.m_nGold > 0 then begin
          PlaySound (s_money);
          g_boItemMoving := TRUE;
-         g_MovingItem.Index := -98; //µ·
-         g_MovingItem.Item.S.Name := g_sGoldName{'½ð±Ò'};
+         g_MovingItem.Index := -98; //ï¿½ï¿½
+         g_MovingItem.Item.S.Name := g_sGoldName{'ï¿½ï¿½ï¿½ï¿½'};
       end;
    end else begin
-      if (g_MovingItem.Index = -97) or (g_MovingItem.Index = -98) then begin //µ·¸¸..
+      if (g_MovingItem.Index = -97) or (g_MovingItem.Index = -98) then begin //ï¿½ï¿½ï¿½ï¿½..
          g_boItemMoving := FALSE;
          g_MovingItem.Item.S.Name := '';
-         if g_MovingItem.Index = -97 then begin //±³È¯Ã¢¿¡¼­ ¿Å
+         if g_MovingItem.Index = -97 then begin //ï¿½ï¿½È¯Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
             DealZeroGold;
          end;
       end;
@@ -4797,7 +4799,7 @@ end;
 
 {------------------------------------------------------------------------}
 
-//»óÀÎ ´ëÈ­ Ã¢
+//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ Ã¢
 
 {------------------------------------------------------------------------}
 
@@ -4806,13 +4808,13 @@ procedure TFrmDlg.ShowMDlg (face: integer; mname, msgstr: string);
 var
    i: integer;
 begin
-   DMerchantDlg.Left := 0;  //±âº» À§Ä¡
+   DMerchantDlg.Left := 0;  //ï¿½âº» ï¿½Ä¡
    DMerchantDlg.Top := 0;
    MerchantFace := face;
    MerchantName := mname;
    MDlgStr := msgstr;
    DMerchantDlg.Visible := TRUE;
-   DItemBag.Left := 475;  //°¡¹æÀ§Ä¡ º¯°æ
+   DItemBag.Left := 475;  //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
    DItemBag.Top := 0;
    for i:=0 to MDlgPoints.Count-1 do
       Dispose (pTClickPoint (MDlgPoints[i]));
@@ -4827,7 +4829,7 @@ var
    i: integer;
 begin
    CloseDSellDlg;
-   for i:=0 to g_MenuItemList.Count-1 do  //¼¼ºÎ ¸Þ´ºµµ Å¬¸®¾î ÇÔ.
+   for i:=0 to g_MenuItemList.Count-1 do  //ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
       Dispose(PTClientItem(g_MenuItemList[i]));
    g_MenuItemList.Clear;
 
@@ -4850,7 +4852,7 @@ procedure TFrmDlg.ShowShopMenuDlg;
 begin
    MenuIndex := -1;
 
-   DMerchantDlg.Left := 0;  //±âº» À§Ä¡
+   DMerchantDlg.Left := 0;  //ï¿½âº» ï¿½Ä¡
    DMerchantDlg.Top := 0;
    DMerchantDlg.Visible := TRUE;
 
@@ -4893,7 +4895,7 @@ begin
    for i:=0 to MDlgPoints.Count-1 do
       Dispose (PTClickPoint (MDlgPoints[i]));
    MDlgPoints.Clear;
-   //¸Þ´ºÃ¢µµ ´ÝÀ½
+   //ï¿½Þ´ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½
    DItemBag.Left := 0;
    DItemBag.Top := 0;
    DMenuDlg.Visible := FALSE;
@@ -4909,7 +4911,7 @@ begin
 end;
 
 
-//»óÀÎ ´ëÈ­Ã¢
+//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­Ã¢
 
 procedure TFrmDlg.DMerchantDlgDirectPaint(Sender: TObject;
   dsurface: TDirectDrawSurface);
@@ -4951,7 +4953,7 @@ begin
                      drawcenter := FALSE;
                      continue;
                   end;
-                  cmdparam := GetValidStr3 (cmdstr, cmdstr, ['/']); //cmdparam : Å¬¸¯ µÇ¾úÀ» ¶§ ¾²ÀÓ
+                  cmdparam := GetValidStr3 (cmdstr, cmdstr, ['/']); //cmdparam : Å¬ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                end else begin
                   DMenuDlg.Visible := FALSE;
                   DSellDlg.Visible := FALSE;
@@ -5025,7 +5027,7 @@ begin
          TextOut (SX(245), SY(11), 'Dura.');
          lh := LISTLINEHEIGHT;
          menuline := _MIN(MAXMENU, MenuList.Count-MenuTop);
-         //»óÇ° ¸®½ºÆ®
+         //ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½Æ®
          for i:=MenuTop to MenuTop+menuline-1 do begin
             m := i-MenuTop;
             if i = MenuIndex then begin
@@ -5036,7 +5038,7 @@ begin
             TextOut (SX(19),  SY(32 + m*lh), pg.Name);
             if pg.SubMenu >= 1 then
                TextOut (SX(137), SY(32 + m*lh), #31);
-            TextOut (SX(156), SY(32 + m*lh), IntToStr(pg.Price) + ' ' + g_sGoldName{½ð±Ò'});
+            TextOut (SX(156), SY(32 + m*lh), IntToStr(pg.Price) + ' ' + g_sGoldName{ï¿½ï¿½ï¿½ï¿½'});
             str := '';
             if pg.Grade = -1 then str := '-'
             else TextOut (SX(245), SY(32 + m*lh), IntToStr(pg.Grade));
@@ -5054,7 +5056,7 @@ begin
          TextOut (SX(245), SY(11), '');
          lh := LISTLINEHEIGHT;
          menuline := _MIN(MAXMENU, MenuList.Count-MenuTop);
-         //»óÇ° ¸®½ºÆ®
+         //ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½Æ®
          for i:=MenuTop to MenuTop+menuline-1 do begin
             m := i-MenuTop;
             if i = MenuIndex then begin
@@ -5137,7 +5139,7 @@ procedure TFrmDlg.DMenuBuyClick(Sender: TObject; X, Y: Integer);
 var
    pg: PTClientGoods;
 begin
-   if GetTickCount < LastestClickTime then exit; //Å¬¸¯À» ÀÚÁÖ ¸øÇÏ°Ô Á¦ÇÑ
+   if GetTickCount < LastestClickTime then exit; //Å¬ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½
    if (MenuIndex >= 0) and (MenuIndex < MenuList.Count) then begin
       pg := PTClientGoods (MenuList[MenuIndex]);
       LastestClickTime := GetTickCount + 5000;
@@ -5206,7 +5208,7 @@ var
 begin
    for i:=0 to MenuList.Count-1 do begin
       pg := PTClientGoods (MenuList[i]);
-      if (pg.Price = itemserverindex) then begin //º¸°ü¸ñ·ÏÀÎ°æ¿î Price = ItemServerIndexÀÓ.
+      if (pg.Price = itemserverindex) then begin //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ Price = ItemServerIndexï¿½ï¿½.
          Dispose (pg);
          MenuList.Delete (i);
          if i < g_SaveItemList.Count then g_SaveItemList.Delete (i);
@@ -5226,7 +5228,7 @@ var
    i, L, T: integer;
    p: PTClickPoint;
 begin
-   if GetTickCount < LastestClickTime then exit; //Å¬¸¯À» ÀÚÁÖ ¸øÇÏ°Ô Á¦ÇÑ
+   if GetTickCount < LastestClickTime then exit; //Å¬ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½
    L := DMerchantDlg.Left;
    T := DMerchantDlg.Top;
    with DMerchantDlg do
@@ -5236,7 +5238,7 @@ begin
             (Y >= SurfaceY(T + p.rc.Top)) and (Y <= SurfaceY(T + p.rc.Bottom)) then begin
             PlaySound (s_glass_button_click);
             FrmMain.SendMerchantDlgSelect (g_nCurMerchant, p.RStr);
-            LastestClickTime := GetTickCount + 5000; //5ÃÊÈÄ¿¡ ÊýÁ¿ °¡´É
+            LastestClickTime := GetTickCount + 5000; //5ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             break;
          end;
       end;
@@ -5248,7 +5250,7 @@ var
    i, L, T: integer;
    p: PTClickPoint;
 begin
-   if GetTickCount < LastestClickTime then exit; //Å¬¸¯À» ÀÚÁÖ ¸øÇÏ°Ô Á¦ÇÑ
+   if GetTickCount < LastestClickTime then exit; //Å¬ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½
    SelectMenuStr := '';
    L := DMerchantDlg.Left;
    T := DMerchantDlg.Top;
@@ -5309,18 +5311,18 @@ begin
       if g_SellDlgItem.S.Name <> '' then begin
          ItemClickSound (g_SellDlgItem.S);
          g_boItemMoving := TRUE;
-         g_MovingItem.Index := -99; //sell Ã¢¿¡¼­ ³ª¿È..
+         g_MovingItem.Index := -99; //sell Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
          g_MovingItem.Item := g_SellDlgItem;
          g_SellDlgItem.S.Name := '';
       end;
    end else begin
       if (g_MovingItem.Index = -97) or (g_MovingItem.Index = -98) then exit;
-      if (g_MovingItem.Index >= 0) or (g_MovingItem.Index = -99) then begin //°¡¹æ,º§Æ®¿¡¼­ ¿Â°Í¸¸
+      if (g_MovingItem.Index >= 0) or (g_MovingItem.Index = -99) then begin //ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Â°Í¸ï¿½
          ItemClickSound (g_MovingItem.Item.S);
-         if g_SellDlgItem.S.Name <> '' then begin //ÀÚ¸®¿¡ ÀÖÀ¸¸é
+         if g_SellDlgItem.S.Name <> '' then begin //ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
             temp := g_SellDlgItem;
             g_SellDlgItem := g_MovingItem.Item;
-            g_MovingItem.Index := -99; //sell Ã¢¿¡¼­ ³ª¿È..
+            g_MovingItem.Index := -99; //sell Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
             g_MovingItem.Item := temp
          end else begin
             g_SellDlgItem := g_MovingItem.Item;
@@ -5359,7 +5361,7 @@ end;
 procedure TFrmDlg.DSellDlgOkClick(Sender: TObject; X, Y: Integer);
 begin
    if (g_SellDlgItem.S.Name = '') and (g_SellDlgItemSellWait.S.Name = '') then exit;
-   if GetTickCount < LastestClickTime then exit; //Å¬¸¯À» ÀÚÁÖ ¸øÇÏ°Ô Á¦ÇÑ
+   if GetTickCount < LastestClickTime then exit; //Å¬ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½
    case SpotDlgMode of
       dmSell: FrmMain.SendSellItem (g_nCurMerchant, g_SellDlgItem.MakeIndex, g_SellDlgItem.S.Name);
       dmRepair: FrmMain.SendRepairItem (g_nCurMerchant, g_SellDlgItem.MakeIndex, g_SellDlgItem.S.Name);
@@ -5377,7 +5379,7 @@ end;
 
 {------------------------------------------------------------------------}
 
-//Ä§·¨ Å° ¼³Á¤ Ã¢ (´ÙÀÌ¾ó ·Î±×)
+//Ä§ï¿½ï¿½ Å° ï¿½ï¿½ï¿½ Ã¢ (ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½Î±ï¿½)
 
 {------------------------------------------------------------------------}
 
@@ -5509,7 +5511,7 @@ end;
 
 {------------------------------------------------------------------------}
 
-//±âº»Ã¢ÀÇ ¹Ì´Ï ¹öÆ°
+//ï¿½âº»Ã¢ï¿½ï¿½ ï¿½Ì´ï¿½ ï¿½ï¿½Æ°
 
 {------------------------------------------------------------------------}
 
@@ -5557,7 +5559,7 @@ end;
 
 {------------------------------------------------------------------------}
 
-//±×·ì ´ÙÀÌ¾ó·Î±×
+//ï¿½×·ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½Î±ï¿½
 
 {------------------------------------------------------------------------}
 
@@ -5623,7 +5625,7 @@ procedure TFrmDlg.DGrpAllowGroupClick(Sender: TObject; X, Y: Integer);
 begin
    if GetTickCount > g_dwChangeGroupModeTick then begin
       g_boAllowGroup := not g_boAllowGroup;
-      g_dwChangeGroupModeTick := GetTickCount + 5000; //timeout 5ÃÊ
+      g_dwChangeGroupModeTick := GetTickCount + 5000; //timeout 5ï¿½ï¿½
       FrmMain.SendGroupMode (g_boAllowGroup);
    end;
 end;
@@ -5637,7 +5639,7 @@ begin
       DMessageDlg ('Type the Group name you want to create.', [mbOk, mbAbort]);
       who := Trim (DlgEditText);
       if who <> '' then begin
-         g_dwChangeGroupModeTick := GetTickCount + 5000; //timeout 5ÃÊ
+         g_dwChangeGroupModeTick := GetTickCount + 5000; //timeout 5ï¿½ï¿½
          FrmMain.SendCreateGroup (Trim (DlgEditText));
       end;
    end;
@@ -5652,7 +5654,7 @@ begin
       DMessageDlg ('Type the name you want to join Group.', [mbOk, mbAbort]);
       who := Trim (DlgEditText);
       if who <> '' then begin
-         g_dwChangeGroupModeTick := GetTickCount + 5000; //timeout 5ÃÊ
+         g_dwChangeGroupModeTick := GetTickCount + 5000; //timeout 5ï¿½ï¿½
          FrmMain.SendAddGroupMember (Trim (DlgEditText));
       end;
    end;
@@ -5667,7 +5669,7 @@ begin
       DMessageDlg ('Type the name you want to be deleted from Group.', [mbOk, mbAbort]);
       who := Trim (DlgEditText);
       if who <> '' then begin
-         g_dwChangeGroupModeTick := GetTickCount + 5000; //timeout 5ÃÊ
+         g_dwChangeGroupModeTick := GetTickCount + 5000; //timeout 5ï¿½ï¿½
          FrmMain.SendDelGroupMember (Trim (DlgEditText));
       end;
    end;
@@ -5713,7 +5715,7 @@ end;
 
 {------------------------------------------------------------------------}
 
-//±³È¯ ´ÙÀÌ¾ó·Î±×
+//ï¿½ï¿½È¯ ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½Î±ï¿½
 
 {------------------------------------------------------------------------}
 
@@ -5738,7 +5740,7 @@ begin
    g_nDealRemoteGold := 0;
    g_boDealEnd := FALSE;
 
-   //¾ÆÀÌÅÛ °¡¹æ¿¡ ÀÜ»óÀÌ ÀÖ´ÂÁö °Ë»ç
+   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½æ¿¡ ï¿½Ü»ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
    ArrangeItembag;
 end;
 
@@ -5747,7 +5749,7 @@ begin
    DDealDlg.Visible := FALSE;
    DDealRemoteDlg.Visible := FALSE;
 
-   //¾ÆÀÌÅÛ °¡¹æ¿¡ ÀÜ»óÀÌ ÀÖ´ÂÁö °Ë»ç
+   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½æ¿¡ ï¿½Ü»ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
    ArrangeItembag;
 end;
 
@@ -5760,10 +5762,10 @@ begin
       FrmMain.SendDealEnd;
       g_dwDealActionTick := GetTickCount + 4000;
       g_boDealEnd := TRUE;
-      //µô Ã¢¿¡¼­ ¸¶¿ì½º·Î ²ø°í ÀÖ´Â °ÍÀ» µôÃ¢À¸·Î ³Ö´Â´Ù. ¸¶¿ì½º¿¡ ³²´Â ÀÜ»ó(º¹»ç)À» ¾ø¾Ø´Ù.
+      //ï¿½ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½. ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ü»ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
       if g_boItemMoving then begin
          mi := g_MovingItem.Index;
-         if (mi <= -20) and (mi > -30) then begin //µô Ã¢¿¡¼­ ¿Â°Í¸¸
+         if (mi <= -20) and (mi > -30) then begin //ï¿½ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½Â°Í¸ï¿½
             AddDealItem (g_MovingItem.Item);
             g_boItemMoving := FALSE;
             g_MovingItem.Item.S.name := '';
@@ -5846,11 +5848,11 @@ begin
             end;
       end else begin
          mi := g_MovingItem.Index;
-         if (mi >= 0) or (mi <= -20) and (mi > -30) then begin //°¡¹æ,¿¡¼­ ¿Â°Í¸¸
+         if (mi >= 0) or (mi <= -20) and (mi > -30) then begin //ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½Â°Í¸ï¿½
             ItemClickSound (g_MovingItem.Item.S);
             g_boItemMoving := FALSE;
             if mi >= 0 then begin
-               g_DealDlgItem := g_MovingItem.Item; //¼­¹ö¿¡ °á°ú¸¦ ±â´Ù¸®´Âµ¿¾È º¸°ü
+               g_DealDlgItem := g_MovingItem.Item; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ï¿½Âµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                FrmMain.SendAddDealItem (g_DealDlgItem);
                g_dwDealActionTick := GetTickCount + 4000;
             end else
@@ -5944,14 +5946,14 @@ begin
          if g_nDealGold > 0 then begin
             PlaySound (s_money);
             g_boItemMoving := TRUE;
-            g_MovingItem.Index := -97; //±³È¯ Ã¢¿¡¼­ÀÇ µ·
-            g_MovingItem.Item.S.Name := g_sGoldName{'½ð±Ò'};
+            g_MovingItem.Index := -97; //ï¿½ï¿½È¯ Ã¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+            g_MovingItem.Item.S.Name := g_sGoldName{'ï¿½ï¿½ï¿½ï¿½'};
          end;
       end else begin
-         if (g_MovingItem.Index = -97) or (g_MovingItem.Index = -98) then begin //µ·¸¸..
-            if (g_MovingItem.Index = -98) then begin //°¡¹æÃ¢¿¡¼­ ¿Â µ·
-               if g_MovingItem.Item.S.Name = g_sGoldName{'½ð±Ò'} then begin
-                  //¾ó¸¶¸¦ ¹ö¸± °ÇÁö ¹°¾îº»´Ù.
+         if (g_MovingItem.Index = -97) or (g_MovingItem.Index = -98) then begin //ï¿½ï¿½ï¿½ï¿½..
+            if (g_MovingItem.Index = -98) then begin //ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½
+               if g_MovingItem.Item.S.Name = g_sGoldName{'ï¿½ï¿½ï¿½ï¿½'} then begin
+                  //ï¿½ó¸¶¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½îº»ï¿½ï¿½.
                   DialogSize := 1;
                   g_boItemMoving := FALSE;
                   g_MovingItem.Item.S.Name := '';
@@ -6422,10 +6424,10 @@ begin
 
       if DMsgDlg.DialogResult = mrOk then begin
          //GuildMembers.Assign (Memo.Lines);
-         //°á°ú... ¹®ÆÄµî±ÞÀ» ¾÷µ¥ÀÌÆ® ÇÑ´Ù.
+         //ï¿½ï¿½ï¿½ï¿½... ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ñ´ï¿½.
          data := '';
          for i:=0 to Memo.Lines.Count-1 do begin
-            data := data + Memo.Lines[i] + #13;  //¼­¹ö¿¡¼­ ÆÄ½ÌÇÔ.
+            data := data + Memo.Lines[i] + #13;  //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä½ï¿½ï¿½ï¿½.
          end;
          if Length(data) > 5000 then begin
             data := Copy (data, 1, 5000);
@@ -6668,7 +6670,7 @@ begin
       TextOut (l, m+14*3, 'It is better to choose very carefully.');
 
       Font.Color := clWhite;
-      //ÇöÀçÀÇ ´É·ÂÄ¡
+      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡
       l := DAdjustAbility.SurfaceX(DAdjustAbility.Left) + 100; //66;
       m := DAdjustAbility.SurfaceY(DAdjustAbility.Top) + 101;
 
@@ -6841,7 +6843,7 @@ begin
       ly := LocalY (Y - Top);
       flag := FALSE;
       if (lx >= 50) and (lx < 150) then
-         for i:=0 to 8 do begin  //DC,MC,SC..ÀÇ ÈùÆ®°¡ ³ª¿À°Ô ÇÑ´Ù.
+         for i:=0 to 8 do begin  //DC,MC,SC..ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
             if (ly >= 98 + i*20) and (ly < 98 + (i+1)*20) then begin
                DScreen.ShowHint (SurfaceX(Left) + lx + 10,
                                  SurfaceY(Top) + ly + 5,
