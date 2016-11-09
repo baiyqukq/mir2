@@ -3106,6 +3106,7 @@ begin
 				d := g_WMainImages.Images[112]; //lv
 				if d <> nil then
 					dsurface.Draw (bbx + 48, bby+8+15+m*37, d.ClientRect, d, TRUE);
+
 				d := g_WMainImages.Images[111]; //exp
 				if d <> nil then
 					dsurface.Draw (bbx + 48 + 26, bby+8+15+m*37, d.ClientRect, d, TRUE);
@@ -3118,8 +3119,12 @@ begin
 				for i:=magtop to magline-1 do begin
 					pm := PTClientMagic (g_MagicList[i]);
 					m := i - magtop;
-					if not (pm.Level in [0..3]) then pm.Level := 0;
+
+					if not (pm.Level in [0..3]) then 
+						pm.Level := 0;
+					
 					TextOut (bbx + 48, bby + 8 + m*37, pm.Def.sMagicName);
+
 					if pm.Level in [0..3] then 
 						trainlv := pm.Level
 					else 
@@ -4544,40 +4549,47 @@ end;
 
 
 procedure TFrmDlg.DItemBagDirectPaint(Sender: TObject;
-  dsurface: TDirectDrawSurface);
+	dsurface: TDirectDrawSurface);
 var
-   d0, d1, d2, d3: string;
-   n: integer;
-   useable: Boolean;
-   d: TDirectDrawSurface;
+	d0, d1, d2, d3: string;
+	n: integer;
+	useable: Boolean;
+	d: TDirectDrawSurface;
 begin
-   if g_MySelf = nil then exit;
-   with DItemBag do begin
-      d := WLib.Images[FaceIndex];
-      if d <> nil then
-         dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
+	if g_MySelf = nil then exit;
 
-      GetMouseItemInfo (d0, d1, d2, d3, useable);
-      with dsurface.Canvas do begin
-         SetBkMode (Handle, TRANSPARENT);
-         Font.Color := clWhite;
-         TextOut (SurfaceX(Left+64), SurfaceY(Top+185), GetGoldStr(g_MySelf.m_nGold));
-         //TextOut (SurfaceX(Left+71), SurfaceY(Top+212), GetGoldStr(g_MySelf.m_nGold));
-         // ¢¥ÛŒÔ∆∑¿∏
-         if d0 <> '' then begin
-            n := TextWidth (d0);
-            Font.Color := clYellow;
-            TextOut (SurfaceX(Left+70{70}), SurfaceY(Top+215{215}), d0);
-            Font.Color := clWhite;
-            TextOut (SurfaceX(Left+70{70}) + n, SurfaceY(Top+215{215}), d1);
-            TextOut (SurfaceX(Left+70{70}), SurfaceY(Top+215{215}+14), d2);
-            if not useable then
-               Font.Color := clRed;
-            TextOut (SurfaceX(Left+70{70}), SurfaceY(Top+215{215}+14*2), d3);
-         end;
-         Release;
-      end;
-   end;
+	with DItemBag do begin
+		d := WLib.Images[FaceIndex];
+
+		if d <> nil then
+			dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
+
+		GetMouseItemInfo (d0, d1, d2, d3, useable);
+
+		with dsurface.Canvas do begin
+			SetBkMode (Handle, TRANSPARENT);
+
+			// Gold
+			Font.Color := clWhite;
+			TextOut (SurfaceX(Left+64), SurfaceY(Top+185), GetGoldStr(g_MySelf.m_nGold));
+			//TextOut (SurfaceX(Left+71), SurfaceY(Top+212), GetGoldStr(g_MySelf.m_nGold));
+
+			// Item bag info bar
+			if d0 <> '' then begin
+				n := TextWidth (d0);
+				Font.Color := clYellow;
+				TextOut (SurfaceX(Left+70{70}), SurfaceY(Top+215{215}), d0);
+				Font.Color := clWhite;
+				TextOut (SurfaceX(Left+70{70}) + n, SurfaceY(Top+215{215}), d1);
+				TextOut (SurfaceX(Left+70{70}), SurfaceY(Top+215{215}+14), d2);
+
+				if not useable then Font.Color := clRed;
+
+				TextOut (SurfaceX(Left+70{70}), SurfaceY(Top+215{215}+14*2), d3);
+			end;
+			Release;
+		end;
+	end;
 end;
 
 procedure TFrmDlg.DRepairItemInRealArea(Sender: TObject; X, Y: Integer;
