@@ -39,37 +39,37 @@ type
 const
 	MAXDEFCOLOR			= 16;
 	ColorNames: array [1..MAXDEFCOLOR] of TyNameTable = (
-   	(Name: 'BLACK'; 		varl: clBlack),
-      (Name: 'BROWN';		varl: clMaroon),
-      (Name: 'MARGENTA';	varl: clFuchsia),
-      (Name: 'GREEN';		varl: clGreen),
-      (Name: 'LTGREEN';		varl: clOlive),
-      (Name: 'BLUE';			varl: clNavy),
-      (Name: 'LTBLUE';		varl: clBlue),
-      (Name: 'PURPLE';		varl: clPurple),
-      (Name: 'CYAN';			varl: clTeal),
-      (Name: 'LTCYAN';		varl: clAqua),
-      (Name: 'GRAY';			varl: clGray),
-      (Name: 'LTGRAY';		varl: clsilver),
-      (Name: 'YELLOW';		varl: clYellow),
-      (Name: 'LIME';			varl: clLime),
-      (Name: 'WHITE';		varl: clWhite),
-      (Name: 'RED';			varl: clRed)
-   );
+		(Name: 'BLACK'; 		varl: clBlack),
+		(Name: 'BROWN';			varl: clMaroon),
+		(Name: 'MARGENTA';		varl: clFuchsia),
+		(Name: 'GREEN';			varl: clGreen),
+		(Name: 'LTGREEN';		varl: clOlive),
+		(Name: 'BLUE';			varl: clNavy),
+		(Name: 'LTBLUE';		varl: clBlue),
+		(Name: 'PURPLE';		varl: clPurple),
+		(Name: 'CYAN';			varl: clTeal),
+		(Name: 'LTCYAN';		varl: clAqua),
+		(Name: 'GRAY';			varl: clGray),
+		(Name: 'LTGRAY';		varl: clsilver),
+		(Name: 'YELLOW';		varl: clYellow),
+		(Name: 'LIME';			varl: clLime),
+		(Name: 'WHITE';			varl: clWhite),
+		(Name: 'RED';			varl: clRed)
+	);
 
-   MAXLISTMARKER    = 3;
-   LiMarkerNames: array [1..MAXLISTMARKER] of TyNameTable = (
-   	(Name: 'DISC';			varl: 0),
-      (Name: 'CIRCLE';		varl: 1),
-      (Name: 'SQUARE';		varl: 2)
-   );
+	MAXLISTMARKER    = 3;
+	LiMarkerNames: array [1..MAXLISTMARKER] of TyNameTable = (
+		(Name: 'DISC';			varl: 0),
+		(Name: 'CIRCLE';		varl: 1),
+		(Name: 'SQUARE';		varl: 2)
+	);
 
-   MAXPREDEFINE    = 3;
-   PreDefineNames: array [1..MAXPREDEFINE] of TyNameTable = (
-   	(Name: 'LEFT';			varl: 0),
-      (Name: 'RIGHT';		varl: 1),
-      (Name: 'CENTER';		varl: 2)
-   );
+	MAXPREDEFINE    = 3;
+	PreDefineNames: array [1..MAXPREDEFINE] of TyNameTable = (
+		(Name: 'LEFT';			varl: 0),
+		(Name: 'RIGHT';			varl: 1),
+		(Name: 'CENTER';		varl: 2)
+	);
 
 
 
@@ -80,7 +80,7 @@ function CountGarbage (paper: TCanvas; Src: PChar; TargWidth: Longint): integer;
       RsltStr = captured string
 }
 function  ArrestString (Source, SearchAfter, ArrestBefore: string;
-					  const DropTags: array of string; var RsltStr: string): string;
+	const DropTags: array of string; var RsltStr: string): string;
 {*}
 function  ArrestStringEx (Source, SearchAfter, ArrestBefore: string; var ArrestStr: string): string;
 function  CaptureString (source: string; var rdstr: string): string;
@@ -249,11 +249,9 @@ function CountGarbage (paper: TCanvas; Src: PChar; TargWidth: Longint): integer;
 var
 	gab, destWidth: integer;
 begin
-
-   gab := CountUglyWhiteChar (Src);
-   destWidth := paper.TextWidth(StrPas (Src)) - gab;
-   Result := TargWidth - DestWidth + (gab * paper.TextWidth(' '));
-
+	gab := CountUglyWhiteChar (Src);
+	destWidth := paper.TextWidth(StrPas (Src)) - gab;
+	Result := TargWidth - DestWidth + (gab * paper.TextWidth(' '));
 end;
 
 
@@ -263,19 +261,19 @@ var
 begin
 	SpaceCount := 0;
 	Len := Length (Str);
-   for Cnt := 1 to Len do
-     	if Str[Cnt] = ' ' then SpaceCount := SpaceCount + 1;
-   Result := SpaceCount;
+	for Cnt := 1 to Len do
+		if Str[Cnt] = ' ' then SpaceCount := SpaceCount + 1;
+	Result := SpaceCount;
 end;
 
 function  RemoveSpace (str: string): string;
 var
-   i: integer;
+	i: integer;
 begin
-   Result := '';
-   for i:=1 to Length(str) do
-      if str[i] <> ' ' then
-         Result := Result + str[i];
+	Result := '';
+	for i:=1 to Length(str) do
+		if str[i] <> ' ' then
+	Result := Result + str[i];
 end;
 
 function KillFirstSpace (var Str: string): Longint;
@@ -1701,28 +1699,26 @@ end;
 function DuplicateBitmap (bitmap: TBitmap): HBitmap;
 var
 	hbmpOldSrc, hbmpOldDest, hbmpNew : HBitmap;
-   hdcSrc, hdcDest						: HDC;
-
+	hdcSrc, hdcDest						: HDC;
 begin
-   hdcSrc := CreateCompatibleDC (0);
-   hdcDest := CreateCompatibleDC (hdcSrc);
+	hdcSrc := CreateCompatibleDC (0);
+	hdcDest := CreateCompatibleDC (hdcSrc);
 
-   hbmpOldSrc := SelectObject(hdcSrc, bitmap.Handle);
+	hbmpOldSrc := SelectObject(hdcSrc, bitmap.Handle);
 
-   hbmpNew := CreateCompatibleBitmap(hdcSrc, bitmap.Width, bitmap.Height);
+	hbmpNew := CreateCompatibleBitmap(hdcSrc, bitmap.Width, bitmap.Height);
 
-   hbmpOldDest := SelectObject(hdcDest, hbmpNew);
+	hbmpOldDest := SelectObject(hdcDest, hbmpNew);
 
-   BitBlt(hdcDest, 0, 0, bitmap.Width, bitmap.Height, hdcSrc, 0, 0,
-     SRCCOPY);
+	BitBlt(hdcDest, 0, 0, bitmap.Width, bitmap.Height, hdcSrc, 0, 0, SRCCOPY);
 
-   SelectObject(hdcDest, hbmpOldDest);
-   SelectObject(hdcSrc, hbmpOldSrc);
+	SelectObject(hdcDest, hbmpOldDest);
+	SelectObject(hdcSrc, hbmpOldSrc);
 
-   DeleteDC(hdcDest);
-   DeleteDC(hdcSrc);
+	DeleteDC(hdcDest);
+	DeleteDC(hdcSrc);
 
-   Result := hbmpNew;
+	Result := hbmpNew;
 end;
 
 
@@ -1740,9 +1736,9 @@ begin
 
 	hbmCopy := DuplicateBitmap (bitmap);
 	hdcCopy := CreateCompatibleDC (DC);
-   hOld := SelectObject (hdcCopy, hbmCopy);
+	hOld := SelectObject (hdcCopy, hbmCopy);
 
-   hdcBackMask := CreateCompatibleDC (DC);
+	hdcBackMask := CreateCompatibleDC (DC);
 	hdcForeMask := CreateCompatibleDC (DC);
 	hdcMixBuffer:= CreateCompatibleDC (DC);
 
@@ -1750,7 +1746,7 @@ begin
 	hbmForeMask := CreateBitmap (bitmap.Width, bitmap.Height, 1, 1, nil);
 	hbmMixBuffer:= CreateCompatibleBitmap (DC, bitmap.Width, bitmap.Height);
 
-   SelectObject (hdcBackMask, hbmBackMask);
+	SelectObject (hdcBackMask, hbmBackMask);
 	SelectObject (hdcForeMask, hbmForeMask);
 	SelectObject (hdcMixBuffer, hbmMixBuffer);
 
@@ -1773,7 +1769,7 @@ begin
 	BitBlt( DC, X, Y, bitmap.Width, bitmap.Height, hdcMixBuffer, 0, 0, SRCCOPY );
 
    {DeleteObject (hbmCopy);}
-   DeleteObject( SelectObject( hdcCopy, hOld ) );
+	DeleteObject( SelectObject( hdcCopy, hOld ) );
 	DeleteObject( SelectObject( hdcForeMask, hOld ) );
 	DeleteObject( SelectObject( hdcBackMask, hOld ) );
 	DeleteObject( SelectObject( hdcMixBuffer, hOld ) );
@@ -1781,28 +1777,28 @@ begin
 	DeleteDC( hdcCopy );
 	DeleteDC( hdcForeMask );
 	DeleteDC( hdcBackMask );
-   DeleteDC( hdcMixBuffer );
+	DeleteDC( hdcMixBuffer );
 
 end;
 
 function TagCount(source: string; tag: char): integer;
 var
-   i, tcount: integer;
+	i, tcount: integer;
 begin
-   tcount := 0;
-   for i:=1 to Length(source) do
-      if source[i] = tag then Inc (tcount);
-   Result := tcount;
+	tcount := 0;
+	for i:=1 to Length(source) do
+		if source[i] = tag then Inc (tcount);
+	Result := tcount;
 end;
 
 { "xxxxxx" => xxxxxx }
 function TakeOffTag (src: string; tag: char; var rstr: string): string;
 var
-   i, n2: integer;
+	i, n2: integer;
 begin
-   n2 := Pos (tag, Copy (src, 2, Length(src)));
-   rstr := Copy (src, 2, n2-1);
-   Result := Copy (src, n2+2, length(src)-n2);
+	n2 := Pos (tag, Copy (src, 2, Length(src)));
+	rstr := Copy (src, 2, n2-1);
+	Result := Copy (src, n2+2, length(src)-n2);
 end;
 
 function CatchString (source: string; cap: char; var catched: string): string;
@@ -1917,49 +1913,62 @@ end;
 
 function NumCopy (str: string): integer;
 var
-   i: integer;
-   data: string;
+	i: integer;
+	data: string;
 begin
-   data := '';
-   for i:=1 to Length(str) do begin
-      if (Word('0') <= Word(str[i])) and (Word('9') >= Word(str[i])) then begin
-         data := data + str[i];
-      end else
-         break;
-   end;
-   Result := Str_ToInt (data, 0);
+	data := '';
+	for i:=1 to Length(str) do begin
+		if (Word('0') <= Word(str[i])) and (Word('9') >= Word(str[i])) then begin
+			data := data + str[i];
+		end else
+			break;
+	end;
+	Result := Str_ToInt (data, 0);
 end;
 
 function  GetMonDay: string;
 var
-   year, mon, day: word;
-   str: string;
+	year, mon, day: word;
+	str: string;
 begin
-   DecodeDate (Date, year, mon, day);
-   str := IntToStr(year);
-   if mon < 10 then str := str + '0' + IntToStr(mon)
-   else str := IntToStr(mon);
-   if day < 10 then str := str + '0' + IntToStr(day)
-   else str := IntToStr(day);
-   Result := str;
+	DecodeDate (Date, year, mon, day);
+	str := IntToStr(year);
+
+	if mon < 10 then 
+		str := str + '0' + IntToStr(mon)
+	else
+		str := IntToStr(mon);
+
+	if day < 10 then
+		str := str + '0' + IntToStr(day)
+	else
+		str := IntToStr(day);
+
+	Result := str;
 end;
 
 function  BoolToStr(boo: Boolean): string;
 begin
-   if boo then Result := 'TRUE'
-   else Result := 'FALSE';
+	if boo then 
+		Result := 'TRUE'
+	else
+		Result := 'FALSE';
 end;
 
 function _MIN (n1, n2: integer): integer;
 begin
-	if n1 < n2 then Result := n1
-   else Result := n2;
+	if n1 < n2 then 
+		Result := n1
+	else 
+		Result := n2;
 end;
 
 function _MAX (n1, n2: integer): integer;
 begin
-	if n1 > n2 then Result := n1
-   else Result := n2;
+	if n1 > n2 then 
+		Result := n1
+	else
+		Result := n2;
 end;
 
 
@@ -2013,86 +2022,90 @@ end;
 
 function BoolToCStr(b:Boolean):String;
 begin
-  if b then result:='ÊÇ' else result:='·ñ';
+	if b then result:='ÊÇ' else result:='·ñ';
 end;
 
 function BoolToIntStr(b:Boolean):string;
 begin
-  if b then result:='1' else result:='0';
+	if b then result:='1' else result:='0';
 end;
 
 
 function CalcFileCRC(FileName:String):Integer;
 var
-  I: Integer;
-  nFileHandle:Integer;
-  nFileSize,nBuffSize:Integer;
-  Buffer:PChar;
-  Int:^Integer;
-  nCrc:Integer;
+	I: Integer;
+	nFileHandle:Integer;
+	nFileSize,nBuffSize:Integer;
+	Buffer:PChar;
+	Int:^Integer;
+	nCrc:Integer;
 begin
-  Result:=0;
-  if not FileExists(FileName) then begin
-    exit;
-  end;
-  nFileHandle:=FileOpen(FileName,fmOpenRead or fmShareDenyNone);
-  if nFileHandle = 0 then exit;
-  nFileSize:=FileSeek(nFileHandle,0,2);
-  nBuffSize:=(nFileSize div 4) * 4;
-  GetMem(Buffer,nBuffSize);
-  FillChar(Buffer^,nBuffSize,0);
-  FileSeek(nFileHandle,0,0);
-  FileRead(nFileHandle,Buffer^,nBuffSize);
-  FileClose(nFileHandle);
-  Int:=Pointer(Buffer);
-  nCrc:=0;
-    Exception.Create(IntToStr(SizeOf(Integer)));  
-  for I := 0 to nBuffSize div 4 - 1 do begin
-    nCrc:=nCrc xor Int^;
-    Int:=Pointer(Integer(Int) + 4);
-  end;
-  FreeMem(Buffer);
-  Result:=nCrc;
+	Result:=0;
+	if not FileExists(FileName) then begin
+		exit;
+	end;
+	nFileHandle:=FileOpen(FileName,fmOpenRead or fmShareDenyNone);
+	if nFileHandle = 0 then exit;
+	nFileSize:=FileSeek(nFileHandle,0,2);
+	nBuffSize:=(nFileSize div 4) * 4;
+	GetMem(Buffer,nBuffSize);
+	FillChar(Buffer^,nBuffSize,0);
+	FileSeek(nFileHandle,0,0);
+	FileRead(nFileHandle,Buffer^,nBuffSize);
+	FileClose(nFileHandle);
+	Int:=Pointer(Buffer);
+	nCrc:=0;
+	Exception.Create(IntToStr(SizeOf(Integer)));  
+	for I := 0 to nBuffSize div 4 - 1 do begin
+		nCrc:=nCrc xor Int^;
+		Int:=Pointer(Integer(Int) + 4);
+	end;
+	FreeMem(Buffer);
+	Result:=nCrc;
 end;
 
 function CalcBufferCRC(Buffer:PChar;nSize:Integer):Integer;
 var
-  I:Integer;
-  Int:^Integer;
-  nCrc:Integer;
+	I:Integer;
+	Int:^Integer;
+	nCrc:Integer;
 begin
-  Int:=Pointer(Buffer);
-  nCrc:=0;
-  for I := 0 to nSize div 4 - 1 do begin
-    nCrc:=nCrc xor Int^;
-    Int:=Pointer(Integer(Int) + 4);
-  end;
-  Result:=nCrc;
+	Int:=Pointer(Buffer);
+	nCrc:=0;
+	for I := 0 to nSize div 4 - 1 do begin
+		nCrc:=nCrc xor Int^;
+		Int:=Pointer(Integer(Int) + 4);
+	end;
+	Result:=nCrc;
 end;
 
 function GetDayCount(MaxDate,MinDate:TDateTime):Integer;
 var
-  YearMax, MonthMax, DayMax: Word;
-  YearMin, MonthMin, DayMin: Word;
+	YearMax, MonthMax, DayMax: Word;
+	YearMin, MonthMin, DayMin: Word;
 begin
-  Result:=0;
-  if MaxDate < MinDate then exit;
-  DecodeDate(MaxDate, YearMax, MonthMax, DayMax);
-  DecodeDate(MinDate, YearMin, MonthMin, DayMin);
-  Dec(YearMax,YearMin);
-  YearMin:=0;
-  Result:=(YearMax * 12 * 30 + MonthMax * 30 + DayMax) - (YearMin * 12 * 30 + MonthMin * 30 + DayMin);
+	Result:=0;
+
+	if MaxDate < MinDate then exit;
+
+	DecodeDate(MaxDate, YearMax, MonthMax, DayMax);
+	DecodeDate(MinDate, YearMin, MonthMin, DayMin);
+	Dec(YearMax,YearMin);
+	YearMin:=0;
+	Result:=(YearMax * 12 * 30 + MonthMax * 30 + DayMax) - (YearMin * 12 * 30 + MonthMin * 30 + DayMin);
 end;
 
 function GetCodeMsgSize(X: Double):Integer;
 begin
-  if INT(X) < X then Result:=TRUNC(X) + 1
-  else Result:=TRUNC(X)
+	if INT(X) < X then 
+		Result:=TRUNC(X) + 1
+	else 
+		Result:=TRUNC(X)
 end;
 
 function UpInt(i:double):integer;
 begin
-  result:=Ceil(i);
+	result:=Ceil(i);
 end;
 
 
