@@ -863,143 +863,178 @@ end;
 
 
 procedure TPlayScene.PlayScene (MSurface: TDirectDrawSurface);
-   function  CheckOverlappedObject (myrc, obrc: TRect): Boolean;
-   begin
-      if (obrc.Right > myrc.Left) and (obrc.Left < myrc.Right) and
-         (obrc.Bottom > myrc.Top) and (obrc.Top < myrc.Bottom) then
-         Result := TRUE
-      else Result := FALSE;
-   end;
-
+	function  CheckOverlappedObject (myrc, obrc: TRect): Boolean;
+	begin
+		if (obrc.Right > myrc.Left) and (obrc.Left < myrc.Right) and
+			(obrc.Bottom > myrc.Top) and (obrc.Top < myrc.Bottom) then
+			Result := TRUE
+		else
+			Result := FALSE;
+	end;
 var
-   i, j, k, n, m, mmm, ix, iy, line, defx, defy, wunit, fridx, ani, anitick, ax, ay, idx, drawingbottomline: integer;
-   DSurface, d: TDirectDrawSurface;
-   blend, movetick: Boolean;
-   //myrc, obrc: TRect;
-   DropItem: PTDropItem;
-   evn: TClEvent;
-   actor: TActor;
-   meff: TMagicEff;
-   msgstr: string;
-  ShowItem:pTShowItem;
-  nFColor,nBColor:Integer;
+	i, j, k, n, m, mmm, ix, iy, line, defx, defy, wunit, fridx, ani, anitick, ax, ay, idx, drawingbottomline: integer;
+	DSurface, d: TDirectDrawSurface;
+	blend, movetick: Boolean;
+	//myrc, obrc: TRect;
+	DropItem: PTDropItem;
+	evn: TClEvent;
+	actor: TActor;
+	meff: TMagicEff;
+	msgstr: string;
+	ShowItem:pTShowItem;
+	nFColor,nBColor:Integer;
 begin
-   drawingbottomline:=0;//jacky
-   if (g_MySelf = nil) then begin
-      msgstr := 'Please wait just for a little while.';
-      with MSurface.Canvas do begin
-         SetBkMode (Handle, TRANSPARENT);
-         BoldTextOut (MSurface, (SCREENWIDTH-TextWidth(msgstr)) div 2, (SCREENHEIGHT - 600) +200,
-                      clWhite, clBlack, msgstr);
-         Release;
-      end;
-      exit;
-   end;
+	drawingbottomline:=0;//jacky
+	
+	if (g_MySelf = nil) then begin
+		msgstr := 'Please wait just for a little while.';
 
-   g_boDoFastFadeOut := FALSE;
+		with MSurface.Canvas do begin
+			SetBkMode (Handle, TRANSPARENT);
+			BoldTextOut (MSurface, (SCREENWIDTH-TextWidth(msgstr)) div 2, (SCREENHEIGHT - 600) +200,
+				clWhite, clBlack, msgstr);
+			Release;
+		end;
 
-   //Ä³¸¯ÅÍ¿¡µé¿¡°Ô ¸Þ¼¼Áö¸¦ Àü´Þ
-   movetick := FALSE;
-   if GetTickCount - m_dwMoveTime >= 100 then begin
-      m_dwMoveTime := GetTickCount;   //ÀÌµ¿ÀÇ µ¿±âÈ­
-      movetick := TRUE;          //ÀÌµ¿ Æ½
-      Inc (m_nMoveStepCount);
-      if m_nMoveStepCount > 1 then m_nMoveStepCount := 0;
-   end;
-   if GetTickCount - m_dwAniTime >= 50 then begin
-      m_dwAniTime := GetTickCount;
-      Inc (m_nAniCount);
-      if m_nAniCount > 100000 then m_nAniCount := 0;
-   end;
+		exit;
+	end;
 
-   try
-   i := 0;                          //¿©±â´Â ¸Þ¼¼Áö¸¸ Ã³¸®ÇÔ
-   while TRUE do begin              //Frame Ã³¸®´Â ¿©±â¼­ ¾ÈÇÔ.
-      if i >= m_ActorList.Count then break;
-      actor := m_ActorList[i];
-      if movetick then actor.m_boLockEndFrame := FALSE;
-      if not actor.m_boLockEndFrame then begin
-         actor.ProcMsg;   //¸Þ¼¼Áö Ã³¸®ÇÏ¸é¼­ actor°¡ Áö¿öÁú ¼ö ÀÖÀ½.
-         if movetick then
-            if actor.Move(m_nMoveStepCount) then begin  //µ¿±âÈ­ÇØ¼­ ¿òÁ÷ÀÓ
-               Inc (i);
-               continue;
-            end;
-         actor.Run;    //
-         if actor <> g_MySelf then actor.ProcHurryMsg;
-      end;
-      if actor = g_MySelf then actor.ProcHurryMsg;
-      //
-      if actor.m_nWaitForRecogId <> 0 then begin
-         if actor.IsIdle then begin
-            DelChangeFace (actor.m_nWaitForRecogId);
-            NewActor (actor.m_nWaitForRecogId, actor.m_nCurrX, actor.m_nCurrY, actor.m_btDir, actor.m_nWaitForFeature, actor.m_nWaitForStatus);
-            actor.m_nWaitForRecogId := 0;
-            actor.m_boDelActor := TRUE;
-         end;
-      end;
-      if actor.m_boDelActor then begin
-         //actor.Free;
-         g_FreeActorList.Add (actor);
-         m_ActorList.Delete (i);
-         if g_TargetCret = actor then g_TargetCret := nil;
-         if g_FocusCret = actor then g_FocusCret := nil;
-         if g_MagicTarget = actor then g_MagicTarget := nil;
-      end else
-         Inc (i);
-   end;
-   except
-      DebugOutStr ('101');
-   end;
+	g_boDoFastFadeOut := FALSE;
 
-   try
-   i := 0;
-   while TRUE do begin
-      if i >= m_GroundEffectList.Count then break;
-      meff := m_GroundEffectList[i];
-      if meff.m_boActive then begin
-         if not meff.Run then begin //¸¶¹ýÈ¿°ú
-            meff.Free;
-            m_GroundEffectList.Delete (i);
-            continue;
-         end;
-      end;
-      Inc (i);
-   end;
-   i := 0;
-   while TRUE do begin
-      if i >= m_EffectList.Count then break;
-      meff := m_EffectList[i];
-      if meff.m_boActive then begin
-         if not meff.Run then begin //¸¶¹ýÈ¿°ú
-            meff.Free;
-            m_EffectList.Delete (i);
-            continue;
-         end;
-      end;
-      Inc (i);
-   end;
-   i := 0;
-   while TRUE do begin
-      if i >= m_FlyList.Count then break;
-      meff := m_FlyList[i];
-      if meff.m_boActive then begin
-         if not meff.Run then begin //µµ³¢,È­»ìµî ³¯¾Æ°¡´Â°Í
-            meff.Free;
-            m_FlyList.Delete (i);
-            continue;
-         end;
-      end;
-      Inc (i);
-   end;
+	//Ä³¸¯ÅÍ¿¡µé¿¡°Ô ¸Þ¼¼Áö¸¦ Àü´Þ
+	movetick := FALSE;
+	if GetTickCount - m_dwMoveTime >= 100 then begin
+		m_dwMoveTime := GetTickCount;   //ÀÌµ¿ÀÇ µ¿±âÈ­
+		movetick := TRUE;          //ÀÌµ¿ Æ½
+		Inc (m_nMoveStepCount);
+		if m_nMoveStepCount > 1 then m_nMoveStepCount := 0;
+	end;
+
+	if GetTickCount - m_dwAniTime >= 50 then begin
+		m_dwAniTime := GetTickCount;
+		Inc (m_nAniCount);
+		if m_nAniCount > 100000 then m_nAniCount := 0;
+	end;
+
+	try
+		i := 0;                          //¿©±â´Â ¸Þ¼¼Áö¸¸ Ã³¸®ÇÔ
+
+										 //Do not process frame here
+		while TRUE do begin              //Frame Ã³¸®´Â ¿©±â¼­ ¾ÈÇÔ.
+			if i >= m_ActorList.Count then break;
+
+			actor := m_ActorList[i];
+
+			if movetick then actor.m_boLockEndFrame := FALSE;
+
+			if not actor.m_boLockEndFrame then begin
+				actor.ProcMsg;   //¸Þ¼¼Áö Ã³¸®ÇÏ¸é¼­ actor°¡ Áö¿öÁú ¼ö ÀÖÀ½.
+				if movetick then
+					if actor.Move(m_nMoveStepCount) then begin  //µ¿±âÈ­ÇØ¼­ ¿òÁ÷ÀÓ
+						Inc (i);
+						continue;
+					end;
+				actor.Run;    //
+				if actor <> g_MySelf then actor.ProcHurryMsg;
+			end;
+
+			if actor = g_MySelf then actor.ProcHurryMsg;
+
+			if actor.m_nWaitForRecogId <> 0 then begin
+				if actor.IsIdle then begin
+					DelChangeFace (actor.m_nWaitForRecogId);
+
+					NewActor (actor.m_nWaitForRecogId, 
+						actor.m_nCurrX, 
+						actor.m_nCurrY, 
+						actor.m_btDir, 
+						actor.m_nWaitForFeature, 
+						actor.m_nWaitForStatus);
+
+					actor.m_nWaitForRecogId := 0;
+					actor.m_boDelActor := TRUE;
+				end;
+			end;
+
+			if actor.m_boDelActor then begin
+				//actor.Free;
+				g_FreeActorList.Add (actor);
+				m_ActorList.Delete (i);
+
+				if g_TargetCret = actor then g_TargetCret := nil;
+
+				if g_FocusCret = actor then g_FocusCret := nil;
+
+				if g_MagicTarget = actor then g_MagicTarget := nil;
+			end else Inc (i);
+
+		end;
+	except
+		DebugOutStr ('101');
+	end;
+
+	try
+		i := 0;
+
+		while TRUE do begin
+			if i >= m_GroundEffectList.Count then break;
+
+			meff := m_GroundEffectList[i];
+
+			if meff.m_boActive then begin
+				if not meff.Run then begin //¸¶¹ýÈ¿°ú
+					meff.Free;
+					m_GroundEffectList.Delete (i);
+					continue;
+				end;
+			end;
+
+			Inc (i);
+		end;
+
+		i := 0;
+
+		while TRUE do begin
+			if i >= m_EffectList.Count then break;
+
+			meff := m_EffectList[i];
+
+			if meff.m_boActive then begin
+				if not meff.Run then begin // Magic effect
+					meff.Free;
+					m_EffectList.Delete (i);
+					continue;
+				end;
+			end;
+
+			Inc (i);
+		end;
+
+		i := 0;
+
+		while TRUE do begin
+			if i >= m_FlyList.Count then break;
+
+			meff := m_FlyList[i];
+
+			if meff.m_boActive then begin
+				if not meff.Run then begin // Ax, Arrow that are flying
+					meff.Free;
+					m_FlyList.Delete (i);
+					continue;
+				end;
+			end;
+
+			Inc (i);
+		end;
    
-   EventMan.Execute;
-   except
-      DebugOutStr ('102');
-   end;
+		EventMan.Execute;
+	except
+		DebugOutStr ('102');
+	end;
 
-   try
-   ClearDropItem();
+	try
+		ClearDropItem();
    {
    //Çå³ý³¬¹ýÏÔÊ¾·¶Î§µÄÎïÆ·Êý¾Ý
    for k:=0 to g_DropedItemList.Count - 1 do begin
@@ -1013,9 +1048,10 @@ begin
      end;
    end;
    }
+
    //»ç¶óÁø ´ÙÀÌ³ª¹Í¿ÀºêÁ§Æ® °Ë»ç
    for k:=0 to EventMan.EventList.Count-1 do begin
-      evn := TClEvent (EventMan.EventList[k]);
+	   evn := TClEvent (EventMan.EventList[k]);
       if (Abs(evn.m_nX-g_MySelf.m_nCurrX) > 30) and (Abs(evn.m_nY-g_MySelf.m_nCurrY) > 30) then begin
          evn.Free;
          EventMan.EventList.Delete (k);
@@ -1026,66 +1062,66 @@ begin
       DebugOutStr ('103');
    end;
 
-   try
-   with Map.m_ClientRect do begin
+	try
+		with Map.m_ClientRect do begin
 {$IF SWH = SWH800}
-      Left   := g_MySelf.m_nRx - 9;
-      Top    := g_MySelf.m_nRy - 9;
-      Right  := g_MySelf.m_nRx + 9;                         // ¿À¸¥ÂÊ Â¥Åõ¸® ±×¸²
-      Bottom := g_MySelf.m_nRy + 8;
+			Left   := g_MySelf.m_nRx - 9;
+			Top    := g_MySelf.m_nRy - 9;
+			Right  := g_MySelf.m_nRx + 9;                         // ¿À¸¥ÂÊ Â¥Åõ¸® ±×¸²
+			Bottom := g_MySelf.m_nRy + 8;
 {$ELSEIF SWH = SWH1024}
-      Left   := g_MySelf.m_nRx - 12;
-      Top    := g_MySelf.m_nRy - 12;
-      Right  := g_MySelf.m_nRx + 12;                         //
-      Bottom := g_MySelf.m_nRy + 15;
+			Left   := g_MySelf.m_nRx - 12;
+			Top    := g_MySelf.m_nRy - 12;
+			Right  := g_MySelf.m_nRx + 12;                         //
+			Bottom := g_MySelf.m_nRy + 15;
 {$IFEND}
-   end;
-   Map.UpdateMapPos (g_MySelf.m_nRx, g_MySelf.m_nRy);
+		end;
 
-   ///////////////////////
-   //ViewFog := FALSE;
-   ///////////////////////
+		Map.UpdateMapPos (g_MySelf.m_nRx, g_MySelf.m_nRy);
 
-   if g_boNoDarkness or (g_MySelf.m_boDeath) then begin
-      g_boViewFog := FALSE;
-   end;
+		///////////////////////
+		//ViewFog := FALSE;
+		///////////////////////
 
-   if g_boViewFog then begin //Æ÷±×
-      ZeroMemory (m_PFogScreen, MAPSURFACEHEIGHT * MAPSURFACEWIDTH);
-      ClearLightMap;
-   end;
+		if g_boNoDarkness or (g_MySelf.m_boDeath) then begin
+			g_boViewFog := FALSE;
+		end;
 
-//   drawingbottomline := 450;
-   drawingbottomline := SCREENHEIGHT;
-   m_ObjSurface.Fill(0);
+		if g_boViewFog then begin //Æ÷±×
+			ZeroMemory (m_PFogScreen, MAPSURFACEHEIGHT * MAPSURFACEWIDTH);
+			ClearLightMap;
+		end;
 
-   DrawTileMap;
+		//   drawingbottomline := 450;
+		drawingbottomline := SCREENHEIGHT;
+		m_ObjSurface.Fill(0);
 
-   m_ObjSurface.Draw (0, 0,
-                    Rect(UNITX*3 + g_MySelf.m_nShiftX,
-                         UNITY*2 + g_MySelf.m_nShiftY,
-                         UNITX*3 + g_MySelf.m_nShiftX + MAPSURFACEWIDTH,
-                         UNITY*2 + g_MySelf.m_nShiftY + MAPSURFACEHEIGHT),
-                    m_MapSurface,
-                    FALSE);
+		DrawTileMap;
 
-   except
-      DebugOutStr ('104');
-   end;
+		m_ObjSurface.Draw (0, 0,
+			Rect(UNITX*3 + g_MySelf.m_nShiftX,
+				UNITY*2 + g_MySelf.m_nShiftY,
+				UNITX*3 + g_MySelf.m_nShiftX + MAPSURFACEWIDTH,
+				UNITY*2 + g_MySelf.m_nShiftY + MAPSURFACEHEIGHT),
+			m_MapSurface,
+			FALSE);
+	except
+		DebugOutStr ('104');
+	end;
 
-   defx := -UNITX*2 - g_MySelf.m_nShiftX + AAX + 14;
-   defy := -UNITY*2 - g_MySelf.m_nShiftY;
-   m_nDefXX := defx;
-   m_nDefYY := defy;
+	defx := -UNITX*2 - g_MySelf.m_nShiftX + AAX + 14;
+	defy := -UNITY*2 - g_MySelf.m_nShiftY;
+	m_nDefXX := defx;
+	m_nDefYY := defy;
 
-   try
-   m := defy - UNITY;
-   for j:=(Map.m_ClientRect.Top - Map.m_nBlockTop) to (Map.m_ClientRect.Bottom - Map.m_nBlockTop + LONGHEIGHT_IMAGE) do begin
-      if j < 0 then begin Inc (m, UNITY); continue; end;
-      n := defx-UNITX*2;
-      //*** 48*32 Å¸ÀÏÇü ¿ÀºêÁ§Æ® ±×¸®±â
-      for i:=(Map.m_ClientRect.Left - Map.m_nBlockLeft-2) to (Map.m_ClientRect.Right - Map.m_nBlockLeft+2) do begin
-         if (i >= 0) and (i < LOGICALMAPUNIT*3) and (j >= 0) and (j < LOGICALMAPUNIT*3) then begin
+	try
+		m := defy - UNITY;
+		for j:=(Map.m_ClientRect.Top - Map.m_nBlockTop) to (Map.m_ClientRect.Bottom - Map.m_nBlockTop + LONGHEIGHT_IMAGE) do begin
+			if j < 0 then begin Inc (m, UNITY); continue; end;
+			n := defx-UNITX*2;
+			//*** 48*32 Å¸ÀÏÇü ¿ÀºêÁ§Æ® ±×¸®±â
+			for i:=(Map.m_ClientRect.Left - Map.m_nBlockLeft-2) to (Map.m_ClientRect.Right - Map.m_nBlockLeft+2) do begin
+				if (i >= 0) and (i < LOGICALMAPUNIT*3) and (j >= 0) and (j < LOGICALMAPUNIT*3) then begin
             fridx := (Map.m_MArr[i, j].wFrImg) and $7FFF;
             if fridx > 0 then begin
                ani := Map.m_MArr[i, j].btAniFrame;
@@ -1124,320 +1160,363 @@ begin
       Inc (m, UNITY);
    end;
 
-   //¶¥¹Ù´Ú¿¡ ±×·ÁÁö´Â ¸¶¹ý
-   for k:=0 to m_GroundEffectList.Count-1 do begin
-      meff := TMagicEff(m_GroundEffectList[k]);
-      //if j = (meff.Ry - Map.BlockTop) then begin
-      meff.DrawEff (m_ObjSurface);
-      if g_boViewFog then begin
-         AddLight (meff.Rx, meff.Ry, 0, 0, meff.light, FALSE);
-      end;
-   end;
+	// Draw magic effects on the ground(such as firewall)
+	for k:=0 to m_GroundEffectList.Count-1 do begin
+		meff := TMagicEff(m_GroundEffectList[k]);
+		{ if j = (meff.Ry - Map.BlockTop) then begin }
+		meff.DrawEff (m_ObjSurface);
+
+		if g_boViewFog then begin
+			AddLight (meff.Rx, meff.Ry, 0, 0, meff.light, FALSE);
+		end;
+	end;
 
    except
       DebugOutStr ('105');
    end;  
 
-   try
-   m := defy - UNITY;
-   for j:=(Map.m_ClientRect.Top - Map.m_nBlockTop) to (Map.m_ClientRect.Bottom - Map.m_nBlockTop + LONGHEIGHT_IMAGE) do begin
-      if j < 0 then begin Inc (m, UNITY); continue; end;
-      n := defx-UNITX*2;
-      //*** ¹è°æ¿ÀºêÁ§Æ® ±×¸®±â
-      for i:=(Map.m_ClientRect.Left - Map.m_nBlockLeft-2) to (Map.m_ClientRect.Right - Map.m_nBlockLeft+2) do begin
-         if (i >= 0) and (i < LOGICALMAPUNIT*3) and (j >= 0) and (j < LOGICALMAPUNIT*3) then begin
-            fridx := (Map.m_MArr[i, j].wFrImg) and $7FFF;
-            if fridx > 0 then begin
-               blend := FALSE;
-               wunit := Map.m_MArr[i, j].btArea;
-               //¿¡´Ï¸ÞÀÌ¼Ç
-               ani := Map.m_MArr[i, j].btAniFrame;
-               if (ani and $80) > 0 then begin
-                  blend := TRUE;
-                  ani := ani and $7F;
-               end;
-               if ani > 0 then begin
-                  anitick := Map.m_MArr[i, j].btAniTick;
-                  fridx := fridx + (m_nAniCount mod (ani + (ani*anitick))) div (1+anitick);
-               end;
-               if (Map.m_MArr[i, j].btDoorOffset and $80) > 0 then begin //¿­¸²
-                  if (Map.m_MArr[i, j].btDoorIndex and $7F) > 0 then  //¹®À¸·Î Ç¥½ÃµÈ °Í¸¸
-                     fridx := fridx + (Map.m_MArr[i, j].btDoorOffset and $7F); //¿­¸° ¹®
-               end;
-               fridx := fridx - 1;
-               // ¹°Ã¼ ±×¸²
-               if not blend then begin
-                  DSurface := GetObjs (wunit, fridx);
-                  if DSurface <> nil then begin
-                     if (DSurface.Width <> 48) or (DSurface.Height <> 32) then begin
-                        mmm := m + UNITY - DSurface.Height;
-                        if (n+DSurface.Width > 0) and (n <= SCREENWIDTH) and (mmm + DSurface.Height > 0) and (mmm < drawingbottomline) then begin
-                           m_ObjSurface.Draw (n, mmm, DSurface.ClientRect, Dsurface, TRUE)
-                        end else begin
-                           if mmm < drawingbottomline then begin //ºÒÇÊ¿äÇÏ°Ô ±×¸®´Â °ÍÀ» ÇÇÇÔ
-                              m_ObjSurface.Draw (n, mmm, DSurface.ClientRect, DSurface, TRUE)
-                           end;
-                        end;
-                     end;
-                  end;
-               end else begin
-                  DSurface := GetObjsEx (wunit, fridx, ax, ay);
-                  if DSurface <> nil then begin
-                     mmm := m + ay - 68; //UNITY - DSurface.Height;
-                     if (n > 0) and (mmm + DSurface.Height > 0) and (n + Dsurface.Width < SCREENWIDTH) and (mmm < drawingbottomline) then begin
-                        DrawBlend (m_ObjSurface, n+ax-2, mmm, DSurface, 1);
-                     end else begin
-                        if mmm < drawingbottomline then begin //ºÒÇÊ¿äÇÏ°Ô ±×¸®´Â °ÍÀ» ÇÇÇÔ
-                           DrawBlend (m_ObjSurface, n+ax-2, mmm, DSurface, 1);
-                        end;
-                     end;
-                  end;
-               end;
-            end;
+	try
+		m := defy - UNITY;
 
-         end;
-         Inc (n, UNITX);
-      end;
+		for j:=(Map.m_ClientRect.Top - Map.m_nBlockTop) to (Map.m_ClientRect.Bottom - Map.m_nBlockTop + LONGHEIGHT_IMAGE) do begin
+			if j < 0 then begin 
+				Inc (m, UNITY); 
+				continue; 
+			end;
 
-      if (j <= (Map.m_ClientRect.Bottom - Map.m_nBlockTop)) and (not g_boServerChanging) then begin
+			n := defx-UNITX*2;
 
-         //*** ¹Ù´Ú¿¡ º¯°æµÈ ÈëÀÇ ÈçÀû
-         for k:=0 to EventMan.EventList.Count-1 do begin
-            evn := TClEvent (EventMan.EventList[k]);
-            if j = (evn.m_nY - Map.m_nBlockTop) then begin
-               evn.DrawEvent (m_ObjSurface,
-                              (evn.m_nX-Map.m_ClientRect.Left)*UNITX + defx,
-                              m);
-            end;
-         end;
+			// Draw background objects
+			for i:=(Map.m_ClientRect.Left - Map.m_nBlockLeft-2) to (Map.m_ClientRect.Right - Map.m_nBlockLeft+2) do begin
+				if (i >= 0) and (i < LOGICALMAPUNIT*3) and (j >= 0) and (j < LOGICALMAPUNIT*3) then begin
+					fridx := (Map.m_MArr[i, j].wFrImg) and $7FFF;
 
-         if g_boDrawDropItem then begin
+					if fridx > 0 then begin
+						blend := FALSE;
+						wunit := Map.m_MArr[i, j].btArea;
+						{ ¿¡´Ï¸ÞÀÌ¼Ç }
+						ani := Map.m_MArr[i, j].btAniFrame;
 
-         //ÏÔÊ¾µØÃæÎïÆ·ÍâÐÎ
-         for k:=0 to g_DropedItemList.Count-1 do begin
-            DropItem := PTDropItem (g_DropedItemList[k]);
-            if DropItem <> nil then begin
-               if j = (DropItem.y - Map.m_nBlockTop) then begin
-                  d := g_WDnItemImages.Images[DropItem.Looks];
-                  if d <> nil then begin
-                     ix := (DropItem.x-Map.m_ClientRect.Left) * UNITX + defx + SOFFX; // + actor.ShiftX;
-                     iy := m; // + actor.ShiftY;
-                     if DropItem = g_FocusItem then begin
-                        g_ImgMixSurface.Draw (0, 0, d.ClientRect, d, FALSE);
-                        DrawEffect (0, 0, d.Width, d.Height, g_ImgMixSurface, ceBright);
-                        m_ObjSurface.Draw (ix + HALFX-(d.Width div 2),
-                                      iy + HALFY-(d.Height div 2),
-                                      d.ClientRect,
-                                      g_ImgMixSurface, TRUE);
-                     end else begin
-                        m_ObjSurface.Draw (ix + HALFX-(d.Width div 2),
-                                      iy + HALFY-(d.Height div 2),
-                                      d.ClientRect,
-                                      d, TRUE);
-                     end;
+						if (ani and $80) > 0 then begin
+							blend := TRUE;
+							ani := ani and $7F;
+						end;
 
-                  end;
-               end;
-            end;
-         end;
-         end;
+						if ani > 0 then begin
+							anitick := Map.m_MArr[i, j].btAniTick;
+							fridx := fridx + (m_nAniCount mod (ani + (ani*anitick))) div (1+anitick);
+						end;
+
+						if (Map.m_MArr[i, j].btDoorOffset and $80) > 0 then begin //¿­¸²
+							if (Map.m_MArr[i, j].btDoorIndex and $7F) > 0 then  //¹®À¸·Î Ç¥½ÃµÈ °Í¸¸
+								fridx := fridx + (Map.m_MArr[i, j].btDoorOffset and $7F); //¿­¸° ¹®
+						end;
+
+						fridx := fridx - 1;
+						// ¹°Ã¼ ±×¸²
+						if not blend then begin
+							DSurface := GetObjs (wunit, fridx);
+
+							if DSurface <> nil then begin
+								if (DSurface.Width <> 48) or (DSurface.Height <> 32) then begin
+									mmm := m + UNITY - DSurface.Height;
+
+									if (n+DSurface.Width > 0) and (n <= SCREENWIDTH) and (mmm + DSurface.Height > 0) and (mmm < drawingbottomline) then begin
+										m_ObjSurface.Draw (n, mmm, DSurface.ClientRect, Dsurface, TRUE)
+									end else begin
+										if mmm < drawingbottomline then begin //ºÒÇÊ¿äÇÏ°Ô ±×¸®´Â °ÍÀ» ÇÇÇÔ
+										m_ObjSurface.Draw (n, mmm, DSurface.ClientRect, DSurface, TRUE)
+									end;
+								end;
+							end;
+						end;
+
+					end else begin
+						DSurface := GetObjsEx (wunit, fridx, ax, ay);
+
+						if DSurface <> nil then begin
+							mmm := m + ay - 68; //UNITY - DSurface.Height;
+
+							if (n > 0) and (mmm + DSurface.Height > 0) and (n + Dsurface.Width < SCREENWIDTH) and (mmm < drawingbottomline) then begin
+								DrawBlend (m_ObjSurface, n+ax-2, mmm, DSurface, 1);
+							end else begin
+								if mmm < drawingbottomline then begin //ºÒÇÊ¿äÇÏ°Ô ±×¸®´Â °ÍÀ» ÇÇÇÔ
+									DrawBlend (m_ObjSurface, n+ax-2, mmm, DSurface, 1);
+								end;
+							end;
+						end;
+					end;
+				end;
+			end;
+			Inc (n, UNITX);
+		end;
+
+		if (j <= (Map.m_ClientRect.Bottom - Map.m_nBlockTop)) and (not g_boServerChanging) then begin
+			{*** ¹Ù´Ú¿¡ º¯°æµÈ ÈëÀÇ ÈçÀû }
+			for k:=0 to EventMan.EventList.Count-1 do begin
+				evn := TClEvent (EventMan.EventList[k]);
+
+				if j = (evn.m_nY - Map.m_nBlockTop) then begin
+					evn.DrawEvent (m_ObjSurface,
+						(evn.m_nX-Map.m_ClientRect.Left)*UNITX + defx,
+						m);
+				end;
+			end;
+
+			if g_boDrawDropItem then begin
+				{ ÏÔÊ¾µØÃæÎïÆ·ÍâÐÎ }
+				for k:=0 to g_DropedItemList.Count-1 do begin
+					DropItem := PTDropItem (g_DropedItemList[k]);
+					if DropItem <> nil then begin
+						if j = (DropItem.y - Map.m_nBlockTop) then begin
+							d := g_WDnItemImages.Images[DropItem.Looks];
+
+							if d <> nil then begin
+								ix := (DropItem.x-Map.m_ClientRect.Left) * UNITX + defx + SOFFX; // + actor.ShiftX;
+								iy := m; // + actor.ShiftY;
+
+								if DropItem = g_FocusItem then begin
+									g_ImgMixSurface.Draw (0, 0, d.ClientRect, d, FALSE);
+									DrawEffect (0, 0, d.Width, d.Height, g_ImgMixSurface, ceBright);
+
+								m_ObjSurface.Draw (ix + HALFX-(d.Width div 2),
+									iy + HALFY-(d.Height div 2),
+									d.ClientRect,
+									g_ImgMixSurface, 
+									TRUE);
+							end else begin
+								m_ObjSurface.Draw (ix + HALFX-(d.Width div 2),
+									iy + HALFY-(d.Height div 2),
+									d.ClientRect,
+									d, 
+									TRUE);
+							end;
+						end;
+					end;
+				end;
+			end;
+		end;
          
-         //*** ÏÔÊ¾ÈËÎïËµ»°ÐÅÏ¢
-         for k:=0 to m_ActorList.Count-1 do begin
-            actor := m_ActorList[k];
-            if (j = actor.m_nRy-Map.m_nBlockTop-actor.m_nDownDrawLevel) then begin
-               actor.m_nSayX := (actor.m_nRx-Map.m_ClientRect.Left)*UNITX + defx + actor.m_nShiftX + 24;
-               if actor.m_boDeath then
-                  actor.m_nSayY := m + UNITY + actor.m_nShiftY + 16 - 60  + (actor.m_nDownDrawLevel * UNITY)
-               else actor.m_nSayY := m + UNITY + actor.m_nShiftY + 16 - 95  + (actor.m_nDownDrawLevel * UNITY);
-               actor.DrawChr (m_ObjSurface, (actor.m_nRx-Map.m_ClientRect.Left)*UNITX + defx,
-                                           m + (actor.m_nDownDrawLevel * UNITY),
-                                           FALSE,True);
-            end;
-         end;
-         for k:=0 to m_FlyList.Count-1 do begin
-            meff := TMagicEff(m_FlyList[k]);
-            if j = (meff.Ry - Map.m_nBlockTop) then
-               meff.DrawEff (m_ObjSurface);
-         end;
+		{ *** ÏÔÊ¾ÈËÎïËµ»°ÐÅÏ¢ }
+		for k:=0 to m_ActorList.Count-1 do begin
+			actor := m_ActorList[k];
 
-      end;
-      Inc (m, UNITY);
-   end;
-   except
-      DebugOutStr ('106');
-   end;
+			if (j = actor.m_nRy-Map.m_nBlockTop-actor.m_nDownDrawLevel) then begin
+				actor.m_nSayX := (actor.m_nRx-Map.m_ClientRect.Left)*UNITX + defx + actor.m_nShiftX + 24;
 
+				if actor.m_boDeath then
+					actor.m_nSayY := m + UNITY + actor.m_nShiftY + 16 - 60  + (actor.m_nDownDrawLevel * UNITY)
+				else 
+					actor.m_nSayY := m + UNITY + actor.m_nShiftY + 16 - 95  + (actor.m_nDownDrawLevel * UNITY);
 
-   try
-   if g_boViewFog then begin
-      m := defy - UNITY*4;
-      for j:=(Map.m_ClientRect.Top - Map.m_nBlockTop - 4) to (Map.m_ClientRect.Bottom - Map.m_nBlockTop + LONGHEIGHT_IMAGE) do begin
-         if j < 0 then begin Inc (m, UNITY); continue; end;
-         n := defx-UNITX*5;
-         //¹è°æ Æ÷±× ±×¸®±â
-         for i:=(Map.m_ClientRect.Left - Map.m_nBlockLeft-5) to (Map.m_ClientRect.Right - Map.m_nBlockLeft+5) do begin
-            if (i >= 0) and (i < LOGICALMAPUNIT*3) and (j >= 0) and (j < LOGICALMAPUNIT*3) then begin
-               idx := Map.m_MArr[i, j].btLight;
-               if idx > 0 then begin
-                  AddLight (i+Map.m_nBlockLeft, j+Map.m_nBlockTop, 0, 0, idx, FALSE);
-               end;
-            end;
-            Inc (n, UNITX);
-         end;
-         Inc (m, UNITY);
-      end;
+				actor.DrawChr (m_ObjSurface, (actor.m_nRx-Map.m_ClientRect.Left)*UNITX + defx,
+					m + (actor.m_nDownDrawLevel * UNITY),
+					FALSE,
+					True);
+			end;
+		end;
 
-      //Ä³¸¯ÅÍ Æ÷±× ±×¸®±â
-      if m_ActorList.Count > 0 then begin
-         for k:=0 to m_ActorList.Count-1 do begin
-            actor := m_ActorList[k];
-            if (actor = g_MySelf) or (actor.Light > 0) then
-               AddLight (actor.m_nRx, actor.m_nRy, actor.m_nShiftX, actor.m_nShiftY, actor.Light, actor=g_MySelf);
-         end;
-      end else begin
-         if g_MySelf <> nil then
-            AddLight (g_MySelf.m_nRx, g_MySelf.m_nRy, g_MySelf.m_nShiftX, g_MySelf.m_nShiftY, g_MySelf.Light, TRUE);
-      end;
-   end;
-   except
-      DebugOutStr ('107');
-   end;
+		for k:=0 to m_FlyList.Count-1 do begin
+			meff := TMagicEff(m_FlyList[k]);
+			if j = (meff.Ry - Map.m_nBlockTop) then
+				meff.DrawEff (m_ObjSurface);
+		end;
+	end;
+		Inc (m, UNITY);
+	end;
+	except
+		DebugOutStr ('106');
+	end;
 
-   if not g_boServerChanging then begin
-      try
-      //**** ÁÖÀÎ°ø Ä³¸¯ÅÍ ±×¸®±â
-      if not g_boCheckBadMapMode then
-         if g_MySelf.m_nState and $00800000 = 0 then //Åõ¸íÀÌ ¾Æ´Ï¸é
-            g_MySelf.DrawChr (m_ObjSurface, (g_MySelf.m_nRx-Map.m_ClientRect.Left)*UNITX+defx, (g_MySelf.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defy, TRUE,FALSE);
+	try
+		if g_boViewFog then begin
+			m := defy - UNITY*4;
+			for j:=(Map.m_ClientRect.Top - Map.m_nBlockTop - 4) to (Map.m_ClientRect.Bottom - Map.m_nBlockTop + LONGHEIGHT_IMAGE) do begin
+				if j < 0 then begin 
+					Inc (m, UNITY); 
+					continue;
+				end;
 
-      //****
-      if (g_FocusCret <> nil) then begin
-         if IsValidActor (g_FocusCret) and (g_FocusCret <> g_MySelf) then
-//            if (actor.m_btRace <> 81) or (FocusCret.State and $00800000 = 0) then //Jacky
-            if (g_FocusCret.m_nState and $00800000 = 0) then //Jacky
-               g_FocusCret.DrawChr (m_ObjSurface,
-                           (g_FocusCret.m_nRx - Map.m_ClientRect.Left)*UNITX+defx,
-                           (g_FocusCret.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defy, TRUE,FALSE);
-      end;
-      if (g_MagicTarget <> nil) then begin
-         if IsValidActor (g_MagicTarget) and (g_MagicTarget <> g_MySelf) then
-            if g_MagicTarget.m_nState and $00800000 = 0 then //Åõ¸íÀÌ ¾Æ´Ï¸é
-               g_MagicTarget.DrawChr (m_ObjSurface,
-                           (g_MagicTarget.m_nRx-Map.m_ClientRect.Left)*UNITX+defx,
-                           (g_MagicTarget.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defy, TRUE,FALSE);
-      end;
-      except
-         DebugOutStr ('108');
-      end;
-   end;
+				n := defx-UNITX*5;
+
+				{ ¹è°æ Æ÷±× ±×¸®±â }
+				for i:=(Map.m_ClientRect.Left - Map.m_nBlockLeft-5) to (Map.m_ClientRect.Right - Map.m_nBlockLeft+5) do begin
+					if (i >= 0) and (i < LOGICALMAPUNIT*3) and (j >= 0) and (j < LOGICALMAPUNIT*3) then begin
+						idx := Map.m_MArr[i, j].btLight;
+						if idx > 0 then begin
+							AddLight (i+Map.m_nBlockLeft, j+Map.m_nBlockTop, 0, 0, idx, FALSE);
+						end;
+					end;
+					Inc (n, UNITX);
+				end;
+
+				Inc (m, UNITY);
+			end;
+
+			{ Ä³¸¯ÅÍ Æ÷±× ±×¸®±â }
+			if m_ActorList.Count > 0 then begin
+				for k:=0 to m_ActorList.Count-1 do begin
+					actor := m_ActorList[k];
+					if (actor = g_MySelf) or (actor.Light > 0) then
+						AddLight (actor.m_nRx, actor.m_nRy, actor.m_nShiftX, actor.m_nShiftY, actor.Light, actor=g_MySelf);
+				end;
+			end else begin
+				if g_MySelf <> nil then
+					AddLight (g_MySelf.m_nRx, 
+						g_MySelf.m_nRy, 
+						g_MySelf.m_nShiftX, 
+						g_MySelf.m_nShiftY, 
+						g_MySelf.Light, 
+						TRUE);
+			end;
+		end;
+	except
+		DebugOutStr ('107');
+	end;
+
+	if not g_boServerChanging then begin
+		try
+			{**** ÁÖÀÎ°ø Ä³¸¯ÅÍ ±×¸®±â}
+			if not g_boCheckBadMapMode then
+				if g_MySelf.m_nState and $00800000 = 0 then { Åõ¸íÀÌ ¾Æ´Ï¸é }
+					g_MySelf.DrawChr (m_ObjSurface, 
+						(g_MySelf.m_nRx-Map.m_ClientRect.Left)*UNITX+defx, 
+						(g_MySelf.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defy, 
+						TRUE,
+						FALSE);
+
+			if (g_FocusCret <> nil) then begin
+				if IsValidActor (g_FocusCret) and (g_FocusCret <> g_MySelf) then
+					{ if (actor.m_btRace <> 81) or (FocusCret.State and $00800000 = 0) then //Jacky }
+					if (g_FocusCret.m_nState and $00800000 = 0) then //Jacky
+						g_FocusCret.DrawChr (m_ObjSurface,
+							(g_FocusCret.m_nRx - Map.m_ClientRect.Left)*UNITX+defx,
+							(g_FocusCret.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defy, TRUE,FALSE);
+			end;
+
+			if (g_MagicTarget <> nil) then begin
+				if IsValidActor (g_MagicTarget) and (g_MagicTarget <> g_MySelf) then
+					if g_MagicTarget.m_nState and $00800000 = 0 then { Åõ¸íÀÌ ¾Æ´Ï¸é }
+						g_MagicTarget.DrawChr (m_ObjSurface,
+							(g_MagicTarget.m_nRx-Map.m_ClientRect.Left)*UNITX+defx,
+							(g_MagicTarget.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defy, 
+							TRUE,
+							FALSE);
+			end;
+		except
+			DebugOutStr ('108');
+		end;
+	end;
    
-   try
-   //**** ¸¶¹ý È¿°ú
+	try
+		{ **** ¸¶¹ý È¿°ú }
+		for k:=0 to m_ActorList.Count-1 do begin
+			actor := m_ActorList[k];
 
-   for k:=0 to m_ActorList.Count-1 do begin
-      actor := m_ActorList[k];
-      actor.DrawEff (m_ObjSurface,
-                     (actor.m_nRx-Map.m_ClientRect.Left)*UNITX + defx,
-                     (actor.m_nRy-Map.m_ClientRect.Top-1)*UNITY + defy);
-   end;
+			actor.DrawEff (m_ObjSurface,
+				(actor.m_nRx-Map.m_ClientRect.Left)*UNITX + defx,
+				(actor.m_nRy-Map.m_ClientRect.Top-1)*UNITY + defy);
+		end;
    
-   for k:=0 to m_EffectList.Count-1 do begin
-      meff := TMagicEff(m_EffectList[k]);
-      //if j = (meff.Ry - Map.BlockTop) then begin
-      meff.DrawEff (m_ObjSurface);
-      if g_boViewFog then begin
-         AddLight (meff.Rx, meff.Ry, 0, 0, meff.Light, FALSE);
-      end;
-   end;
-   if g_boViewFog then begin
-      for k:=0 to EventMan.EventList.Count-1 do begin
-         evn := TClEvent (EventMan.EventList[k]);
-         if evn.m_nLight > 0 then
-            AddLight (evn.m_nX, evn.m_nY, 0, 0, evn.m_nLight, FALSE);
-      end;
-   end;
-   except
-      DebugOutStr ('109');
-   end;
+		for k:=0 to m_EffectList.Count-1 do begin
+			meff := TMagicEff(m_EffectList[k]);
+			{if j = (meff.Ry - Map.BlockTop) then begin}
+			meff.DrawEff (m_ObjSurface);
+			if g_boViewFog then begin
+				AddLight (meff.Rx, meff.Ry, 0, 0, meff.Light, FALSE);
+			end;
+		end;
 
-   //µØÃæÎïÆ·?ÁÁ?
-  try
-    for k:=0 to g_DropedItemList.Count-1 do begin
-      DropItem := PTDropItem (g_DropedItemList[k]);
-      if DropItem <> nil then begin
-        if GetTickCount - DropItem.FlashTime > g_dwDropItemFlashTime{5 * 1000} then begin
-          DropItem.FlashTime := GetTickCount;
-          DropItem.BoFlash := TRUE;
-          DropItem.FlashStepTime := GetTickCount;
-          DropItem.FlashStep := 0;
-        end;
-        ix:=(DropItem.x - Map.m_ClientRect.Left) * UNITX + defx + SOFFX;
-        iy:=(DropItem.y - Map.m_ClientRect.Top - 1) * UNITY + defy + SOFFY;
-        if DropItem.BoFlash then begin
-          if GetTickCount - DropItem.FlashStepTime >= 20 then begin
-            DropItem.FlashStepTime := GetTickCount;
-            Inc (DropItem.FlashStep);
-          end;
-          if (DropItem.FlashStep >= 0) and (DropItem.FlashStep < 10) then begin
-            DSurface := g_WMainImages.GetCachedImage (FLASHBASE + DropItem.FlashStep, ax, ay);
-            DrawBlend (m_ObjSurface, ix + ax, iy + ay, DSurface, 1);
-          end else DropItem.BoFlash := FALSE;
-        end;
-        ShowItem:=GetShowItem(DropItem.Name);
-        if (DropItem <> g_FocusItem) and (((ShowItem <> nil) and (ShowItem.boShowName)) or g_boShowAllItem) then begin
-             //ÏÔÊ¾µØÃæÎïÆ·Ãû³Æ
-          if ShowItem <> nil then begin
-            nFColor:=ShowItem.nFColor;
-            nBColor:=ShowItem.nBColor;
-          end else begin
-            nFColor:=clWhite;
-            nBColor:=clBlack;
-          end;
+		if g_boViewFog then begin
+			for k:=0 to EventMan.EventList.Count-1 do begin
+				evn := TClEvent (EventMan.EventList[k]);
+				if evn.m_nLight > 0 then
+					AddLight (evn.m_nX, evn.m_nY, 0, 0, evn.m_nLight, FALSE);
+			end;
+		end;
+	except
+		DebugOutStr ('109');
+	end;
+
+	//µØÃæÎïÆ·?ÁÁ?
+	try
+		for k:=0 to g_DropedItemList.Count-1 do begin
+			DropItem := PTDropItem (g_DropedItemList[k]);
+			if DropItem <> nil then begin
+				if GetTickCount - DropItem.FlashTime > g_dwDropItemFlashTime{5 * 1000} then begin
+					DropItem.FlashTime := GetTickCount;
+					DropItem.BoFlash := TRUE;
+					DropItem.FlashStepTime := GetTickCount;
+					DropItem.FlashStep := 0;
+				end;
+
+				ix:=(DropItem.x - Map.m_ClientRect.Left) * UNITX + defx + SOFFX;
+				iy:=(DropItem.y - Map.m_ClientRect.Top - 1) * UNITY + defy + SOFFY;
+
+				if DropItem.BoFlash then begin
+					if GetTickCount - DropItem.FlashStepTime >= 20 then begin
+						DropItem.FlashStepTime := GetTickCount;
+						Inc (DropItem.FlashStep);
+					end;
+
+					if (DropItem.FlashStep >= 0) and (DropItem.FlashStep < 10) then begin
+						DSurface := g_WMainImages.GetCachedImage (FLASHBASE + DropItem.FlashStep, ax, ay);
+						DrawBlend (m_ObjSurface, ix + ax, iy + ay, DSurface, 1);
+					end else 
+						DropItem.BoFlash := FALSE;
+				end;
+
+				ShowItem:=GetShowItem(DropItem.Name);
+				if (DropItem <> g_FocusItem) and (((ShowItem <> nil) and (ShowItem.boShowName)) or g_boShowAllItem) then begin
+					//ÏÔÊ¾µØÃæÎïÆ·Ãû³Æ
+					if ShowItem <> nil then begin
+						nFColor:=ShowItem.nFColor;
+						nBColor:=ShowItem.nBColor;
+					end else begin
+						nFColor:=clWhite;
+						nBColor:=clBlack;
+					end;
             
-          with m_ObjSurface.Canvas do begin
-            SetBkMode (Handle, TRANSPARENT);
-            BoldTextOut(m_ObjSurface,
-                         ix + HALFX - TextWidth(DropItem.Name) div 2,
-                         iy + HALFY - TextHeight(DropItem.Name) * 2,// div 2,
-                         nFColor,
-                         nBColor,
-                         DropItem.Name);
-            Release;
-          end;
-        end;
-      end;
-    end;
-  except
-    DebugOutStr('110');
-  end;
-   try
-//   g_boViewFog:=False;      //Jacky ÃâÀ¯
-   if  g_boViewFog and not g_boForceNotViewFog  then begin
-      ApplyLightMap;
-      DrawFog (m_ObjSurface, m_PFogScreen, m_nFogWidth);
-      MSurface.Draw (SOFFX, SOFFY, m_ObjSurface.ClientRect, m_ObjSurface, FALSE);
-   end else begin
-      if g_MySelf.m_boDeath then //ÈËÎïËÀÍö£¬ÏÔÊ¾ºÚ°×»­Ãæ
-         DrawEffect (0, 0, m_ObjSurface.Width, m_ObjSurface.Height, m_ObjSurface, g_DeathColorEffect{ceGrayScale});
+					with m_ObjSurface.Canvas do begin
+						SetBkMode (Handle, TRANSPARENT);
+						BoldTextOut(m_ObjSurface,
+							ix + HALFX - TextWidth(DropItem.Name) div 2,
+							iy + HALFY - TextHeight(DropItem.Name) * 2,// div 2,
+							nFColor,
+							nBColor,
+							DropItem.Name);
+							Release;
+					end;
+				end;
+			end;
+		end;
+	except
+		DebugOutStr('110');
+	end;
 
+	try
+		{ g_boViewFog:=False;      //Jacky ÃâÀ¯ }
+		if  g_boViewFog and not g_boForceNotViewFog  then begin
+			ApplyLightMap;
+			DrawFog (m_ObjSurface, m_PFogScreen, m_nFogWidth);
+			MSurface.Draw (SOFFX, SOFFY, m_ObjSurface.ClientRect, m_ObjSurface, FALSE);
+		end else begin
+			if g_MySelf.m_boDeath then //ÈËÎïËÀÍö£¬ÏÔÊ¾ºÚ°×»­Ãæ
+			DrawEffect (0, 0, m_ObjSurface.Width, m_ObjSurface.Height, m_ObjSurface, g_DeathColorEffect{ceGrayScale});
+			MSurface.Draw (SOFFX, SOFFY, m_ObjSurface.ClientRect, m_ObjSurface, FALSE);
+		end;
+	except
+		DebugOutStr ('111');
+	end;
 
-      MSurface.Draw (SOFFX, SOFFY, m_ObjSurface.ClientRect, m_ObjSurface, FALSE);
-   end;
-   except
-      DebugOutStr ('111');
-   end;
-
-   if g_boViewMiniMap then begin
-      DrawMiniMap (MSurface);
-   end;
-
-
+	if g_boViewMiniMap then begin
+		DrawMiniMap (MSurface);
+	end;
 end;
 
 {-------------------------------------------------------}
 
-//cx, cy, tx, ty : ¸ÊÀÇ ÁÂÇ¥
+//cx, cy, tx, ty : Location of map
 procedure TPlayScene.NewMagic (aowner: TActor;
                                magid, magnumb{Effect}, cx, cy, tx, ty, targetcode: integer;
                                mtype: TMagicType; //EffectType
@@ -1445,123 +1524,130 @@ procedure TPlayScene.NewMagic (aowner: TActor;
                                anitime: integer;
                                var bofly: Boolean);
 var
-   i, scx, scy, sctx, scty, effnum: integer;
-   meff: TMagicEff;
-   target: TActor;
-   wimg: TWMImages;
+	i, scx, scy, sctx, scty, effnum: integer;
+	meff: TMagicEff;
+	target: TActor;
+	wimg: TWMImages;
 begin
-   bofly := FALSE;
-   if magid <> 111 then //
-      for i:=0 to m_EffectList.Count-1 do
-         if TMagicEff(m_EffectList[i]).ServerMagicId = magid then
-            exit; //
-   ScreenXYfromMCXY (cx, cy, scx, scy);
-   ScreenXYfromMCXY (tx, ty, sctx, scty);
-   if magnumb > 0 then GetEffectBase (magnumb-1, 0, wimg, effnum)  //magnumb{Effect}
-   else effnum := -magnumb;
-   target := FindActor (targetcode);
+	bofly := FALSE;
 
-   meff := nil;
-   case mtype of  //EffectType
-      mtReady, mtFly, mtFlyAxe: begin
-        meff := TMagicEff.Create (magid{ÌæÎªmagnumb£¬»÷ÖÐºóµÄÐ§¹û¸Ä±äÁË}, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-        meff.TargetActor := target;
-        if magnumb = 39 then begin
-          meff.frame := 4;
-          if wimg <> nil then
-            meff.ImgLib:=wimg;
-        end;
-        bofly := TRUE;
-      end;
-      mtExplosion:
-        case magnumb of
-          18: begin //ÓÕ»óÖ®¹â
-            meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-            meff.MagExplosionBase := 1570;
-            meff.TargetActor := target;
-            meff.NextFrameTime := 80;
-          end;
-          21: begin //±¬ÁÑ»ðÑæ
-            meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-            meff.MagExplosionBase := 1660;
-            meff.TargetActor := nil; //target;
-            meff.NextFrameTime := 80;
-            meff.ExplosionFrame := 20;
-            meff.Light := 3;
-          end;
-          26: begin //ÐÄÁéÆôÊ¾
-            meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-            meff.MagExplosionBase := 3990;
-            meff.TargetActor := target;
-            meff.NextFrameTime := 80;
-            meff.ExplosionFrame := 10;
-            meff.Light := 2;
-          end;
-          27: begin //ÈºÌåÖÎÁÆÊõ
-            meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-            meff.MagExplosionBase := 1800;
-            meff.TargetActor := nil; //target;
-            meff.NextFrameTime := 80;
-            meff.ExplosionFrame := 10;
-            meff.Light := 3;
-          end;
-          30: begin //Ê¥ÑÔÊõ
+	if magid <> 111 then 
+		for i:=0 to m_EffectList.Count-1 do
+			if TMagicEff(m_EffectList[i]).ServerMagicId = magid then
+				exit;
+
+	ScreenXYfromMCXY (cx, cy, scx, scy);
+	ScreenXYfromMCXY (tx, ty, sctx, scty);
+
+	if magnumb > 0 then GetEffectBase (magnumb-1, 0, wimg, effnum)  //magnumb{Effect}
+	else effnum := -magnumb;
+
+	target := FindActor (targetcode);
+
+	meff := nil;
+
+	case mtype of  //EffectType
+	mtReady, mtFly, mtFlyAxe: begin
+		meff := TMagicEff.Create (magid{ÌæÎªmagnumb£¬»÷ÖÐºóµÄÐ§¹û¸Ä±äÁË}, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+		meff.TargetActor := target;
+
+		if magnumb = 39 then begin
+			meff.frame := 4;
+			if wimg <> nil then
+				meff.ImgLib:=wimg;
+		end;
+
+		bofly := TRUE;
+	end;
+	mtExplosion:
+		case magnumb of
+		18: begin //ÓÕ»óÖ®¹â
+			meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+			meff.MagExplosionBase := 1570;
+			meff.TargetActor := target;
+			meff.NextFrameTime := 80;
+		end;
+		21: begin //±¬ÁÑ»ðÑæ
+			meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+			meff.MagExplosionBase := 1660;
+			meff.TargetActor := nil; //target;
+			meff.NextFrameTime := 80;
+			meff.ExplosionFrame := 20;
+			meff.Light := 3;
+		end;
+		26: begin //ÐÄÁéÆôÊ¾
+			meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+			meff.MagExplosionBase := 3990;
+			meff.TargetActor := target;
+			meff.NextFrameTime := 80;
+			meff.ExplosionFrame := 10;
+			meff.Light := 2;
+		end;
+		27: begin //ÈºÌåÖÎÁÆÊõ
+			meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+			meff.MagExplosionBase := 1800;
+			meff.TargetActor := nil; //target;
+			meff.NextFrameTime := 80;
+			meff.ExplosionFrame := 10;
+			meff.Light := 3;
+		end;
+		30: begin //Ê¥ÑÔÊõ
             meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
             meff.MagExplosionBase := 3930;
             meff.TargetActor := target;
             meff.NextFrameTime := 80;
             meff.ExplosionFrame := 16;
             meff.Light := 3;
-          end;
-          31: begin //±ùÅØÏø
+		end;
+		31: begin //±ùÅØÏø
             meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
             meff.MagExplosionBase := 3850;
             meff.TargetActor := nil; //target;
             meff.NextFrameTime := 80;
             meff.ExplosionFrame := 20;
             meff.Light := 3;
-          end;
-          34: begin //ÃðÌì»ð
+		end;
+		34: begin //ÃðÌì»ð
             meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
             meff.MagExplosionBase := 140;
             meff.TargetActor := target; //target;
             meff.NextFrameTime := 80;
             meff.ExplosionFrame := 20;
             meff.Light := 3;
-            if wimg <> nil then
-              meff.ImgLib:=wimg;
-          end;
-          40: begin // ¾»»¯Êõ
+			if wimg <> nil then
+				meff.ImgLib:=wimg;
+		end;
+		40: begin // ¾»»¯Êõ
             meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
             meff.MagExplosionBase := 620;
             meff.TargetActor := nil; //target;
             meff.NextFrameTime := 100;
             meff.ExplosionFrame := 20;
             meff.Light := 3;
-            if wimg <> nil then
-              meff.ImgLib:=wimg;
-          end;
-          45: begin //»ðÁúÆøÑæ
+			if wimg <> nil then
+				meff.ImgLib:=wimg;
+		end;
+		45: begin //»ðÁúÆøÑæ
             meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
             meff.MagExplosionBase := 920;
             meff.TargetActor := nil; //target;
             meff.NextFrameTime := 100;
             meff.ExplosionFrame := 20;
             meff.Light := 3;
-            if wimg <> nil then
-              meff.ImgLib:=wimg;
-          end;
-          47: begin //ì«·çÆÆ
+			if wimg <> nil then
+				meff.ImgLib:=wimg;
+		end;
+		47: begin //ì«·çÆÆ
             meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
             meff.MagExplosionBase := 1010;
             meff.TargetActor := nil; //target;
             meff.NextFrameTime := 100;
             meff.ExplosionFrame := 20;
             meff.Light := 3;
-            if wimg <> nil then
-              meff.ImgLib:=wimg;
-          end;
-          48: begin //ÑªÖä
+			if wimg <> nil then
+				meff.ImgLib:=wimg;
+		end;
+		48: begin //ÑªÖä
             meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
             meff.MagExplosionBase := 1060;
             meff.TargetActor := nil; //target;
@@ -1569,9 +1655,9 @@ begin
             meff.ExplosionFrame := 40;
             meff.Light := 3;
             if wimg <> nil then
-              meff.ImgLib:=wimg;
-          end;
-          49: begin //÷¼÷ÃÖä
+				meff.ImgLib:=wimg;
+		end;
+		49: begin //÷¼÷ÃÖä
             meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
             meff.MagExplosionBase := 1110;
             meff.TargetActor := nil; //target;
@@ -1579,14 +1665,14 @@ begin
             meff.ExplosionFrame := 10;
             meff.Light := 3;
             if wimg <> nil then
-              meff.ImgLib:=wimg;
-          end;
-          else begin //Ä¬ÈÏ
-            meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-            meff.TargetActor := target;
-            meff.NextFrameTime := 80;
-         end;
-      end;
+				meff.ImgLib:=wimg;
+		end;
+		else begin //Ä¬ÈÏ
+			meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+			meff.TargetActor := target;
+			meff.NextFrameTime := 80;
+		end;
+	end;
       mtFireWind:
          meff := nil;  //È¿°ú ¾øÀ½
       mtFireGun: //È­¿°¹æ»ç
@@ -1677,15 +1763,15 @@ end;
 
 procedure TPlayScene.DelMagic (magid: integer);
 var
-   i: integer;
+	i: integer;
 begin
-   for i:=0 to m_EffectList.Count-1 do begin
-      if TMagicEff(m_EffectList[i]).ServerMagicId = magid then begin
-         TMagicEff(m_EffectList[i]).Free;
-         m_EffectList.Delete (i);
-         break;
-      end;
-   end;
+	for i:=0 to m_EffectList.Count-1 do begin
+		if TMagicEff(m_EffectList[i]).ServerMagicId = magid then begin
+			TMagicEff(m_EffectList[i]).Free;
+			m_EffectList.Delete (i);
+			break;
+		end;
+	end;
 end;
 
 //cx, cy, tx, ty : ¸ÊÀÇ ÁÂÇ¥
@@ -1745,13 +1831,13 @@ end; }
 
 procedure TPlayScene.ScreenXYfromMCXY (cx, cy: integer; var sx, sy: integer);
 begin
-   if g_MySelf = nil then exit;
+	if g_MySelf = nil then exit;
 {$IF SWH = SWH800}
-     sx := (cx-g_MySelf.m_nRx)*UNITX + 364 + UNITX div 2 - g_MySelf.m_nShiftX;
-     sy := (cy-g_MySelf.m_nRy)*UNITY + 192 + UNITY div 2 - g_MySelf.m_nShiftY;
+	sx := (cx-g_MySelf.m_nRx)*UNITX + 364 + UNITX div 2 - g_MySelf.m_nShiftX;
+	sy := (cy-g_MySelf.m_nRy)*UNITY + 192 + UNITY div 2 - g_MySelf.m_nShiftY;
 {$ELSEIF SWH = SWH1024}
-     sx := (cx-g_MySelf.m_nRx)*UNITX + 485{364} + UNITX div 2 - g_MySelf.m_nShiftX;
-     sy := (cy-g_MySelf.m_nRy)*UNITY + 270{192} + UNITY div 2 - g_MySelf.m_nShiftY;
+	sx := (cx-g_MySelf.m_nRx)*UNITX + 485{364} + UNITX div 2 - g_MySelf.m_nShiftX;
+	sy := (cy-g_MySelf.m_nRy)*UNITY + 270{192} + UNITY div 2 - g_MySelf.m_nShiftY;
 {$IFEND}
 end;
 
@@ -1798,7 +1884,7 @@ begin
    end;
 end;
 
-//È¡µÃÊó±êËùÖ¸×ø±êµÄ½Ç??
+//È¡µÃÊó±êËùÖ¸×ø±êµÄ½ÇÉ«
 function  TPlayScene.GetAttackFocusCharacter (x, y, wantsel: integer; var nowsel: integer; liveonly: Boolean): TActor;
 var
    k, i, ccx, ccy, dx, dy, centx, centy: integer;
@@ -1838,208 +1924,229 @@ function  TPlayScene.IsSelectMyself (x, y: integer): Boolean;
 var
   k, i, ccx, ccy, dx, dy: integer;
 begin
-  Result := FALSE;
-  CXYfromMouseXY (x, y, ccx, ccy);
-  for k:=ccy+2 downto ccy-1 do begin
-    if g_MySelf.m_nCurrY = k then begin
-      //´õ ³ÐÀº ¹üÀ§·Î ¼±ÅÃµÇ°Ô
-      dx:=(g_MySelf.m_nRx - Map.m_ClientRect.Left) * UNITX + m_nDefXX + g_MySelf.m_nPx + g_MySelf.m_nShiftX;
-      dy:=(g_MySelf.m_nRy - Map.m_ClientRect.Top - 1) * UNITY + m_nDefYY + g_MySelf.m_nPy + g_MySelf.m_nShiftY;
-      if g_MySelf.CheckSelect (x-dx, y-dy) then begin
-        Result := TRUE;
-        exit;
-      end;
-    end;
-  end;
+	Result := FALSE;
+	CXYfromMouseXY (x, y, ccx, ccy);
+	for k:=ccy+2 downto ccy-1 do begin
+		if g_MySelf.m_nCurrY = k then begin
+			// more,large, In scope, To be chosen
+			//´õ ³ÐÀº ¹üÀ§·Î ¼±ÅÃµÇ°Ô
+			dx:=(g_MySelf.m_nRx - Map.m_ClientRect.Left) * UNITX + m_nDefXX + g_MySelf.m_nPx + g_MySelf.m_nShiftX;
+			dy:=(g_MySelf.m_nRy - Map.m_ClientRect.Top - 1) * UNITY + m_nDefYY + g_MySelf.m_nPy + g_MySelf.m_nShiftY;
+
+			if g_MySelf.CheckSelect (x-dx, y-dy) then begin
+				Result := TRUE;
+				exit;
+			end;
+		end;
+	end;
 end;
+
 //È¡µÃÖ¸¶¨×ù±êµØÃæÎïÆ·
 // x,y ÎªÆÁÄ»×ù±ê
 function  TPlayScene.GetDropItems (x, y: integer; var inames: string): PTDropItem; //È­¸éÁÂÇ¥·Î ¾ÆÀÌÅÛ
 var
-  k, i, ccx, ccy, ssx, ssy, dx, dy: integer;
-  DropItem:PTDropItem;
-  s: TDirectDrawSurface;
-  c: byte;
+	k, i, ccx, ccy, ssx, ssy, dx, dy: integer;
+	DropItem:PTDropItem;
+	s: TDirectDrawSurface;
+	c: byte;
 begin
-  Result := nil;
-  CXYfromMouseXY (x, y, ccx, ccy);
-  ScreenXYfromMCXY (ccx, ccy, ssx, ssy);
-  dx := x - ssx;
-  dy := y - ssy;
-  inames := '';
-  for i:=0 to g_DropedItemList.Count-1 do begin
-    DropItem := PTDropItem(g_DropedItemList[i]);
-    if (DropItem.X = ccx) and (DropItem.Y = ccy) then begin
+	Result := nil;
+	CXYfromMouseXY (x, y, ccx, ccy);
+	ScreenXYfromMCXY (ccx, ccy, ssx, ssy);
+	dx := x - ssx;
+	dy := y - ssy;
+	inames := '';
 
-      s := g_WDnItemImages.Images[DropItem.Looks];
-      if s = nil then continue;
-      dx := (x - ssx) + (s.Width div 2) - 3;
-      dy := (y - ssy) + (s.Height div 2);
-      c := s.Pixels[dx, dy];
-      if c <> 0 then begin
+	for i:=0 to g_DropedItemList.Count-1 do begin
+		DropItem := PTDropItem(g_DropedItemList[i]);
 
-        if Result = nil then Result := DropItem;
-        inames := inames + DropItem.Name + '\';
-        //break;
-      end;
-    end;
-  end;
+		if (DropItem.X = ccx) and (DropItem.Y = ccy) then begin
+			s := g_WDnItemImages.Images[DropItem.Looks];
+
+			if s = nil then continue;
+
+			dx := (x - ssx) + (s.Width div 2) - 3;
+			dy := (y - ssy) + (s.Height div 2);
+			c := s.Pixels[dx, dy];
+
+			if c <> 0 then begin
+				if Result = nil then Result := DropItem;
+				inames := inames + DropItem.Name + '\';
+				//break;
+			end;
+		end;
+	end;
 end;
+
 procedure TPlayScene.GetXYDropItemsList(nX,nY:Integer;var ItemList:TList);
 var
-  I:Integer;
-  DropItem:pTDropItem;
+	I:Integer;
+	DropItem:pTDropItem;
 begin
-  for I:= 0 to g_DropedItemList.Count - 1 do begin
-    DropItem:=g_DropedItemList[i];
-    if (DropItem.X = nX) and (DropItem.Y = nY) then begin
-      ItemList.Add(DropItem);
-    end;
-  end;
+	for I:= 0 to g_DropedItemList.Count - 1 do begin
+		DropItem:=g_DropedItemList[i];
+		if (DropItem.X = nX) and (DropItem.Y = nY) then begin
+			ItemList.Add(DropItem);
+		end;
+	end;
 end;
 
 function TPlayScene.GetXYDropItems(nX, nY: Integer): pTDropItem;
 var
-  I:Integer;
-  DropItem:pTDropItem;
+	I:Integer;
+	DropItem:pTDropItem;
 begin
-  Result:=nil;
-  for I:= 0 to g_DropedItemList.Count - 1 do begin
-    DropItem:=g_DropedItemList[i];
-    if (DropItem.X = nX) and (DropItem.Y = nY) then begin
-      Result:=DropItem;
-      break;
-    end;
-  end;
+	Result:=nil;
+	for I:= 0 to g_DropedItemList.Count - 1 do begin
+		DropItem:=g_DropedItemList[i];
+		if (DropItem.X = nX) and (DropItem.Y = nY) then begin
+			Result:=DropItem;
+			break;
+		end;
+	end;
 end;
 
 function  TPlayScene.CanRun (sx, sy, ex, ey: integer): Boolean;
 var
-   ndir, rx, ry: integer;
+	ndir, rx, ry: integer;
 begin
-   ndir := GetNextDirection (sx, sy, ex, ey);
-   rx := sx;
-   ry := sy;
-   GetNextPosXY (ndir, rx, ry);
+	ndir := GetNextDirection (sx, sy, ex, ey);
+	rx := sx;
+	ry := sy;
+	GetNextPosXY (ndir, rx, ry);
 
-   if Map.CanMove (rx, ry) and Map.CanMove (ex, ey) then
-     Result:=True
-   else Result:=False;
+	if Map.CanMove (rx, ry) and Map.CanMove (ex, ey) then
+		Result:=True
+	else 
+		Result:=False;
 
-   if CanWalkEx (rx, ry) and CanWalkEx (ex, ey) then
-      Result := TRUE
-   else Result := FALSE;
+	if CanWalkEx (rx, ry) and CanWalkEx (ex, ey) then
+		Result := TRUE
+	else 
+		Result := FALSE;
 end;
+
 function  TPlayScene.CanWalkEx (mx, my: integer): Boolean;
 begin
-   Result := FALSE;
-   if Map.CanMove(mx,my) then
-      Result := not CrashManEx (mx, my);
+	Result := FALSE;
+	if Map.CanMove(mx,my) then
+		Result := not CrashManEx (mx, my);
 end;
-   //´©ÈË
+
+{ ´©ÈË }
 function  TPlayScene.CrashManEx (mx, my: integer): Boolean;
 var
-  I:Integer;
-  Actor:TActor;
+	I:Integer;
+	Actor:TActor;
 begin    
-  Result := False;
-  for i:=0 to m_ActorList.Count-1 do begin
-    Actor:= TActor(m_ActorList[i]);
-    if (Actor.m_boVisible) and (Actor.m_boHoldPlace) and (not Actor.m_boDeath) and (Actor.m_nCurrX = mx) and (Actor.m_nCurrY = my) then begin
-//      DScreen.AddChatBoardString ('Actor.m_btRace ' + IntToStr(Actor.m_btRace),clWhite, clRed);
-      if (Actor.m_btRace = RCC_USERHUMAN) and g_boCanRunHuman then Continue;
-      if (Actor.m_btRace = RCC_MERCHANT) and g_boCanRunNpc then Continue;
-      if ((Actor.m_btRace > RCC_USERHUMAN) and (Actor.m_btRace <> RCC_MERCHANT)) and g_boCanRunMon then Continue;
-      //m_btRace ´óÓÚ 0 ²¢²»µÈÓÚ 50 ÔòÎª¹ÖÎï
-      Result:=True;
-      break;
-    end;
-  end;
+	Result := False;
+
+	for i:=0 to m_ActorList.Count-1 do begin
+		Actor:= TActor(m_ActorList[i]);
+		if (Actor.m_boVisible) and (Actor.m_boHoldPlace) and (not Actor.m_boDeath) and (Actor.m_nCurrX = mx) and (Actor.m_nCurrY = my) then begin
+			//      DScreen.AddChatBoardString ('Actor.m_btRace ' + IntToStr(Actor.m_btRace),clWhite, clRed);
+			if (Actor.m_btRace = RCC_USERHUMAN) and g_boCanRunHuman then Continue;
+			if (Actor.m_btRace = RCC_MERCHANT) and g_boCanRunNpc then Continue;
+
+			if ((Actor.m_btRace > RCC_USERHUMAN) 
+				and (Actor.m_btRace <> RCC_MERCHANT)) 
+				and g_boCanRunMon then 
+				Continue;
+
+			//m_btRace ´óÓÚ 0 ²¢²»µÈÓÚ 50 ÔòÎª¹ÖÎï
+			Result:=True;
+			break;
+		end;
+	end;
 end;
 
 function  TPlayScene.CanWalk (mx, my: integer): Boolean;
 begin
-   Result := FALSE;
-   if Map.CanMove(mx,my) then
-      Result := not CrashMan (mx, my);
+	Result := FALSE;
+	if Map.CanMove(mx,my) then
+		Result := not CrashMan (mx, my);
 end;
 
+{ ´©ÈË }
 function  TPlayScene.CrashMan (mx, my: integer): Boolean;
 var
-   i: integer;
-   a: TActor;
+	i: integer;
+	a: TActor;
 begin
-   Result := FALSE;
-   for i:=0 to m_ActorList.Count-1 do begin
-      a := TActor(m_ActorList[i]);
-      if (a.m_boVisible) and (a.m_boHoldPlace) and (not a.m_boDeath) and (a.m_nCurrX = mx) and (a.m_nCurrY = my) then begin
-         Result := TRUE;
-         break;
-      end;
-   end;
+	Result := FALSE;
+	for i:=0 to m_ActorList.Count-1 do begin
+		a := TActor(m_ActorList[i]);
+		if (a.m_boVisible) and (a.m_boHoldPlace) and (not a.m_boDeath) and (a.m_nCurrX = mx) and (a.m_nCurrY = my) then begin
+			Result := TRUE;
+			break;
+		end;
+	end;
 end;
 
 function  TPlayScene.CanFly (mx, my: integer): Boolean;
 begin
-   Result := Map.CanFly (mx, my);
+	Result := Map.CanFly (mx, my);
 end;
 
 
 {------------------------ Actor ------------------------}
 
+{ Find actor by ID }
 function  TPlayScene.FindActor (id: integer): TActor;
 var
-   i: integer;
+	i: integer;
 begin
-   Result := nil;
-   for i:=0 to m_ActorList.Count-1 do begin
-      if TActor(m_ActorList[i]).m_nRecogId = id then begin
-         Result := TActor(m_ActorList[i]);
-         break;
-      end;
-   end;
+	Result := nil;
+	for i:=0 to m_ActorList.Count-1 do begin
+		if TActor(m_ActorList[i]).m_nRecogId = id then begin
+			Result := TActor(m_ActorList[i]);
+			break;
+		end;
+	end;
 end;
 
+{ Find actor by name }
 function TPlayScene.FindActor(sName: String): TActor;
 var
-  I:Integer;
-  Actor:TActor;
+	I:Integer;
+	Actor:TActor;
 begin
-  Result := nil;
-  for I:=0 to m_ActorList.Count-1 do begin
-    Actor:=TActor(m_ActorList[i]);
-    if CompareText(Actor.m_sUserName,sName) = 0 then begin
-      Result:=Actor;
-      break;
-    end;
-  end;
+	Result := nil;
+	for I:=0 to m_ActorList.Count-1 do begin
+		Actor:=TActor(m_ActorList[i]);
+		if CompareText(Actor.m_sUserName,sName) = 0 then begin
+			Result:=Actor;
+			break;
+		end;
+	end;
 end;
 
-function  TPlayScene.FindActorXY (x, y: integer): TActor;  //¸Ê ÁÂÇ¥·Î actor ¾òÀ½
+{ Find actor by position in map }
+function  TPlayScene.FindActorXY (x, y: integer): TActor; 
 var
-   i: integer;
+	i: integer;
 begin
-   Result := nil;
-   for i:=0 to m_ActorList.Count-1 do begin
-      if (TActor(m_ActorList[i]).m_nCurrX = x) and (TActor(m_ActorList[i]).m_nCurrY = y) then begin
-         Result := TActor(m_ActorList[i]);
-         if not Result.m_boDeath and Result.m_boVisible and Result.m_boHoldPlace then
-            break;
-      end;
-   end;
+	Result := nil;
+	for i:=0 to m_ActorList.Count-1 do begin
+		if (TActor(m_ActorList[i]).m_nCurrX = x) and (TActor(m_ActorList[i]).m_nCurrY = y) then begin
+			Result := TActor(m_ActorList[i]);
+			if not Result.m_boDeath and Result.m_boVisible and Result.m_boHoldPlace then
+				break;
+		end;
+	end;
 end;
 
 function  TPlayScene.IsValidActor (actor: TActor): Boolean;
 var
-   i: integer;
+	i: integer;
 begin
-   Result := FALSE;
-   for i:=0 to m_ActorList.Count - 1 do begin
-      if TActor(m_ActorList[i]) = actor then begin
-         Result := TRUE;
-         break;
-      end;
-   end;
+	Result := FALSE;
+	for i:=0 to m_ActorList.Count - 1 do begin
+		if TActor(m_ActorList[i]) = actor then begin
+			Result := TRUE;
+			break;
+		end;
+	end;
 end;
 
 function  TPlayScene.NewActor (chrid:     integer;
@@ -2049,223 +2156,245 @@ function  TPlayScene.NewActor (chrid:     integer;
                                cfeature:  integer; //race, hair, dress, weapon
                                cstate:    integer): TActor;
 var
-   i: integer;
-   actor: TActor;
+	i: integer;
+	actor: TActor;
 begin
-   Result:=nil;//jacky
-   for i:=0 to m_ActorList.Count-1 do
-      if TActor(m_ActorList[i]).m_nRecogId = chrid then begin
-         Result := TActor(m_ActorList[i]);
-         exit; //ÀÌ¹Ì ÀÖÀ½
-      end;
-   if IsChangingFace (chrid) then exit;  //º¯½ÅÁß...      
+	Result:=nil;
 
-   case RACEfeature (cfeature) of //m_btRaceImg
-      0:  actor := THumActor.Create;              //ÈËÎï
-      9:  actor := TSoccerBall.Create;            //×ãÇò
-      13: actor := TKillingHerb.Create;           //Ê³ÈË»¨
-      14: actor := TSkeletonOma.Create;           //÷¼÷Ã
-      15: actor := TDualAxeOma.Create;            //ÖÀ¸«÷¼÷Ã
+	for i:=0 to m_ActorList.Count-1 do
+		if TActor(m_ActorList[i]).m_nRecogId = chrid then begin // Already existed
+			Result := TActor(m_ActorList[i]);
+			exit; 
+		end;
 
-      16: actor := TGasKuDeGi.Create;             //¶´Çù
+	if IsChangingFace (chrid) then exit;  // Changing...      
 
-      17: actor := TCatMon.Create;                //¹³×¦Ã¨
-      18: actor := THuSuABi.Create;               //µ¾²ÝÈË
-      19: actor := TCatMon.Create;                //ÎÖÂêÕ½Ê¿
+	case RACEfeature (cfeature) of //m_btRaceImg
+	0:  actor := THumActor.Create;              // Human Actor(ÈËÎï)
+	9:  actor := TSoccerBall.Create;            // Soccer Ball(×ãÇò)
+	13: actor := TKillingHerb.Create;           // Ê³ÈË»¨
+	14: actor := TSkeletonOma.Create;           // ÷¼÷Ã
+	15: actor := TDualAxeOma.Create;            // ÖÀ¸«÷¼÷Ã
 
-      20: actor := TFireCowFaceMon.Create;        //»ðÑæÎÖÂê
-      21: actor := TCowFaceKing.Create;           //ÎÖÂê½ÌÖ÷
-      22: actor := TDualAxeOma.Create;            //ºÚ°µÕ½Ê¿
-      23: actor := TWhiteSkeleton.Create;         //±äÒì÷¼÷Ã
-      24: actor := TSuperiorGuard.Create;         //´øµ¶ÎÀÊ¿
-      30: actor := TCatMon.Create; //³¯°³Áþ
-      31: actor := TCatMon.Create;                //½ÇÓ¬
-      32: actor := TScorpionMon.Create;           //Ð«×Ó
+	16: actor := TGasKuDeGi.Create;             //¶´Çù
 
-      33: actor := TCentipedeKingMon.Create;      //´¥Áú??
-      34: actor := TBigHeartMon.Create;           //³àÔÂ¶ñÄ§
-      35: actor := TSpiderHouseMon.Create;        //»ÃÓ°Ö©Öë
-      36: actor := TExplosionSpider.Create;       //ÔÂÄ§Ö©Öë
-      37: actor := TFlyingSpider.Create;       //
+	17: actor := TCatMon.Create;                // Cat Monster(¹³×¦Ã¨)
+	18: actor := THuSuABi.Create;               //µ¾²ÝÈË
+	19: actor := TCatMon.Create;                //ÎÖÂêÕ½Ê¿
 
-      40: actor := TZombiLighting.Create;         //½©Ê¬1
-      41: actor := TZombiDigOut.Create;           //½©Ê¬2
-      42: actor := TZombiZilkin.Create;           //½©Ê¬3
+	20: actor := TFireCowFaceMon.Create;        // »ðÑæÎÖÂê
+	21: actor := TCowFaceKing.Create;           // ÎÖÂê½ÌÖ÷
+	22: actor := TDualAxeOma.Create;            // ºÚ°µÕ½Ê¿
+	23: actor := TWhiteSkeleton.Create;         // White Skeleton(±äÒì÷¼÷Ã)
+	24: actor := TSuperiorGuard.Create;         // Superior Guard(´øµ¶ÎÀÊ¿)
+	30: actor := TCatMon.Create;				  // ³¯°³Áþ
+	31: actor := TCatMon.Create;                // ½ÇÓ¬
+	32: actor := TScorpionMon.Create;           // Scorpion Monster(Ð«×Ó)
 
-      43: actor := TBeeQueen.Create;              //½ÇÓ¬³²
+	33: actor := TCentipedeKingMon.Create;      //´¥Áú??
+	34: actor := TBigHeartMon.Create;           // Big Heart Monster(³àÔÂ¶ñÄ§)
+	35: actor := TSpiderHouseMon.Create;        // Spider House Monster(»ÃÓ°Ö©Öë)
+	36: actor := TExplosionSpider.Create;       // Explosion Spider(ÔÂÄ§Ö©Öë)
+	37: actor := TFlyingSpider.Create;          //
 
-      45: actor := TArcherMon.Create;             //¹­¼ýÊÖ
-      47: actor := TSculptureMon.Create;          //×æÂêµñÏñ
-      48: actor := TSculptureMon.Create;          //
-      49: actor := TSculptureKingMon.Create;      //×æÂê½ÌÖ÷
+	40: actor := TZombiLighting.Create;         //½©Ê¬1
+	41: actor := TZombiDigOut.Create;           //½©Ê¬2
+	42: actor := TZombiZilkin.Create;           //½©Ê¬3
 
-      50: actor := TNpcActor.Create;
+	43: actor := TBeeQueen.Create;              // Bee Queen(½ÇÓ¬³²)
 
-      52: actor := TGasKuDeGi.Create;             //Ð¨¶ê
-      53: actor := TGasKuDeGi.Create;             //·à³æ
-      54: actor := TSmallElfMonster.Create;       //?ñÊ?
-      55: actor := TWarriorElfMonster.Create;     //?ñÊ?1
+	45: actor := TArcherMon.Create;             //¹­¼ýÊÖ
+	47: actor := TSculptureMon.Create;          //×æÂêµñÏñ
+	48: actor := TSculptureMon.Create;          //
+	49: actor := TSculptureKingMon.Create;      //×æÂê½ÌÖ÷
 
-      60: actor := TElectronicScolpionMon.Create;
-      61: actor := TBossPigMon.Create;
-      62: actor := TKingOfSculpureKingMon.Create;
-      63: actor := TSkeletonKingMon.Create;
-      64: actor := TGasKuDeGi.Create;       
-      65: actor := TSamuraiMon.Create;
-      66: actor := TSkeletonSoldierMon.Create;
-      67: actor := TSkeletonSoldierMon.Create;
-      68: actor := TSkeletonSoldierMon.Create;
-      69: actor := TSkeletonArcherMon.Create;
-      70: actor := TBanyaGuardMon.Create;
-      71: actor := TBanyaGuardMon.Create;
-      72: actor := TBanyaGuardMon.Create;
-      73: actor := TPBOMA1Mon.Create;
-      74: actor := TCatMon.Create;
-      75: actor := TStoneMonster.Create;
-      76: actor := TSuperiorGuard.Create;
-      77: actor := TStoneMonster.Create;
-      78: actor := TBanyaGuardMon.Create;
-      79: actor := TPBOMA6Mon.Create;
-      80: actor := TMineMon.Create;
-      81: actor := TAngel.Create;
-      83: actor := TFireDragon.Create;
-      84: actor := TDragonStatue.Create;
+	50: actor := TNpcActor.Create;
 
-      90: actor := TDragonBody.Create;            //Áú
-      98: actor := TWallStructure.Create;         //LeftWall
-      99: actor := TCastleDoor.Create;            //MainDoor
-      else actor := TActor.Create;
-   end;
+	52: actor := TGasKuDeGi.Create;             //Ð¨¶ê
+	53: actor := TGasKuDeGi.Create;             //·à³æ
+	54: actor := TSmallElfMonster.Create;       //?ñÊ?
+	55: actor := TWarriorElfMonster.Create;     //?ñÊ?1
 
-   with actor do begin
-      m_nRecogId := chrid;
-      m_nCurrX     := cx;
-      m_nCurrY     := cy;
-      m_nRx        := m_nCurrX;
-      m_nRy        := m_nCurrY;
-      m_btDir      := cdir;
-      m_nFeature   := cfeature;
-      m_btRace     := RACEfeature(cfeature);         //changefeature°¡ ÀÖÀ»¶§¸¸
-      m_btHair     := HAIRfeature(cfeature);         //º¯°æµÈ´Ù.
-      m_btDress    := DRESSfeature(cfeature);
-      m_btWeapon   := WEAPONfeature(cfeature);
-      m_wAppearance:= APPRfeature(cfeature);
-//      Horse:=Horsefeature(cfeature);
-//      Effect:=Effectfeature(cfeature);
-      m_Action     := GetMonAction(m_wAppearance);
-      if m_btRace = 0 then begin
-        m_btSex := m_btDress mod 2;   //0:³²ÀÚ 1:¿©ÀÚ
-      end else begin
-        m_btSex := 0;
-      end;
-      m_nState  := cstate;
-      m_SayingArr[0] := '';
-   end;
-   m_ActorList.Add(actor);
-   Result := actor;
+	60: actor := TElectronicScolpionMon.Create;
+	61: actor := TBossPigMon.Create;
+	62: actor := TKingOfSculpureKingMon.Create;
+	63: actor := TSkeletonKingMon.Create;
+	64: actor := TGasKuDeGi.Create;       
+	65: actor := TSamuraiMon.Create;
+	66: actor := TSkeletonSoldierMon.Create;
+	67: actor := TSkeletonSoldierMon.Create;
+	68: actor := TSkeletonSoldierMon.Create;
+	69: actor := TSkeletonArcherMon.Create;
+	70: actor := TBanyaGuardMon.Create;
+	71: actor := TBanyaGuardMon.Create;
+	72: actor := TBanyaGuardMon.Create;
+	73: actor := TPBOMA1Mon.Create;
+	74: actor := TCatMon.Create;
+	75: actor := TStoneMonster.Create;
+	76: actor := TSuperiorGuard.Create;
+	77: actor := TStoneMonster.Create;
+	78: actor := TBanyaGuardMon.Create;
+	79: actor := TPBOMA6Mon.Create;
+	80: actor := TMineMon.Create;
+	81: actor := TAngel.Create;
+	83: actor := TFireDragon.Create;
+	84: actor := TDragonStatue.Create;
+
+	90: actor := TDragonBody.Create;            //Áú
+	98: actor := TWallStructure.Create;         //LeftWall
+	99: actor := TCastleDoor.Create;            //MainDoor
+	else 
+		actor := TActor.Create;
+	end;
+
+	with actor do begin
+		m_nRecogId := chrid;
+		m_nCurrX     := cx;
+		m_nCurrY     := cy;
+		m_nRx        := m_nCurrX;
+		m_nRy        := m_nCurrY;
+		m_btDir      := cdir;
+		m_nFeature   := cfeature;
+		m_btRace     := RACEfeature(cfeature);         //changefeature°¡ ÀÖÀ»¶§¸¸
+		m_btHair     := HAIRfeature(cfeature);         //º¯°æµÈ´Ù.
+		m_btDress    := DRESSfeature(cfeature);
+		m_btWeapon   := WEAPONfeature(cfeature);
+		m_wAppearance:= APPRfeature(cfeature);
+		//      Horse:=Horsefeature(cfeature);
+		//      Effect:=Effectfeature(cfeature);
+		m_Action     := GetMonAction(m_wAppearance);
+
+		if m_btRace = 0 then begin
+			m_btSex := m_btDress mod 2;   //0:Male 1: Female
+		end else begin
+			m_btSex := 0;
+		end;
+
+		m_nState  := cstate;
+		m_SayingArr[0] := '';
+	end;
+
+	m_ActorList.Add(actor);
+	Result := actor;
 end;
 
 procedure TPlayScene.ActorDied (actor: TObject);
 var
-   i: integer;
-   flag: Boolean;
+	i: integer;
+	flag: Boolean;
 begin
-   for i:=0 to m_ActorList.Count-1 do
-      if m_ActorList[i] = actor then begin
-         m_ActorList.Delete (i);
-         break;
-      end;
-   flag := FALSE;
-   for i:=0 to m_ActorList.Count-1 do
-      if not TActor(m_ActorList[i]).m_boDeath then begin
-         m_ActorList.Insert (i, actor);
-         flag := TRUE;
-         break;
-      end;
-   if not flag then m_ActorList.Add (actor);
+	for i:=0 to m_ActorList.Count-1 do begin
+		if m_ActorList[i] = actor then begin
+			m_ActorList.Delete (i);
+			break;
+		end;
+	end;
+
+	flag := FALSE;
+
+	for i:=0 to m_ActorList.Count-1 do begin
+		if not TActor(m_ActorList[i]).m_boDeath then begin
+			m_ActorList.Insert (i, actor);
+			flag := TRUE;
+			break;
+		end;
+	end;
+
+	if not flag then m_ActorList.Add (actor);
 end;
 
 procedure TPlayScene.SetActorDrawLevel (actor: TObject; level: integer);
 var
-   i: integer;
+	i: integer;
 begin
-   if level = 0 then begin  //¸Ç Ã³À½¿¡ ±×¸®µµ·Ï ÇÔ
-      for i:=0 to m_ActorList.Count-1 do
-         if m_ActorList[i] = actor then begin
-            m_ActorList.Delete (i);
-            m_ActorList.Insert (0, actor);
-            break;
-         end;
-   end;
+	if level = 0 then begin  //¸Ç Ã³À½¿¡ ±×¸®µµ·Ï ÇÔ
+		for i:=0 to m_ActorList.Count-1 do begin
+			if m_ActorList[i] = actor then begin
+				m_ActorList.Delete (i);
+				m_ActorList.Insert (0, actor);
+				break;
+			end;
+		end;
+	end;
 end;
 
-procedure TPlayScene.ClearActors;  //·Î±×¾Æ¿ô¸¸ »ç¿ë
+{ Only used by logout }
+procedure TPlayScene.ClearActors; 
 var
-   i: integer;
+	i: integer;
 begin
-   for i:=0 to m_ActorList.Count-1 do
-      TActor(m_ActorList[i]).Free;
-   m_ActorList.Clear;
-   g_MySelf := nil;
-   g_TargetCret := nil;
-   g_FocusCret := nil;
-   g_MagicTarget := nil;
+	for i:=0 to m_ActorList.Count-1 do
+		TActor(m_ActorList[i]).Free;
 
-   //¸¶¹ýµµ ÃÊ±âÈ­ ÇØ¾ßÇÔ.
-   for i:=0 to m_EffectList.Count-1 do
-      TMagicEff (m_EffectList[i]).Free;
-   m_EffectList.Clear;
+	m_ActorList.Clear;
+	g_MySelf := nil;
+	g_TargetCret := nil;
+	g_FocusCret := nil;
+	g_MagicTarget := nil;
+
+	// Must reset magic effect
+	for i:=0 to m_EffectList.Count-1 do
+		TMagicEff (m_EffectList[i]).Free;
+
+	m_EffectList.Clear;
 end;
 
+{ Delete actor by ID }
 function  TPlayScene.DeleteActor (id: integer): TActor;
 var
-   i: integer;
+	i: integer;
 begin
-   Result := nil;
-   i := 0;
-   while TRUE do begin
-      if i >= m_ActorList.Count then break;
-      if TActor(m_ActorList[i]).m_nRecogId = id then begin
-         if g_TargetCret = TActor(m_ActorList[i]) then g_TargetCret := nil;
-         if g_FocusCret = TActor(m_ActorList[i]) then g_FocusCret := nil;
-         if g_MagicTarget = TActor(m_ActorList[i]) then g_MagicTarget := nil;
-         TActor(m_ActorList[i]).m_dwDeleteTime := GetTickCount;
-         g_FreeActorList.Add (m_ActorList[i]);
-         //TActor(ActorList[i]).Free;
-         m_ActorList.Delete (i);
-      end else
-         Inc (i);
-   end;
+	Result := nil;
+	i := 0;
+
+	while TRUE do begin
+		if i >= m_ActorList.Count then break;
+
+		if TActor(m_ActorList[i]).m_nRecogId = id then begin
+			if g_TargetCret = TActor(m_ActorList[i]) then g_TargetCret := nil;
+			if g_FocusCret = TActor(m_ActorList[i]) then g_FocusCret := nil;
+			if g_MagicTarget = TActor(m_ActorList[i]) then g_MagicTarget := nil;
+			TActor(m_ActorList[i]).m_dwDeleteTime := GetTickCount;
+			g_FreeActorList.Add (m_ActorList[i]);
+			//TActor(ActorList[i]).Free;
+			m_ActorList.Delete (i);
+		end else
+			Inc (i);
+	end;
 end;
 
+{ Delete actor by object }
 procedure TPlayScene.DelActor (actor: TObject);
 var
-   i: integer;
+	i: integer;
 begin
-   for i:=0 to m_ActorList.Count-1 do
-      if m_ActorList[i] = actor then begin
-         TActor(m_ActorList[i]).m_dwDeleteTime := GetTickCount;
-         g_FreeActorList.Add (m_ActorList[i]);
-         m_ActorList.Delete (i);
-         break;
-      end;
+	for i:=0 to m_ActorList.Count-1 do begin
+		if m_ActorList[i] = actor then begin
+			TActor(m_ActorList[i]).m_dwDeleteTime := GetTickCount;
+			g_FreeActorList.Add (m_ActorList[i]);
+			m_ActorList.Delete (i);
+			break;
+		end;
+	end;
 end;
 
+{ ÍÀÉ±¶¯Îï }
 function  TPlayScene.ButchAnimal (x, y: integer): TActor;
 var
-   i: integer;
-   a: TActor;
+	i: integer;
+	a: TActor;
 begin
-   Result := nil;
-   for i:=0 to m_ActorList.Count-1 do begin
-      a := TActor(m_ActorList[i]);
-      if a.m_boDeath and (a.m_btRace <> 0) then begin //µ¿¹° ½ÃÃ¼
-         if (abs(a.m_nCurrX - x) <= 1) and (abs(a.m_nCurrY - y) <= 1) then begin
-            Result := a;
-            break;
-         end;
-      end;
-   end;
+	Result := nil;
+
+	for i:=0 to m_ActorList.Count-1 do begin
+		a := TActor(m_ActorList[i]);
+		if a.m_boDeath and (a.m_btRace <> 0) then begin // Animal death body
+			if (abs(a.m_nCurrX - x) <= 1) and (abs(a.m_nCurrY - y) <= 1) then begin
+				Result := a;
+				break;
+			end;
+		end;
+	end;
 end;
 
 
@@ -2377,7 +2506,6 @@ begin
 end;
 
 
-
-
-
 end.
+
+// vi: fileencoding=gb2312
