@@ -1243,7 +1243,6 @@ begin
    DGold.Left := 10;
    DGold.Top  := 190;
 
-   // Use Button
    DRepairItem.SetImgIndex (g_WMainImages, 26);
    DRepairItem.Left := 254;
    DRepairItem.Top := 183;

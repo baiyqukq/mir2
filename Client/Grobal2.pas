@@ -27,19 +27,19 @@ Const
 
 	CM_SAY =22;
 
-	CM_MAGICKEYCHANGE = 30;
-	CM_CREATEGROUP =42;
+	CM_MAGICKEYCHANGE = 30;				// Magic Key Change
+	CM_CREATEGROUP =42;					// Create Group
 	CM_WANTMINIMAP =43;					// Want Mini Map
-	CM_OPENGUILDDLG =45;
-	CM_GROUPMODE=41;
-	CM_ADDGROUPMEMBER =51;
-	CM_DELGROUPMEMBER =52;
+	CM_OPENGUILDDLG =45;				// Open Guild Dialog
+	CM_GROUPMODE=41;					// Group Mode
+	CM_ADDGROUPMEMBER =51;				// Add Group Member
+	CM_DELGROUPMEMBER =52;				// Delete Group Member
 
-	CM_SPEEDHACKUSER =59;
-	CM_ADJUST_BONUS =60;
+	CM_SPEEDHACKUSER =59;				// Speed Hack User
+	CM_ADJUST_BONUS =60;				// Adjust Bonus
 
-	CM_QUERYBAGITEMS=62;
-	CM_LOGINNOTICEOK = 63;
+	CM_QUERYBAGITEMS=62;				// Quey Bag Items
+	CM_LOGINNOTICEOK = 63;				// Login Notice OK
 
 	//! [动作命令1
 	CM_TURN       =4001;
@@ -60,41 +60,46 @@ Const
 	//! ]
 
 	//! [动作命令2
-	CM_OPENDOOR   =2001;
-	CM_DROPITEM =2010;
-	CM_PICKUP =2011;
-	CM_TAKEONITEM =2021;
-	CM_TAKEOFFITEM = 2022;
-	CM_EAT =2023;
-	CM_BUTCH =2024;
+	CM_OPENDOOR   =2001;				// Open door
+	CM_DROPITEM =2010;					// Drop item
+	CM_PICKUP =2011;					// Pickup
+	CM_TAKEONITEM =2021;				// Take on item
+	CM_TAKEOFFITEM = 2022;				// Take off item
+	CM_EAT =2023;						// Eat
+	CM_BUTCH =2024;						// Butch
 	//! ]
 
-	CM_MERCHANTDLGSELECT =2030;
-	CM_MERCHANTQUERYSELLPRICE =2031;
-	CM_MERCHANTQUERYREPAIRCOST =2032;
+	CM_MERCHANTDLGSELECT =2030;			// Merchant Dialog Select
+	CM_MERCHANTQUERYSELLPRICE =2031;	// Merchant Query Sell Price
+	CM_MERCHANTQUERYREPAIRCOST =2032;	// Merchant Query Repair Cost
 
-	CM_USERSELLITEM =2040;
-	CM_USERREPAIRITEM =2041;
-	CM_USERSTORAGEITEM =2042;
-	CM_USERGETDETAILITEM =2043;
-	CM_USERBUYITEM =2044;
-	CM_USERTAKEBACKSTORAGEITEM =2045;
-	CM_USERMAKEDRUGITEM =2046;
-	CM_DROPGOLD =2050;
+	CM_USERSELLITEM =2040;				// User Sell Item
+	CM_USERREPAIRITEM =2041;			// User Repair Item
+	CM_USERSTORAGEITEM =2042;			// User Storage Item
+	CM_USERGETDETAILITEM =2043;			// User Get Detail Item
+	CM_USERBUYITEM =2044;				// User Buy Item
+	CM_USERTAKEBACKSTORAGEITEM =2045;	// User Take Back Storage Item
+	CM_USERMAKEDRUGITEM =2046;			// User Make Drug Item
 
-	CM_DEALTRY =2060;
-	CM_DEALCANCEL =2061;
-	CM_DEALADDITEM =2062;
-	CM_DEALDELITEM =2063;
-	CM_DEALCHGGOLD =2064;
-	CM_DEALEND =2069;
+	CM_DROPGOLD =2050;					// Grop Gold
 
-	CM_GUILDHOME =2070;
-	CM_GUILDMEMBERLIST =2071;
-	CM_GUILDADDMEMBER =2072;
-	CM_GUILDDELMEMBER =2073;
-	CM_GUILDUPDATENOTICE =2074;
-	CM_GUILDUPDATERANKINFO =2075;
+	{****************************** Deal: Begin ******************************}
+	CM_DEALTRY =2060;					// Deal Try
+	CM_DEALCANCEL =2061;				// Deal Cancel
+	CM_DEALADDITEM =2062;				// Deal Add Item
+	CM_DEALDELITEM =2063;				// Deal Delete Item
+	CM_DEALCHGGOLD =2064;				// Deal Change Gold
+	CM_DEALEND =2069;					// Deal End
+	{****************************** Deal: End ******************************}
+
+	{****************************** Guild: Begin ******************************}
+	CM_GUILDHOME =2070;					// Guild Home
+	CM_GUILDMEMBERLIST =2071;			// Guild Member List
+	CM_GUILDADDMEMBER =2072;			// Guild Add Member
+	CM_GUILDDELMEMBER =2073;			// Guild Delete Member
+	CM_GUILDUPDATENOTICE =2074;			// Guild Update Notice
+	CM_GUILDUPDATERANKINFO =2075;		// Guild Update Rank Info
+	{****************************** Guild: End ******************************}
 
 	//装备项目
 	U_WEAPON      =0;    //武器
@@ -390,63 +395,65 @@ StdMode:Integer;
 Shape:Integer;
   end;
 
-  TStdItem=record
-	  Name:String[16];   //物品名称
-	  Looks:integer;     //外观，即Items.WIL中的图片索引
-	  StdMode:integer;   //0/1/2/3：药， 5/6:武器，10/11：盔甲，15：头盔，22/23：戒指，24/26：手镯，19/20/21：项链
-	  Shape:integer;
-	  AC:Integer;
-	  MAC:integer;
-	  Weight:integer;
-	  DuraMax:integer;
-	  NeedIdentify:byte;
-	  DC,MC,SC:Integer;
-	  Source:integer;
-	  Need:integer;
-	  NeedLevel:integer;
-  end;
+	TStdItem = record
+		Name:String[16];   //物品名称
+		Looks:integer;     //外观，即Items.WIL中的图片索引
+		StdMode:integer;   //0/1/2/3：药， 5/6:武器，10/11：盔甲，15：头盔，22/23：戒指，24/26：手镯，19/20/21：项链
+		Shape:integer;
+		AC:Integer;
+		MAC:integer;
+		Weight:integer;
+		DuraMax:integer;
+		NeedIdentify:byte;
+		DC,MC,SC:Integer;
+		Source:integer;
+		Need:integer;
+		NeedLevel:integer;
+	end;
 
-  PTClientItem=^TClientItem;
-  TClientItem=Record
-  s:TStdItem;
-  MakeIndex:Integer;
-  Dura:Integer;
-  DuraMax:Integer;
-  end;
+	PTClientItem=^TClientItem;
 
-  TAbility= packed record
-	  MP,MaxMP:Integer;
-	  HP,MaxHP:integer;
-	  Exp,MaxExp:Integer;
-	  Level:Integer;
-	  Weight,MaxWeight:Integer;
-	  WearWeight,MaxWearWeight:Integer;
-	  HandWeight,MaxHandWeight:Integer;
-	  AC:Integer;
-	  MAC:Integer;
-	  DC:Integer;
-	  MC,SC:Integer;
-  end;
+	TClientItem=Record
+		s:TStdItem;
+		MakeIndex:Integer;
+		Dura:Integer;
+		DuraMax:Integer;
+	end;
 
-  PTChrMsg=^TChrMsg;
-  TChrMsg=Record
-  Ident:integer;
-  Dir:Integer;
-  X,Y:Integer;
-  State:integer;
-  feature:integer;
-  saying:string;
-  Sound:integer;
-  end;
+	TAbility= packed record
+		MP,MaxMP:Integer;
+		HP,MaxHP:integer;
+		Exp,MaxExp:Integer;
+		Level:Integer;
+		Weight,MaxWeight:Integer;
+		WearWeight,MaxWearWeight:Integer;
+		HandWeight,MaxHandWeight:Integer;
+		AC:Integer;
+		MAC:Integer;
+		DC:Integer;
+		MC,SC:Integer;
+	end;
 
-  TUserStateInfo=Record
-  UserName:String[32];
-  GuildName:String[32];
-  GuildRankName:String[32];
-  NameColor:Integer;
-  Feature:integer;
-  UseItems:Array[0..127] of TClientItem;
-  end;
+	PTChrMsg=^TChrMsg;
+
+	TChrMsg=Record
+		Ident:integer;
+		Dir:Integer;
+		X,Y:Integer;
+		State:integer;
+		feature:integer;
+		saying:string;
+		Sound:integer;
+	end;
+
+	TUserStateInfo=Record
+		UserName:String[32];
+		GuildName:String[32];
+		GuildRankName:String[32];
+		NameColor:Integer;
+		Feature:integer;
+		UseItems:Array[0..127] of TClientItem;
+	end;
 
   TUserCharacterInfo=Record
   Name:String;

@@ -26,15 +26,16 @@ uses
 
 type
 	Str4096 = array [0..4096] of char;
-   Str256 = array [0..256] of char;
-   TyNameTable = record
-   	Name: string;
-      varl:	Longint;
-   end;
+	Str256 = array [0..256] of char;
 
-   TLRect = record
-   	Left, Top, Right, Bottom: Longint;
-   end;
+	TyNameTable = record
+		Name: string;
+		varl:	Longint;
+	end;
+
+	TLRect = record
+		Left, Top, Right, Bottom: Longint;
+	end;
 
 const
 	MAXDEFCOLOR			= 16;
@@ -190,58 +191,62 @@ function  CaptureString (source: string; var rdstr: string): string;
 var
 	st, et, c, len, i: integer;
 begin
-   if source = '' then begin
-   	rdstr := ''; Result := '';
-      exit;
-   end;
+	if source = '' then begin
+		rdstr := ''; Result := '';
+		exit;
+	end;
+
 	c := 1;
-   //et := 0;
-   len := Length (source);
+	//et := 0;
+	len := Length (source);
+
 	while source[c] = ' ' do
-      if c < len then Inc (c)
-      else break;
+		if c < len then Inc (c)
+		else break;
 
-   if (source[c] = '"') and (c < len) then begin
+	if (source[c] = '"') and (c < len) then begin
+		st := c+1;
+		et := len;
 
-      st := c+1;
-      et := len;
-    	for i:=c+1 to len do
-      	if source[i] = '"' then begin
-            et := i-1;
-         	break;
-         end;
+		for i:=c+1 to len do begin
+			if source[i] = '"' then begin
+				et := i-1;
+				break;
+			end;
+		end;
+	end else begin
+		st := c;
+		et := len;
 
-   end else begin
-   	st := c;
-      et := len;
-      for i:=c to len do
-      	if source[i] = ' ' then begin
-         	et := i-1;
-            break;
-         end;
+		for i:=c to len do begin
+			if source[i] = ' ' then begin
+				et := i-1;
+				break;
+			end;
+		end;
+	end;
 
-   end;
+	rdstr := Copy (source, st, (et-st+1));
 
-   rdstr := Copy (source, st, (et-st+1));
-   if len >= (et+2) then
-   	Result := Copy (source, et+2, len-(et+1)) else
-      Result := '';
-
+	if len >= (et+2) then
+		Result := Copy (source, et+2, len-(et+1)) 
+	else
+		Result := '';
 end;
 
 
 function CountUglyWhiteChar (sPtr: PChar): Longint;
 var
-   Cnt, Killw: Longint;
+	Cnt, Killw: Longint;
 begin
-   Killw := 0;
-   for Cnt := (StrLen(sPtr)-1) downto 0 do begin
-      if sPtr[Cnt] = ' ' then begin
-         Inc (KillW);
-         {sPtr[Cnt] := #0;}
-      end else break;
-   end;
-   Result := Killw;
+	Killw := 0;
+	for Cnt := (StrLen(sPtr)-1) downto 0 do begin
+		if sPtr[Cnt] = ' ' then begin
+			Inc (KillW);
+			{sPtr[Cnt] := #0;}
+		end else break;
+	end;
+	Result := Killw;
 end;
 
 
@@ -280,59 +285,67 @@ function KillFirstSpace (var Str: string): Longint;
 var
 	Cnt, Len: Longint;
 begin
-   Result := 0;
-   Len := Length (Str);
-	for Cnt := 1 to Len do
-   	if Str[Cnt] <> ' ' then begin
-         Str := Copy (Str, Cnt, Len-Cnt+1);
-         Result := Cnt-1;
-         break;
-      end;
+	Result := 0;
+	Len := Length (Str);
+	for Cnt := 1 to Len do begin
+		if Str[Cnt] <> ' ' then begin
+			Str := Copy (Str, Cnt, Len-Cnt+1);
+			Result := Cnt-1;
+			break;
+		end;
+	end;
 end;
 
 procedure KillGabageSpace (var Str: string);
 var
 	Cnt, Len: Longint;
 begin
-   Len := Length (Str);
-	for Cnt := Len downto 1 do
-   	if Str[Cnt] <> ' ' then begin
-         Str := Copy (Str, 1, Cnt);
-         KillFirstSpace (Str);
-         break;
-      end;
+	Len := Length (Str);
+	for Cnt := Len downto 1 do begin
+		if Str[Cnt] <> ' ' then begin
+			Str := Copy (Str, 1, Cnt);
+			KillFirstSpace (Str);
+			break;
+		end;
+	end;
 end;
 
 function GetFirstWord (Str: string; var sWord: string; var FrontSpace: Longint): string;
 var
-   Cnt, Len, N: Longint;
-   DestBuf: Str4096;
+	Cnt, Len, N: Longint;
+	DestBuf: Str4096;
 begin
-   Len := Length (Str);
-   if Len <= 0 then
-   	Result := ''
-   else begin
-   	FrontSpace := 0;
-      for Cnt := 1 to Len do begin
-         if Str[Cnt] = ' ' then Inc (FrontSpace)
-         else break;
-      end;
-      N := 0;
-      for Cnt := Cnt to Len do begin
-         if Str[Cnt] <> ' ' then
-            DestBuf[N] := Str[Cnt]
-         else begin
-            DestBuf[N] := #0;
-            sWord := StrPas (DestBuf);
-            Result := Copy (Str, Cnt, Len-Cnt+1);
-            exit;
-         end;
-         Inc (N);
-      end;
-      DestBuf[N] := #0;
-      sWord := StrPas (DestBuf);
-      Result := '';
-   end;
+	Len := Length (Str);
+
+	if Len <= 0 then
+		Result := ''
+	else begin
+		FrontSpace := 0;
+
+		for Cnt := 1 to Len do begin
+			if Str[Cnt] = ' ' then Inc (FrontSpace)
+			else break;
+		end;
+
+		N := 0;
+
+		for Cnt := Cnt to Len do begin
+			if Str[Cnt] <> ' ' then
+				DestBuf[N] := Str[Cnt]
+			else begin
+				DestBuf[N] := #0;
+				sWord := StrPas (DestBuf);
+				Result := Copy (Str, Cnt, Len-Cnt+1);
+				exit;
+			end;
+
+			Inc (N);
+		end;
+
+		DestBuf[N] := #0;
+		sWord := StrPas (DestBuf);
+		Result := '';
+	end;
 end;
 
 function HexToIntEx (shap_str: string): Longint;
