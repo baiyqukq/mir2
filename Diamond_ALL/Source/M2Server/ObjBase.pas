@@ -530,6 +530,7 @@ type
     procedure AddItemSkill(nIndex:Integer);
     procedure DelItemSkill(nIndex:Integer);
   end;
+
   TAnimalObject =class(TBaseObject)
     m_nNotProcessCount            :Integer;    //未被处理次数，用于怪物处理循环
     m_nTargetX                    :Integer;    //0x538
@@ -554,6 +555,7 @@ type
 
     procedure HitMagAttackTarget(TargeTBaseObject: TBaseObject; nHitPower: Integer;nMagPower:integer;boFlag:Boolean);
   end;
+
   TPlayObject = class(TAnimalObject)
     m_DefMsg                  :TDefaultMessage;  //0x550
       TList55C                :TList;      //0x55C

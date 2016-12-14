@@ -16,6 +16,7 @@ type
     function AttackTarget():Boolean; override; //FFEB
     procedure Run;override;
   end;
+
   TThornDarkMonster = class(TDualAxeMonster)
   private
 

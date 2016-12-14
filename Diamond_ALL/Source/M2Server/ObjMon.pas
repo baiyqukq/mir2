@@ -25,6 +25,7 @@ type
     function AttackTarget():Boolean; virtual; //FFEB
     procedure Run; override;
   end;
+
   TChickenDeer = class(TMonster)
   private
 
@@ -33,6 +34,7 @@ type
     destructor Destroy; override;
     procedure Run;override;
   end;
+
   TATMonster = class(TMonster)
   private
   public

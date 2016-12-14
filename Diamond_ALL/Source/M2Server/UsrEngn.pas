@@ -1150,6 +1150,7 @@ begin
   g_nMonTimeMin:=GetTickCount - dwRunTick;
   if g_nMonTimeMax < g_nMonTimeMin then g_nMonTimeMax:=g_nMonTimeMin;
 end;
+
 function TUserEngine.GetGenMonCount(MonGen:pTMonGenInfo):Integer;//4AE19C
 var
   I          :Integer;
@@ -1625,28 +1626,35 @@ begin
     FrmMsgClient.SendSocket(IntToStr(nCode) + '/' + EncodeString(IntToStr(nServerIdx)) + '/' + EncodeString(sMsg));
   end;    
 end;
+
 function TUserEngine.AddBaseObject(sMapName:String;nX,nY:Integer;nMonRace:Integer;sMonName:String):TBaseObject;//004AD56C
 var
-  Map:TEnvirnoment;
-  Cert:TBaseObject;
-  n1C,n20,n24:Integer;
-  p28:Pointer;
+	Map:TEnvirnoment;
+	Cert:TBaseObject;
+	n1C,n20,n24:Integer;
+	p28:Pointer;
 begin
-  Result:=nil;
-  Cert:=nil;
+	Result:=nil;
+	Cert:=nil;
   
-  Map:=g_MapManager.FindMap(sMapName);
-  if Map = nil then exit;    
-  case nMonRace of
-    SUPREGUARD: Cert:=TSuperGuard.Create;
-    PETSUPREGUARD: Cert:=TPetSuperGuard.Create;
-    ARCHER_POLICE: Cert:=TArcherPolice.Create;
-    ANIMAL_CHICKEN: begin
-      Cert:=TMonster.Create;
-      Cert.m_boAnimal:=True;
-      Cert.m_nMeatQuality:=Random(3500) + 3000;
-      Cert.m_nBodyLeathery:=50;
-    end;
+	Map:=g_MapManager.FindMap(sMapName);
+
+	if Map = nil then exit;    
+
+	case nMonRace of
+	SUPREGUARD: Cert:=TSuperGuard.Create;
+
+	PETSUPREGUARD: Cert:=TPetSuperGuard.Create;
+
+	ARCHER_POLICE: Cert:=TArcherPolice.Create;
+
+	ANIMAL_CHICKEN: begin
+		Cert:=TMonster.Create;
+		Cert.m_boAnimal:=True;
+		Cert.m_nMeatQuality:=Random(3500) + 3000;
+		Cert.m_nBodyLeathery:=50;
+	end;
+
     ANIMAL_DEER: begin
       if Random(30) = 0 then begin
         Cert:=TChickenDeer.Create;
@@ -1660,48 +1668,64 @@ begin
         Cert.m_nBodyLeathery:=150;
       end;
     end;
+
     ANIMAL_WOLF: begin
       Cert:=TATMonster.Create;
       Cert.m_boAnimal:=True;
       Cert.m_nMeatQuality:=Random(8000) + 8000;
       Cert.m_nBodyLeathery:=150;
     end;
+
     TRAINER: begin
       Cert:=TTrainer.Create;
     end;
+
     MONSTER_OMA: Cert:=TMonster.Create;
     MONSTER_OMAKNIGHT: Cert:=TATMonster.Create;
     MONSTER_SPITSPIDER: Cert:=TSpitSpider.Create;
+
     83: Cert:=TSlowATMonster.Create;
+
     84: Cert:=TScorpion.Create;
+
     MONSTER_STICK: Cert:=TStickMonster.Create;
+
     86: Cert:=TATMonster.Create;
+
     MONSTER_DUALAXE: Cert:=TDualAxeMonster.Create;
+
     88: Cert:=TATMonster.Create;
     89: Cert:=TATMonster.Create;
     90: Cert:=TGasAttackMonster.Create;
     91: Cert:=TMagCowMonster.Create;
     92: Cert:=TCowKingMonster.Create;
+
     MONSTER_THONEDARK: Cert:=TThornDarkMonster.Create;
+
     MONSTER_LIGHTZOMBI: Cert:=TLightingZombi.Create;
+
     MONSTER_DIGOUTZOMBI: begin
       Cert:=TDigOutZombi.Create;
       if Random(2) = 0 then Cert.bo2BA:=True;
     end;
+
     MONSTER_ZILKINZOMBI: begin
       Cert:=TZilKinZombi.Create;
       if Random(4) = 0 then Cert.bo2BA:=True;
     end;
+
     97: begin
       Cert:=TCowMonster.Create;
       if Random(2) = 0 then Cert.bo2BA:=True;
     end;
 
     MONSTER_WHITESKELETON: Cert:=TWhiteSkeleton.Create;
+
     MONSTER_SCULTURE: begin
       Cert:=TScultureMonster.Create;
       Cert.bo2BA:=True;
     end;
+
     MONSTER_SCULTUREKING: Cert:=TScultureKingMonster.Create;
     MONSTER_BEEQUEEN: Cert:=TBeeQueen.Create;
     104: Cert:=TArcherMonster.Create;
@@ -2480,29 +2504,48 @@ begin
       end;
     end;
 end;
+
+{======================================================================
+	\brief Get monsters at the (\a nx, \a ny) position by \a nRange range 
+	\param List Monsters
+	\return The count of monsters
+	\sa GetMerchantList
+=======================================================================}
 function TUserEngine.GetMapRangeMonster(Envir:TEnvirnoment;nX,nY,nRange:Integer;List:TList):Integer;
 var
-  I,II: Integer;
-  MonGen:pTMonGenInfo;
-  BaseObject:TBaseObject;
+	I,II: Integer;
+	MonGen:pTMonGenInfo;
+	BaseObject:TBaseObject;
 begin
-  Result:=0;
-  if Envir = nil then exit;
-  for I := 0 to m_MonGenList.Count - 1 do begin
-    MonGen:=m_MonGenList.Items[I];
-    if (MonGen = nil) then Continue;
-    if (MonGen.Envir <> nil) and (MonGen.Envir <> Envir) then Continue;
+	Result:=0;
 
-    for II := 0 to MonGen.CertList.Count - 1 do begin
-      BaseObject:=TBaseObject(MonGen.CertList.Items[II]);
-      if not BaseObject.m_boDeath and not BaseObject.m_boGhost and (BaseObject.m_PEnvir = Envir) and (abs(BaseObject.m_nCurrX - nX) <= nRange) and (abs(BaseObject.m_nCurrY - nY) <= nRange) then begin
-        if List <> nil then List.Add(BaseObject);
-        Inc(Result);
-      end;
-    end;
-  end;
+	if Envir = nil then exit;
+
+	for I := 0 to m_MonGenList.Count - 1 do begin
+		MonGen:=m_MonGenList.Items[I];
+
+		if (MonGen = nil) then Continue;
+
+		if (MonGen.Envir <> nil) and (MonGen.Envir <> Envir) then Continue;
+
+		for II := 0 to MonGen.CertList.Count - 1 do begin
+			BaseObject:=TBaseObject(MonGen.CertList.Items[II]);
+
+			if not BaseObject.m_boDeath 
+			and not BaseObject.m_boGhost 
+			and (BaseObject.m_PEnvir = Envir) 
+			and (abs(BaseObject.m_nCurrX - nX) <= nRange) 
+			and (abs(BaseObject.m_nCurrY - nY) <= nRange) then begin
+				if List <> nil then List.Add(BaseObject);
+				Inc(Result);
+			end;
+		end;
+	end;
 end;
 
+{=========================================
+	\brief Add a merchant to merchant list
+==========================================}
 procedure TUserEngine.AddMerchant(Merchant:TMerchant);
 begin
   UserEngine.m_MerchantList.Lock;
@@ -2513,6 +2556,11 @@ begin
   end;
 end;
 
+{=========================================================================
+	\brief Get merchants at the (\a nx, \a ny) position by \a nRange range
+	\param TmpList the merchants
+	\return The count of merchants
+==========================================================================}
 function TUserEngine.GetMerchantList(Envir: TEnvirnoment; nX, nY,
   nRange: Integer; TmpList: TList): Integer; //004ACB84
 var
@@ -2535,6 +2583,10 @@ begin
   end;
   Result:=TmpList.Count
 end;
+
+{======================
+	\sa GetMerchantList
+=======================}
 function TUserEngine.GetNpcList(Envir: TEnvirnoment; nX, nY,
   nRange: Integer; TmpList: TList): Integer;
 var
@@ -2552,6 +2604,7 @@ begin
   end;    // for
   Result:=TmpList.Count
 end;
+
 procedure TUserEngine.ReloadMerchantList();
 var
   I: Integer;
@@ -2570,6 +2623,7 @@ begin
     m_MerchantList.UnLock;
   end;
 end;
+
 procedure TUserEngine.ReloadNpcList();
 var
   I: Integer;

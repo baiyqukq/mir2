@@ -101,7 +101,7 @@ Const
 	CM_GUILDUPDATERANKINFO =2075;		// Guild Update Rank Info
 	{****************************** Guild: End ******************************}
 
-	//装备项目
+	{ Equip Items }
 	U_WEAPON      =0;    //武器
 	U_RIGHTHAND   =1;    //右手
 	U_DRESS       =2;    //衣服

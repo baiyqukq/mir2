@@ -1029,7 +1029,7 @@ begin
    DccClose.Top := 31;
 
 
-   {-----------------------------------------------------------}
+   {---------------Change Game Password----------------------}
    d := g_WMainImages.Images[50];
    if d <> nil then begin
       DChgGamePwd.SetImgIndex (g_WMainImages, 689);
@@ -1041,7 +1041,7 @@ begin
    DChgGamePwdClose.SetImgIndex (g_WMainImages, 64);
 
 
-   // Charactor State Window
+   {--------------Charactor State Window----------------------}
    d := g_WMainImages.Images[370];  //����
 
    if d <> nil then begin

@@ -321,7 +321,7 @@ var
 
   g_MySelf                  :THumActor;
   g_MyDrawActor             :THumActor; //Œ¥”√
-  g_UseItems                :array[0..12] of TClientItem;
+  g_UseItems                :array[0..12] of TClientItem;	{ Equip Items }
   g_ItemArr                 :array[0..MAXBAGITEMCL-1] of TClientItem;
   g_boBagLoaded             :Boolean;
   g_boServerChanging        :Boolean;
