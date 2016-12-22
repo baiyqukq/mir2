@@ -112,44 +112,53 @@ Const
 	U_RINGR       =7;    //右戒指
 	U_RINGL       =8;    //左戒指
 
-	//服务器端发送的命令
+	{============================== SM: Begin ==============================}
+	{ SM : Server Message }
 
 	//登录、新帐号、新角色、查询角色等
 	SM_NEWID_SUCCESS =101;
 	SM_NEWID_FAIL =102;
+
 	SM_PASSWD_FAIL =103;
 	SM_NEEDUPDATE_ACCOUNT =104;
+
 	SM_UPDATEID_SUCCESS =105;
 	SM_UPDATEID_FAIL =106;
+
 	SM_PASSOK_SELECTSERVER = 107;
 	SM_SELECTSERVER_OK =109;
+
 	SM_QUERYCHR =111;
 	SM_QUERYCHR_FAIL =112;
+
 	SM_NEWCHR_SUCCESS  =113;
 	SM_NEWCHR_FAIL =114;
+
 	SM_CHGPASSWD_SUCCESS =115;
 	SM_CHGPASSWD_FAIL =116;
+
 	SM_DELCHR_SUCCESS =117;
 	SM_DELCHR_FAIL =118;
-	SM_STARTPLAY=119;
+
+	SM_STARTPLAY=119;			{ ==> CM_SELCHR }
 	SM_STARTFAIL =120;
 
 	SM_VERSION_FAIL =121;
-	SM_OUTOFCONNECTION =122;
+	SM_OUTOFCONNECTION =122;	{ Out of Connection }
 	SM_RECONNECT =125;
-	SM_SENDNOTICE =202;
+	SM_SENDNOTICE =202;			{ Send Notice }
 
-	SM_MYSTATUS =131;
-	SM_TIMECHECK_MSG = 227;
+	SM_MYSTATUS =131;			{ My Status }
+	SM_TIMECHECK_MSG = 227;		{ Time Check }
 
-	SM_CHANGEMAP   =201;
-	SM_AREASTATE = 228;
-	SM_NEWMAP =223;
-	SM_MAPDESCRIPTION = 229;
+	SM_CHANGEMAP   =201;		{ Change Map }
+	SM_AREASTATE = 228;			{ Area State }
+	SM_NEWMAP =223;				{ New Map }
+	SM_MAPDESCRIPTION = 229;	{ Map Description }
 	SM_LOGON =224;
 
-	SM_CHANGELIGHT =240;
-	SM_LAMPCHANGEDURA=241;
+	SM_CHANGELIGHT =240;		{ Change Light }
+	SM_LAMPCHANGEDURA=241;		{ Lamp Change Duration }
 	SM_LIGHTING =242;
 
 	SM_OPENDOOR_OK=249;
@@ -170,21 +179,21 @@ Const
 
 	SM_STRUCK =310;
 	SM_CHANGEFACE=311;
-	SM_OPENHEALTH=312;
-	SM_CLOSEHEALTH =313;
+	SM_OPENHEALTH=312;			{ Open Health }
+	SM_CLOSEHEALTH =313;		{ Close Health }
 	SM_INSTANCEHEALGUAGE=314;
-	SM_BREAKWEAPON=315;
+	SM_BREAKWEAPON=315;			{ Break Weapon }
 
 	//对话消息
-	SM_CRY=316;
-	SM_GROUPMESSAGE =347;
-	SM_GUILDMESSAGE =348;
+	SM_CRY=316;					
+	SM_GROUPMESSAGE =347;		{ Group Msg }
+	SM_GUILDMESSAGE =348;		{ Guild Msg }
 	SM_WHISPER=349;
 	SM_HEAR=351;
-	SM_SYSMESSAGE=390;
+	SM_SYSMESSAGE=390;			{ Sys Msg }
 
-	SM_USERNAME =352;
-	SM_CHANGENAMECOLOR=353;
+	SM_USERNAME =352;			{ User Name }
+	SM_CHANGENAMECOLOR=353;		{ Change Name Color }
 
 	//移动动作
 	SM_TURN       =1001;
@@ -201,20 +210,20 @@ Const
 	SM_FIREHIT    =1014;
 	SM_SPELL      =1015;
 	SM_BACKSTEP   =1021;
-	SM_RUSH       =1022;
+	SM_RUSH       =1022;		{ Run }
 	SM_RUSHKUNG   =1023;
 
 	SM_SPACEMOVE_HIDE =1041;
 	SM_SPACEMOVE_HIDE2=1042;
 	SM_SPACEMOVE_SHOW =1043;
 	SM_SPACEMOVE_SHOW2=1044;
-	SM_MOVEFAIL       =1045;
+	SM_MOVEFAIL       =1045;	{ Move Failure }
 	SM_BUTCH          =1046;
 
-	SM_FLYAXE         =1060;
+	SM_FLYAXE         =1060;	{ Fly Axe }
 
 	SM_MAGICFIRE      =1072;
-	SM_MAGICFIRE_FAIL = 1073;
+	SM_MAGICFIRE_FAIL =1073;	{ Magic Fire Failure }
 
 	SM_HIDE =1224;
 	SM_GHOST=1225;
@@ -224,6 +233,7 @@ Const
 	SM_SHOWEVENT =1229;
 	SM_HIDEEVENT = 1230;
 
+	{****************************** Item : Begin ******************************}
 	SM_ADDITEM=2040;
 	SM_BAGITEMS =2041;
 	SM_UPDATEITEM=2042;
@@ -239,39 +249,44 @@ Const
 	SM_TAKEON_FAIL=2053;
 	SM_TAKEOFF_OK=2054;
 	SM_TAKEOFF_FAIL=2055;
-	SM_EXCHGTAKEON_OK=2056;
-	SM_EXCHGTAKEON_FAIL=2057;
+	SM_EXCHGTAKEON_OK=2056;		{ Exchg Take On OK }
+	SM_EXCHGTAKEON_FAIL=2057;	{ Exchg Take On Failure }
+	SM_SENDUSEITEMS=2058;		{ Send Use Items }
+	{****************************** Item : End ******************************}
 
-	SM_SENDUSEITEMS=2058;
 	SM_WEIGHTCHANGED=2059;
-	SM_GOLDCHANGED=2060;
-	SM_FEATURECHANGED=2061;
-	SM_CHARSTATUSCHANGED=2062;
-	SM_CLEAROBJECTS=2063;
+	SM_GOLDCHANGED=2060;		{ Gold Changed }
+	SM_FEATURECHANGED=2061;		{ Feature Changed }
+	SM_CHARSTATUSCHANGED=2062;	{ Charactor Status Changed }
+	SM_CLEAROBJECTS=2063;		{ Clear Objects }
 	SM_EAT_OK=2064;
 	SM_EAT_FAIL=2065;
+
+	{****************************** Magic : Begin ******************************}
 	SM_ADDMAGIC=2066;
 	SM_SENDMYMAGIC=2067;
 	SM_DELMAGIC=2068;
 	SM_MAGIC_LVEXP=2069;
-	SM_DURACHANGE=2070;
-	SM_MERCHANTSAY=2071;
-	SM_MERCHANTDLGCLOSE=2072;
+	{****************************** Magic : End ******************************}
+
+	SM_DURACHANGE=2070;			{ Duration Change }
+	SM_MERCHANTSAY=2071;		{ NPC Say }
+	SM_MERCHANTDLGCLOSE=2072;	{ NPC Dialog Close }
 
 	SM_SENDGOODSLIST=2073;
-	SM_SENDUSERMAKEDRUGITEMLIST=2074;
-	SM_SENDUSERSELL=2075;
-	SM_SENDUSERREPAIR=2076;
-	SM_SENDBUYPRICE=2077;
-	SM_USERSELLITEM_OK=2078;
+	SM_SENDUSERMAKEDRUGITEMLIST=2074;	{ Send User Make Drug Item }
+	SM_SENDUSERSELL=2075;				{ Send User Sell }
+	SM_SENDUSERREPAIR=2076;				{ Send User Repair }
+	SM_SENDBUYPRICE=2077;				{ Send Buy Price }
+	SM_USERSELLITEM_OK=2078;			{ User Sell Item }
 	SM_USERSELLITEM_FAIL=2079;
-	SM_SENDREPAIRCOST=2080;
-	SM_USERREPAIRITEM_OK=2081;
+	SM_SENDREPAIRCOST=2080;				{ Send Repair Cost }
+	SM_USERREPAIRITEM_OK=2081;			{ User Repair Item }
 	SM_USERREPAIRITEM_FAIL=2082;
 	SM_STORAGE_OK=2083;
 	SM_STORAGE_FULL=2084;
 	SM_STORAGE_FAIL=2085;
-	SM_SAVEITEMLIST=2086;
+	SM_SAVEITEMLIST=2086;				{ Save Item List }
 
 	SM_TAKEBACKSTORAGEITEM_OK=2087;
 	SM_TAKEBACKSTORAGEITEM_FAIL=2088;
@@ -285,16 +300,20 @@ Const
 
 	SM_SENDDETAILGOODSLIST=2094;
 	SM_TEST=2095;
-	SM_GROUPMODECHANGED=2096;
-	SM_CREATEGROUP_OK=2097;
-	SM_CREATEGROUP_FAIL=2098;
-	SM_GROUPADDMEM_OK=2099;
-	SM_GROUPADDMEM_FAIL=2100;
-	SM_GROUPDELMEM_OK=2101;
-	SM_GROUPDELMEM_FAIL=2102;
-	SM_GROUPCANCEL=2103;
-	SM_GROUPMEMBERS=2104;
 
+	{****************************** Group : Begin ******************************}
+	SM_GROUPMODECHANGED=2096;				{ Group Mode Changed }
+	SM_CREATEGROUP_OK=2097;					{ Create Group }
+	SM_CREATEGROUP_FAIL=2098;				
+	SM_GROUPADDMEM_OK=2099;					{ Group Add Member }
+	SM_GROUPADDMEM_FAIL=2100;
+	SM_GROUPDELMEM_OK=2101;					{ Group Del Member }
+	SM_GROUPDELMEM_FAIL=2102;
+	SM_GROUPCANCEL=2103;					{ Group Cancel }
+	SM_GROUPMEMBERS=2104;					{ Group members }
+	{****************************** Group : End ******************************}
+
+	{****************************** Guild: Begin ******************************}
 	SM_OPENGUILDDLG=2105;
 	SM_SENDGUILDMEMBERLIST=2106;
 	SM_OPENGUILDDLG_FAIL=2107;
@@ -308,7 +327,9 @@ Const
 	SM_GUILDMAKEALLY_FAIL=2132;
 	SM_GUILDBREAKALLY_OK=2133;
 	SM_GUILDBREAKALLY_FAIL=2134;
+	{****************************** Guild: End ******************************}
 
+	{****************************** Deal: Begin ******************************}
 	SM_DEALTRY_FAIL=2108;
 	SM_DEALMENU=2109;
 	SM_DEALCANCEL=2110;
@@ -322,6 +343,7 @@ Const
 	SM_DEALCHGGOLD_FAIL=2118;
 	SM_DEALREMOTECHGGOLD=2119;
 	SM_DEALSUCCESS=2120;
+	{****************************** Deal: End ******************************}
 
 	SM_SENDUSERSTORAGEITEM=2121;
 
@@ -341,6 +363,8 @@ Const
 	SM_ACTION_MAX=2499;
 	SM_ACTION2_MIN=2500;
 	SM_ACTION2_MAX=2999;
+
+	{============================== SM: End ==============================}
 
 	RCC_MERCHANT  =1;
 	RCC_GUARD     =2;
@@ -366,6 +390,7 @@ Const
 
 	MAXBAGITEM = 52;
 
+	{============================== Direction : Begin ==============================}
 	DR_UP=0;
 	DR_UPRIGHT =1;
 	DR_RIGHT =2;
@@ -374,6 +399,7 @@ Const
 	DR_DOWNLEFT =5;
 	DR_LEFT =6;
 	DR_UPLEFT =7;
+	{============================== Direction : End ==============================}
 
 type
 
