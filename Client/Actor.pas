@@ -23,7 +23,7 @@ const
 
 	RUN_MINHEALTH = 10;					// Run Min Health
 	DEFSPELLFRAME = 10;
-	FIREHIT_READYFRAME = 6;				//堪拳搬 矫傈 橇贰烙
+	FIREHIT_READYFRAME = 6;				// Fire Hit Ready Frame
 	MAGBUBBLEBASE = 3890;				//魔法盾效果图位置(Magic Bubble Base)
 	MAGBUBBLESTRUCKBASE = 3900;			//被攻击时魔法盾效果图位置(Magic Bubble Struck Base)
 	MAXWPEFFECTFRAME = 5;
@@ -32,93 +32,98 @@ const
 
 type
 	TActionInfo = packed record
-    	start   :Word;//0x14			// Start frame
-    	frame   :Word;//0x16			// Frame count
-    	skip    :Word;//0x18			// Skip frame count
-    	ftime   :Word;//0x1A			// FPS
-    	usetick :Word;//0x1C			// Use tick, Used only for move actions
-  	end;
-  	pTActionInfo = ^TActionInfo;
+		start   :Word;//0x14			// Start frame
+		frame   :Word;//0x16			// Frame count
+		skip    :Word;//0x18			// Skip frame count
+		ftime   :Word;//0x1A			// FPS
+		usetick :Word;//0x1C			// Use tick, Used only for move actions
+	end;
+	pTActionInfo = ^TActionInfo;
 
-  	THumanAction = packed record
-    	ActStand:      TActionInfo;   //1
-    	ActWalk:       TActionInfo;   //8
-    	ActRun:        TActionInfo;   //8
-    	ActRushLeft:   TActionInfo;
-    	ActRushRight:  TActionInfo;
-    	ActWarMode:    TActionInfo;   //1
-    	ActHit:        TActionInfo;   //6
-    	ActHeavyHit:   TActionInfo;   //6
-    	ActBigHit:     TActionInfo;   //6
-    	ActFireHitReady: TActionInfo; //6
-    	ActSpell:      TActionInfo;   //6
-    	ActSitdown:    TActionInfo;   //1
-    	ActStruck:     TActionInfo;   //3
-    	ActDie:        TActionInfo;   //4
-  	end;
-  	pTHumanAction = ^THumanAction;
-  	
-  	TMonsterAction = packed record
-    	ActStand:      TActionInfo;   //1
-    	ActWalk:       TActionInfo;   //8
-    	ActAttack:     TActionInfo;   //6 0x14 - 0x1C
-    	ActCritical:   TActionInfo;   //6 0x20 -
-    	ActStruck:     TActionInfo;   //3
-    	ActDie:        TActionInfo;   //4
-    	ActDeath:      TActionInfo;
-  	end;
-  	pTMonsterAction = ^TMonsterAction;
+	THumanAction = packed record
+		ActStand:      TActionInfo;   //1
+		ActWalk:       TActionInfo;   //8
+		ActRun:        TActionInfo;   //8
+		ActRushLeft:   TActionInfo;
+		ActRushRight:  TActionInfo;
+		ActWarMode:    TActionInfo;   //1
+		ActHit:        TActionInfo;   //6
+		ActHeavyHit:   TActionInfo;   //6
+		ActBigHit:     TActionInfo;   //6
+		ActFireHitReady: TActionInfo; //6
+		ActSpell:      TActionInfo;   //6
+		ActSitdown:    TActionInfo;   //1
+		ActStruck:     TActionInfo;   //3
+		ActDie:        TActionInfo;   //4
+	end;
+	pTHumanAction = ^THumanAction;
+
+	TMonsterAction = packed record
+		ActStand:      TActionInfo;   //1
+		ActWalk:       TActionInfo;   //8
+		ActAttack:     TActionInfo;   //6 0x14 - 0x1C
+		ActCritical:   TActionInfo;   //6 0x20 -
+		ActStruck:     TActionInfo;   //3
+		ActDie:        TActionInfo;   //4
+		ActDeath:      TActionInfo;
+	end;
+	pTMonsterAction = ^TMonsterAction;
 
 const
-   	HA: THumanAction = (
-        ActStand:  (start: 0;      frame: 4;  skip: 4;  ftime: 200;  usetick: 0);
-        ActWalk:   (start: 64;     frame: 6;  skip: 2;  ftime: 90;   usetick: 2);
-        ActRun:    (start: 128;    frame: 6;  skip: 2;  ftime: 120;  usetick: 3);
-        ActRushLeft: (start: 128;    frame: 3;  skip: 5;  ftime: 120;  usetick: 3);
-        ActRushRight:(start: 131;    frame: 3;  skip: 5;  ftime: 120;  usetick: 3);
-        ActWarMode:(start: 192;    frame: 1;  skip: 0;  ftime: 200;  usetick: 0);
-        //ActHit:    (start: 200;    frame: 5;  skip: 3;  ftime: 140;  usetick: 0);
-        ActHit:    (start: 200;    frame: 6;  skip: 2;  ftime: 85;   usetick: 0);
-        ActHeavyHit:(start: 264;   frame: 6;  skip: 2;  ftime: 90;   usetick: 0);
-        ActBigHit: (start: 328;    frame: 8;  skip: 0;  ftime: 70;   usetick: 0);
-        ActFireHitReady: (start: 192; frame: 6;  skip: 4;  ftime: 70;   usetick: 0);
-        ActSpell:  (start: 392;    frame: 6;  skip: 2;  ftime: 60;   usetick: 0);
-        ActSitdown:(start: 456;    frame: 2;  skip: 0;  ftime: 300;  usetick: 0);
-        ActStruck: (start: 472;    frame: 3;  skip: 5;  ftime: 70;  usetick: 0);
-        ActDie:    (start: 536;    frame: 4;  skip: 4;  ftime: 120;  usetick: 0)
-      );
-  	
-  	MA9: TMonsterAction = (//4C03D4
-    	ActStand:(Start:0;  frame:1;  skip:7;  ftime:200;  usetick:0);
-    	ActWalk:(Start:64;  frame:6;  skip:2;  ftime:120;  usetick:3);
-    	ActAttack:(Start:64;  frame:6;  skip:2;  ftime:150;  usetick:0);
-    	ActCritical:(Start:0;  frame:0;  skip:0;  ftime:0;  usetick:0);
-    	ActStruck:(Start:64;  frame:6;  skip:2;  ftime:100;  usetick:0);
-    	ActDie:(Start:0;  frame:1;  skip:7;  ftime:140;  usetick:0);
-    	ActDeath:(Start:0;  frame:1;  skip:7;  ftime:0;  usetick:0);
-    );
-   
-   	MA10: TMonsterAction = (  //(8Frame) Guard
-        ActStand:  (start: 0;      frame: 4;  skip: 4;  ftime: 200;  usetick: 0);
-        ActWalk:   (start: 64;     frame: 6;  skip: 2;  ftime: 120;  usetick: 3);
-        ActAttack: (start: 128;    frame: 4;  skip: 4;  ftime: 150;  usetick: 0);
-        ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
-        ActStruck: (start: 192;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
-        ActDie:    (start: 208;    frame: 4;  skip: 4;  ftime: 140;  usetick: 0);
-        ActDeath:  (start: 272;    frame: 1;  skip: 0;  ftime: 0;    usetick: 0);
-    );
+	HA: THumanAction = (
+		ActStand:  (start: 0;      frame: 4;  skip: 4;  ftime: 200;  usetick: 0);
+		ActWalk:   (start: 64;     frame: 6;  skip: 2;  ftime: 90;   usetick: 2);
+		ActRun:    (start: 128;    frame: 6;  skip: 2;  ftime: 120;  usetick: 3);
+		ActRushLeft: (start: 128;    frame: 3;  skip: 5;  ftime: 120;  usetick: 3);
+		ActRushRight:(start: 131;    frame: 3;  skip: 5;  ftime: 120;  usetick: 3);
+		ActWarMode:(start: 192;    frame: 1;  skip: 0;  ftime: 200;  usetick: 0);
+		//ActHit:    (start: 200;    frame: 5;  skip: 3;  ftime: 140;  usetick: 0);
+		ActHit:    (start: 200;    frame: 6;  skip: 2;  ftime: 85;   usetick: 0);
+		ActHeavyHit:(start: 264;   frame: 6;  skip: 2;  ftime: 90;   usetick: 0);
+		ActBigHit: (start: 328;    frame: 8;  skip: 0;  ftime: 70;   usetick: 0);
+		ActFireHitReady: (start: 192; frame: 6;  skip: 4;  ftime: 70;   usetick: 0);
+		ActSpell:  (start: 392;    frame: 6;  skip: 2;  ftime: 60;   usetick: 0);
+		ActSitdown:(start: 456;    frame: 2;  skip: 0;  ftime: 300;  usetick: 0);
+		ActStruck: (start: 472;    frame: 3;  skip: 5;  ftime: 70;  usetick: 0);
+		ActDie:    (start: 536;    frame: 4;  skip: 4;  ftime: 120;  usetick: 0)
+		);
 
-   	MA11: TMonsterAction = (  //(10Frames) Deer
-        ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
-        ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 120;  usetick: 3);
-        ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
-        ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
-        ActStruck: (start: 240;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
-        ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 140;  usetick: 0);
-        ActDeath:  (start: 340;    frame: 1;  skip: 0;  ftime: 0;    usetick: 0);
-    );
+	{ 
+		The number 9 is not RaceImg
+		
+		\sa GetRaceByPM
+	}
+	MA9: TMonsterAction = (//4C03D4
+		ActStand:(Start:0;  frame:1;  skip:7;  ftime:200;  usetick:0);
+		ActWalk:(Start:64;  frame:6;  skip:2;  ftime:120;  usetick:3);
+		ActAttack:(Start:64;  frame:6;  skip:2;  ftime:150;  usetick:0);
+		ActCritical:(Start:0;  frame:0;  skip:0;  ftime:0;  usetick:0);
+		ActStruck:(Start:64;  frame:6;  skip:2;  ftime:100;  usetick:0);
+		ActDie:(Start:0;  frame:1;  skip:7;  ftime:140;  usetick:0);
+		ActDeath:(Start:0;  frame:1;  skip:7;  ftime:0;  usetick:0);
+		);
    
-   	MA12: TMonsterAction = (  // Sword guard quickly beat.
+	MA10: TMonsterAction = (  //(8Frame) ForestYeti
+		ActStand:  (start: 0;      frame: 4;  skip: 4;  ftime: 200;  usetick: 0);
+		ActWalk:   (start: 64;     frame: 6;  skip: 2;  ftime: 120;  usetick: 3);
+		ActAttack: (start: 128;    frame: 4;  skip: 4;  ftime: 150;  usetick: 0);
+		ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
+		ActStruck: (start: 192;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
+		ActDie:    (start: 208;    frame: 4;  skip: 4;  ftime: 140;  usetick: 0);
+		ActDeath:  (start: 272;    frame: 1;  skip: 0;  ftime: 0;    usetick: 0);
+		);
+
+	MA11: TMonsterAction = (  //(10Frames) Deer, Hen
+		ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
+		ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 120;  usetick: 3);
+		ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
+		ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
+		ActStruck: (start: 240;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
+		ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 140;  usetick: 0);
+		ActDeath:  (start: 340;    frame: 1;  skip: 0;  ftime: 0;    usetick: 0);
+		);
+   
+   	MA12: TMonsterAction = (  // SwordGuard(quickly beat)
         ActStand:  (start: 0;      frame: 4;  skip: 4;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 64;     frame: 6;  skip: 2;  ftime: 120;  usetick: 3);
         ActAttack: (start: 128;    frame: 6;  skip: 2;  ftime: 150;  usetick: 0);
@@ -128,16 +133,16 @@ const
         ActDeath:  (start: 272;    frame: 1;  skip: 0;  ftime: 0;    usetick: 0);
     );
    
- 	MA13: TMonsterAction = (  //侥牢檬
+ 	MA13: TMonsterAction = (  // CannibalPlant
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
-        ActWalk:   (start: 10;     frame: 8;  skip: 2;  ftime: 160;  usetick: 0); //殿厘...
+        ActWalk:   (start: 10;     frame: 8;  skip: 2;  ftime: 160;  usetick: 0); //Appear...
         ActAttack: (start: 30;     frame: 6;  skip: 4;  ftime: 120;  usetick: 0);
         ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
         ActStruck: (start: 110;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
         ActDie:    (start: 130;    frame: 10; skip: 0;  ftime: 120;  usetick: 0);
-        ActDeath:  (start: 20;     frame: 9;  skip: 0;  ftime: 150;  usetick: 0); //见澜..
+        ActDeath:  (start: 20;     frame: 9;  skip: 0;  ftime: 150;  usetick: 0); //Hide..
       );
-   MA14: TMonsterAction = (  //秦榜 坷付
+   MA14: TMonsterAction = (  // Skeleton Bone* RakingCat HookingCat
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
         ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
@@ -146,7 +151,7 @@ const
         ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 120;  usetick: 0);
         ActDeath:  (start: 340;    frame: 10; skip: 0;  ftime: 100;  usetick: 0); //归榜牢版快(家券)
       );
-   MA15: TMonsterAction = (  //档尝带瘤绰 坷付
+   MA15: TMonsterAction = (  //AxeSkeleton
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
         ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
@@ -155,7 +160,7 @@ const
         ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 120;  usetick: 0);
         ActDeath:  (start: 1;      frame: 1;  skip: 0;  ftime: 100;  usetick: 0);
       );
-   MA16: TMonsterAction = (  //啊胶筋绰 备单扁
+   MA16: TMonsterAction = (  //CaveMaggot
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
         ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 160;  usetick: 0);
@@ -164,7 +169,7 @@ const
         ActDie:    (start: 260;    frame: 4;  skip: 6;  ftime: 160;  usetick: 0);
         ActDeath:  (start: 0;      frame: 1;  skip: 0;  ftime: 160;  usetick: 0);
       );
-   MA17: TMonsterAction = (  //官迭波府绰 各
+   MA17: TMonsterAction = (  
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 60;  usetick: 0);
         ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
         ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
@@ -173,7 +178,7 @@ const
         ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 100;  usetick: 0);
         ActDeath:  (start: 340;    frame: 1;  skip: 0;  ftime: 140;  usetick: 0); //
       );
-   MA19: TMonsterAction = (  //快搁蓖 (磷绰芭 弧府磷澜)
+   MA19: TMonsterAction = (  //Oma (Quickly Death)
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
         ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
@@ -182,7 +187,7 @@ const
         ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 140;  usetick: 0);
         ActDeath:  (start: 340;    frame: 1;  skip: 0;  ftime: 140;  usetick: 0); //
       );
-   MA20: TMonsterAction = (  //磷菌促 混酒唱绰 粱厚)
+   MA20: TMonsterAction = (  //Zombie
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
         ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 120;  usetick: 0);
@@ -191,7 +196,7 @@ const
         ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 100;  usetick: 0);
         ActDeath:  (start: 340;    frame: 10; skip: 0;  ftime: 170;  usetick: 0); //促矫 混酒唱扁
       );
-   MA21: TMonsterAction = (  //国笼
+   MA21: TMonsterAction = (  //BugBatMaggot
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 0;      frame: 0;  skip: 0;  ftime: 0;    usetick: 0); //
         ActAttack: (start: 10;     frame: 6;  skip: 4;  ftime: 120;  usetick: 0); //国 惯荤
@@ -248,7 +253,7 @@ const
     ActDeath:(Start:80;  frame:10;  skip:0;  ftime:200;  usetick:3);
     );
 
-   MA26: TMonsterAction = (  //己巩,
+   MA26: TMonsterAction = (  //CastleWall,
         ActStand:  (start: 0;      frame: 1;  skip: 7;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 0;      frame: 0;  skip: 0;  ftime: 160;  usetick: 0); //殿厘...
         ActAttack: (start: 56;     frame: 6;  skip: 2;  ftime: 500;  usetick: 0); //凯扁
@@ -257,7 +262,7 @@ const
         ActDie:    (start: 24;     frame: 10; skip: 0;  ftime: 120;  usetick: 0);
         ActDeath:  (start: 0;      frame: 0;  skip: 0;  ftime: 150;  usetick: 0); //见澜..
       );
-   MA27: TMonsterAction = (  //己寒
+   MA27: TMonsterAction = (  //Wall
         ActStand:  (start: 0;     frame: 1;  skip: 7;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 0;     frame: 0;  skip: 0;  ftime: 160;  usetick: 0); //殿厘...
         ActAttack: (start: 0;     frame: 0;  skip: 0;  ftime: 250;  usetick: 0);
@@ -493,7 +498,7 @@ const
       0,0,0,0,0,0,1,1,    0,0,0,0,0,0,1,1,    0,0,0,0,0,0,1,1,
       1,0,0,0,0,1,1,1,    1,1,1,1,1,1,1,1,    0,1,1,1,1,1,1,1,
       0,0,1,1,0,0,1,1,    0,0,0,1,0,0,1,1,
-      //澵扁
+      //?乇?
       0,0,1,0,1,1,1,1,    1,1,0,0,0,1,0,0,
       //嘎扁
       0,0,0,1,1,1,1,1,    1,1,1,1,1,1,1,1,    1,1,1,1,1,1,1,1,
@@ -536,7 +541,7 @@ const
       0,0,0,0,0,0,1,1,    0,0,0,0,0,0,1,1,    0,0,0,0,0,0,1,1,
       1,0,0,0,0,1,1,1,    1,1,1,1,1,1,1,1,    0,1,1,1,1,1,1,1,
       0,0,1,1,0,0,1,1,    0,0,0,1,0,0,1,1,
-      //澵扁
+      //?乇?
       0,0,1,0,1,1,1,1,    1,1,0,0,0,1,0,0,
       //嘎扁
       0,0,0,1,1,1,1,1,    1,1,1,1,1,1,1,1,    1,1,1,1,1,1,1,1,
@@ -554,7 +559,7 @@ const
 
 type
    TActor = class//Size 0x240
-     m_nRecogId                :Integer;    //角色标识 0x4
+     m_nRecogId                :Integer;    //角??标?? 0x4
      m_nCurrX                  :Integer;    //当前所在地图座标X 0x08
      m_nCurrY                  :Integer;    //当前所在地图座标Y 0x0A
      m_btDir                   :Byte;       //当前站立方向 0x0C
@@ -663,11 +668,11 @@ type
      m_dwDeleteTime            :LongWord;//0x17C
 
       //荤款靛 瓤苞
-     m_nMagicStruckSound       :Integer;  //0x180 被魔法攻击弯腰发出的声音
-     m_boRunSound              :Boolean;  //0x184 跑步发出的声音
-     m_nFootStepSound          :Integer;  //CM_WALK, CM_RUN //0x188  走步声
-     m_nStruckSound            :Integer;  //SM_STRUCK         //0x18C  弯腰声音
-     m_nStruckWeaponSound      :Integer;                //0x190  被指定武器攻击弯腰声音
+     m_nMagicStruckSound       :Integer;  //0x180 被魔法攻击弯腰发出的????
+     m_boRunSound              :Boolean;  //0x184 跑步发出的????
+     m_nFootStepSound          :Integer;  //CM_WALK, CM_RUN //0x188  走步??
+     m_nStruckSound            :Integer;  //SM_STRUCK         //0x18C  弯腰????
+     m_nStruckWeaponSound      :Integer;                //0x190  被指定武器攻击弯腰????
 
      m_nAppearSound            :Integer;  //殿厘家府 0    //0x194
      m_nNormalSound            :Integer;  //老馆家府 1    //0x198
@@ -848,112 +853,112 @@ begin
    end;
    }
 
-  case Race of
-    9{01}: Result:=@MA9; //475D70
-    10{02}: Result:=@MA10; //475D7C
-    11{03}: Result:=@MA11; //475D88
-    12{04}: Result:=@MA12; //475D94
-    13{05}: Result:=@MA14; //475DA0
-    14{06}: Result:=@MA14; //475DAC
-    15{07}: Result:=@MA15; //475DB8
-    16{08}: Result:=@MA16; //475DC4
-    17{06}: Result:=@MA14; //475DAC
-    18{06}: Result:=@MA14; //475DAC
-    19{0A}: Result:=@MA19; //475DDC
-    20{0A}: Result:=@MA19; //475DDC
-    21{0A}: Result:=@MA19; //475DDC
-    22{07}: Result:=@MA15; //475DB8
-    23{06}: Result:=@MA14; //475DAC
-    24{04}: Result:=@MA12; //475D94
-    30{09}: Result:=@MA17; //475DD0
-    31{09}: Result:=@MA17; //475DD0
-    32{0F}: Result:=@MA24; //475E18
-    33{10}: Result:=@MA25; //475E24
-    34{11}: Result:=@MA30; //475E30  赤月恶魔
-    35{12}: Result:=@MA31; //475E3C
-    36{13}: Result:=@MA32; //475E48
-    37{0A}: Result:=@MA19; //475DDC
-    40{0A}: Result:=@MA19; //475DDC
-    41{0B}: Result:=@MA20; //475DE8
-    42{0B}: Result:=@MA20; //475DE8
-    43{0C}: Result:=@MA21; //475DF4
-    45{0A}: Result:=@MA19; //475DDC
-    47{0D}: Result:=@MA22; //475E00
-    48{0E}: Result:=@MA23; //475E0C
-    49{0E}: Result:=@MA23; //475E0C
-    50{27}: begin//475F32
-      case Appr of
-        23{01}: Result:=@MA36; //475F77
-        24{02}: Result:=@MA37; //475F80
-        25{02}: Result:=@MA37; //475F80
-        26{00}: Result:=@MA35; //475F9B
-        27{02}: Result:=@MA37; //475F80
-        28{00}: Result:=@MA35; //475F9B
-        29{00}: Result:=@MA35; //475F9B
-        30{00}: Result:=@MA35; //475F9B
-        31{00}: Result:=@MA35; //475F9B
-        32{02}: Result:=@MA37; //475F80
-        33{00}: Result:=@MA35; //475F9B
-        34{00}: Result:=@MA35; //475F9B
-        35{03}: Result:=@MA41; //475F89
-        36{03}: Result:=@MA41; //475F89
-        37{03}: Result:=@MA41; //475F89
-        38{03}: Result:=@MA41; //475F89
-        39{03}: Result:=@MA41; //475F89
-        40{03}: Result:=@MA41; //475F89
-        41{03}: Result:=@MA41; //475F89
-        42{04}: Result:=@MA46; //475F92
-        43{04}: Result:=@MA46; //475F92
-        44{04}: Result:=@MA46; //475F92
-        45{04}: Result:=@MA46; //475F92
-        46{04}: Result:=@MA46; //475F92
-        47{04}: Result:=@MA46; //475F92
-        48{03}: Result:=@MA41; //4777B3
-        49{03}: Result:=@MA41; //4777B3
-        50{03}: Result:=@MA41; //4777B3
-        51{00}: Result:=@MA35; //4777C5
-        52{03}: Result:=@MA41; //4777B3
-        53{03}: Result:=@MA41; //4777B3
-        else Result:=@MA35;
-      end;
-    end;
+   case Race of
+   9{01}: Result:=@MA9; //475D70
+   10{02}: Result:=@MA10; //475D7C
+   11{03}: Result:=@MA11; //475D88
+   12{04}: Result:=@MA12; //475D94
+   13{05}: Result:=@MA13; //475DA0
+   14{06}: Result:=@MA14; //475DAC
+   15{07}: Result:=@MA15; //475DB8
+   16{08}: Result:=@MA16; //475DC4
+   17{06}: Result:=@MA14; //475DAC
+   18{06}: Result:=@MA14; //475DAC
+   19{0A}: Result:=@MA19; //475DDC
+   20{0A}: Result:=@MA19; //475DDC
+   21{0A}: Result:=@MA19; //475DDC
+   22{07}: Result:=@MA15; //475DB8
+   23{06}: Result:=@MA14; //475DAC
+   24{04}: Result:=@MA12; //475D94
+   30{09}: Result:=@MA17; //475DD0
+   31{09}: Result:=@MA17; //475DD0
+   32{0F}: Result:=@MA24; //475E18
+   33{10}: Result:=@MA25; //475E24
+   34{11}: Result:=@MA30; //475E30  赤月恶魔
+   35{12}: Result:=@MA31; //475E3C
+   36{13}: Result:=@MA32; //475E48
+   37{0A}: Result:=@MA19; //475DDC
+   40{0A}: Result:=@MA19; //475DDC
+   41{0B}: Result:=@MA20; //475DE8
+   42{0B}: Result:=@MA20; //475DE8
+   43{0C}: Result:=@MA21; //475DF4
+   45{0A}: Result:=@MA19; //475DDC
+   47{0D}: Result:=@MA22; //475E00
+   48{0E}: Result:=@MA23; //475E0C
+   49{0E}: Result:=@MA23; //475E0C
+   50{27}: begin//475F32
+	   case Appr of
+	   23{01}: Result:=@MA36; //475F77
+	   24{02}: Result:=@MA37; //475F80
+	   25{02}: Result:=@MA37; //475F80
+	   26{00}: Result:=@MA35; //475F9B
+	   27{02}: Result:=@MA37; //475F80
+	   28{00}: Result:=@MA35; //475F9B
+	   29{00}: Result:=@MA35; //475F9B
+	   30{00}: Result:=@MA35; //475F9B
+	   31{00}: Result:=@MA35; //475F9B
+	   32{02}: Result:=@MA37; //475F80
+	   33{00}: Result:=@MA35; //475F9B
+	   34{00}: Result:=@MA35; //475F9B
+	   35{03}: Result:=@MA41; //475F89
+	   36{03}: Result:=@MA41; //475F89
+	   37{03}: Result:=@MA41; //475F89
+	   38{03}: Result:=@MA41; //475F89
+	   39{03}: Result:=@MA41; //475F89
+	   40{03}: Result:=@MA41; //475F89
+	   41{03}: Result:=@MA41; //475F89
+	   42{04}: Result:=@MA46; //475F92
+	   43{04}: Result:=@MA46; //475F92
+	   44{04}: Result:=@MA46; //475F92
+	   45{04}: Result:=@MA46; //475F92
+	   46{04}: Result:=@MA46; //475F92
+	   47{04}: Result:=@MA46; //475F92
+	   48{03}: Result:=@MA41; //4777B3
+	   49{03}: Result:=@MA41; //4777B3
+	   50{03}: Result:=@MA41; //4777B3
+	   51{00}: Result:=@MA35; //4777C5
+	   52{03}: Result:=@MA41; //4777B3
+	   53{03}: Result:=@MA41; //4777B3
+	   else Result:=@MA35;
+	   end;
+   end;
 
-    52{0A}: Result:=@MA19; //475DDC
-    53{0A}: Result:=@MA19; //475DDC
-    54{14}: Result:=@MA28; //475E54
-    55{15}: Result:=@MA29; //475E60
-    60{16}: Result:=@MA33; //475E6C
-    61{16}: Result:=@MA33; //475E6C
-    62{16}: Result:=@MA33; //475E6C
-    63{17}: Result:=@MA34; //475E78
-    64{18}: Result:=@MA19; //475E84
-    65{18}: Result:=@MA19; //475E84
-    66{18}: Result:=@MA19; //475E84
-    67{18}: Result:=@MA19; //475E84
-    68{18}: Result:=@MA19; //475E84
-    69{18}: Result:=@MA19; //475E84
-    70{19}: Result:=@MA33; //475E90
-    71{19}: Result:=@MA33; //475E90
-    72{19}: Result:=@MA33; //475E90
-    73{1A}: Result:=@MA19; //475E9C
-    74{1B}: Result:=@MA19; //475EA8
-    75{1C}: Result:=@MA39; //475EB4
-    76{1D}: Result:=@MA38; //475EC0
-    77{1E}: Result:=@MA39; //475ECC
-    78{1F}: Result:=@MA40; //475ED8
-    79{20}: Result:=@MA19; //475EE4
-    80{21}: Result:=@MA42; //475EF0
-    81{22}: Result:=@MA43; //475EFC
-    83{23}: Result:=@MA44; //475F08
-    84{24}: Result:=@MA45; //475F14
-    85{24}: Result:=@MA45; //475F14
-    86{24}: Result:=@MA45; //475F14
-    87{24}: Result:=@MA45; //475F14
-    88{24}: Result:=@MA45; //475F14
-    89{24}: Result:=@MA45; //475F14
-    90{11}: Result:=@MA30; //475E30
-    98{25}: Result:=@MA27; //475F20
-    99{26}: Result:=@MA26; //475F29
+   52{0A}: Result:=@MA19; //475DDC
+   53{0A}: Result:=@MA19; //475DDC
+   54{14}: Result:=@MA28; //475E54
+   55{15}: Result:=@MA29; //475E60
+   60{16}: Result:=@MA33; //475E6C
+   61{16}: Result:=@MA33; //475E6C
+   62{16}: Result:=@MA33; //475E6C
+   63{17}: Result:=@MA34; //475E78
+   64{18}: Result:=@MA19; //475E84
+   65{18}: Result:=@MA19; //475E84
+   66{18}: Result:=@MA19; //475E84
+   67{18}: Result:=@MA19; //475E84
+   68{18}: Result:=@MA19; //475E84
+   69{18}: Result:=@MA19; //475E84
+   70{19}: Result:=@MA33; //475E90
+   71{19}: Result:=@MA33; //475E90
+   72{19}: Result:=@MA33; //475E90
+   73{1A}: Result:=@MA19; //475E9C
+   74{1B}: Result:=@MA19; //475EA8
+   75{1C}: Result:=@MA39; //475EB4
+   76{1D}: Result:=@MA38; //475EC0
+   77{1E}: Result:=@MA39; //475ECC
+   78{1F}: Result:=@MA40; //475ED8
+   79{20}: Result:=@MA19; //475EE4
+   80{21}: Result:=@MA42; //475EF0
+   81{22}: Result:=@MA43; //475EFC
+   83{23}: Result:=@MA44; //475F08
+   84{24}: Result:=@MA45; //475F14
+   85{24}: Result:=@MA45; //475F14
+   86{24}: Result:=@MA45; //475F14
+   87{24}: Result:=@MA45; //475F14
+   88{24}: Result:=@MA45; //475F14
+   89{24}: Result:=@MA45; //475F14
+   90{11}: Result:=@MA30; //475E30
+   98{25}: Result:=@MA27; //475F20
+   99{26}: Result:=@MA26; //475F29
   end
 
 end;
@@ -1003,14 +1008,18 @@ begin
    }
 end;
 
+{ Get the first frame index in image data }
 function GetOffset (appr: integer): integer;
 var
    nrace, npos: integer;
 begin
    Result := 0;
+
    if (appr >= 1000) then exit;
+
    nrace := appr div 10;
    npos := appr mod 10;
+
    case nrace of
       0:    Result := npos * 280;  //8橇贰烙
       1:    Result := npos * 230;
@@ -1148,7 +1157,7 @@ begin
   m_boVisible         := TRUE;
   m_boHoldPlace       := TRUE;
 
-   //泅犁 柳青吝牢 悼累, 辆丰夌绢档 啊瘤绊 乐澜
+   //泅犁 柳青吝牢 悼累, 辆丰?缇畹? 啊瘤绊 乐澜
    //悼累狼 m_nCurrentFrame捞 m_nEndFrame阑 逞菌栏搁 悼累捞 肯丰等巴栏肺 航
   m_nCurrentAction    := 0;
   m_boReverseFrame    := FALSE;
@@ -1938,7 +1947,7 @@ begin
                           //d, 1);
    end;*)
 end;
-//人物显示颜色，中毒
+//人物显示颜??，中??
 function TActor.GetDrawEffectValue: TColorEffect;
 var
    ceff: TColorEffect;
@@ -2050,7 +2059,7 @@ begin
    Shift (m_btDir, 0, 1, 1);
 end;
 
-//人物动作声音(脚步声、武器攻击声)
+//人物动作????(脚步??、武器??击??)
 procedure TActor.SetSound;
 var
    cx, cy, bidx, wunit, attackweapon: integer;
