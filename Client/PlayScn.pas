@@ -546,46 +546,59 @@ var
 	DSurface: TDirectDrawSurface;
 begin
 	with Map do
-		if (m_ClientRect.Left = m_OldClientRect.Left) and (m_ClientRect.Top = m_OldClientRect.Top) then exit;
+		
+		if (m_ClientRect.Left = m_OldClientRect.Left) 
+			and (m_ClientRect.Top = m_OldClientRect.Top) then
+		begin
+			exit;
+		end;
 
-	Map.m_OldClientRect := Map.m_ClientRect;
-	m_MapSurface.Fill(0);
+		Map.m_OldClientRect := Map.m_ClientRect;
+		m_MapSurface.Fill(0);
 
-	//뒈暠교쒼
-	if not g_boDrawTileMap then exit;
-	with Map.m_ClientRect do begin
-		nY := -UNITY * 2;
-		for j:=(Top - Map.m_nBlockTop - 1) to (Bottom - Map.m_nBlockTop + 1) do begin
-			nX := AAX + 14 -UNITX;
-			for i:=(Left - Map.m_nBlockLeft -2) to (Right - Map.m_nBlockLeft + 1) do begin
-				if (i >= 0) and (i < LOGICALMAPUNIT * 3) and (j >= 0) and (j < LOGICALMAPUNIT *3) then begin
-					nImgNumber := (Map.m_MArr[i, j].wBkImg and $7FFF);
-					if nImgNumber > 0 then begin
-						if (i mod 2 = 0) and (j mod 2 = 0) then begin
-							nImgNumber := nImgNumber - 1;
-							DSurface := g_WTilesImages.Images[nImgNumber];
-							if Dsurface <> nil then begin
-								//Jacky 鞫刻뒈暠코휭
-								//                DrawLine(DSurface);
-								m_MapSurface.Draw (nX, nY, DSurface.ClientRect, DSurface, FALSE);
+		// Map background
+		if not g_boDrawTileMap then exit;
+
+		with Map.m_ClientRect do begin
+			nY := -UNITY * 2;
+
+			for j:=(Top - Map.m_nBlockTop - 1) to (Bottom - Map.m_nBlockTop + 1) do begin
+				nX := AAX + 14 -UNITX;
+				for i:=(Left - Map.m_nBlockLeft -2) to (Right - Map.m_nBlockLeft + 1) do begin
+					if (i >= 0) and (i < LOGICALMAPUNIT * 3) and (j >= 0) and (j < LOGICALMAPUNIT *3) then begin
+						nImgNumber := (Map.m_MArr[i, j].wBkImg and $7FFF);
+						if nImgNumber > 0 then begin
+							if (i mod 2 = 0) and (j mod 2 = 0) then begin
+								nImgNumber := nImgNumber - 1;
+								DSurface := g_WTilesImages.Images[nImgNumber];
+								
+								if Dsurface <> nil then begin
+								// Draw the contents of map
+								// DrawLine(DSurface);
+									m_MapSurface.Draw (nX, nY, DSurface.ClientRect, DSurface, FALSE);
+								end;
 							end;
 						end;
 					end;
-				end;
+				
 				Inc (nX, UNITX);
 			end;
+
 			Inc (nY, UNITY);
 		end;
 	end;
 
-	//뒈暠櫓쇌꿔
+	// Map middile image
 	with Map.m_ClientRect do begin
 		nY := -UNITY;
+
 		for j:=(Top - Map.m_nBlockTop-1) to (Bottom - Map.m_nBlockTop+1) do begin
 			nX := AAX + 14 -UNITX;
+
 			for i:=(Left - Map.m_nBlockLeft-2) to (Right - Map.m_nBlockLeft+1) do begin
 				if (i >= 0) and (i < LOGICALMAPUNIT * 3) and (j >= 0) and (j < LOGICALMAPUNIT * 3) then begin
 					nImgNumber := Map.m_MArr[i, j].wMidImg;
+					
 					if nImgNumber > 0 then begin
 						nImgNumber := nImgNumber - 1;
 						DSurface := g_WSmTilesImages.Images[nImgNumber];
@@ -598,12 +611,11 @@ begin
 			Inc (nY, UNITY);
 		end;
 	end;
-
 end;
 
 
 
-{----------------------- 포그, 라이트 처리 -----------------------}
+{----------------------- Process fog and light -----------------------}
 // light treatment
 
 procedure TPlayScene.LoadFog;  //라이트 데이타 읽기
@@ -830,7 +842,7 @@ begin
 		DrawBlendEx (surface, (SCREENWIDTH-120), 0, d, rc.Left, rc.Top, 120, 120, 0)
 	else surface.Draw ((SCREENWIDTH-120), 0, rc, d, FALSE);
 
-	//잉댐
+	// radar
 	if not m_boViewBlink then exit;
 	mx := (SCREENWIDTH-120) + (g_MySelf.m_nCurrX * 48) div 32 - rc.Left;
 	my := (g_MySelf.m_nCurrY * 32) div 32 - rc.Top;
@@ -852,7 +864,6 @@ begin
 				for x:=0 to 1 do
 					for y:=0 to 1 do
 						surface.Pixels[mx+x, my+y] := btColor
-
 			end;
 		end;
 	end;
@@ -904,8 +915,8 @@ begin
 	//캐릭터에들에게 메세지를 전달
 	movetick := FALSE;
 	if GetTickCount - m_dwMoveTime >= 100 then begin
-		m_dwMoveTime := GetTickCount;   //이동의 동기화
-		movetick := TRUE;          //이동 틱
+		m_dwMoveTime := GetTickCount;   // Sync movement
+		movetick := TRUE;          		// Move tick
 		Inc (m_nMoveStepCount);
 		if m_nMoveStepCount > 1 then m_nMoveStepCount := 0;
 	end;
@@ -917,10 +928,9 @@ begin
 	end;
 
 	try
-		i := 0;                          //여기는 메세지만 처리함
+		i := 0;                          // Just process message here
 
-										 //Do not process frame here
-		while TRUE do begin              //Frame 처리는 여기서 안함.
+		while TRUE do begin              // Do not process frame here
 			if i >= m_ActorList.Count then break;
 
 			actor := m_ActorList[i];
@@ -1049,18 +1059,19 @@ begin
    end;
    }
 
-   //사라진 다이나믹오브젝트 검사
-   for k:=0 to EventMan.EventList.Count-1 do begin
-	   evn := TClEvent (EventMan.EventList[k]);
-      if (Abs(evn.m_nX-g_MySelf.m_nCurrX) > 30) and (Abs(evn.m_nY-g_MySelf.m_nCurrY) > 30) then begin
-         evn.Free;
-         EventMan.EventList.Delete (k);
-         break;  //한번에 한개씩
-      end;
-   end;
-   except
-      DebugOutStr ('103');
-   end;
+   		// Examining missing dynamic objects
+   		for k:=0 to EventMan.EventList.Count-1 do begin
+	   		evn := TClEvent (EventMan.EventList[k]);
+     		
+     		if (Abs(evn.m_nX-g_MySelf.m_nCurrX) > 30) and (Abs(evn.m_nY-g_MySelf.m_nCurrY) > 30) then begin
+        		evn.Free;
+        		EventMan.EventList.Delete (k);
+        		break;  // One at a time
+      		end;
+   		end;
+   	except
+      	DebugOutStr ('103');
+   	end;
 
 	try
 		with Map.m_ClientRect do begin
@@ -1116,49 +1127,64 @@ begin
 
 	try
 		m := defy - UNITY;
+
 		for j:=(Map.m_ClientRect.Top - Map.m_nBlockTop) to (Map.m_ClientRect.Bottom - Map.m_nBlockTop + LONGHEIGHT_IMAGE) do begin
-			if j < 0 then begin Inc (m, UNITY); continue; end;
+			if j < 0 then 
+			begin 
+				Inc (m, UNITY); 
+				continue; 
+			end;
+
 			n := defx-UNITX*2;
-			//*** 48*32 타일형 오브젝트 그리기
+
+			// Draw 48*32 tiled objects
 			for i:=(Map.m_ClientRect.Left - Map.m_nBlockLeft-2) to (Map.m_ClientRect.Right - Map.m_nBlockLeft+2) do begin
 				if (i >= 0) and (i < LOGICALMAPUNIT*3) and (j >= 0) and (j < LOGICALMAPUNIT*3) then begin
-            fridx := (Map.m_MArr[i, j].wFrImg) and $7FFF;
-            if fridx > 0 then begin
-               ani := Map.m_MArr[i, j].btAniFrame;
-               wunit := Map.m_MArr[i, j].btArea;
-               if (ani and $80) > 0 then begin
-                  blend := TRUE;
-                  ani := ani and $7F;
-               end;
-               if ani > 0 then begin
-                  anitick := Map.m_MArr[i, j].btAniTick;
-                  fridx := fridx + (m_nAniCount mod (ani + (ani*anitick))) div (1+anitick);
-               end;
-               if (Map.m_MArr[i, j].btDoorOffset and $80) > 0 then begin //열림
-                  if (Map.m_MArr[i, j].btDoorIndex and $7F) > 0 then  //문으로 표시된 것만
-                     fridx := fridx + (Map.m_MArr[i, j].btDoorOffset and $7F); //열린 문
-               end;
-               fridx := fridx - 1;
-               // 물체 그림
-               DSurface := GetObjs (wunit, fridx);
-               if DSurface <> nil then begin
-                  if (DSurface.Width = 48) and (DSurface.Height = 32) then begin
-                     mmm := m + UNITY - DSurface.Height;
-                     if (n+DSurface.Width > 0) and (n <= SCREENWIDTH) and (mmm + DSurface.Height > 0) and (mmm < drawingbottomline) then begin
-                        m_ObjSurface.Draw (n, mmm, DSurface.ClientRect, Dsurface, TRUE)
-                     end else begin
-                        if mmm < drawingbottomline then begin //불필요하게 그리는 것을 피함
-                           m_ObjSurface.Draw (n, mmm, DSurface.ClientRect, DSurface, TRUE)
-                        end;
-                     end;
-                  end;
-               end;
-            end;
-         end;
-         Inc (n, UNITX);
-      end;
-      Inc (m, UNITY);
-   end;
+            		fridx := (Map.m_MArr[i, j].wFrImg) and $7FFF;
+            		
+            		if fridx > 0 then begin
+               			ani := Map.m_MArr[i, j].btAniFrame;
+               			wunit := Map.m_MArr[i, j].btArea;
+               			
+               			if (ani and $80) > 0 then begin
+                  			blend := TRUE;
+                  			ani := ani and $7F;
+               			end;
+               
+               			if ani > 0 then begin
+                  			anitick := Map.m_MArr[i, j].btAniTick;
+                  			fridx := fridx + (m_nAniCount mod (ani + (ani*anitick))) div (1+anitick);
+               			end;
+               
+               			if (Map.m_MArr[i, j].btDoorOffset and $80) > 0 then begin //열림
+                  			if (Map.m_MArr[i, j].btDoorIndex and $7F) > 0 then  //문으로 표시된 것만
+                     			fridx := fridx + (Map.m_MArr[i, j].btDoorOffset and $7F); //열린 문
+               			end;
+               
+               			fridx := fridx - 1;
+               
+               			// 물체 그림
+               			DSurface := GetObjs (wunit, fridx);
+               
+               			if DSurface <> nil then begin
+                  			if (DSurface.Width = 48) and (DSurface.Height = 32) then begin
+                     			mmm := m + UNITY - DSurface.Height;
+                     
+                     			if (n+DSurface.Width > 0) and (n <= SCREENWIDTH) and (mmm + DSurface.Height > 0) and (mmm < drawingbottomline) then begin
+                        			m_ObjSurface.Draw (n, mmm, DSurface.ClientRect, Dsurface, TRUE)
+                     			end else begin
+                        			if mmm < drawingbottomline then begin //불필요하게 그리는 것을 피함
+                           				m_ObjSurface.Draw (n, mmm, DSurface.ClientRect, DSurface, TRUE)
+                        			end;
+                     			end;
+                  			end;
+               			end;
+            		end;
+         		end;
+         		Inc (n, UNITX);
+      		end;
+      		Inc (m, UNITY);
+   		end;
 
 	// Draw magic effects on the ground(such as firewall)
 	for k:=0 to m_GroundEffectList.Count-1 do begin
@@ -1252,7 +1278,7 @@ begin
 		end;
 
 		if (j <= (Map.m_ClientRect.Bottom - Map.m_nBlockTop)) and (not g_boServerChanging) then begin
-			{*** 바닥에 변경된 흙의 흔적 }
+			{*** Traces of changed soil on the floor }
 			for k:=0 to EventMan.EventList.Count-1 do begin
 				evn := TClEvent (EventMan.EventList[k]);
 
@@ -1264,7 +1290,7 @@ begin
 			end;
 
 			if g_boDrawDropItem then begin
-				{ 鞫刻뒈충膠틔棍近 }
+				{ Draw items drop on the floor }
 				for k:=0 to g_DropedItemList.Count-1 do begin
 					DropItem := PTDropItem (g_DropedItemList[k]);
 					if DropItem <> nil then begin
@@ -1297,7 +1323,7 @@ begin
 			end;
 		end;
          
-		{ *** 鞫刻훙膠綱뺐斤口 }
+		{ *** Draw actors and their words }
 		for k:=0 to m_ActorList.Count-1 do begin
 			actor := m_ActorList[k];
 
@@ -1353,7 +1379,7 @@ begin
 				Inc (m, UNITY);
 			end;
 
-			{ 캐릭터 포그 그리기 }
+			{ Add light around actors }
 			if m_ActorList.Count > 0 then begin
 				for k:=0 to m_ActorList.Count-1 do begin
 					actor := m_ActorList[k];
@@ -1376,9 +1402,9 @@ begin
 
 	if not g_boServerChanging then begin
 		try
-			{**** 주인공 캐릭터 그리기}
+			{**** Draw myself }
 			if not g_boCheckBadMapMode then
-				if g_MySelf.m_nState and $00800000 = 0 then { 투명이 아니면 }
+				if g_MySelf.m_nState and $00800000 = 0 then { If I am not transparent }
 					g_MySelf.DrawChr (m_ObjSurface, 
 						(g_MySelf.m_nRx-Map.m_ClientRect.Left)*UNITX+defx, 
 						(g_MySelf.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defy, 
@@ -1387,8 +1413,8 @@ begin
 
 			if (g_FocusCret <> nil) then begin
 				if IsValidActor (g_FocusCret) and (g_FocusCret <> g_MySelf) then
-					{ if (actor.m_btRace <> 81) or (FocusCret.State and $00800000 = 0) then //Jacky }
-					if (g_FocusCret.m_nState and $00800000 = 0) then //Jacky
+					{ if (actor.m_btRace <> 81) or (FocusCret.State and $00800000 = 0) then }
+					if (g_FocusCret.m_nState and $00800000 = 0) then 
 						g_FocusCret.DrawChr (m_ObjSurface,
 							(g_FocusCret.m_nRx - Map.m_ClientRect.Left)*UNITX+defx,
 							(g_FocusCret.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defy, TRUE,FALSE);
@@ -1396,7 +1422,7 @@ begin
 
 			if (g_MagicTarget <> nil) then begin
 				if IsValidActor (g_MagicTarget) and (g_MagicTarget <> g_MySelf) then
-					if g_MagicTarget.m_nState and $00800000 = 0 then { 투명이 아니면 }
+					if g_MagicTarget.m_nState and $00800000 = 0 then { If it is not transparent }
 						g_MagicTarget.DrawChr (m_ObjSurface,
 							(g_MagicTarget.m_nRx-Map.m_ClientRect.Left)*UNITX+defx,
 							(g_MagicTarget.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defy, 
@@ -1409,7 +1435,7 @@ begin
 	end;
    
 	try
-		{ **** 마법 효과 }
+		{ **** Magic effect }
 		for k:=0 to m_ActorList.Count-1 do begin
 			actor := m_ActorList[k];
 
@@ -1438,7 +1464,7 @@ begin
 		DebugOutStr ('109');
 	end;
 
-	//뒈충膠틔?좋?
+	// Draw items on the floor and light
 	try
 		for k:=0 to g_DropedItemList.Count-1 do begin
 			DropItem := PTDropItem (g_DropedItemList[k]);

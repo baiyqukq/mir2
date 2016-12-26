@@ -3,71 +3,74 @@ unit Actor;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Grobal2, DxDraws, CliUtil, magiceff, Wil, ClFunc, SDK;
+	Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+	Grobal2, DxDraws, CliUtil, magiceff, Wil, ClFunc, SDK;
 
 const
-   MAXACTORSOUND = 3;
-   CMMX     = 150;
-   CMMY     = 200;
+	MAXACTORSOUND = 3;					// Max actor sound
+	CMMX     = 150;
+	CMMY     = 200;
 
-   HUMANFRAME = 600;
-   MONFRAME  = 280;
-   EXPMONFRAME = 360;
-   SCULMONFRAME = 440;
-   ZOMBIFRAME = 430;
-   MERCHANTFRAME = 60;
-   MAXSAY = 5;
-//   MON1_FRAME =
-//   MON2_FRAME =
+	HUMANFRAME = 600;					// Human frame
+	MONFRAME  = 280;					// Monster frame
+	EXPMONFRAME = 360;					// Exp monster frame
+	SCULMONFRAME = 440;					// Scullpture monster frame
+	ZOMBIFRAME = 430;					// Zombi frame
+	MERCHANTFRAME = 60;					// Merchant frame
+	MAXSAY = 5;							// Max say
+	//   MON1_FRAME =
+	//   MON2_FRAME =
 
-   RUN_MINHEALTH = 10;
-   DEFSPELLFRAME = 10;
-   FIREHIT_READYFRAME = 6;  //¿°È­°á ½ÃÀü ÇÁ·¡ÀÓ
-   MAGBUBBLEBASE = 3890;    //Ä§·¨¶ÜÐ§¹ûÍ¼Î»ÖÃ
-   MAGBUBBLESTRUCKBASE = 3900; //±»¹¥»÷Ê±Ä§·¨¶ÜÐ§¹ûÍ¼Î»ÖÃ
-   MAXWPEFFECTFRAME = 5;
-   WPEFFECTBASE = 3750;
-   EFFECTBASE = 0;
-   
+	RUN_MINHEALTH = 10;					// Run Min Health
+	DEFSPELLFRAME = 10;
+	FIREHIT_READYFRAME = 6;				//¿°È­°á ½ÃÀü ÇÁ·¡ÀÓ
+	MAGBUBBLEBASE = 3890;				//Ä§·¨¶ÜÐ§¹ûÍ¼Î»ÖÃ(Magic Bubble Base)
+	MAGBUBBLESTRUCKBASE = 3900;			//±»¹¥»÷Ê±Ä§·¨¶ÜÐ§¹ûÍ¼Î»ÖÃ(Magic Bubble Struck Base)
+	MAXWPEFFECTFRAME = 5;
+	WPEFFECTBASE = 3750;				// WP Effect Base
+	EFFECTBASE = 0;						// Effect Base
+
 type
-  TActionInfo = packed record
-    start   :Word;//0x14              // ½ÃÀÛ ÇÁ·¡ÀÓ
-    frame   :Word;//0x16              // ÇÁ·¡ÀÓ °¹¼ö
-    skip    :Word;//0x18
-    ftime   :Word;//0x1A              // ÇÁ·¡ÀÓ °¹¼ö
-    usetick :Word;//0x1C              // »ç¿ëÆ½, ÀÌµ¿ µ¿ÀÛ¿¡¸¸ »ç¿ëµÊ
-  end;
-  pTActionInfo = ^TActionInfo;
-  THumanAction = packed record
-    ActStand:      TActionInfo;   //1
-    ActWalk:       TActionInfo;   //8
-    ActRun:        TActionInfo;   //8
-    ActRushLeft:   TActionInfo;
-    ActRushRight:  TActionInfo;
-    ActWarMode:    TActionInfo;   //1
-    ActHit:        TActionInfo;   //6
-    ActHeavyHit:   TActionInfo;   //6
-    ActBigHit:     TActionInfo;   //6
-    ActFireHitReady: TActionInfo; //6
-    ActSpell:      TActionInfo;   //6
-    ActSitdown:    TActionInfo;   //1
-    ActStruck:     TActionInfo;   //3
-    ActDie:        TActionInfo;   //4
-  end;
-  pTHumanAction = ^THumanAction;
-  TMonsterAction = packed record
-    ActStand:      TActionInfo;   //1
-    ActWalk:       TActionInfo;   //8
-    ActAttack:     TActionInfo;   //6 0x14 - 0x1C
-    ActCritical:   TActionInfo;   //6 0x20 -
-    ActStruck:     TActionInfo;   //3
-    ActDie:        TActionInfo;   //4
-    ActDeath:      TActionInfo;
-  end;
-  pTMonsterAction = ^TMonsterAction;
+	TActionInfo = packed record
+    	start   :Word;//0x14			// Start frame
+    	frame   :Word;//0x16			// Frame count
+    	skip    :Word;//0x18			// Skip frame count
+    	ftime   :Word;//0x1A			// FPS
+    	usetick :Word;//0x1C			// Use tick, Used only for move actions
+  	end;
+  	pTActionInfo = ^TActionInfo;
+
+  	THumanAction = packed record
+    	ActStand:      TActionInfo;   //1
+    	ActWalk:       TActionInfo;   //8
+    	ActRun:        TActionInfo;   //8
+    	ActRushLeft:   TActionInfo;
+    	ActRushRight:  TActionInfo;
+    	ActWarMode:    TActionInfo;   //1
+    	ActHit:        TActionInfo;   //6
+    	ActHeavyHit:   TActionInfo;   //6
+    	ActBigHit:     TActionInfo;   //6
+    	ActFireHitReady: TActionInfo; //6
+    	ActSpell:      TActionInfo;   //6
+    	ActSitdown:    TActionInfo;   //1
+    	ActStruck:     TActionInfo;   //3
+    	ActDie:        TActionInfo;   //4
+  	end;
+  	pTHumanAction = ^THumanAction;
+  	
+  	TMonsterAction = packed record
+    	ActStand:      TActionInfo;   //1
+    	ActWalk:       TActionInfo;   //8
+    	ActAttack:     TActionInfo;   //6 0x14 - 0x1C
+    	ActCritical:   TActionInfo;   //6 0x20 -
+    	ActStruck:     TActionInfo;   //3
+    	ActDie:        TActionInfo;   //4
+    	ActDeath:      TActionInfo;
+  	end;
+  	pTMonsterAction = ^TMonsterAction;
+
 const
-   HA: THumanAction = (
+   	HA: THumanAction = (
         ActStand:  (start: 0;      frame: 4;  skip: 4;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 64;     frame: 6;  skip: 2;  ftime: 90;   usetick: 2);
         ActRun:    (start: 128;    frame: 6;  skip: 2;  ftime: 120;  usetick: 3);
@@ -84,16 +87,18 @@ const
         ActStruck: (start: 472;    frame: 3;  skip: 5;  ftime: 70;  usetick: 0);
         ActDie:    (start: 536;    frame: 4;  skip: 4;  ftime: 120;  usetick: 0)
       );
-  MA9: TMonsterAction = (//4C03D4
-    ActStand:(Start:0;  frame:1;  skip:7;  ftime:200;  usetick:0);
-    ActWalk:(Start:64;  frame:6;  skip:2;  ftime:120;  usetick:3);
-    ActAttack:(Start:64;  frame:6;  skip:2;  ftime:150;  usetick:0);
-    ActCritical:(Start:0;  frame:0;  skip:0;  ftime:0;  usetick:0);
-    ActStruck:(Start:64;  frame:6;  skip:2;  ftime:100;  usetick:0);
-    ActDie:(Start:0;  frame:1;  skip:7;  ftime:140;  usetick:0);
-    ActDeath:(Start:0;  frame:1;  skip:7;  ftime:0;  usetick:0);
+  	
+  	MA9: TMonsterAction = (//4C03D4
+    	ActStand:(Start:0;  frame:1;  skip:7;  ftime:200;  usetick:0);
+    	ActWalk:(Start:64;  frame:6;  skip:2;  ftime:120;  usetick:3);
+    	ActAttack:(Start:64;  frame:6;  skip:2;  ftime:150;  usetick:0);
+    	ActCritical:(Start:0;  frame:0;  skip:0;  ftime:0;  usetick:0);
+    	ActStruck:(Start:64;  frame:6;  skip:2;  ftime:100;  usetick:0);
+    	ActDie:(Start:0;  frame:1;  skip:7;  ftime:140;  usetick:0);
+    	ActDeath:(Start:0;  frame:1;  skip:7;  ftime:0;  usetick:0);
     );
-   MA10: TMonsterAction = (  //(8Frame) ´øµ¶ÎÀÊ¿
+   
+   	MA10: TMonsterAction = (  //(8Frame) Guard
         ActStand:  (start: 0;      frame: 4;  skip: 4;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 64;     frame: 6;  skip: 2;  ftime: 120;  usetick: 3);
         ActAttack: (start: 128;    frame: 4;  skip: 4;  ftime: 150;  usetick: 0);
@@ -101,8 +106,9 @@ const
         ActStruck: (start: 192;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
         ActDie:    (start: 208;    frame: 4;  skip: 4;  ftime: 140;  usetick: 0);
         ActDeath:  (start: 272;    frame: 1;  skip: 0;  ftime: 0;    usetick: 0);
-      );
-   MA11: TMonsterAction = (  //»ç½¿(10FrameÂ¥¸®)
+    );
+
+   	MA11: TMonsterAction = (  //(10Frames) Deer
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 120;  usetick: 3);
         ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
@@ -110,8 +116,9 @@ const
         ActStruck: (start: 240;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
         ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 140;  usetick: 0);
         ActDeath:  (start: 340;    frame: 1;  skip: 0;  ftime: 0;    usetick: 0);
-      );
-   MA12: TMonsterAction = (  //°æºñº´, ¶§¸®´Â ¼Óµµ ºü¸£´Ù.
+    );
+   
+   	MA12: TMonsterAction = (  // Sword guard quickly beat.
         ActStand:  (start: 0;      frame: 4;  skip: 4;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 64;     frame: 6;  skip: 2;  ftime: 120;  usetick: 3);
         ActAttack: (start: 128;    frame: 6;  skip: 2;  ftime: 150;  usetick: 0);
@@ -119,8 +126,9 @@ const
         ActStruck: (start: 192;    frame: 2;  skip: 0;  ftime: 150;  usetick: 0);
         ActDie:    (start: 208;    frame: 4;  skip: 4;  ftime: 160;  usetick: 0);
         ActDeath:  (start: 272;    frame: 1;  skip: 0;  ftime: 0;    usetick: 0);
-      );
-   MA13: TMonsterAction = (  //½ÄÀÎÃÊ
+    );
+   
+ 	MA13: TMonsterAction = (  //½ÄÀÎÃÊ
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 10;     frame: 8;  skip: 2;  ftime: 160;  usetick: 0); //µîÀå...
         ActAttack: (start: 30;     frame: 6;  skip: 4;  ftime: 120;  usetick: 0);

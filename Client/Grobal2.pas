@@ -404,22 +404,23 @@ Const
 type
 
 	TDefaultMessage=packed record  //Size=12
-	Ident :word;
-	Recog :integer;  //识别码
-	Param :smallint;
-	Tag   :smallint;
-	Series:smallint;
-end;
-//Ident=SM_DAYCHANGING
-//   Param=DayBright
-//   Tag=雾的浓度：0，1，2，3
+		Ident :word;
+		Recog :integer;  //识别码
+		Param :smallint;
+		Tag   :smallint;
+		Series:smallint;
+	end;
 
-TUserInfo=Record
-Name:String[32];
-Looks:integer;
-StdMode:Integer;
-Shape:Integer;
-  end;
+//	Ident=SM_DAYCHANGING
+//	Param=DayBright
+//	Tag=雾的浓度：0，1，2，3
+
+	TUserInfo=Record
+		Name:String[32];
+		Looks:integer;
+		StdMode:Integer;
+		Shape:Integer;
+	end;
 
 	TStdItem = record
 		Name:String[16];   //物品名称
@@ -438,7 +439,6 @@ Shape:Integer;
 	end;
 
 	PTClientItem=^TClientItem;
-
 	TClientItem=Record
 		s:TStdItem;
 		MakeIndex:Integer;
@@ -461,7 +461,6 @@ Shape:Integer;
 	end;
 
 	PTChrMsg=^TChrMsg;
-
 	TChrMsg=Record
 		Ident:integer;
 		Dir:Integer;
@@ -481,100 +480,99 @@ Shape:Integer;
 		UseItems:Array[0..127] of TClientItem;
 	end;
 
-  TUserCharacterInfo=Record
-  Name:String;
-  Job:byte;
-  Hair:smallint;
-  level:Integer;
-  Sex:byte;
-  end;
+	TUserCharacterInfo=Record
+		Name:String;
+		Job:byte;
+		Hair:smallint;
+		level:Integer;
+		Sex:byte;
+	end;
 
-  TUserEntryInfo=Record
-  LoginId:String[16];
-  Password:String[16];
-  UserName:String[32];
-  SSNo:String[18];
-  Quiz:String[32];
-  Answer:String[32];
-  Phone:String[15];
-  EMail:String[64];
+	TUserEntryInfo=Record
+		LoginId:String[16];
+		Password:String[16];
+		UserName:String[32];
+		SSNo:String[18];
+		Quiz:String[32];
+		Answer:String[32];
+		Phone:String[15];
+		EMail:String[64];
+	end;
 
-  end;
+	TUserEntryAddInfo=Record
+		Quiz2:String[32];
+		Answer2:String[32];
+		MobilePhone:String[15];
+		BirthDay:String[16];
+	end;
 
-  TUserEntryAddInfo=Record
-  Quiz2:String[32];
-  Answer2:String[32];
-  MobilePhone:String[15];
-  BirthDay:String[16];
-  end;
+	PTDropItem=^TDropItem;
+	TDropItem=record
+		Id:Integer;
+		X,Y:Integer;
+		Looks:integer;
+		FlashTime:LongInt;
+		Name:String[16];
+		BoFlash:Boolean;
+		FlashStepTime:LongInt;
+		FlashStep:Integer;
+	end;
 
-  PTDropItem=^TDropItem;
-  TDropItem=record
-	  Id:Integer;
-	  X,Y:Integer;
-	  Looks:integer;
-	  FlashTime:LongInt;
-	  Name:String[16];
-	  BoFlash:Boolean;
-	  FlashStepTime:LongInt;
-	  FlashStep:Integer;
-  end;
+	TDef=Record
+		Spell:integer;
+		DefSpell:integer;
+		EffectType:Integer;
+		MagicId:Integer;
+		Effect:Integer;
+		DelayTime:Integer;
+		MagicName:String[16];
+		MaxTrain:Array [0..255] of integer;
+	end;
 
-  TDef=Record
-  Spell:integer;
-  DefSpell:integer;
-  EffectType:Integer;
-  MagicId:Integer;
-  Effect:Integer;
-  DelayTime:Integer;
-  MagicName:String[16];
-  MaxTrain:Array [0..255] of integer;
-  end;
+	PTClientMagic=^TClientMagic;
+	TClientMagic=Record
+		Key:Char;
+		Def:TDef;
+		Level:Integer;
+		CurTrain:Integer;
+	end;
 
-  PTClientMagic=^TClientMagic;
-  TClientMagic=Record
-  Key:Char;
-  Def:TDef;
-  Level:Integer;
-  CurTrain:Integer;
-  end;
+	TNakedAbility=Record
+		DC,MC,SC,AC,MAC:Integer;
+		HP,MP:Integer;
+		Hit:integer;
+		Speed:integer;
+	end;
 
-  TNakedAbility=Record
-  DC,MC,SC,AC,MAC:Integer;
-  HP,MP:Integer;
-  Hit:integer;
-  Speed:integer;
-  end;
+	TShortMessage=Record
+		Ident:Integer;
+	end;
 
-  TShortMessage=Record
-  Ident:Integer;
-  end;
+	TMessageBodyW=Record
+	  Param1:integer;
+	  Param2:integer;
+	  Tag1:integer;
+	  Tag2:integer;
+	end;
 
-  TMessageBodyW=Record
-  Param1:integer;
-  Param2:integer;
-  Tag1:integer;
-  Tag2:integer;
-  end;
+	TCharDesc=Record
+		Feature:Integer;
+		Status:Integer;
+	end;
 
-  TCharDesc=Record
-  Feature:Integer;
-  Status:Integer;
-  end;
+	TMessageBodyWL=Record
+		lParam1,lParam2:longint;
+		lTag1,lTag2:longint;
+	end;
 
-  TMessageBodyWL=Record
-  lParam1,lParam2:longint;
-  lTag1,lTag2:longint;
-  end;
-
-  PTClientGoods=^TClientGoods;
-  TClientGoods=record
-	  Name:string[16];
-	  SubMenu:Integer;
-	  Price:Integer;
-	  Stock:integer;
-	  Grade:integer;
-  end;
+	PTClientGoods=^TClientGoods;
+	TClientGoods=record
+		Name:string[16];
+		SubMenu:Integer;
+		Price:Integer;
+		Stock:integer;
+		Grade:integer;
+	end;
 
 function  MakeDefaultMsg (msg:smallint; Recog:integer; param, tag, series:smallint):TDefaultMessage;
 function  UpInt(i:double):integer;
