@@ -1014,6 +1014,7 @@ begin
     LeaveCriticalSection(ProcessHumanCriticalSection);
   end;
 end;
+
 //00485E04
 function TFrmDB.LoadMonsterDB():Integer;
 var

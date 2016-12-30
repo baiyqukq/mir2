@@ -82,6 +82,7 @@ const
   ET_FIRE           = 5;
   ET_SCULPEICE      = 6;   //주마왕의 돌깨진 조각
 
+  { RaceImg }
   RCC_MERCHANT     = 50;
   RCC_GUARD        = 12;
   RCC_USERHUMAN    = 0;
