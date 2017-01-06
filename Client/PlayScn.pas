@@ -572,8 +572,8 @@ begin
 								nImgNumber := nImgNumber - 1;
 								DSurface := g_WTilesImages.Images[nImgNumber];
 								
+								// Draw the background of the map
 								if Dsurface <> nil then begin
-								// Draw the contents of map
 								// DrawLine(DSurface);
 									m_MapSurface.Draw (nX, nY, DSurface.ClientRect, DSurface, FALSE);
 								end;
@@ -588,7 +588,7 @@ begin
 		end;
 	end;
 
-	// Map middile image
+	// Map middle image
 	with Map.m_ClientRect do begin
 		nY := -UNITY;
 

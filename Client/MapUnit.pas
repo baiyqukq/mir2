@@ -234,44 +234,49 @@ begin
   end;
 end;
 
-//주캐릭이 이동시 빈번이 호출..
+{ When my charactor is moving, the function is called frequently }
 procedure TMap.UpdateMapPos (mx, my: integer);
 var
-   cx, cy: integer;
-   procedure Unmark (xx, yy: integer);
-   var
-      ax, ay: integer;
-   begin
-      if (cx = xx div LOGICALMAPUNIT) and (cy = yy div LOGICALMAPUNIT) then begin
-         ax := xx - m_nBlockLeft;
-         ay := yy - m_nBlockTop;
-         m_MArr[ax,ay].wFrImg := m_MArr[ax,ay].wFrImg and $7FFF;
-         m_MArr[ax,ay].wBkImg := m_MArr[ax,ay].wBkImg and $7FFF;
-      end;
-   end;
+	cx, cy: integer;
+
+	// [Unmark
+	procedure Unmark (xx, yy: integer);
+	var
+		ax, ay: integer;
+	begin
+		if (cx = xx div LOGICALMAPUNIT) and (cy = yy div LOGICALMAPUNIT) then begin
+			ax := xx - m_nBlockLeft;
+			ay := yy - m_nBlockTop;
+			m_MArr[ax,ay].wFrImg := m_MArr[ax,ay].wFrImg and $7FFF;
+			m_MArr[ax,ay].wBkImg := m_MArr[ax,ay].wBkImg and $7FFF;
+		end;
+	end;
+	// ]
+
 begin
-   cx := mx div LOGICALMAPUNIT;
-   cy := my div LOGICALMAPUNIT;
-   m_nBlockLeft := _MAX (0, (cx - 1) * LOGICALMAPUNIT);
-   m_nBlockTop  := _MAX (0, (cy - 1) * LOGICALMAPUNIT);
+	cx := mx div LOGICALMAPUNIT;
+	cy := my div LOGICALMAPUNIT;
+	m_nBlockLeft := _MAX (0, (cx - 1) * LOGICALMAPUNIT);
+	m_nBlockTop  := _MAX (0, (cy - 1) * LOGICALMAPUNIT);
 
-   UpdateMapSquare (cx, cy);
+	UpdateMapSquare (cx, cy);
 
-   if (m_nOldLeft <> m_nBlockLeft) or (m_nOldTop <> m_nBlockTop) or (m_sOldMap <> m_sCurrentMap) then begin
-      //3번맵 성벽자리 버그 보정 (2001-7-3)
-      if m_sCurrentMap = '3' then begin
-         Unmark (624, 278);
-         Unmark (627, 278);
-         Unmark (634, 271);
+	if (m_nOldLeft <> m_nBlockLeft) or (m_nOldTop <> m_nBlockTop) or (m_sOldMap <> m_sCurrentMap) then begin
+		//3번맵 성벽자리 버그 보정 (2001-7-3)
+		if m_sCurrentMap = '3' then begin
+			Unmark (624, 278);
+			Unmark (627, 278);
+			Unmark (634, 271);
 
-         Unmark (564, 287);
-         Unmark (564, 286);
-         Unmark (661, 277);
-         Unmark (578, 296);
-      end;
-   end;
-   m_nOldLeft := m_nBlockLeft;
-   m_nOldTop := m_nBlockTop;
+			Unmark (564, 287);
+			Unmark (564, 286);
+			Unmark (661, 277);
+			Unmark (578, 296);
+		end;
+	end;
+
+	m_nOldLeft := m_nBlockLeft;
+	m_nOldTop := m_nBlockTop;
 end;
 
 //맵변경시 처음 한번 호출..

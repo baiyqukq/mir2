@@ -2065,29 +2065,31 @@ var
    cx, cy, bidx, wunit, attackweapon: integer;
    hiter: TActor;
 begin
-   if m_btRace = 0 then begin
-      if (self = g_MySelf) and
-         ((m_nCurrentAction=SM_WALK) or
-          (m_nCurrentAction=SM_BACKSTEP) or
-          (m_nCurrentAction=SM_RUN) or
-          (m_nCurrentAction=SM_HORSERUN) or
-          (m_nCurrentAction=SM_RUSH) or
-          (m_nCurrentAction=SM_RUSHKUNG)
-         )
-      then begin
-         cx := g_MySelf.m_nCurrX - Map.m_nBlockLeft;
-         cy := g_MySelf.m_nCurrY - Map.m_nBlockTop;
-         cx := cx div 2 * 2;
-         cy := cy div 2 * 2;
-         bidx := Map.m_MArr[cx, cy].wBkImg and $7FFF;
-         wunit := Map.m_MArr[cx, cy].btArea;
-         bidx := wunit * 10000 + bidx - 1;
-         case bidx of
-            //ÂªÀº Ç®
-            330..349, 450..454, 550..554, 750..754,
-            950..954, 1250..1254, 1400..1424, 1455..1474,
-            1500..1524, 1550..1574:
-               m_nFootStepSound := s_walk_lawn_l;
+	if m_btRace = 0 then begin
+		if (self = g_MySelf) and
+			((m_nCurrentAction=SM_WALK) or
+			(m_nCurrentAction=SM_BACKSTEP) or
+			(m_nCurrentAction=SM_RUN) or
+			(m_nCurrentAction=SM_HORSERUN) or
+			(m_nCurrentAction=SM_RUSH) or
+			(m_nCurrentAction=SM_RUSHKUNG)
+			)
+			then begin
+				cx := g_MySelf.m_nCurrX - Map.m_nBlockLeft;
+				cy := g_MySelf.m_nCurrY - Map.m_nBlockTop;
+				cx := cx div 2 * 2;
+				cy := cy div 2 * 2;
+				bidx := Map.m_MArr[cx, cy].wBkImg and $7FFF;
+				wunit := Map.m_MArr[cx, cy].btArea;
+				bidx := wunit * 10000 + bidx - 1;
+
+				// Judge the walk sound
+				case bidx of
+				//ÂªÀº Ç®
+				330..349, 450..454, 550..554, 750..754,
+				950..954, 1250..1254, 1400..1424, 1455..1474,
+				1500..1524, 1550..1574:
+					m_nFootStepSound := s_walk_lawn_l;
 
             //Áß°£Ç®
 
@@ -2306,6 +2308,7 @@ begin
             if (m_nDieSound >= 0) then begin
               PlaySound (m_nDieSound);
 //              if Self.m_btRace = RC_USERHUMAN then
+
               if Self = g_MySelf then
                 PlayBGM(bmg_gameover);
             end;
