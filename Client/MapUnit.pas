@@ -224,14 +224,15 @@ end;
 //cx, cy: Áß¾Ó, Counted by unit..
 procedure TMap.UpdateMapSquare (cx, cy: integer);
 begin
-  if (cx <> m_nCurUnitX) or (cy <> m_nCurUnitY) then begin
-    if m_boSegmented then
-      updatemapseg (cx, cy)
-    else
-      LoadMapArr(cx, cy);
-    m_nCurUnitX := cx;
-    m_nCurUnitY := cy;
-  end;
+	if (cx <> m_nCurUnitX) or (cy <> m_nCurUnitY) then begin
+		if m_boSegmented then
+			updatemapseg (cx, cy)
+		else
+			LoadMapArr(cx, cy);
+
+		m_nCurUnitX := cx;
+		m_nCurUnitY := cy;
+	end;
 end;
 
 { When my charactor is moving, the function is called frequently }

@@ -373,11 +373,11 @@ Const
 
 	DEFBLOCKSIZE =16;
 
-	UNITX = 48;
-	UNITY = 32;
-	LOGICALMAPUNIT =20;
-	HALFX = 24;
-	HALFY = 16;
+	UNITX = 48;		// Unit X
+	UNITY = 32;		// Unit Y
+	LOGICALMAPUNIT =20;		// Logical Map Unit : visible unit
+	HALFX = 24;		// Half X
+	HALFY = 16;		// Half Y
 
 	ET_DIGOUTZOMBI =0;
 	ET_PILESTONES = 1;

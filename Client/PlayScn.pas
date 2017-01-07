@@ -545,41 +545,45 @@ var
 	i,j, nY,nX,nImgNumber:integer;
 	DSurface: TDirectDrawSurface;
 begin
-	with Map do
-		
+	with Map do begin
 		if (m_ClientRect.Left = m_OldClientRect.Left) 
 			and (m_ClientRect.Top = m_OldClientRect.Top) then
 		begin
 			exit;
 		end;
+	end;
 
-		Map.m_OldClientRect := Map.m_ClientRect;
-		m_MapSurface.Fill(0);
+	Map.m_OldClientRect := Map.m_ClientRect;
+	m_MapSurface.Fill(0);
 
-		// Map background
-		if not g_boDrawTileMap then exit;
+	// Map background
+	if not g_boDrawTileMap then exit;
 
-		with Map.m_ClientRect do begin
-			nY := -UNITY * 2;
+	// m_ClientRect is the world rect
+	with Map.m_ClientRect do begin
+		nY := -UNITY * 2;				// UNITY: 32
 
-			for j:=(Top - Map.m_nBlockTop - 1) to (Bottom - Map.m_nBlockTop + 1) do begin
-				nX := AAX + 14 -UNITX;
-				for i:=(Left - Map.m_nBlockLeft -2) to (Right - Map.m_nBlockLeft + 1) do begin
-					if (i >= 0) and (i < LOGICALMAPUNIT * 3) and (j >= 0) and (j < LOGICALMAPUNIT *3) then begin
-						nImgNumber := (Map.m_MArr[i, j].wBkImg and $7FFF);
-						if nImgNumber > 0 then begin
-							if (i mod 2 = 0) and (j mod 2 = 0) then begin
-								nImgNumber := nImgNumber - 1;
-								DSurface := g_WTilesImages.Images[nImgNumber];
+		for j:=(Top - Map.m_nBlockTop - 1) to (Bottom - Map.m_nBlockTop + 1) do begin
+			nX := AAX + 14 -UNITX;		// AAX: 16, UNITX: 48
+
+		
+			for i:=(Left - Map.m_nBlockLeft -2) to (Right - Map.m_nBlockLeft + 1) do begin
+				// LOGICALMAPUNIT: 20
+				if (i >= 0) and (i < LOGICALMAPUNIT * 3) and (j >= 0) and (j < LOGICALMAPUNIT *3) then begin
+					nImgNumber := (Map.m_MArr[i, j].wBkImg and $7FFF);
+					if nImgNumber > 0 then begin
+						if (i mod 2 = 0) and (j mod 2 = 0) then begin
+							nImgNumber := nImgNumber - 1;
+							DSurface := g_WTilesImages.Images[nImgNumber];
 								
-								// Draw the background of the map
-								if Dsurface <> nil then begin
+							// Draw the background of the map
+							if Dsurface <> nil then begin
 								// DrawLine(DSurface);
-									m_MapSurface.Draw (nX, nY, DSurface.ClientRect, DSurface, FALSE);
-								end;
+								m_MapSurface.Draw (nX, nY, DSurface.ClientRect, DSurface, FALSE);
 							end;
 						end;
 					end;
+				end;
 				
 				Inc (nX, UNITX);
 			end;
@@ -1073,6 +1077,7 @@ begin
       	DebugOutStr ('103');
    	end;
 
+	// Update client view area
 	try
 		with Map.m_ClientRect do begin
 {$IF SWH = SWH800}
