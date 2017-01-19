@@ -710,164 +710,207 @@ begin
 
 
 end;
+
 procedure UnLoadWMImagesLib();
 var
-  I:Integer;
+	I:Integer;
 begin
-  for I := Low(g_WObjectArr) to High(g_WObjectArr) do begin
-    if g_WObjectArr[I] <> nil then begin
-      g_WObjectArr[I].Finalize;
-      g_WObjectArr[I].Free;
-    end;
-  end;
-  for I := Low(g_WMonImagesArr) to High(g_WMonImagesArr) do begin
-    if g_WMonImagesArr[I] <> nil then begin
-      g_WMonImagesArr[I].Finalize;
-      g_WMonImagesArr[I].Free;
-    end;
-  end;
+	{ Clear object images }
+	for I := Low(g_WObjectArr) to High(g_WObjectArr) do begin
+		if g_WObjectArr[I] <> nil then begin
+			g_WObjectArr[I].Finalize;
+			g_WObjectArr[I].Free;
+		end;
+	end;
 
-  g_WMainImages.Finalize;
-  g_WMainImages.Free;
+	{ Clear monster images }
+	for I := Low(g_WMonImagesArr) to High(g_WMonImagesArr) do begin
+		if g_WMonImagesArr[I] <> nil then begin
+			g_WMonImagesArr[I].Finalize;
+			g_WMonImagesArr[I].Free;
+		end;
+	end;
 
-  g_WMain2Images.Finalize;
-  g_WMain2Images.Free;
+	g_WMainImages.Finalize;
+	g_WMainImages.Free;
 
-  g_WMain3Images.Finalize;
-  g_WMain3Images.Free;
-  
-  g_WChrSelImages.Finalize;
-  g_WChrSelImages.Free;
+	g_WMain2Images.Finalize;
+	g_WMain2Images.Free;
 
-  g_WMMapImages.Finalize;
-  g_WMMapImages.Free;
+	g_WMain3Images.Finalize;
+	g_WMain3Images.Free;
 
-  g_WTilesImages.Finalize;
-  g_WTilesImages.Free;
+	g_WChrSelImages.Finalize;
+	g_WChrSelImages.Free;
 
-  g_WSmTilesImages.Finalize;
-  g_WSmTilesImages.Free;
+	g_WMMapImages.Finalize;
+	g_WMMapImages.Free;
 
-  g_WHumWingImages.Finalize;
-  g_WHumWingImages.Free;
+	g_WTilesImages.Finalize;
+	g_WTilesImages.Free;
 
-  g_WBagItemImages.Finalize;
-  g_WBagItemImages.Free;
+	g_WSmTilesImages.Finalize;
+	g_WSmTilesImages.Free;
 
-  g_WStateItemImages.Finalize;
-  g_WStateItemImages.Free;
+	g_WHumWingImages.Finalize;
+	g_WHumWingImages.Free;
 
-  g_WDnItemImages.Finalize;
-  g_WDnItemImages.Free;
+	g_WBagItemImages.Finalize;
+	g_WBagItemImages.Free;
 
-  g_WHumImgImages.Finalize;
-  g_WHumImgImages.Free;
+	g_WStateItemImages.Finalize;
+	g_WStateItemImages.Free;
 
-  g_WHairImgImages.Finalize;
-  g_WHairImgImages.Free;
+	g_WDnItemImages.Finalize;
+	g_WDnItemImages.Free;
 
-  g_WWeaponImages.Finalize;
-  g_WWeaponImages.Free;
+	g_WHumImgImages.Finalize;
+	g_WHumImgImages.Free;
 
-  g_WMagIconImages.Finalize;
-  g_WMagIconImages.Free;
+	g_WHairImgImages.Finalize;
+	g_WHairImgImages.Free;
 
-  g_WNpcImgImages.Finalize;
-  g_WNpcImgImages.Free;
+	g_WWeaponImages.Finalize;
+	g_WWeaponImages.Free;
 
-  g_WMagicImages.Finalize;
-  g_WMagicImages.Free;
+	g_WMagIconImages.Finalize;
+	g_WMagIconImages.Free;
 
-  g_WMagic2Images.Finalize;;
-  g_WMagic2Images.Free;
+	g_WNpcImgImages.Finalize;
+	g_WNpcImgImages.Free;
+
+	g_WMagicImages.Finalize;
+	g_WMagicImages.Free;
+
+	g_WMagic2Images.Finalize;;
+	g_WMagic2Images.Free;
 {$IF CUSTOMLIBFILE = 1}
-  g_WEventEffectImages.Finalize;
-  g_WEventEffectImages.Free;
+	g_WEventEffectImages.Finalize;
+	g_WEventEffectImages.Free;
 {$IFEND}  
 end;
-//取地图图库
+
+{
+\brief Get static object in map by index
+\param nUnit Object file index in directory
+\param nIdx object index in file
+\sa GetObjsEx
+}
 function GetObjs (nUnit,nIdx:Integer):TDirectDrawSurface;
 var
-  sFileName:String;
+	sFileName:String;
 begin
-  Result:=nil;
-  if not (nUnit in [Low(g_WObjectArr) .. High(g_WObjectArr)]) then nUnit:=0;
-  if g_WObjectArr[nUnit] = nil then begin
-    if nUnit = 0 then sFileName:=OBJECTIMAGEFILE
-    else sFileName:=format(OBJECTIMAGEFILE1,[nUnit+1]);
-    if not FileExists(sFileName) then exit;
-    g_WObjectArr[nUnit]:=TWMImages.Create(nil);
-    g_WObjectArr[nUnit].DxDraw:=g_DxDraw;
-    g_WObjectArr[nUnit].DDraw:=g_DxDraw.DDraw;
-    g_WObjectArr[nUnit].FileName:=sFileName;
-    g_WObjectArr[nUnit].LibType:=ltUseCache;
-    g_WObjectArr[nUnit].Initialize;
-  end;
-  Result:=g_WObjectArr[nUnit].Images[nIdx];
+	Result:=nil;
+
+	if not (nUnit in [Low(g_WObjectArr) .. High(g_WObjectArr)]) then begin
+		nUnit:=0;
+	end;
+
+	if g_WObjectArr[nUnit] = nil then begin
+		if nUnit = 0 then 
+			sFileName:=OBJECTIMAGEFILE
+		else 
+			sFileName:=format(OBJECTIMAGEFILE1,[nUnit+1]);
+
+		if not FileExists(sFileName) then exit;
+
+		g_WObjectArr[nUnit]:=TWMImages.Create(nil);
+		g_WObjectArr[nUnit].DxDraw:=g_DxDraw;
+		g_WObjectArr[nUnit].DDraw:=g_DxDraw.DDraw;
+		g_WObjectArr[nUnit].FileName:=sFileName;
+		g_WObjectArr[nUnit].LibType:=ltUseCache;
+		g_WObjectArr[nUnit].Initialize;
+	end;
+
+	Result:=g_WObjectArr[nUnit].Images[nIdx];
 end;
-//取地图图库
+
+{
+\brief Get static object in map by postion
+\param nUnit Object file index in directory
+\param nIdx object index in file
+\param px the x value
+\param px the y value
+\sa GetObjs
+}
 function  GetObjsEx (nUnit,nIdx:Integer; var px, py: integer): TDirectDrawSurface;
 var
-  sFileName:String;
+	sFileName:String;
 begin
-  Result:=nil;
-  if not (nUnit in [Low(g_WObjectArr) .. High(g_WObjectArr)]) then nUnit:=0;
-  if g_WObjectArr[nUnit] = nil then begin
+	Result:=nil;
 
-    if nUnit = 0 then sFileName:=OBJECTIMAGEFILE
-    else sFileName:=format(OBJECTIMAGEFILE1,[nUnit+1]);
+	if not (nUnit in [Low(g_WObjectArr) .. High(g_WObjectArr)]) then nUnit:=0;
 
-    if not FileExists(sFileName) then exit;
-    g_WObjectArr[nUnit]:=TWMImages.Create(nil);
-    g_WObjectArr[nUnit].DxDraw:=g_DxDraw;
-    g_WObjectArr[nUnit].DDraw:=g_DxDraw.DDraw;
-    g_WObjectArr[nUnit].FileName:=sFileName;
-    g_WObjectArr[nUnit].LibType:=ltUseCache;
-    g_WObjectArr[nUnit].Initialize;
-  end;
-  Result:=g_WObjectArr[nUnit].GetCachedImage(nIdx,px,py);
+	if g_WObjectArr[nUnit] = nil then begin
+
+		if nUnit = 0 then 
+			sFileName:=OBJECTIMAGEFILE
+		else 
+			sFileName:=format(OBJECTIMAGEFILE1,[nUnit+1]);
+
+		if not FileExists(sFileName) then exit;
+
+		g_WObjectArr[nUnit]:=TWMImages.Create(nil);
+		g_WObjectArr[nUnit].DxDraw:=g_DxDraw;
+		g_WObjectArr[nUnit].DDraw:=g_DxDraw.DDraw;
+		g_WObjectArr[nUnit].FileName:=sFileName;
+		g_WObjectArr[nUnit].LibType:=ltUseCache;
+		g_WObjectArr[nUnit].Initialize;
+	end;
+
+	Result:=g_WObjectArr[nUnit].GetCachedImage(nIdx,px,py);
 end;
+
+{ Get monster images by appr ID }
 function GetMonImg (nAppr:Integer):TWMImages;
 var
-  sFileName:String;
-  nUnit:Integer;
+	sFileName:String;
+	nUnit:Integer;
 begin
-  Result:=nil;
-  if nAppr < 1000 then nUnit:=nAppr div 10
-  else nUnit:=nAppr;
-  
-  if (nUnit < Low(g_WMonImagesArr)) or (nUnit > High(g_WMonImagesArr)) then nUnit:=0;
-  if g_WMonImagesArr[nUnit] = nil then begin
+	Result:=nil;
 
-    sFileName:=format(MONIMAGEFILE,[nUnit+1]);
-    if nUnit = 80 then sFileName:=DRAGONIMAGEFILE;
-    if nUnit = 90 then sFileName:=EFFECTIMAGEFILE;
-    if nUnit >= 1000 then sFileName:=format(MONIMAGEFILEEX,[nUnit]); //超过1000序号的怪物取新的怪物文件
+	if nAppr < 1000 then 
+		nUnit:=nAppr div 10
+	else 
+		nUnit:=nAppr;
+  
+	if (nUnit < Low(g_WMonImagesArr)) or (nUnit > High(g_WMonImagesArr)) then nUnit:=0;
+
+	if g_WMonImagesArr[nUnit] = nil then begin
+
+		sFileName:=format(MONIMAGEFILE,[nUnit+1]);
+		if nUnit = 80 then sFileName:=DRAGONIMAGEFILE;
+		if nUnit = 90 then sFileName:=EFFECTIMAGEFILE;
+		if nUnit >= 1000 then sFileName:=format(MONIMAGEFILEEX,[nUnit]); //超过1000序号的怪物取新的怪物文件
                                   
-    g_WMonImagesArr[nUnit]:=TWMImages.Create(nil);
-    g_WMonImagesArr[nUnit].DxDraw:=g_DxDraw;
-    g_WMonImagesArr[nUnit].DDraw:=g_DxDraw.DDraw;
-    g_WMonImagesArr[nUnit].FileName:=sFileName;
-    g_WMonImagesArr[nUnit].LibType:=ltUseCache;
-    g_WMonImagesArr[nUnit].Initialize;
-  end;
-  Result:=g_WMonImagesArr[nUnit];
+		g_WMonImagesArr[nUnit]:=TWMImages.Create(nil);
+		g_WMonImagesArr[nUnit].DxDraw:=g_DxDraw;
+		g_WMonImagesArr[nUnit].DDraw:=g_DxDraw.DDraw;
+		g_WMonImagesArr[nUnit].FileName:=sFileName;
+		g_WMonImagesArr[nUnit].LibType:=ltUseCache;
+		g_WMonImagesArr[nUnit].Initialize;
+	end;
+
+	Result:=g_WMonImagesArr[nUnit];
 end;
+
+{ Get monster action by appr ID }
 function  GetMonAction (nAppr:Integer):pTMonsterAction;
 var
-  FileStream:TFileStream;
-  sFileName:String;
-  MonsterAction:TMonsterAction;
+	FileStream:TFileStream;
+	sFileName:String;
+	MonsterAction:TMonsterAction;
 begin
-  Result:=nil;
-  sFileName:=format(MONPMFILE,[nAppr]);
-  if FileExists (sFileName) then begin
-    FileStream:=TFileStream.Create(sFileName,fmOpenRead or fmShareDenyNone);
-    FileStream.Read (MonsterAction, SizeOf(MonsterAction));
-    New(Result);
-    Result^:=MonsterAction;
-    FileStream.Free;
-  end;
+	Result:=nil;
+	sFileName:=format(MONPMFILE,[nAppr]);
+
+	if FileExists (sFileName) then begin
+		FileStream:=TFileStream.Create(sFileName,fmOpenRead or fmShareDenyNone);
+		FileStream.Read (MonsterAction, SizeOf(MonsterAction));
+		New(Result);
+		Result^:=MonsterAction;
+		FileStream.Free;
+	end;
 end;
 
 //取得职业名称
@@ -886,49 +929,57 @@ begin
     end;
   end;
 end;
+
+{ Get item type name }
 function GetItemType(ItemType:TItemType):String;
 begin
-  case ItemType of    //
-    i_HPDurg    :Result:='金创药';
-    i_MPDurg    :Result:='魔法药';
-    i_HPMPDurg  :Result:='高级药';
-    i_OtherDurg :Result:='其它药品';
-    i_Weapon  :Result:='武器';
-    i_Dress   :Result:='衣服';
-    i_Helmet  :Result:='头盔';
-    i_Necklace:Result:='项链';
-    i_Armring :Result:='手镯';
-    i_Ring    :Result:='戒指';
-    i_Belt    :Result:='腰带';
-    i_Boots   :Result:='鞋子';
-    i_Charm   :Result:='宝石';
-    i_Book    :Result:='技能书';
-    i_PosionDurg :Result:='毒药';
-    i_UseItem :Result:='消耗品';
-    i_Scroll  :Result:='卷类';
-    i_Stone   :Result:='矿石';
-    i_Gold    :Result:='金币';
-    i_Other   :Result:='其它';
-  end;    // case    [药品] [武器][衣服][头盔][项链][手镯][戒指][消耗品][其它]
-//  [药品] [武器][衣服][头盔][项链][手镯][戒指][腰带][鞋子][宝石][毒药][消耗品][其它]
+	case ItemType of    //
+		i_HPDurg    :Result:='金创药';
+		i_MPDurg    :Result:='魔法药';
+		i_HPMPDurg  :Result:='高级药';
+		i_OtherDurg :Result:='其它药品';
+		i_Weapon  :Result:='武器';
+		i_Dress   :Result:='衣服';
+		i_Helmet  :Result:='头盔';
+		i_Necklace:Result:='项链';
+		i_Armring :Result:='手镯';
+		i_Ring    :Result:='戒指';
+		i_Belt    :Result:='腰带';
+		i_Boots   :Result:='鞋子';
+		i_Charm   :Result:='宝石';
+		i_Book    :Result:='技能书';
+		i_PosionDurg :Result:='毒药';
+		i_UseItem :Result:='消耗品';
+		i_Scroll  :Result:='卷类';
+		i_Stone   :Result:='矿石';
+		i_Gold    :Result:='金币';
+		i_Other   :Result:='其它';
+	end;    
+	{
+	[药品] [武器][衣服][头盔][项链][手镯][戒指][消耗品][其它]
+	[药品] [武器][衣服][头盔][项链][手镯][戒指][腰带][鞋子][宝石][毒药][消耗品][其它]
+	}
 end;
+
 function GetShowItem(sItemName:String):pTShowItem;
 var
-  I:Integer;
+	I:Integer;
 begin
-  Result:=nil;
-  g_ShowItemList.Lock;
-  try
-    for I := 0 to g_ShowItemList.Count - 1 do begin
-      if CompareText(pTShowItem(g_ShowItemList.Items[I]).sItemName,sItemName) = 0 then begin
-        Result:=g_ShowItemList.Items[I];
-        break;
-      end;
-    end;
-  finally
-    g_ShowItemList.UnLock;
-  end;
+	Result:=nil;
+	g_ShowItemList.Lock;
+
+	try
+		for I := 0 to g_ShowItemList.Count - 1 do begin
+			if CompareText(pTShowItem(g_ShowItemList.Items[I]).sItemName,sItemName) = 0 then begin
+				Result:=g_ShowItemList.Items[I];
+				break;
+			end;
+		end;
+	finally
+		g_ShowItemList.UnLock;
+	end;
 end;
+
 procedure ClearShowItemList();
 var
   ShowItem:pTShowItem;

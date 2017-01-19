@@ -531,43 +531,45 @@ type
     procedure DelItemSkill(nIndex:Integer);
   end;
 
-  TAnimalObject =class(TBaseObject)
-    m_nNotProcessCount            :Integer;    //未被处理次数，用于怪物处理循环
-    m_nTargetX                    :Integer;    //0x538
-    m_nTargetY                    :Integer;    //0x53C
-    m_boRunAwayMode               :Boolean;    //0x540
-    m_dwRunAwayStart              :LongWord;   //0x544
-    m_dwRunAwayTime               :LongWord;    //0x548
-  private
+	TAnimalObject =class(TBaseObject)
+		m_nNotProcessCount            :Integer;    //未被处理次数，用于怪物处理循环
+		m_nTargetX                    :Integer;    //0x538
+		m_nTargetY                    :Integer;    //0x53C
+		m_boRunAwayMode               :Boolean;    //0x540
+		m_dwRunAwayStart              :LongWord;   //0x544
+		m_dwRunAwayTime               :LongWord;    //0x548
+	private
 
-  public
-    constructor Create();override;
-    procedure SearchTarget();
-    procedure sub_4C959C;
-    function  Operate(ProcessMsg:pTProcessMessage):Boolean;override; //FFFC
-    procedure Run;override;  //FFFB
-    procedure DelTargetCreat();override;//FFF1
-    procedure SetTargetXY(nX,nY:Integer);virtual; //FFF0
-    procedure GotoTargetXY(); virtual; //0FFEF
-    procedure Wondering(); virtual; //0FFEE
-    procedure Attack(TargeTBaseObject: TBaseObject; nDir: Integer);virtual; //0FFED
-    procedure Struck(Hiter: TBaseObject);virtual; //FFEC
+	public
+		constructor Create();override;
 
-    procedure HitMagAttackTarget(TargeTBaseObject: TBaseObject; nHitPower: Integer;nMagPower:integer;boFlag:Boolean);
-  end;
+		{ Find the nearest target object and attack it }
+		procedure SearchTarget();
+		procedure sub_4C959C;
+		function  Operate(ProcessMsg:pTProcessMessage):Boolean;override; //FFFC
+		procedure Run;override;  //FFFB
+		procedure DelTargetCreat();override;//FFF1
+		procedure SetTargetXY(nX,nY:Integer);virtual; //FFF0
+		procedure GotoTargetXY(); virtual; //0FFEF
+		procedure Wondering(); virtual; //0FFEE
+		procedure Attack(TargeTBaseObject: TBaseObject; nDir: Integer);virtual; //0FFED
+		procedure Struck(Hiter: TBaseObject);virtual; //FFEC
 
-  TPlayObject = class(TAnimalObject)
-    m_DefMsg                  :TDefaultMessage;  //0x550
-      TList55C                :TList;      //0x55C
-    m_sOldSayMsg              :String;     //0x560
-    m_nSayMsgCount            :Integer;    //0x560
-    m_dwSayMsgTick            :LongWord;   //0x568
-    m_boDisableSayMsg         :Boolean;    //0x56C
-    m_dwDisableSayMsgTick     :LongWord;   //0x570
-    m_dwCheckDupObjTick       :LongWord;   //0x574
-      dwTick578               :LongWord;   //0x578
-      dwTick57C               :LongWord;   //0x57C
-    m_boInSafeArea            :Boolean;    //0x580
+		procedure HitMagAttackTarget(TargeTBaseObject: TBaseObject; nHitPower: Integer;nMagPower:integer;boFlag:Boolean);
+	end;
+
+	TPlayObject = class(TAnimalObject)
+		m_DefMsg                  :TDefaultMessage;  //0x550
+		TList55C                :TList;      //0x55C
+		m_sOldSayMsg              :String;     //0x560
+		m_nSayMsgCount            :Integer;    //0x560
+		m_dwSayMsgTick            :LongWord;   //0x568
+		m_boDisableSayMsg         :Boolean;    //0x56C
+		m_dwDisableSayMsgTick     :LongWord;   //0x570
+		m_dwCheckDupObjTick       :LongWord;   //0x574
+		dwTick578               :LongWord;   //0x578
+		dwTick57C               :LongWord;   //0x57C
+		m_boInSafeArea            :Boolean;    //0x580
       n584                    :Integer;    //0x584
       n588                    :Integer;    //0x584
     m_sUserID                 :string[11]; //0x58C    登录帐号名
@@ -18983,8 +18985,8 @@ end;
 //004C914C
 procedure TBaseObject.SetTargetCreat(BaseObject: TBaseObject);
 begin
-  m_TargetCret:=BaseObject;
-  m_dwTargetFocusTick:=GetTickCount();
+	m_TargetCret:=BaseObject;
+	m_dwTargetFocusTick:=GetTickCount();
 end;
 
 procedure TBaseObject.DelTargetCreat();//004C9178
@@ -19624,28 +19626,32 @@ begin
   m_nTargetX:=-1;
   m_nTargetY:=-1;
 end;
+
 procedure TAnimalObject.SearchTarget; //004C94B4
 var
-  BaseObject,BaseObject18:TBaseObject;
-  i,nC,n10:integer;
+	BaseObject,BaseObject18:TBaseObject;
+	i,nC,n10:integer;
 begin
-  BaseObject18:=nil;
-  n10:=999;
-  for i:=0 to m_VisibleActors.Count -1 do begin
-    BaseObject:=pTVisibleBaseObject(m_VisibleActors.Items[i]).BaseObject;
-    if not BaseObject.m_boDeath then begin
-      if IsProperTarget(BaseObject) and
-         (not BaseObject.m_boHideMode or m_boCoolEye) then begin
-        nC:=abs(m_nCurrX - BaseObject.m_nCurrX) + abs(m_nCurrY - BaseObject.m_nCurrY);
-        if nC < n10 then begin
-          n10:=nC;
-          BaseObject18:=BaseObject;
-        end;
-      end;
-    end;      
-  end;
-  if BaseObject18 <> nil then SetTargetCreat{FFF2}(BaseObject18);
+	BaseObject18:=nil;
+	n10:=999;
+
+	for i:=0 to m_VisibleActors.Count -1 do begin
+		BaseObject:=pTVisibleBaseObject(m_VisibleActors.Items[i]).BaseObject;
+		if not BaseObject.m_boDeath then begin
+			if IsProperTarget(BaseObject) and
+			(not BaseObject.m_boHideMode or m_boCoolEye) then begin
+				nC:=abs(m_nCurrX - BaseObject.m_nCurrX) + abs(m_nCurrY - BaseObject.m_nCurrY);
+				if nC < n10 then begin
+					n10:=nC;
+					BaseObject18:=BaseObject;
+				end;
+			end;
+		end;      
+	end;
+
+	if BaseObject18 <> nil then SetTargetCreat{FFF2}(BaseObject18);
 end;
+
 procedure TAnimalObject.sub_4C959C;//004C959C
 var
   I,nC,n10:integer;
@@ -19666,18 +19672,23 @@ begin
   end;    // for
   if Creat <> nil then
     SetTargetCreat(Creat);
-end;
+end
 procedure TAnimalObject.SetTargetXY(nX, nY: Integer);//004C9668
 begin
   m_nTargetX:= nX;
   m_nTargetY:= nY;
 end;
 
+{ Fuck! Korean rubbish english, Here is Wander }
 procedure TAnimalObject.Wondering; //004C9810
 begin
-  if (Random(20)= 0) then
-    if (Random(4) = 1) then TurnTo(Random(8))
-    else WalkTo(m_btDirection,False);
+	if (Random(20)= 0) then begin
+		if (Random(4) = 1) then begin
+			TurnTo(Random(8))
+		end else begin
+			WalkTo(m_btDirection,False);
+		end;
+	end;
 end;
 
 function TBaseObject.MakePosion(nType, nTime, nPoint: Integer):Boolean;  //004C35A8

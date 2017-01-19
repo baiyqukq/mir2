@@ -2,81 +2,85 @@ unit ObjMon;
 
 interface
 uses
-  Windows,Classes,Grobal2,ObjBase;
+	Windows,Classes,Grobal2,ObjBase;
 type
-  TMonster = class(TAnimalObject)
-    n54C           :Integer;     //0x54C
-    m_dwThinkTick  :LongWord;    //0x550
-    bo554          :Boolean;     //0x554
-    m_boDupMode    :Boolean; //0x555
-  private
-    function Think: Boolean;
-    function MakeClone(sMonName:String;OldMon:TBaseObject):TBaseObject;
+	TMonster = class(TAnimalObject)
+		n54C           :Integer;     //0x54C
+		m_dwThinkTick  :LongWord;    //0x550
+		bo554          :Boolean;     //0x554
+		m_boDupMode    :Boolean; //0x555
+	private
+		function Think: Boolean;
+		function MakeClone(sMonName:String;OldMon:TBaseObject):TBaseObject;
+	public
+		constructor Create();override;
+		destructor Destroy; override;
 
-  public
-    constructor Create();override;
-    destructor Destroy; override;
+		{procedure ComeOut;
+		procedure ComeDown;
+		function  CheckComeOut(nValue:Integer):Boolean;}
 
-    {procedure ComeOut;
-    procedure ComeDown;
-    function  CheckComeOut(nValue:Integer):Boolean;}
+		function  Operate(ProcessMsg:pTProcessMessage):Boolean; override;//FFFC
+		function AttackTarget():Boolean; virtual; //FFEB
+		procedure Run; override;
+	 end;
 
-    function  Operate(ProcessMsg:pTProcessMessage):Boolean; override;//FFFC
-    function AttackTarget():Boolean; virtual; //FFEB
-    procedure Run; override;
-  end;
+	TChickenDeer = class(TMonster)
+	private
 
-  TChickenDeer = class(TMonster)
-  private
+	public
+		constructor Create();override;
+		destructor Destroy; override;
+		procedure Run;override;
+	end;
 
-  public
-    constructor Create();override;
-    destructor Destroy; override;
-    procedure Run;override;
-  end;
+	TATMonster = class(TMonster)
+	private
+	public
+		constructor Create();override;
+		destructor Destroy; override;
+		procedure Run; override;
+	end;
 
-  TATMonster = class(TMonster)
-  private
-  public
-    constructor Create();override;
-    destructor Destroy; override;
-    procedure Run; override;
-  end;
-  TSlowATMonster = class(TATMonster)
-  private
-  public
-    constructor Create();override;
-    destructor Destroy; override;
-  end;
-  TScorpion = class(TATMonster)
-  private
-  public
-    constructor Create();override;
-    destructor Destroy; override;
-  end;
-  TSpitSpider = class(TATMonster)
-    m_boUsePoison    :Boolean;
-  private
-    procedure SpitAttack(btDir:Byte);
-  public
-    constructor Create();override;
-    destructor Destroy; override;
-    function AttackTarget():Boolean; override;
-  end;
-  THighRiskSpider = class(TSpitSpider)
-  private
+	{ It is the same as TATMonster }
+	TSlowATMonster = class(TATMonster)
+	private
+	public
+		constructor Create();override;
+		destructor Destroy; override;
+	end;
 
-  public
-    constructor Create();override;
-    destructor Destroy; override;
-  end;
-  TBigPoisionSpider = class(TSpitSpider)
-  private
+	TScorpion = class(TATMonster)
+	private
+	public
+		constructor Create();override;
+		destructor Destroy; override;
+	end;
 
-  public
-    constructor Create();override;
-    destructor Destroy; override;
-  end;
+	TSpitSpider = class(TATMonster)
+		m_boUsePoison    :Boolean;
+	private
+		procedure SpitAttack(btDir:Byte);
+	public
+		constructor Create();override;
+		destructor Destroy; override;
+		function AttackTarget():Boolean; override;
+	end;
+
+	THighRiskSpider = class(TSpitSpider)
+	private
+	public
+		constructor Create();override;
+		destructor Destroy; override;
+	end;
+
+	TBigPoisionSpider = class(TSpitSpider)
+	private
+	public
+		constructor Create();override;
+		destructor Destroy; override;
+	end;
+
   TGasAttackMonster = class(TATMonster)
   private
 
@@ -100,6 +104,7 @@ type
     destructor Destroy; override;
     function  AttackTarget:Boolean;override;
   end;
+
   TCowKingMonster = class(TATMonster)
     dw558    :LongWord;
     bo55C    :Boolean;
@@ -128,40 +133,40 @@ type
     destructor Destroy; override;
     procedure Run;override;
   end;
+
   TLightingZombi = class(TMonster)
   private
     procedure LightingAttack(nDir:Integer);
-
   public
     constructor Create();override;
     destructor Destroy; override;
     procedure Run;override;
   end;
+
   TDigOutZombi = class(TMonster)
   private
     procedure sub_4AA8DC;
-
   public
     constructor Create();override;
     destructor Destroy; override;
     procedure Run;override;
   end;
+
   TZilKinZombi = class(TATMonster)
     dw558   :LongWord;
     nZilKillCount    :Integer;
     dw560    :LongWord;
   private
-
   public
     constructor Create();override;
     destructor Destroy; override;
     procedure Die;override;
     procedure Run;override;
   end;
+
   TWhiteSkeleton = class(TATMonster)
   private
     m_boIsFirst    :Boolean;
-  
     procedure sub_4AAD54;
   public
     constructor Create();override;
@@ -169,16 +174,17 @@ type
     procedure RecalcAbilitys();override;
     procedure Run;override;
   end;
+
   TScultureMonster = class(TMonster)
   private
     procedure MeltStone;//
     procedure MeltStoneAll;
-
   public
     constructor Create();override;
     destructor Destroy; override;
     procedure Run;override;
   end;
+
   TScultureKingMonster = class(TMonster)
   private
     m_nDangerLevel       :Integer;
@@ -192,6 +198,7 @@ type
     procedure Attack(TargeTBaseObject: TBaseObject; nDir: Integer);override; //0FFED    
     procedure Run;override;
   end;
+
   TGasMothMonster = class(TGasAttackMonster) //Ð¨¶ê
   private
   public
@@ -200,6 +207,7 @@ type
     procedure Run;override;
     function  sub_4A9C78(bt05:Byte):TBaseObject;override;//FFEA
   end;
+
   TGasDungMonster = class(TGasAttackMonster)
   private
   public
@@ -218,6 +226,7 @@ type
     procedure RecalcAbilitys(); override;
     procedure Run; override;
   end;
+
   TElfWarriorMonster = class(TSpitSpider)
   private
     n55C:Integer;
@@ -232,10 +241,10 @@ type
     procedure RecalcAbilitys(); override;
     procedure Run; override;
   end;
+
   TDoubleCriticalMonster = class(TATMonster)
   private
     procedure DoubleAttack(btDir:Byte);
-
   public
     constructor Create();override;
     destructor Destroy; override;
@@ -293,7 +302,8 @@ end;
 
 
 
-(*procedure TMonster.ComeOut;
+(*
+procedure TMonster.ComeOut;
 begin
 	m_boHideMode := FALSE;
 	SendRefMsg(RM_DIGUP, m_btDirection, m_nCurrX, m_nCurrY, 0, '');
@@ -315,20 +325,20 @@ begin
 	CVisibleObject* pVisibleObject;
 
 	if (m_xVisibleObjectList.GetCount())
-	{
+	begin
 		PLISTNODE pListNode = m_xVisibleObjectList.GetHead();
 
 		while (pListNode)
-		{
+		begin
 			if (pVisibleObject = m_xVisibleObjectList.GetData(pListNode))
-			{
+			then begin
 				delete pVisibleObject;
 				pVisibleObject = NULL;
-			}
+			end
 
 			pListNode = m_xVisibleObjectList.RemoveNode(pListNode);
-		} // while (pListNode)
-	}
+		end
+	end
 
 	m_boHideMode := TRUE;
 end;
@@ -348,60 +358,67 @@ begin
       end;
     end;
   end;
-end;*)
+end;
 
-
-
+*)
 
 function TMonster.Operate(ProcessMsg: pTProcessMessage):Boolean;
 begin
-  Result:=inherited Operate(ProcessMsg);
+	Result:=inherited Operate(ProcessMsg);
 end;
+
 function TMonster.Think():Boolean; //004A8E54
 var
-  nOldX,nOldY:integer;
+	nOldX,nOldY:integer;
 begin
-  Result:=False;
-  if (GetTickCount - m_dwThinkTick) > 3 * 1000 then begin
-    m_dwThinkTick:=GetTickCount();
-    if m_PEnvir.GetXYObjCount(m_nCurrX,m_nCurrY) >= 2 then m_boDupMode:=True;
-    if not IsProperTarget{FFFF4}(m_TargetCret) then m_TargetCret:=nil;
-  end; //004A8ED2
-  if m_boDupMode then begin
-    nOldX:=m_nCurrX;
-    nOldY:=m_nCurrY;
-    WalkTo(Random(8),False);
-    if (nOldX <> m_nCurrX) or (nOldY <> m_nCurrY) then begin
-      m_boDupMode:=False;
-      Result:=True;
-    end;
-  end;
+	Result:=False;
+
+	if (GetTickCount - m_dwThinkTick) > 3 * 1000 then begin
+		m_dwThinkTick:=GetTickCount();
+
+		if m_PEnvir.GetXYObjCount(m_nCurrX,m_nCurrY) >= 2 then m_boDupMode:=True;
+
+		if not IsProperTarget{FFFF4}(m_TargetCret) then m_TargetCret:=nil;
+	end; //004A8ED2
+
+	// overlap
+	if m_boDupMode then begin
+		nOldX:=m_nCurrX;
+		nOldY:=m_nCurrY;
+		WalkTo(Random(8),False);
+
+		if (nOldX <> m_nCurrX) or (nOldY <> m_nCurrY) then begin
+			m_boDupMode:=False;
+			Result:=True;
+		end;
+	end;
 end;
 
 function TMonster.AttackTarget():Boolean; //004A8F34
 var
-  btDir:Byte;
+	btDir:Byte;
 begin
-  Result:=False;
-  if m_TargetCret <> nil then begin
-    if GetAttackDir(m_TargetCret,btDir) then begin
-      if Integer(GetTickCount - m_dwHitTick) > m_nNextHitTime  then begin
-        m_dwHitTick:=GetTickCount();
-        m_dwTargetFocusTick:=GetTickCount();
-        Attack(m_TargetCret,btDir);  //FFED
-        BreakHolySeizeMode();
-      end;
-      Result:=True;
-    end else begin
-      if m_TargetCret.m_PEnvir = m_PEnvir then begin
-        SetTargetXY(m_TargetCret.m_nCurrX,m_TargetCret.m_nCurrY); {0FFF0h}
-        //004A8FE3
-      end else begin
-        DelTargetCreat();{0FFF1h}
-        //004A9009
-      end;
-    end;
-  end;
+	Result:=False;
+
+	if m_TargetCret <> nil then begin
+		if GetAttackDir(m_TargetCret,btDir) then begin
+			if Integer(GetTickCount - m_dwHitTick) > m_nNextHitTime  then begin
+				m_dwHitTick:=GetTickCount();
+				m_dwTargetFocusTick:=GetTickCount();
+				Attack(m_TargetCret,btDir);  //FFED
+				BreakHolySeizeMode();
+			end;
+			Result:=True;
+		end else begin
+			if m_TargetCret.m_PEnvir = m_PEnvir then begin
+				SetTargetXY(m_TargetCret.m_nCurrX,m_TargetCret.m_nCurrY); {0FFF0h}
+				//004A8FE3
+			end else begin
+				DelTargetCreat();{0FFF1h}
+				//004A9009
+			end;
+		end;
+	end;
 end;
 
 procedure TMonster.Run; //004A9020
@@ -412,80 +429,90 @@ begin
      not m_boDeath and
      not m_boFixedHideMode and
      not m_boStoneMode and
-     (m_wStatusTimeArr[POISON_STONE{5 0x6A}] = 0) then begin
-    if Think then begin
-      inherited;
-      exit;
-    end;
-    if m_boWalkWaitLocked then begin
-      if (GetTickCount - m_dwWalkWaitTick) > m_dwWalkWait then begin
-        m_boWalkWaitLocked:=False;
-      end;
-    end;
-    if not m_boWalkWaitLocked and (Integer(GetTickCount - m_dwWalkTick) > m_nWalkSpeed) then begin
-      m_dwWalkTick:=GetTickCount();
-      Inc(m_nWalkCount);
-      if m_nWalkCount > m_nWalkStep then begin
-        m_nWalkCount:=0;
-        m_boWalkWaitLocked:=True;
-        m_dwWalkWaitTick:=GetTickCount();
-      end; //004A9151
-      if not m_boRunAwayMode then begin
-        if not m_boNoAttackMode then begin
-          if m_TargetCret <> nil then begin
-            if AttackTarget{FFEB} then begin
-              inherited;
-              exit;
-            end;
-          end else begin
-            m_nTargetX:=-1;
-            if m_boMission then begin
-              m_nTargetX:=m_nMissionX;
-              m_nTargetY:=m_nMissionY;
-            end; //004A91D3
-          end;
-        end; //004A91D3  if not bo2C0 then begin
-        if m_Master <> nil then begin
-          if m_TargetCret = nil then begin
-            m_Master.GetBackPosition(nX,nY);
-            if (abs(m_nTargetX - nX) > 1) or (abs(m_nTargetY - nY{nX}) > 1) then begin //004A922D
-              m_nTargetX:=nX;
-              m_nTargetY:=nY;
-              if (abs(m_nCurrX - nX) <= 2) and (abs(m_nCurrY - nY) <= 2) then begin
-                if m_PEnvir.GetMovingObject(nX,nY,True) <> nil then begin
-                  m_nTargetX:=m_nCurrX;
-                  m_nTargetY:=m_nCurrY;
-                end //004A92A5
-              end;
-            end; //004A92A5
-          end; //004A92A5 if m_TargetCret = nil then begin
-          if (not m_Master.m_boSlaveRelax) and
-             ((m_PEnvir <> m_Master.m_PEnvir) or
-             (abs(m_nCurrX-m_Master.m_nCurrX) > 20) or
-             (abs(m_nCurrY-m_Master.m_nCurrY) > 20)) then begin
-            SpaceMove(m_Master.m_PEnvir.sMapName, m_nTargetX, m_nTargetY, 1);
-          end; // 004A937E
-        end;// 004A937E if m_Master <> nil then begin
-      end else begin //004A9344
-        if (m_dwRunAwayTime > 0) and ((GetTickCount - m_dwRunAwayStart) > m_dwRunAwayTime) then begin
-          m_boRunAwayMode:=False;
-          m_dwRunAwayTime:=0;
-        end;
-      end; //004A937E
-      if (m_Master <> nil) and m_Master.m_boSlaveRelax then begin
-        inherited ;
-        exit;
-      end;  //004A93A6
-      if m_nTargetX <> -1 then begin
-         GotoTargetXY(); //004A93B5 0FFEF
-      end else begin
-        if m_TargetCret = nil then Wondering();// FFEE   //Jacky
-      end; //004A93D8
-    end; //004A93D8  if not bo510 and ((GetTickCount - m_dwWalkTick) > n4FC) then begin
-  end; //004A93D8
+	 (m_wStatusTimeArr[POISON_STONE{5 0x6A}] = 0) then begin
+		 if Think then begin
+			 inherited;
+			 exit;
+		 end;
 
-  inherited;
+		 if m_boWalkWaitLocked then begin
+			 if (GetTickCount - m_dwWalkWaitTick) > m_dwWalkWait then begin
+				 m_boWalkWaitLocked:=False;
+			 end;
+		 end;
 
+		 if not m_boWalkWaitLocked and (Integer(GetTickCount - m_dwWalkTick) > m_nWalkSpeed) then begin
+			 m_dwWalkTick:=GetTickCount();
+			 Inc(m_nWalkCount);
+
+			 if m_nWalkCount > m_nWalkStep then begin
+				 m_nWalkCount:=0;
+				 m_boWalkWaitLocked:=True;
+				 m_dwWalkWaitTick:=GetTickCount();
+			 end; //004A9151
+
+			 if not m_boRunAwayMode then begin
+				 if not m_boNoAttackMode then begin
+					 if m_TargetCret <> nil then begin
+						 if AttackTarget{FFEB} then begin
+							 inherited;
+							 exit;
+						 end;
+					 end else begin
+						 m_nTargetX:=-1;
+						 if m_boMission then begin
+							 m_nTargetX:=m_nMissionX;
+							 m_nTargetY:=m_nMissionY;
+						 end; //004A91D3
+					 end;
+				 end; //004A91D3  if not bo2C0 then begin
+					 
+				if m_Master <> nil then begin
+					if m_TargetCret = nil then begin
+						m_Master.GetBackPosition(nX,nY);
+
+						if (abs(m_nTargetX - nX) > 1) or (abs(m_nTargetY - nY{nX}) > 1) then begin //004A922D
+							m_nTargetX:=nX;
+							m_nTargetY:=nY;
+
+							if (abs(m_nCurrX - nX) <= 2) and (abs(m_nCurrY - nY) <= 2) then begin
+								if m_PEnvir.GetMovingObject(nX,nY,True) <> nil then begin
+									m_nTargetX:=m_nCurrX;
+									m_nTargetY:=m_nCurrY;
+								end //004A92A5
+							end;
+						end; //004A92A5
+					end; //004A92A5 if m_TargetCret = nil then begin
+
+					if (not m_Master.m_boSlaveRelax) and
+					((m_PEnvir <> m_Master.m_PEnvir) or
+					(abs(m_nCurrX-m_Master.m_nCurrX) > 20) or
+					(abs(m_nCurrY-m_Master.m_nCurrY) > 20)) then begin
+						SpaceMove(m_Master.m_PEnvir.sMapName, m_nTargetX, m_nTargetY, 1);
+					end; // 004A937E
+						
+				end;// 004A937E if m_Master <> nil then begin
+			end else begin //004A9344
+				if (m_dwRunAwayTime > 0) and ((GetTickCount - m_dwRunAwayStart) > m_dwRunAwayTime) then begin
+					m_boRunAwayMode:=False;
+					m_dwRunAwayTime:=0;
+				end;
+			end; //004A937E
+
+			if (m_Master <> nil) and m_Master.m_boSlaveRelax then begin
+				inherited ;
+				exit;
+			end;  //004A93A6
+
+			if m_nTargetX <> -1 then begin
+				GotoTargetXY(); //004A93B5 0FFEF
+			end else begin
+				if m_TargetCret = nil then Wondering();// FFEE   //Jacky
+			end; //004A93D8
+		end; //004A93D8  if not bo510 and ((GetTickCount - m_dwWalkTick) > n4FC) then begin
+	end; //004A93D8
+
+	inherited;
 end;
 
 { TChickenDeer }
@@ -553,43 +580,42 @@ end;
 
 constructor TATMonster.Create; //004A9690
 begin
-  inherited;
-  m_dwSearchTime:=Random(1500) + 1500;
+	inherited;
+	m_dwSearchTime:=Random(1500) + 1500;
 end;
 
 destructor TATMonster.Destroy;
 begin
-
-  inherited;
+	inherited;
 end;
 
 procedure TATMonster.Run;//004A9720
 begin
-  if not m_boDeath and
-     not bo554 and
-     not m_boGhost and
-     (m_wStatusTimeArr[POISON_STONE{5 0x6A}] = 0) then begin
+	if not m_boDeath and
+		not bo554 and
+		not m_boGhost and
+		(m_wStatusTimeArr[POISON_STONE{5 0x6A}] = 0) then begin
 
-    if ((GetTickCount - m_dwSearchEnemyTick) > 8000) or
-       (((GetTickCount - m_dwSearchEnemyTick) > 1000) and (m_TargetCret = nil)) then begin
-      m_dwSearchEnemyTick:=GetTickCount();
-      SearchTarget();
-    end;
-  end;
-  inherited;
+			if ((GetTickCount - m_dwSearchEnemyTick) > 8000) or
+				(((GetTickCount - m_dwSearchEnemyTick) > 1000) and (m_TargetCret = nil)) then begin
+				m_dwSearchEnemyTick:=GetTickCount();
+				SearchTarget();
+			end;
+	end;
+
+	inherited;
 end;
 
 { TSlowATMonster }
 
 constructor TSlowATMonster.Create;//004A97AC
 begin
-  inherited;
+	inherited;
 end;
 
 destructor TSlowATMonster.Destroy;
 begin
-
-  inherited;
+	inherited;
 end;
 
 { TScorpion }

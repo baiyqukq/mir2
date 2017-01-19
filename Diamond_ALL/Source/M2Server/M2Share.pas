@@ -105,6 +105,8 @@ const
 
   DEFHIT       = 5;
   DEFSPEED     = 15;
+
+  // { Job }
   jWarr        = 0;
   jWizard      = 1;
   jTaos        = 2;
@@ -151,13 +153,19 @@ const
   
 
   sMAN        = 'MAN';
+
+  { Time String }
   sSUNRAISE   = 'SUNRAISE';
   sDAY        = 'DAY';
   sSUNSET     = 'SUNSET';
   sNIGHT      = 'NIGHT';
+
+  { Job String }
   sWarrior    = 'Warrior';
   sWizard     = 'Wizard';
   sTaos       = 'Taoist';
+  
+  { Week String }
   sSUN        = 'SUN';
   sMON        = 'MON';
   sTUE        = 'TUE';
