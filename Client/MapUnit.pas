@@ -30,11 +30,11 @@ type
     wBkImg       :Word;
     wMidImg      :Word;
     wFrImg       :Word;
-    btDoorIndex  :Byte;  //$80 (문짝), 문의 식별 인덱스
+    btDoorIndex  :Byte;  //$80 (Door), 문의 식별 인덱스
     btDoorOffset :Byte;  //닫힌 문의 그림의 상대 위치, $80 (열림/닫힘(기본))
     btAniFrame   :Byte;      //$80(Draw Alpha) +  프래임 수
     btAniTick    :Byte;
-    btArea       :Byte;        //지역 정보
+    btArea       :Byte;        // Area information
     btLight      :Byte;       //0..1..4 광원 효과
   end;
   pTMapInfo = ^TMapInfo;
@@ -297,11 +297,13 @@ var
 begin
    cx := mx - m_nBlockLeft;
    cy := my - m_nBlockTop;
+   
    if (cx < 0) or (cy < 0) then exit;
-   if bowalk then //걸을 수 있음
+   
+   if bowalk then // Can walk
       Map.m_MArr[cx, cy].wFrImg := Map.m_MArr[cx, cy].wFrImg and $7FFF
-   else //막혔음
-      Map.m_MArr[cx, cy].wFrImg := Map.m_MArr[cx, cy].wFrImg or $8000;  //못움직이게 한다.
+   else // Block
+      Map.m_MArr[cx, cy].wFrImg := Map.m_MArr[cx, cy].wFrImg or $8000;  // Can not walk.
 end;
 
 function  TMap.CanMove (mx, my: integer): Boolean;
@@ -311,10 +313,13 @@ begin
    Result:=False;  //jacky
    cx := mx - m_nBlockLeft;
    cy := my - m_nBlockTop;
+   
    if (cx < 0) or (cy < 0) then exit;
+   
    Result := ((Map.m_MArr[cx, cy].wBkImg and $8000) + (Map.m_MArr[cx, cy].wFrImg and $8000)) = 0;
-   if Result then begin //문검사
-      if Map.m_MArr[cx, cy].btDoorIndex and $80 > 0 then begin  //문짝이 있음
+   
+   if Result then begin // Door index
+      if Map.m_MArr[cx, cy].btDoorIndex and $80 > 0 then begin  //Door exist
          if (Map.m_MArr[cx, cy].btDoorOffset and  $80) = 0 then
             Result := FALSE; //문이 안 열렸음.
       end;
@@ -331,7 +336,7 @@ begin
    if (cx < 0) or (cy < 0) then exit;
    Result := (Map.m_MArr[cx, cy].wFrImg and $8000) = 0;
    if Result then begin //문검사
-      if Map.m_MArr[cx, cy].btDoorIndex and $80 > 0 then begin  //문짝이 있음
+      if Map.m_MArr[cx, cy].btDoorIndex and $80 > 0 then begin  //Door이 있음
          if (Map.m_MArr[cx, cy].btDoorOffset and  $80) = 0 then
             Result := FALSE; //문이 안 열렸음.
       end;
