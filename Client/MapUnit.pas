@@ -26,16 +26,17 @@ type
     UpdateDate  :TDateTime;
     Reserved    :array[0..22] of Char;
   end;
+  
   TMapInfo = packed record
     wBkImg       :Word;
     wMidImg      :Word;
     wFrImg       :Word;
     btDoorIndex  :Byte;  //$80 (Door), πÆ¿« Ωƒ∫∞ ¿Œµ¶Ω∫
     btDoorOffset :Byte;  //¥›»˘ πÆ¿« ±◊∏≤¿« ªÛ¥Î ¿ßƒ°, $80 (ø≠∏≤/¥›»˚(±‚∫ª))
-    btAniFrame   :Byte;      //$80(Draw Alpha) +  «¡∑°¿” ºˆ
+    btAniFrame   :Byte;  //$80(Draw Alpha) +  «¡∑°¿” ºˆ
     btAniTick    :Byte;
-    btArea       :Byte;        // Area information
-    btLight      :Byte;       //0..1..4 ±§ø¯ »ø∞˙
+    btArea       :Byte;  // Area information
+    btLight      :Byte;  //0..1..4 Light effects
   end;
   pTMapInfo = ^TMapInfo;
 
@@ -54,8 +55,8 @@ type
     m_boChange      :Boolean;
     m_ClientRect    :TRect;
     m_OldClientRect :TRect;
-    m_nBlockLeft    :Integer;
-    m_nBlockTop     :Integer; //≈∏¿œ ¡¬«•∑Œ øﬁ¬ , ≤¿¥Î±‚ ¡¬«•
+    m_nBlockLeft    :Integer; 	//Left block coordinate
+    m_nBlockTop     :Integer; 	//Top block coordinate
     m_nOldLeft      :Integer;
     m_nOldTop       :Integer;
     m_sOldMap       :String;
@@ -130,14 +131,13 @@ begin
   end;
 end;
 
-//segmented map ¿Œ ∞ÊøÏ
+// If segmented map
 procedure TMap.UpdateMapSeg (cx, cy: integer); //, maxsegx, maxsegy: integer);
 begin
 
 end;
 
-//º”‘ÿµÿÕº∂Œ ˝æ›
-//“‘µ±«∞◊˘±ÍŒ™◊º
+// Load map data in rectangle center on nCurrX and nCurry
 procedure TMap.LoadMapArr(nCurrX,nCurrY: integer);
 var
   I         :Integer;
@@ -151,82 +151,94 @@ var
   nHandle   :Integer;
   Header    :TMapHeader; 
 begin
-  FillChar(m_MArr, SizeOf(m_MArr), #0);
-  sFileName:=m_sMapBase + m_sCurrentMap + '.map';
-  if FileExists(sFileName) then begin
-    nHandle:=FileOpen(sFileName, fmOpenRead or fmShareDenyNone);
-    if nHandle > 0 then begin
-      FileRead (nHandle, Header, SizeOf(TMapHeader));
-      nLx := (nCurrX - 1) * LOGICALMAPUNIT;
-      nRx := (nCurrX + 2) * LOGICALMAPUNIT;    //rx
-      nTy := (nCurrY - 1) * LOGICALMAPUNIT;
-      nBy := (nCurrY + 2) * LOGICALMAPUNIT;
+	FillChar(m_MArr, SizeOf(m_MArr), #0);
+	sFileName := m_sMapBase + m_sCurrentMap + '.map';
+	
+	if FileExists(sFileName) then begin
+		nHandle := FileOpen(sFileName, fmOpenRead or fmShareDenyNone);
+    
+		if nHandle > 0 then begin
+			FileRead (nHandle, Header, SizeOf(TMapHeader));
+			nLx := (nCurrX - 1) * LOGICALMAPUNIT;		// Left x
+			nRx := (nCurrX + 2) * LOGICALMAPUNIT;    	// Right x
+			nTy := (nCurrY - 1) * LOGICALMAPUNIT;		// Top y
+			nBy := (nCurrY + 2) * LOGICALMAPUNIT;		// Bottom y
 
-      if nLx < 0 then nLx := 0;
-      if nTy < 0 then nTy := 0;
-      if nBy >= Header.wHeight then nBy := Header.wHeight;
-      nAline := SizeOf(TMapInfo) * Header.wHeight;
-      for I:=nLx to nRx - 1 do begin
-        if (I >= 0) and (I < Header.wWidth) then begin
-          FileSeek(nHandle, SizeOf(TMapHeader) + (nAline * I) + (SizeOf(TMapInfo) * nTy), 0);
-          FileRead(nHandle, m_MArr[I - nLx, 0], SizeOf(TMapInfo) * (nBy - nTy));
-        end;
-      end;
-      FileClose(nHandle);
-    end;
-  end;
+			if nLx < 0 then nLx := 0;
+			if nTy < 0 then nTy := 0;
+			if nBy >= Header.wHeight then nBy := Header.wHeight;
+			
+			nAline := SizeOf(TMapInfo) * Header.wHeight;	// Mem size of line
+			
+			for I:=nLx to nRx - 1 do begin
+				if (I >= 0) and (I < Header.wWidth) then begin
+					FileSeek(nHandle, SizeOf(TMapHeader) + (nAline * I) + (SizeOf(TMapInfo) * nTy), 0);
+					FileRead(nHandle, m_MArr[I - nLx, 0], SizeOf(TMapInfo) * (nBy - nTy));
+				end;
+			end;
+      
+			FileClose(nHandle);
+		end;
+	end;
 end;
 
 procedure TMap.SaveMapArr(nCurrX,nCurrY:Integer);
 var
-  I         :Integer;
-  K         :Integer;
-  nAline    :Integer;
-  nLx       :Integer;
-  nRx       :Integer;
-  nTy       :Integer;
-  nBy       :Integer;
-  sFileName :String;
-  nHandle   :Integer;
-  Header    :TMapHeader; 
+	I         :Integer;
+	K         :Integer;
+	nAline    :Integer;
+	nLx       :Integer;
+	nRx       :Integer;
+	nTy       :Integer;
+	nBy       :Integer;
+	sFileName :String;
+	nHandle   :Integer;
+	Header    :TMapHeader; 
 begin
-  FillChar(m_MArr, SizeOf(m_MArr), #0);
-  sFileName:=m_sMapBase + m_sCurrentMap + '.map';
-  if FileExists(sFileName) then begin
-    nHandle:=FileOpen(sFileName, fmOpenRead or fmShareDenyNone);
-    if nHandle > 0 then begin
-      FileRead (nHandle, Header, SizeOf(TMapHeader));
-      nLx := (nCurrX - 1) * LOGICALMAPUNIT;
-      nRx := (nCurrX + 2) * LOGICALMAPUNIT;    //rx
-      nTy := (nCurrY - 1) * LOGICALMAPUNIT;
-      nBy := (nCurrY + 2) * LOGICALMAPUNIT;
+	FillChar(m_MArr, SizeOf(m_MArr), #0);
+	sFileName:=m_sMapBase + m_sCurrentMap + '.map';
 
-      if nLx < 0 then nLx := 0;
-      if nTy < 0 then nTy := 0;
-      if nBy >= Header.wHeight then nBy := Header.wHeight;
-      nAline := SizeOf(TMapInfo) * Header.wHeight;
-      for I:=nLx to nRx - 1 do begin
-        if (I >= 0) and (I < Header.wWidth) then begin
-          FileSeek(nHandle, SizeOf(TMapHeader) + (nAline * I) + (SizeOf(TMapInfo) * nTy), 0);
-          FileRead(nHandle, m_MArr[I - nLx, 0], SizeOf(TMapInfo) * (nBy - nTy));
-        end;
-      end;
-      FileClose(nHandle);
-    end;
-  end;
+	if FileExists(sFileName) then begin
+		nHandle:=FileOpen(sFileName, fmOpenRead or fmShareDenyNone);
+
+		if nHandle > 0 then begin
+			FileRead (nHandle, Header, SizeOf(TMapHeader));
+
+			nLx := (nCurrX - 1) * LOGICALMAPUNIT;
+			nRx := (nCurrX + 2) * LOGICALMAPUNIT;    //rx
+			nTy := (nCurrY - 1) * LOGICALMAPUNIT;
+			nBy := (nCurrY + 2) * LOGICALMAPUNIT;
+
+			if nLx < 0 then nLx := 0;
+			if nTy < 0 then nTy := 0;
+			if nBy >= Header.wHeight then nBy := Header.wHeight;
+
+			nAline := SizeOf(TMapInfo) * Header.wHeight;
+
+			for I:=nLx to nRx - 1 do begin
+				if (I >= 0) and (I < Header.wWidth) then begin
+					FileSeek(nHandle, SizeOf(TMapHeader) + (nAline * I) + (SizeOf(TMapInfo) * nTy), 0);
+					FileRead(nHandle, m_MArr[I - nLx, 0], SizeOf(TMapInfo) * (nBy - nTy));
+				end;
+			end;
+
+			FileClose(nHandle);
+		end;
+	end;
 end;
+
 procedure TMap.ReadyReload;
 begin
-   m_nCurUnitX := -1;
-   m_nCurUnitY := -1;
+	m_nCurUnitX := -1;
+	m_nCurUnitY := -1;
 end;
 
-//cx, cy: ¡ﬂæ”, Counted by unit..
+//cx, cy: Center, Counted by unit..
 procedure TMap.UpdateMapSquare (cx, cy: integer);
 begin
 	if (cx <> m_nCurUnitX) or (cy <> m_nCurUnitY) then begin
 		if m_boSegmented then
-			updatemapseg (cx, cy)
+			UpdateMapSeg(cx, cy)
 		else
 			LoadMapArr(cx, cy);
 
@@ -280,15 +292,15 @@ begin
 	m_nOldTop := m_nBlockTop;
 end;
 
-//∏ ∫Ø∞ÊΩ√ √≥¿Ω «—π¯ »£√‚..
+//When changing map, first call by once..
 procedure TMap.LoadMap(sMapName:String;nMx,nMy:Integer);
 begin
-   m_nCurUnitX   := -1;
-   m_nCurUnitY   := -1;
-   m_sCurrentMap := sMapName;
-   m_boSegmented := FALSE; //Segmented µ«æÓ ¿÷¥¬¡ˆ ∞ÀªÁ«—¥Ÿ.
-   UpdateMapPos(nMx, nMy);
-   m_sOldMap := m_sCurrentMap;
+	m_nCurUnitX   := -1;
+	m_nCurUnitY   := -1;
+	m_sCurrentMap := sMapName;
+	m_boSegmented := FALSE; // Check segmented.
+	UpdateMapPos(nMx, nMy);
+	m_sOldMap := m_sCurrentMap;
 end;
 
 procedure TMap.MarkCanWalk (mx, my: integer; bowalk: Boolean);
@@ -310,7 +322,8 @@ function  TMap.CanMove (mx, my: integer): Boolean;
 var
    cx, cy: integer;
 begin
-   Result:=False;  //jacky
+   Result := False;
+   
    cx := mx - m_nBlockLeft;
    cy := my - m_nBlockTop;
    
@@ -321,7 +334,7 @@ begin
    if Result then begin // Door index
       if Map.m_MArr[cx, cy].btDoorIndex and $80 > 0 then begin  //Door exist
          if (Map.m_MArr[cx, cy].btDoorOffset and  $80) = 0 then
-            Result := FALSE; //πÆ¿Ã æ» ø≠∑»¿Ω.
+            Result := FALSE; // Door is not open.
       end;
    end;
 end;
@@ -330,15 +343,19 @@ function  TMap.CanFly(mx, my: integer): Boolean;
 var
    cx, cy: integer;
 begin
-   Result:=False;  //jacky
+   Result:=False;
+   
    cx := mx - m_nBlockLeft;
    cy := my - m_nBlockTop;
+   
    if (cx < 0) or (cy < 0) then exit;
+   
    Result := (Map.m_MArr[cx, cy].wFrImg and $8000) = 0;
-   if Result then begin //πÆ∞ÀªÁ
+   
+   if Result then begin // Door index
       if Map.m_MArr[cx, cy].btDoorIndex and $80 > 0 then begin  //Door¿Ã ¿÷¿Ω
          if (Map.m_MArr[cx, cy].btDoorOffset and  $80) = 0 then
-            Result := FALSE; //πÆ¿Ã æ» ø≠∑»¿Ω.
+            Result := FALSE; // Door is not open
       end;
    end;
 end;
@@ -348,8 +365,10 @@ var
    cx, cy: integer;
 begin
    Result := 0;
+   
    cx := mx - m_nBlockLeft;
    cy := my - m_nBlockTop;
+   
    if Map.m_MArr[cx, cy].btDoorIndex and $80 > 0 then begin
       Result := Map.m_MArr[cx, cy].btDoorIndex and $7F;
    end;
@@ -360,8 +379,10 @@ var
    cx, cy: integer;
 begin
    Result := FALSE;
+   
    cx := mx - m_nBlockLeft;
    cy := my - m_nBlockTop;
+   
    if Map.m_MArr[cx, cy].btDoorIndex and $80 > 0 then begin
       Result := (Map.m_MArr[cx, cy].btDoorOffset and $80 <> 0);
    end;
@@ -372,9 +393,12 @@ var
    i, j, cx, cy, idx: integer;
 begin
    Result := FALSE;
+   
    cx := mx - m_nBlockLeft;
    cy := my - m_nBlockTop;
+   
    if (cx < 0) or (cy < 0) then exit;
+   
    if Map.m_MArr[cx, cy].btDoorIndex and $80 > 0 then begin
       idx := Map.m_MArr[cx, cy].btDoorIndex and $7F;
       for i:=cx - 10 to cx + 10 do
@@ -439,6 +463,7 @@ begin
          end;
       end;
    end;
+   
    for i:=0 to ex-sx-1 do begin
       for j:=0 to ey-sy-1 do begin
          imgnum := Map.m_MArr[sx+i, sy+j].wMidImg;
@@ -454,6 +479,7 @@ begin
          end;
       end;
    end;
+   
    for j:=0 to ey-sy-1+25 do begin
       for i:=0 to ex-sx do begin
          if (i >= 0) and (i < MAXX*3) and (j < MAXY*3) then begin
