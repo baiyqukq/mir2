@@ -3,66 +3,67 @@ unit WIL;
 interface
 
 uses
-  Windows, Classes, Graphics, SysUtils, DXDraws, DXClass, Dialogs,
-  DirectX, DIB, wmUtil, HUtil32;
+	Windows, Classes, Graphics, SysUtils, DXDraws, DXClass, Dialogs,
+	DirectX, DIB, wmUtil, HUtil32;
 
 var
-  g_boUseDIBSurface  :Boolean = FALSE;
-  g_boWilNoCache     :Boolean = FALSE;
-  g_n4CBCEC          :Integer = 20020;//4CBCEC
-  g_n4CBCF0          :Integer = 20021;//4CBCF0
+	g_boUseDIBSurface  :Boolean = FALSE;
+	g_boWilNoCache     :Boolean = FALSE;
+	g_n4CBCEC          :Integer = 20020;//4CBCEC
+	g_n4CBCF0          :Integer = 20021;//4CBCF0
 type
-  TLibType = (ltLoadBmp, ltLoadMemory, ltLoadMunual, ltUseCache);
+	TLibType = (ltLoadBmp, ltLoadMemory, ltLoadMunual, ltUseCache);
 
 
-  TBmpImage = record
-    Bmp           :TBitmap;
-    dwLatestTime  :LongWord;
-  end;
-  pTBmpImage = ^TBmpImage;
+	TBmpImage = record
+		Bmp           :TBitmap;
+		dwLatestTime  :LongWord;
+	end;
+	pTBmpImage = ^TBmpImage;
 
-   TBmpImageArr  = array[0..MaxListSize div 4] of TBmpImage;
-   TDxImageArr   = array[0..MaxListSize div 4] of TDxImage;
-   PTBmpImageArr = ^TBmpImageArr;
-   PTDxImageArr  = ^TDxImageArr;
+	TBmpImageArr  = array[0..MaxListSize div 4] of TBmpImage;
+	TDxImageArr   = array[0..MaxListSize div 4] of TDxImage;
+	PTBmpImageArr = ^TBmpImageArr;
+	PTDxImageArr  = ^TDxImageArr;
 
-   TWMImages = class (TComponent)
-   private
-      FFileName: String;              //0x24
-      FImageCount: integer;           //0x28
-      FLibType: TLibType;             //0x2C
-      FDxDraw: TDxDraw;               //0x30
-      FDDraw: TDirectDraw;            //0x34
-      FMaxMemorySize: integer;        //0x38
-      btVersion:Byte;                 //0x3C
-      m_bt458    :Byte;
-      FAppr:Word;
-      procedure LoadAllData;
-      procedure LoadAllDataBmp;
-      procedure LoadIndex (idxfile: string);
-      procedure LoadDxImage (position: integer; pdximg: PTDxImage);
-      procedure LoadBmpImage (position: integer; pbmpimg: PTBmpImage);
-      procedure FreeOldMemorys;
-      function  FGetImageSurface (index: integer): TDirectDrawSurface;
-      procedure FSetDxDraw (fdd: TDxDraw);
-      procedure FreeOldBmps;
-      function  FGetImageBitmap (index: integer): TBitmap;
-   protected
+	TWMImages = class (TComponent)
+	private
+		FFileName: String;              //0x24
+		FImageCount: integer;           //0x28
+		FLibType: TLibType;             //0x2C
+		FDxDraw: TDxDraw;               //0x30
+		FDDraw: TDirectDraw;            //0x34
+		FMaxMemorySize: integer;        //0x38
+		btVersion:Byte;                 //0x3C
+		m_bt458    :Byte;
+		FAppr:Word;
+
+		procedure LoadAllData;
+		procedure LoadAllDataBmp;
+		procedure LoadIndex (idxfile: string);
+		procedure LoadDxImage (position: integer; pdximg: PTDxImage);
+		procedure LoadBmpImage (position: integer; pbmpimg: PTBmpImage);
+		procedure FreeOldMemorys;
+		function  FGetImageSurface (index: integer): TDirectDrawSurface;
+		procedure FSetDxDraw (fdd: TDxDraw);
+		procedure FreeOldBmps;
+		function  FGetImageBitmap (index: integer): TBitmap;
+	protected
       //MemorySize: integer;      //0x3C      ?
-      lsDib: TDib;              //0x40
-      m_dwMemChecktTick: LongWord;   //0x44
-   public
-      m_ImgArr    :pTDxImageArr;     //0x48
-      m_BmpArr    :pTBmpImageArr;    //0x4C
-      m_IndexList :TList;         //0x50
-      //BmpList: TList;
-      m_FileStream: TFileStream;      //0x54
-      //MainSurfacePalette: TDirectDrawPalette;
-      MainPalette: TRgbQuads;
-      constructor Create (AOwner: TComponent); override;
-      destructor Destroy; override;
+		lsDib: TDib;              //0x40
+		m_dwMemChecktTick: LongWord;   //0x44
+	public
+		m_ImgArr    :pTDxImageArr;     //0x48
+		m_BmpArr    :pTBmpImageArr;    //0x4C
+		m_IndexList :TList;         //0x50
+		//BmpList: TList;
+		m_FileStream: TFileStream;      //0x54
+		//MainSurfacePalette: TDirectDrawPalette;
+		MainPalette: TRgbQuads;
+		constructor Create (AOwner: TComponent); override;
+		destructor Destroy; override;
 
-      procedure Initialize;
+		procedure Initialize;
       procedure Finalize;
       procedure ClearCache;
       procedure LoadPalette;
@@ -93,36 +94,36 @@ procedure Register;
 implementation
 
 //uses
-//   ClMain;//¼ÇÂ¼µ÷ÊÔÐÅÏ¢
+//   ClMain;// Record debug info
 
 
 procedure Register;
 begin
-   RegisterComponents('MirGame', [TWmImages]);
+	RegisterComponents('MirGame', [TWmImages]);
 end;
 
 constructor TWMImages.Create (AOwner: TComponent);
 begin
-   inherited Create (AOwner);
-   FFileName := '';
-   FLibType := ltLoadBmp;
-   FImageCount := 0;
-   //MemorySize := 0;//?
-   FMaxMemorySize := 1024*1000; //1M
+	inherited Create (AOwner);
+	FFileName := '';
+	FLibType := ltLoadBmp;
+	FImageCount := 0;
+	//MemorySize := 0;//?
+	FMaxMemorySize := 1024*1000; //1M
 
-   FDDraw := nil;
-   FDxDraw := nil;
-   m_FileStream := nil;
-   m_ImgArr := nil;
-   m_BmpArr := nil;
-   m_IndexList := TList.Create;
-   lsDib := TDib.Create;
-   lsDib.BitCount := 8;
-   //BmpList := TList.Create;  //Bmp¿ëÀ¸·Î »ç¿ëÇÒ ¶§¹® »ç¿ë
+	FDDraw := nil;
+	FDxDraw := nil;
+	m_FileStream := nil;
+	m_ImgArr := nil;
+	m_BmpArr := nil;
+	m_IndexList := TList.Create;
+	lsDib := TDib.Create;
+	lsDib.BitCount := 8;
+	//BmpList := TList.Create; 
 
-   m_dwMemChecktTick := GetTickCount;
-   btVersion:=0;
-   m_bt458:=0;   
+	m_dwMemChecktTick := GetTickCount;
+	btVersion:=0;
+	m_bt458:=0;   
 end;
 
 destructor TWMImages.Destroy;
@@ -217,6 +218,7 @@ begin
    end;
 end;
 
+// Not used
 function TDXDrawRGBQuadsToPaletteEntries(const RGBQuads: TRGBQuads;
   AllowPalette256: Boolean): TPaletteEntries;
 var
@@ -243,50 +245,54 @@ begin
     Result[i].peFlags := D3DPAL_READONLY;
 end;
 
-//Cache¾øÀÌ ÇÑ²¨¹ø¿¡ ·ÎµùÇÔ.
+// Not load all cache at once
 procedure TWMImages.LoadAllData;
 var
-   i: integer;
-   imgi: TWMImageInfo;
-   dib: TDIB;
-   dximg: TDxImage;
+	i: integer;
+	imgi: TWMImageInfo;
+	dib: TDIB;
+	dximg: TDxImage;
 begin
-   dib := TDIB.Create;
-   for i:=0 to FImageCount-1 do begin
-   if btVersion <> 0 then m_FileStream.Read (imgi, sizeof(TWMImageInfo) - 4)
-   else m_FileStream.Read (imgi, sizeof(TWMImageInfo));
+	dib := TDIB.Create;
 
-      dib.Width := imgi.nWidth;
-      dib.Height := imgi.nHeight;
-      dib.ColorTable := MainPalette;
-      dib.UpdatePalette;
-      m_FileStream.Read (dib.PBits^, imgi.nWidth * imgi.nHeight);
+	for i:=0 to FImageCount-1 do begin
+		if btVersion <> 0 then 
+			m_FileStream.Read (imgi, sizeof(TWMImageInfo) - 4)
+		else 
+			m_FileStream.Read (imgi, sizeof(TWMImageInfo));
 
-      dximg.nPx := imgi.px;
-      dximg.nPy := imgi.py;
-      dximg.surface := TDirectDrawSurface.Create (FDDraw);
-      dximg.surface.SystemMemory := TRUE;
-      dximg.surface.SetSize (imgi.nWidth, imgi.nHeight);
-      dximg.surface.Canvas.Draw (0, 0, dib);
-      dximg.surface.Canvas.Release;
-      dib.Clear; //FreeImage;
+		dib.Width := imgi.nWidth;
+		dib.Height := imgi.nHeight;
+		dib.ColorTable := MainPalette;
+		dib.UpdatePalette;
+		m_FileStream.Read (dib.PBits^, imgi.nWidth * imgi.nHeight);
 
-      dximg.surface.TransparentColor := 0;
-      m_ImgArr[i] := dximg;
-   end;
-   dib.Free;
+		dximg.nPx := imgi.px;
+		dximg.nPy := imgi.py;
+		dximg.surface := TDirectDrawSurface.Create (FDDraw);
+		dximg.surface.SystemMemory := TRUE;
+		dximg.surface.SetSize (imgi.nWidth, imgi.nHeight);
+		dximg.surface.Canvas.Draw (0, 0, dib);
+		dximg.surface.Canvas.Release;
+		dib.Clear; //FreeImage;
+
+		dximg.surface.TransparentColor := 0;
+		m_ImgArr[i] := dximg;
+	end;
+
+	dib.Free;
 end;
 
 procedure TWMImages.LoadPalette;
 var
-   Entries: TPaletteEntries;
+	Entries: TPaletteEntries;
 begin
-   if btVersion <> 0 then
-     m_FileStream.Seek (sizeof(TWMImageHeader) - 4, 0)
-   else
-     m_FileStream.Seek (sizeof(TWMImageHeader), 0);
+	if btVersion <> 0 then
+		m_FileStream.Seek (sizeof(TWMImageHeader) - 4, 0)
+	else
+		m_FileStream.Seek (sizeof(TWMImageHeader), 0);
      
-   m_FileStream.Read (MainPalette, sizeof(TRgbQuad) * 256); //
+	m_FileStream.Read (MainPalette, sizeof(TRgbQuad) * 256); //
 
    //Entries := TDXDrawRGBQuadsToPaletteEntries (MainPalette, TRUE);
    //MainSurfacePalette := TDirectDrawPalette.Create (FDDraw);
@@ -347,15 +353,16 @@ end;
 
 function  TWMImages.FGetImageSurface (index: integer): TDirectDrawSurface;
 begin
-   Result := nil;
-   if LibType = ltUseCache then begin
-      Result := GetCachedSurface (index);
-   end else
-      if LibType = ltLoadMemory then begin
-         if (index >= 0) and (index < ImageCount) then
-            Result := m_ImgArr[index].Surface;
-      end;
-         
+	Result := nil;
+
+	if LibType = ltUseCache then begin
+		Result := GetCachedSurface (index);
+	end else begin
+		if LibType = ltLoadMemory then begin
+			if (index >= 0) and (index < ImageCount) then
+				Result := m_ImgArr[index].Surface;
+		end;
+	end;
 end;
 
 function  TWMImages.FGetImageBitmap (index: integer): TBitmap;
@@ -446,49 +453,49 @@ end;
 
 procedure TWMImages.LoadBmpImage (position: integer; pbmpimg: PTBmpImage);
 var
-   imginfo: TWMImageInfo;
-   ddsd: TDDSurfaceDesc;
-   DBits: PByte;
-   n, slen, dlen: integer;
+	imginfo: TWMImageInfo;
+	ddsd: TDDSurfaceDesc;
+	DBits: PByte;
+	n, slen, dlen: integer;
 begin
-   m_FileStream.Seek (position, 0);
-   m_FileStream.Read (imginfo, sizeof(TWMImageInfo)-4);
+	m_FileStream.Seek (position, 0);
+	m_FileStream.Read (imginfo, sizeof(TWMImageInfo)-4);
 
-   lsDib.Width := imginfo.nWidth;
-   lsDib.Height := imginfo.nHeight;
-   lsDib.ColorTable := MainPalette;
-   lsDib.UpdatePalette;
-   DBits := lsDib.PBits;
-   m_FileStream.Read (DBits^, imginfo.nWidth * imgInfo.nHeight);
+	lsDib.Width := imginfo.nWidth;
+	lsDib.Height := imginfo.nHeight;
+	lsDib.ColorTable := MainPalette;
+	lsDib.UpdatePalette;
+	DBits := lsDib.PBits;
+	m_FileStream.Read (DBits^, imginfo.nWidth * imgInfo.nHeight);
 
-   pbmpimg.bmp := TBitmap.Create;
-   pbmpimg.bmp.Width := lsDib.Width;
-   pbmpimg.bmp.Height := lsDib.Height;
-   pbmpimg.bmp.Canvas.Draw (0, 0, lsDib);
-   lsDib.Clear;
+	pbmpimg.bmp := TBitmap.Create;
+	pbmpimg.bmp.Width := lsDib.Width;
+	pbmpimg.bmp.Height := lsDib.Height;
+	pbmpimg.bmp.Canvas.Draw (0, 0, lsDib);
+	lsDib.Clear;
 end;
 
 procedure TWMImages.ClearCache;
 var
-   i: integer;
+	i: integer;
 begin
-   for i:=0 to ImageCount - 1 do begin
-      if m_ImgArr[i].Surface <> nil then begin
-         m_ImgArr[i].Surface.Free;
-         m_ImgArr[i].Surface := nil;
-      end;
-   end;
-   //MemorySize := 0;
+	for i:=0 to ImageCount - 1 do begin
+		if m_ImgArr[i].Surface <> nil then begin
+			m_ImgArr[i].Surface.Free;
+			m_ImgArr[i].Surface := nil;
+		end;
+	end;
+	//MemorySize := 0;
 end;
 
 function  TWMImages.GetImage (index: integer; var px, py: integer): TDirectDrawSurface;
 begin
-   if (index >= 0) and (index < ImageCount) then begin
-      px := m_ImgArr[index].nPx;
-      py := m_ImgArr[index].nPy;
-      Result := m_ImgArr[index].surface;
-   end else
-      Result := nil;
+	if (index >= 0) and (index < ImageCount) then begin
+		px := m_ImgArr[index].nPx;
+		py := m_ImgArr[index].nPy;
+		Result := m_ImgArr[index].surface;
+	end else
+		Result := nil;
 end;
 
 {--------------- BMP functions ----------------}

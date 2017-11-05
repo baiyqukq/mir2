@@ -123,43 +123,46 @@ const
 		ActDeath:  (start: 340;    frame: 1;  skip: 0;  ftime: 0;    usetick: 0);
 		);
    
-   	MA12: TMonsterAction = (  // SwordGuard(quickly beat)
-        ActStand:  (start: 0;      frame: 4;  skip: 4;  ftime: 200;  usetick: 0);
-        ActWalk:   (start: 64;     frame: 6;  skip: 2;  ftime: 120;  usetick: 3);
-        ActAttack: (start: 128;    frame: 6;  skip: 2;  ftime: 150;  usetick: 0);
-        ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
-        ActStruck: (start: 192;    frame: 2;  skip: 0;  ftime: 150;  usetick: 0);
-        ActDie:    (start: 208;    frame: 4;  skip: 4;  ftime: 160;  usetick: 0);
-        ActDeath:  (start: 272;    frame: 1;  skip: 0;  ftime: 0;    usetick: 0);
-    );
+	MA12: TMonsterAction = (  // SwordGuard(quickly beat)
+		ActStand:  (start: 0;      frame: 4;  skip: 4;  ftime: 200;  usetick: 0);
+		ActWalk:   (start: 64;     frame: 6;  skip: 2;  ftime: 120;  usetick: 3);
+		ActAttack: (start: 128;    frame: 6;  skip: 2;  ftime: 150;  usetick: 0);
+		ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
+		ActStruck: (start: 192;    frame: 2;  skip: 0;  ftime: 150;  usetick: 0);
+		ActDie:    (start: 208;    frame: 4;  skip: 4;  ftime: 160;  usetick: 0);
+		ActDeath:  (start: 272;    frame: 1;  skip: 0;  ftime: 0;    usetick: 0);
+		);
    
- 	MA13: TMonsterAction = (  // CannibalPlant
-        ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
-        ActWalk:   (start: 10;     frame: 8;  skip: 2;  ftime: 160;  usetick: 0); //Appear...
-        ActAttack: (start: 30;     frame: 6;  skip: 4;  ftime: 120;  usetick: 0);
-        ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
-        ActStruck: (start: 110;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
-        ActDie:    (start: 130;    frame: 10; skip: 0;  ftime: 120;  usetick: 0);
-        ActDeath:  (start: 20;     frame: 9;  skip: 0;  ftime: 150;  usetick: 0); //Hide..
-      );
-   MA14: TMonsterAction = (  // Skeleton Bone* RakingCat HookingCat
-        ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
-        ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
-        ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
-        ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
-        ActStruck: (start: 240;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
-        ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 120;  usetick: 0);
-        ActDeath:  (start: 340;    frame: 10; skip: 0;  ftime: 100;  usetick: 0); //백골인경우(소환)
-      );
-   MA15: TMonsterAction = (  //AxeSkeleton
-        ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
-        ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
-        ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
-        ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
-        ActStruck: (start: 240;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
-        ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 120;  usetick: 0);
-        ActDeath:  (start: 1;      frame: 1;  skip: 0;  ftime: 100;  usetick: 0);
-      );
+	MA13: TMonsterAction = (  // CannibalPlant
+		ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
+		ActWalk:   (start: 10;     frame: 8;  skip: 2;  ftime: 160;  usetick: 0); //Appear...
+		ActAttack: (start: 30;     frame: 6;  skip: 4;  ftime: 120;  usetick: 0);
+		ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
+		ActStruck: (start: 110;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
+		ActDie:    (start: 130;    frame: 10; skip: 0;  ftime: 120;  usetick: 0);
+		ActDeath:  (start: 20;     frame: 9;  skip: 0;  ftime: 150;  usetick: 0); //Hide..
+		);
+
+	MA14: TMonsterAction = (  // Skeleton Bone* RakingCat HookingCat
+		ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
+		ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
+		ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
+		ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
+		ActStruck: (start: 240;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
+		ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 120;  usetick: 0);
+		ActDeath:  (start: 340;    frame: 10; skip: 0;  ftime: 100;  usetick: 0); //백골인경우(소환)
+		);
+
+	MA15: TMonsterAction = (  //AxeSkeleton
+		ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
+		ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
+		ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
+		ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
+		ActStruck: (start: 240;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
+		ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 120;  usetick: 0);
+		ActDeath:  (start: 1;      frame: 1;  skip: 0;  ftime: 100;  usetick: 0);
+		);
+
    MA16: TMonsterAction = (  //CaveMaggot
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
         ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
@@ -823,6 +826,7 @@ uses
    ClMain, SoundUtil, clEvent, MShare;
 
 
+{ Get MonsterAction by race and appearance }
 function GetRaceByPM (race: integer;Appr:word): pTMonsterAction;
 begin
    Result := nil;

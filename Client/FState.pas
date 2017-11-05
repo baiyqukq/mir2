@@ -1,4 +1,8 @@
 unit FState;
+{ 
+	FrameState ? 
+	There are many windows functions
+}
 
 interface
 
@@ -38,6 +42,7 @@ type
 
 	pTClickPoint = ^TClickPoint;
 
+	// Dice: 骰子
 	TDiceInfo = record
 		nDicePoint :Integer;		//0x66C
 		nPlayPoint :Integer;		//0x670 //Current point value
@@ -716,6 +721,7 @@ begin
    GuildChats := TStringList.Create;
 
    EdDlgEdit := TEdit.Create (FrmMain.Owner);
+
    with EdDlgEdit do begin
       Parent := FrmMain;
       Color := clBlack;
@@ -729,6 +735,7 @@ begin
    end;
 
    Memo := TMemo.Create (FrmMain.Owner);
+
    with Memo do begin
       Parent := FrmMain;
       Color := clBlack;
@@ -919,7 +926,7 @@ begin
 
    {-----------------------------------------------------------}
 
-   //��¼����
+   // New Account Window
    d := g_WMainImages.Images[63];
    if d <> nil then begin
       DNewAccount.SetImgIndex (g_WMainImages, 63);
@@ -1421,15 +1428,19 @@ begin
       DMenuDlg.Top  := 163;
       DMenuDlg.SetImgIndex (g_WMainImages, 385);
    end;
+
    DMenuPrev.Left := 43;
    DMenuPrev.Top := 175;
    DMenuPrev.SetImgIndex (g_WMainImages, 388);
+
    DMenuNext.Left := 90;
    DMenuNext.Top := 175;
    DMenuNext.SetImgIndex (g_WMainImages, 387);
+
    DMenuBuy.Left := 215;
    DMenuBuy.Top := 171;
    DMenuBuy.SetImgIndex (g_WMainImages, 386);
+
    DMenuClose.Left := 291;
    DMenuClose.Top := 0;
    DMenuClose.SetImgIndex (g_WMainImages, 64);
@@ -2886,14 +2897,15 @@ end;
 
 
 
-
+{------------------------------------------------------------------------}
+//	@name State Window
+//	@{
 {------------------------------------------------------------------------}
 
+
+{------------------------------------------------------------------------}
 // Draw state window
-
 {------------------------------------------------------------------------}
-
-
 procedure TFrmDlg.DStateWinDirectPaint(Sender: TObject;
   dsurface: TDirectDrawSurface);
 var
@@ -3333,94 +3345,102 @@ end;
 
 procedure TFrmDlg.DStateWinClick(Sender: TObject; X, Y: Integer);
 begin
-   if StatePage = 3 then begin
-      X := DStateWin.LocalX (X) - DStateWin.Left;
-      Y := DStateWin.LocalY (Y) - DStateWin.Top;
-      if (X >= 33) and (X <= 33+166) and (Y >= 55) and (Y <= 55+37*5) then begin
-         magcur := (Y-55) div 37;
-         if (magcur+magtop) >= g_MagicList.Count then
-            magcur := (g_MagicList.Count-1) - magtop;
-      end;
-   end;
+	if StatePage = 3 then begin
+		X := DStateWin.LocalX (X) - DStateWin.Left;
+		Y := DStateWin.LocalY (Y) - DStateWin.Top;
+
+		if (X >= 33) and (X <= 33+166) and (Y >= 55) and (Y <= 55+37*5) then begin
+			magcur := (Y-55) div 37;
+			if (magcur+magtop) >= g_MagicList.Count then
+				magcur := (g_MagicList.Count-1) - magtop;
+		end;
+	end;
 end;
 
 procedure TFrmDlg.DCloseStateClick(Sender: TObject; X, Y: Integer);
 begin
-   DStateWin.Visible := FALSE;
+	DStateWin.Visible := FALSE;
 end;
 
 procedure TFrmDlg.DPrevStateDirectPaint(Sender: TObject;
-  dsurface: TDirectDrawSurface);
+	dsurface: TDirectDrawSurface);
 var
-   d: TDirectDrawSurface;
+	d: TDirectDrawSurface;
 begin
-   with Sender as TDButton do begin
-      if TDButton(Sender).Downed then begin
-         d := WLib.Images[FaceIndex];
-         if d <> nil then
-            dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
-      end;
-   end;
+	with Sender as TDButton do begin
+		if TDButton(Sender).Downed then begin
+			d := WLib.Images[FaceIndex];
+			if d <> nil then
+				dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
+		end;
+	end;
 end;
 
 procedure TFrmDlg.PageChanged;
 begin
-   DScreen.ClearHint;
-   case StatePage of
-      3: begin //ħ�� ����â
-         DStMag1.Visible := TRUE;  DStMag2.Visible := TRUE;
-         DStMag3.Visible := TRUE;  DStMag4.Visible := TRUE;
-         DStMag5.Visible := TRUE;
-         DStPageUp.Visible := TRUE;
-         DStPageDown.Visible := TRUE;
-         MagicPage := 0;
-      end;
-      else begin
-         DStMag1.Visible := FALSE;  DStMag2.Visible := FALSE;
-         DStMag3.Visible := FALSE;  DStMag4.Visible := FALSE;
-         DStMag5.Visible := FALSE;
-         DStPageUp.Visible := FALSE;
-         DStPageDown.Visible := FALSE;
-      end;
-   end;
+	DScreen.ClearHint;
+
+	case StatePage of
+	3: 
+		begin //ħ�� ����â
+			DStMag1.Visible := TRUE;  
+			DStMag2.Visible := TRUE;
+			DStMag3.Visible := TRUE;  
+			DStMag4.Visible := TRUE;
+			DStMag5.Visible := TRUE;
+			DStPageUp.Visible := TRUE;
+			DStPageDown.Visible := TRUE;
+			MagicPage := 0;
+		end;
+	else 
+		begin
+			DStMag1.Visible := FALSE;  
+			DStMag2.Visible := FALSE;
+			DStMag3.Visible := FALSE;  
+			DStMag4.Visible := FALSE;
+			DStMag5.Visible := FALSE;
+			DStPageUp.Visible := FALSE;
+			DStPageDown.Visible := FALSE;
+		end;
+	end;
 end;
 
 procedure TFrmDlg.DPrevStateClick(Sender: TObject; X, Y: Integer);
 begin
-   Dec (StatePage);
-   if StatePage < 0 then
-      StatePage := MAXSTATEPAGE-1;
-   PageChanged;
+	Dec (StatePage);
+	if StatePage < 0 then
+		StatePage := MAXSTATEPAGE-1;
+	PageChanged;
 end;
 
 procedure TFrmDlg.DNextStateClick(Sender: TObject; X, Y: Integer);
 begin
-   Inc (StatePage);
-   if StatePage > MAXSTATEPAGE-1 then
-      StatePage := 0;
-   PageChanged;
+	Inc (StatePage);
+	if StatePage > MAXSTATEPAGE-1 then
+		StatePage := 0;
+	PageChanged;
 end;
 
 procedure TFrmDlg.DSWWeaponClick(Sender: TObject; X, Y: Integer);
 var
-   where, n, sel: integer;
-   flag, movcancel: Boolean;
+	where, n, sel: integer;
+	flag, movcancel: Boolean;
 begin
-   if g_MySelf = nil then exit;
-   if StatePage <> 0 then exit;
-   if g_boItemMoving then begin
-      flag := FALSE;
-      movcancel := FALSE;
-      if (g_MovingItem.Index = -97) or (g_MovingItem.Index = -98) then exit;
-      if (g_MovingItem.Item.S.Name = '') or (g_WaitingUseItem.Item.S.Name <> '') then exit;
-      where := GetTakeOnPosition (g_MovingItem.Item.S.StdMode);
-      if g_MovingItem.Index >= 0 then begin
-         case where of
-            U_DRESS: begin
-               if Sender = DSWDress then begin
-                  if g_MySelf.m_btSex = 0 then //����
-                     if g_MovingItem.Item.S.StdMode <> 10 then //���ڿ�
-                        exit;
+	if g_MySelf = nil then exit;
+	if StatePage <> 0 then exit;
+	if g_boItemMoving then begin
+		flag := FALSE;
+		movcancel := FALSE;
+		if (g_MovingItem.Index = -97) or (g_MovingItem.Index = -98) then exit;
+		if (g_MovingItem.Item.S.Name = '') or (g_WaitingUseItem.Item.S.Name <> '') then exit;
+		where := GetTakeOnPosition (g_MovingItem.Item.S.StdMode);
+		if g_MovingItem.Index >= 0 then begin
+			case where of
+			U_DRESS: begin
+				if Sender = DSWDress then begin
+					if g_MySelf.m_btSex = 0 then //����
+					if g_MovingItem.Item.S.StdMode <> 10 then //���ڿ�
+					exit;
                   if g_MySelf.m_btSex = 1 then //����
                      if g_MovingItem.Item.S.StdMode <> 11 then //���ڿ�
                         exit;
@@ -3559,51 +3579,53 @@ var
   hcolor: TColor;
   Butt:TDButton;
 begin
-   if StatePage <> 0 then exit;
-   //DScreen.ClearHint;
-   sel := -1;
-   Butt:=TDButton(Sender);
-   if Sender = DSWDress then sel := U_DRESS;
-   if Sender = DSWWeapon then sel := U_WEAPON;
-   if Sender = DSWHelmet then sel := U_HELMET;
-   if Sender = DSWNecklace then sel := U_NECKLACE;
-   if Sender = DSWLight then sel := U_RIGHTHAND;
-   if Sender = DSWRingL then sel := U_RINGL;
-   if Sender = DSWRingR then sel := U_RINGR;
-   if Sender = DSWArmRingL then sel := U_ARMRINGL;
-   if Sender = DSWArmRingR then sel := U_ARMRINGR;
-   {
-   if Sender = DSWBujuk then sel := U_RINGL;
-   if Sender = DSWBelt then sel := U_RINGR;
-   if Sender = DSWBoots then sel := U_ARMRINGL;
-   if Sender = DSWCharm then sel := U_ARMRINGR;
-   }
+	if StatePage <> 0 then exit;
+	//DScreen.ClearHint;
+	sel := -1;
+	Butt:=TDButton(Sender);
+	if Sender = DSWDress then sel := U_DRESS;
+	if Sender = DSWWeapon then sel := U_WEAPON;
+	if Sender = DSWHelmet then sel := U_HELMET;
+	if Sender = DSWNecklace then sel := U_NECKLACE;
+	if Sender = DSWLight then sel := U_RIGHTHAND;
+	if Sender = DSWRingL then sel := U_RINGL;
+	if Sender = DSWRingR then sel := U_RINGR;
+	if Sender = DSWArmRingL then sel := U_ARMRINGL;
+	if Sender = DSWArmRingR then sel := U_ARMRINGR;
+	{
+	if Sender = DSWBujuk then sel := U_RINGL;
+	if Sender = DSWBelt then sel := U_RINGR;
+	if Sender = DSWBoots then sel := U_ARMRINGL;
+	if Sender = DSWCharm then sel := U_ARMRINGR;
+	}
 
-   if Sender = DSWBujuk then sel := U_BUJUK;
-   if Sender = DSWBelt then sel := U_BELT;
-   if Sender = DSWBoots then sel := U_BOOTS;
-   if Sender = DSWCharm then sel := U_CHARM;
+	if Sender = DSWBujuk then sel := U_BUJUK;
+	if Sender = DSWBelt then sel := U_BELT;
+	if Sender = DSWBoots then sel := U_BOOTS;
+	if Sender = DSWCharm then sel := U_CHARM;
    
-   if sel >= 0 then begin
-      g_MouseStateItem := g_UseItems[sel];
-	  // Previous is commented, show charactor's equip
-      g_MouseItem := g_UseItems[sel];
-      GetMouseItemInfo (iname, d1, d2, d3, useable);
-      if iname <> '' then begin
-         if g_UseItems[sel].Dura = 0 then hcolor := clRed
-         else hcolor := clWhite;
+	if sel >= 0 then begin
+		g_MouseStateItem := g_UseItems[sel];
+		// Previous is commented, show charactor's equip
+		g_MouseItem := g_UseItems[sel];
+		GetMouseItemInfo (iname, d1, d2, d3, useable);
+		if iname <> '' then begin
+			if g_UseItems[sel].Dura = 0 then 
+				hcolor := clRed
+			else 
+				hcolor := clWhite;
 
-         nLocalX:=Butt.LocalX(X - Butt.Left);
-         nLocalY:=Butt.LocalY(Y - Butt.Top);
-         nHintX:=Butt.SurfaceX(Butt.Left) + DStateWin.SurfaceX(DStateWin.Left) + nLocalX;
-         nHintY:=Butt.SurfaceY(Butt.Top) + DStateWin.SurfaceY(DStateWin.Top) + nLocalY;
+			nLocalX:=Butt.LocalX(X - Butt.Left);
+			nLocalY:=Butt.LocalY(Y - Butt.Top);
+			nHintX:=Butt.SurfaceX(Butt.Left) + DStateWin.SurfaceX(DStateWin.Left) + nLocalX;
+			nHintY:=Butt.SurfaceY(Butt.Top) + DStateWin.SurfaceY(DStateWin.Top) + nLocalY;
 
          {with Sender as TDButton do
             DScreen.ShowHint (SurfaceX(Left - 30),
                               SurfaceY(Top + 50),
                               iname + d1 + '\' + d2 + '\' + d3, hcolor, FALSE); }
 
-         with Butt as TDButton do
+			with Butt as TDButton do
           DScreen.ShowHint(nHintX,nHintY,
                              iname + d1 + '\' + d2 + '\' + d3, hcolor, FALSE);
       end;
@@ -3692,6 +3714,7 @@ begin
          Inc (MagicPage);
    end;
 end;
+///@}
 
 
 
@@ -4752,21 +4775,25 @@ end;
 procedure TFrmDlg.DItemGridGridPaint(Sender: TObject; ACol, ARow: Integer;
   Rect: TRect; State: TGridDrawState; dsurface: TDirectDrawSurface);
 var
-   idx: integer;
-   d: TDirectDrawSurface;
+	idx: integer;
+	d: TDirectDrawSurface;
 begin
-   idx := ACol + ARow * DItemGrid.ColCount + 6;
-   if idx in [6..MAXBAGITEM-1] then begin
-      if g_ItemArr[idx].S.Name <> '' then begin
-         d := g_WBagItemImages.Images[g_ItemArr[idx].S.Looks];
-         if d <> nil then
-            with DItemGrid do
-               dsurface.Draw (SurfaceX(Rect.Left + (ColWidth - d.Width) div 2 - 1),
-                              SurfaceY(Rect.Top + (RowHeight - d.Height) div 2 + 1),
-                              d.ClientRect,
-                              d, TRUE);
-      end;
-   end;
+	idx := ACol + ARow * DItemGrid.ColCount + 6;
+
+	if idx in [6..MAXBAGITEM-1] then begin
+		if g_ItemArr[idx].S.Name <> '' then begin
+			d := g_WBagItemImages.Images[g_ItemArr[idx].S.Looks];
+
+			if d <> nil then begin
+				with DItemGrid do begin
+					dsurface.Draw (SurfaceX(Rect.Left + (ColWidth - d.Width) div 2 - 1),
+					SurfaceY(Rect.Top + (RowHeight - d.Height) div 2 + 1),
+					d.ClientRect,
+					d, TRUE);
+				end;
+			end;
+		end;
+	end;
 end;
 
 procedure TFrmDlg.DGoldClick(Sender: TObject; X, Y: Integer);

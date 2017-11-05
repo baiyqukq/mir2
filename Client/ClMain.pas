@@ -1,4 +1,5 @@
 unit ClMain;
+{ Process server message }
 
 interface
 
@@ -145,6 +146,8 @@ type
     procedure AttackTarget (target: TActor);
 
     function  CheckDoorAction (dx, dy: integer): Boolean;
+
+	// Process server message
     procedure ClientGetPasswdSuccess (body: string);
     procedure ClientGetNeedUpdateAccount (body: string);
     procedure ClientGetSelectServer;
@@ -3550,6 +3553,7 @@ begin
    end;
 end;
 
+// Process server message
 procedure TfrmMain.DecodeMessagePacket (datablock: string);
 var
    head, body, body2, tagstr, data, rdstr, str: String;
@@ -3565,68 +3569,78 @@ var
    event: TClEvent;
 begin
 
-   if datablock[1] = '+' then begin  //checkcode
-      data := Copy (datablock, 2, Length(datablock)-1);
-      data := GetValidStr3 (data, tagstr, ['/']);
-      if tagstr = 'PWR'  then g_boNextTimePowerHit := True;  //打开攻杀
-      if tagstr = 'LNG'  then g_boCanLongHit := True;        //打开刺杀
-      if tagstr = 'ULNG' then g_boCanLongHit := False;       //关闭刺杀
-      if tagstr = 'WID'  then g_boCanWideHit := True;        //打开半月
-      if tagstr = 'UWID' then g_boCanWideHit := False;       //关闭半月
-      if tagstr = 'CRS'  then g_boCanCrsHit := True;
-      if tagstr = 'UCRS' then g_boCanCrsHit := False;
-      if tagstr = 'TWN'  then g_boCanTwnHit := True;
-      if tagstr = 'UTWN' then g_boCanTwnHit := False;
-      if tagstr = 'STN'  then g_boCanStnHit := True;
-      if tagstr = 'USTN' then g_boCanStnHit := False;
-      if tagstr = 'FIR'  then begin
-         g_boNextTimeFireHit := TRUE;  //打开烈火
-         g_dwLatestFireHitTick := GetTickCount;
-         //Myself.SendMsg (SM_READYFIREHIT, Myself.XX, Myself.m_nCurrY, Myself.Dir, 0, 0, '', 0);
-      end;
-      if tagstr = 'UFIR' then g_boNextTimeFireHit := False; //关闭烈火
-      if tagstr = 'GOOD' then begin
-         ActionLock := FALSE;
-         Inc(g_nReceiveCount);
-      end;
-      if tagstr = 'FAIL' then begin
-         ActionFailed;
-         ActionLock := FALSE;
-         Inc(g_nReceiveCount);
-      end;
-      //DScreen.AddSysmsg (data);
-      if data <> '' then begin
-         CheckSpeedHack (Str_ToInt(data, 0));
-      end;
-      exit;
-   end;
-   if Length(datablock) < DEFBLOCKSIZE then begin
-      if datablock[1] = '=' then begin
-         data := Copy (datablock, 2, Length(datablock)-1);
-         if data = 'DIG' then begin
-            g_MySelf.m_boDigFragment := TRUE;
-         end;
-      end;
-      exit;
-   end;
+	if datablock[1] = '+' then begin  //checkcode
+		data := Copy (datablock, 2, Length(datablock)-1);
+		data := GetValidStr3 (data, tagstr, ['/']);
 
-   head := Copy (datablock, 1, DEFBLOCKSIZE);
-   body := Copy (datablock, DEFBLOCKSIZE+1, Length(datablock)-DEFBLOCKSIZE);
-   msg  := DecodeMessage (head);
+		if tagstr = 'PWR'  then g_boNextTimePowerHit := True;  //打开攻杀
+		if tagstr = 'LNG'  then g_boCanLongHit := True;        //打开刺杀
+		if tagstr = 'ULNG' then g_boCanLongHit := False;       //关闭刺杀
+		if tagstr = 'WID'  then g_boCanWideHit := True;        //打开半月
+		if tagstr = 'UWID' then g_boCanWideHit := False;       //关闭半月
+		if tagstr = 'CRS'  then g_boCanCrsHit := True;
+		if tagstr = 'UCRS' then g_boCanCrsHit := False;
+		if tagstr = 'TWN'  then g_boCanTwnHit := True;
+		if tagstr = 'UTWN' then g_boCanTwnHit := False;
+		if tagstr = 'STN'  then g_boCanStnHit := True;
+		if tagstr = 'USTN' then g_boCanStnHit := False;
 
-   //DScreen.AddSysMsg (IntToStr(msg.Ident));
+		if tagstr = 'FIR'  then begin
+			g_boNextTimeFireHit := TRUE;  //打开烈火
+			g_dwLatestFireHitTick := GetTickCount;
+			//Myself.SendMsg (SM_READYFIREHIT, Myself.XX, Myself.m_nCurrY, Myself.Dir, 0, 0, '', 0);
+		end;
 
-   if (msg.Ident <> SM_HEALTHSPELLCHANGED) and
-      (msg.Ident <> SM_HEALTHSPELLCHANGED)
-      then begin
+		if tagstr = 'UFIR' then g_boNextTimeFireHit := False; //关闭烈火
 
-     if g_boShowMemoLog then begin
-       ShowHumanMsg(@Msg);
-       //PlayScene.MemoLog.Lines.Add('Ident: ' + IntToStr(msg.Recog) + '/' + IntToStr(msg.Ident));
-     end;
-   end;
-//   PlayScene.MemoLog.Lines.Add('datablock: ' + datablock);
-   if g_MySelf = nil then begin
+		if tagstr = 'GOOD' then begin
+			ActionLock := FALSE;
+			Inc(g_nReceiveCount);
+		end;
+
+		if tagstr = 'FAIL' then begin
+			ActionFailed;
+			ActionLock := FALSE;
+			Inc(g_nReceiveCount);
+		end;
+
+		//DScreen.AddSysmsg (data);
+		if data <> '' then begin
+			CheckSpeedHack (Str_ToInt(data, 0));
+		end;
+
+		exit;
+	end;
+
+	if Length(datablock) < DEFBLOCKSIZE then begin
+		if datablock[1] = '=' then begin
+			data := Copy (datablock, 2, Length(datablock)-1);
+			if data = 'DIG' then begin
+				g_MySelf.m_boDigFragment := TRUE;
+			end;
+		end;
+
+		exit;
+	end;
+
+	head := Copy (datablock, 1, DEFBLOCKSIZE);
+	body := Copy (datablock, DEFBLOCKSIZE+1, Length(datablock)-DEFBLOCKSIZE);
+	msg  := DecodeMessage (head);
+
+	//DScreen.AddSysMsg (IntToStr(msg.Ident));
+
+	if (msg.Ident <> SM_HEALTHSPELLCHANGED) and
+		(msg.Ident <> SM_HEALTHSPELLCHANGED)
+		then begin
+
+		if g_boShowMemoLog then begin
+			ShowHumanMsg(@Msg);
+			//PlayScene.MemoLog.Lines.Add('Ident: ' + IntToStr(msg.Recog) + '/' + IntToStr(msg.Ident));
+		end;
+	end;
+
+	// PlayScene.MemoLog.Lines.Add('datablock: ' + datablock);
+	if g_MySelf = nil then begin
       case msg.Ident of
          SM_NEWID_SUCCESS:
             begin
@@ -5418,11 +5432,11 @@ end;
 
 procedure TfrmMain.ClientGetAddMagic (body: string);
 var
-   pcm: PTClientMagic;
+	pcm: PTClientMagic;
 begin
-   new (pcm);
-   DecodeBuffer (body, @(pcm^), sizeof(TClientMagic));
-   g_MagicList.Add (pcm);
+	new (pcm);
+	DecodeBuffer(body, @(pcm^), sizeof(TClientMagic));
+	g_MagicList.Add (pcm);
 end;
 
 procedure TfrmMain.ClientGetDelMagic (magid: integer);
