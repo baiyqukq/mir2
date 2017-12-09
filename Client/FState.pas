@@ -4106,65 +4106,68 @@ end;
 
 
 procedure TFrmDlg.GetMouseItemInfo (var iname, line1, line2, line3: string; var useable: boolean);
-   function GetDuraStr (dura, maxdura: integer): string;
-   begin
-      if not BoNoDisplayMaxDura then
-         Result := IntToStr(Round(dura/1000)) + '/' + IntToStr(Round(maxdura/1000))
-      else
-         Result := IntToStr(Round(dura/1000));
-   end;
-   function GetDura100Str (dura, maxdura: integer): string;
-   begin
-      if not BoNoDisplayMaxDura then
-         Result := IntToStr(Round(dura/100)) + '/' + IntToStr(Round(maxdura/100))
-      else
-         Result := IntToStr(Round(dura/100));
-   end;
-var
-  sWgt:String;
-begin
-   if g_MySelf = nil then exit;
-   iname := ''; line1 := ''; line2 := ''; line3 := '';
-   useable := TRUE;
+	function GetDuraStr (dura, maxdura: integer): string;
+	begin
+		if not BoNoDisplayMaxDura then
+			Result := IntToStr(Round(dura/1000)) + '/' + IntToStr(Round(maxdura/1000))
+		else
+			Result := IntToStr(Round(dura/1000));
+	end;
 
-   if g_MouseItem.S.Name <> '' then begin
-      iname := g_MouseItem.S.Name + ' ';
-      sWgt := 'W.';
-      case g_MouseItem.S.StdMode of
-         0: begin //Drug
-               if g_MouseItem.S.AC > 0 then
-                  line1 := '+' + IntToStr(g_MouseItem.S.AC) + 'HP ';
-               if g_MouseItem.S.MAC > 0 then
-                  line1 := line1 + '+' + IntToStr(g_MouseItem.S.MAC) + 'MP';
-               line1 := line1 + ' W.' + IntToStr(g_MouseItem.S.Weight);
-            end;
-         1..3:
-            begin
-               line1 := line1 + 'W.' +  IntToStr(g_MouseItem.S.Weight);
-            end;
-         4:
-            begin
-               line1 := line1 + 'W. ' +  IntToStr(g_MouseItem.S.Weight);
-               line3 := 'Necessary level ' + IntToStr(g_MouseItem.S.DuraMax);
-               useable := FALSE;
-               case g_MouseItem.S.Shape of
-                  0: begin
-                        line2 := 'Secret martial art skill of Warrior';
-                        if (g_MySelf.m_btJob = 0) and (g_MySelf.m_Abil.Level >= g_MouseItem.S.DuraMax) then
-                           useable := TRUE;
-                     end;
-                  1: begin
-                        line2 := 'Spellbook of wizard';
-                        if (g_MySelf.m_btJob = 1) and (g_MySelf.m_Abil.Level >= g_MouseItem.S.DuraMax) then
-                           useable := TRUE;
-                     end;
-                  2: begin
-                        line2 := 'Secret martial art skill of Taoist';
-                        if (g_MySelf.m_btJob = 2) and (g_MySelf.m_Abil.Level >= g_MouseItem.S.DuraMax) then
-                           useable := TRUE;
-                     end;
-               end;
-            end;
+	function GetDura100Str (dura, maxdura: integer): string;
+	begin
+		if not BoNoDisplayMaxDura then
+			Result := IntToStr(Round(dura/100)) + '/' + IntToStr(Round(maxdura/100))
+		else
+			Result := IntToStr(Round(dura/100));
+	end;
+var
+	sWgt:String;
+begin
+	if g_MySelf = nil then exit;
+
+	iname := ''; line1 := ''; line2 := ''; line3 := '';
+	useable := TRUE;
+
+	if g_MouseItem.S.Name <> '' then begin
+		iname := g_MouseItem.S.Name + ' ';
+		sWgt := 'W.';
+
+		case g_MouseItem.S.StdMode of
+			0: begin //Drug
+				if g_MouseItem.S.AC > 0 then
+					line1 := '+' + IntToStr(g_MouseItem.S.AC) + 'HP ';
+				if g_MouseItem.S.MAC > 0 then
+					line1 := line1 + '+' + IntToStr(g_MouseItem.S.MAC) + 'MP';
+
+				line1 := line1 + ' W.' + IntToStr(g_MouseItem.S.Weight);
+			end;
+			1..3: begin
+				line1 := line1 + 'W.' +  IntToStr(g_MouseItem.S.Weight);
+			end;
+			4: begin
+				line1 := line1 + 'W. ' +  IntToStr(g_MouseItem.S.Weight);
+				line3 := 'Necessary level ' + IntToStr(g_MouseItem.S.DuraMax);
+				useable := FALSE;
+            
+				case g_MouseItem.S.Shape of
+				0: begin
+					line2 := 'Secret martial art skill of Warrior';
+					if (g_MySelf.m_btJob = 0) and (g_MySelf.m_Abil.Level >= g_MouseItem.S.DuraMax) then
+						useable := TRUE;
+				end;
+				1: begin
+					line2 := 'Spellbook of wizard';
+					if (g_MySelf.m_btJob = 1) and (g_MySelf.m_Abil.Level >= g_MouseItem.S.DuraMax) then
+						useable := TRUE;
+				end;
+				2: begin
+					line2 := 'Secret martial art skill of Taoist';
+					if (g_MySelf.m_btJob = 2) and (g_MySelf.m_Abil.Level >= g_MouseItem.S.DuraMax) then
+						useable := TRUE;
+				end;
+			end;
+		end;
          5..6: // Weapon
             begin
                useable := FALSE;
@@ -4575,7 +4578,7 @@ end;
 procedure TFrmDlg.DItemBagDirectPaint(Sender: TObject;
 	dsurface: TDirectDrawSurface);
 var
-	d0, d1, d2, d3: string;
+	name, line1, line2, line3: string;
 	n: integer;
 	useable: Boolean;
 	d: TDirectDrawSurface;
@@ -4588,7 +4591,7 @@ begin
 		if d <> nil then
 			dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
 
-		GetMouseItemInfo (d0, d1, d2, d3, useable);
+		GetMouseItemInfo (name, line1, line2, line3, useable);
 
 		with dsurface.Canvas do begin
 			SetBkMode (Handle, TRANSPARENT);
@@ -4600,17 +4603,20 @@ begin
 
 			// Item bag info bar
 			if d0 <> '' then begin
-				n := TextWidth (d0);
+				n := TextWidth (name);
+
 				Font.Color := clYellow;
-				TextOut (SurfaceX(Left+70{70}), SurfaceY(Top+215{215}), d0);
+				TextOut (SurfaceX(Left+70{70}), SurfaceY(Top+215{215}), name);
+
 				Font.Color := clWhite;
-				TextOut (SurfaceX(Left+70{70}) + n, SurfaceY(Top+215{215}), d1);
-				TextOut (SurfaceX(Left+70{70}), SurfaceY(Top+215{215}+14), d2);
+				TextOut (SurfaceX(Left+70{70}) + n, SurfaceY(Top+215{215}), line1);
+				TextOut (SurfaceX(Left+70{70}), SurfaceY(Top+215{215}+14), line2);
 
 				if not useable then Font.Color := clRed;
 
-				TextOut (SurfaceX(Left+70{70}), SurfaceY(Top+215{215}+14*2), d3);
+				TextOut (SurfaceX(Left+70{70}), SurfaceY(Top+215{215}+14*2), line3);
 			end;
+
 			Release;
 		end;
 	end;

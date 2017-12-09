@@ -1,4 +1,4 @@
-unit magiceff;
+unit MagicEff;
 
 interface
 
@@ -8,24 +8,24 @@ uses
 
 
 const
-   MG_READY       = 10;
-   MG_FLY         = 6;
-   MG_EXPLOSION   = 10;
-   READYTIME  = 120;
-   EXPLOSIONTIME = 100;
-   FLYBASE = 10;
-   EXPLOSIONBASE = 170;
-   //EFFECTFRAME = 260;
-   MAXMAGIC = 10;
-   FLYOMAAXEBASE = 447;
-   THORNBASE = 2967;
-   ARCHERBASE = 2607;
-   ARCHERBASE2 = 272; //2609;
+   MG_READY       = 10;			// MG_Ready
+   MG_FLY         = 6;			// MG_Fly
+   MG_EXPLOSION   = 10;			// MG_Explosion
+   READYTIME  = 120;			// ReadyTime
+   EXPLOSIONTIME = 100;			// ExplosionTime
+   FLYBASE = 10;				// FlyBase
+   EXPLOSIONBASE = 170;			// ExplosionBase
+   //EFFECTFRAME = 260;			// EffectFrame
+   MAXMAGIC = 10;				// MaxMagic
+   FLYOMAAXEBASE = 447;			// FlyOmaAxeBase
+   THORNBASE = 2967;			// ThornBase
+   ARCHERBASE = 2607;			// ArcherBase
+   ARCHERBASE2 = 272; //2609;	// ArcherBase2
 
-   FLYFORSEC = 500;
-   FIREGUNFRAME = 6;
+   FLYFORSEC = 500;			// FlyForSec
+   FIREGUNFRAME = 6;		// FireGunFrame
 
-   MAXEFFECT = 49{31};
+   MAXEFFECT = 49{31};		// MaxEffect
    {
    EffectBase: array[0..MAXEFFECT-1] of integer = (
       0,             //0  »≠ø∞¿Â
