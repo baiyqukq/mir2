@@ -8,6 +8,7 @@ uses
 
 
 const
+	// Magic action frame
    MG_READY       = 10;			// MG_Ready
    MG_FLY         = 6;			// MG_Fly
    MG_EXPLOSION   = 10;			// MG_Explosion
