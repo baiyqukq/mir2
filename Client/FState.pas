@@ -1061,34 +1061,42 @@ begin
       DSWNecklace.Top  := 52 + 35;
       DSWNecklace.Width := 34;
       DSWNecklace.Height := 31;
+
       DSWHelmet.Left := 38 + 77;
       DSWHelmet.Top  := 52 + 41;
       DSWHelmet.Width := 18;
       DSWHelmet.Height := 18;
+
       DSWLight.Left := 38 + 130;
       DSWLight.Top  := 52 + 73;
       DSWLight.Width := 34;
       DSWLight.Height := 31;
+
       DSWArmRingR.Left := 38 + 4;
       DSWArmRingR.Top  := 52 + 124;
       DSWArmRingR.Width := 34;
       DSWArmRingR.Height := 31;
+
       DSWArmRingL.Left := 38 + 130;
       DSWArmRingL.Top  := 52 + 124;
       DSWArmRingL.Width := 34;
       DSWArmRingL.Height := 31;
+
       DSWRingR.Left := 38 + 4;
       DSWRingR.Top  := 52 + 163;
       DSWRingR.Width := 34;
       DSWRingR.Height := 31;
+
       DSWRingL.Left := 38 + 130;
       DSWRingL.Top  := 52 + 163;
       DSWRingL.Width := 34;
       DSWRingL.Height := 31;
+
       DSWWeapon.Left := 38 + 9;
       DSWWeapon.Top  := 52 + 28;
       DSWWeapon.Width := 47;
       DSWWeapon.Height := 87;
+
       DSWDress.Left := 38 + 58;
       DSWDress.Top  := 52 + 70;
       DSWDress.Width := 53;
@@ -1146,15 +1154,18 @@ begin
       DStPageDown.Left := 213;
       DStPageDown.Top  := 143;
 
-   DCloseState.SetImgIndex (g_WMainImages, 371);
-   DCloseState.Left := 8;
-   DCloseState.Top := 39;
-   DPrevState.SetImgIndex (g_WMainImages, 373);
-   DNextState.SetImgIndex (g_WMainImages, 372);
-   DPrevState.Left := 7;
-   DPrevState.Top := 128;
-   DNextState.Left := 7;
-   DNextState.Top := 187;
+	  DCloseState.SetImgIndex (g_WMainImages, 371);
+	  DCloseState.Left := 8;
+	  DCloseState.Top := 39;
+
+	  DPrevState.SetImgIndex (g_WMainImages, 373);
+	  DNextState.SetImgIndex (g_WMainImages, 372);
+
+	  DPrevState.Left := 7;
+	  DPrevState.Top := 128;
+
+	  DNextState.Left := 7;
+	  DNextState.Top := 187;
 
    {-----------------------------------------------------------}
 
@@ -2951,15 +2962,16 @@ begin
 					dsurface.Draw (SurfaceX(bbx+ax), SurfaceY(bby+ay), d.ClientRect, d, TRUE);
 			end;
 
-            if g_UseItems[U_DRESS].S.Name <> '' then begin
-               idx := g_UseItems[U_DRESS].S.Looks; //�� if Myself.m_btSex = 1 then idx := 80; // Women's cloths
-               if idx >= 0 then begin
-                  //d := FrmMain.WStateItem.GetCachedImage (idx, ax, ay);
-                  d := FrmMain.GetWStateImg(idx,ax,ay);
-                  if d <> nil then
-                     dsurface.Draw (SurfaceX(bbx+ax), SurfaceY(bby+ay), d.ClientRect, d, TRUE);
-               end;
-            end;
+			if g_UseItems[U_DRESS].S.Name <> '' then begin
+				idx := g_UseItems[U_DRESS].S.Looks; //�� if Myself.m_btSex = 1 then idx := 80; // Women's cloths
+				if idx >= 0 then begin
+					//d := FrmMain.WStateItem.GetCachedImage (idx, ax, ay);
+					d := FrmMain.GetWStateImg(idx,ax,ay);
+					if d <> nil then
+						dsurface.Draw (SurfaceX(bbx+ax), SurfaceY(bby+ay), d.ClientRect, d, TRUE);
+				end;
+			end;
+
             if g_UseItems[U_WEAPON].S.Name <> '' then begin
                idx := g_UseItems[U_WEAPON].S.Looks;
                if idx >= 0 then begin
@@ -3156,8 +3168,9 @@ begin
 			end;
 		end;
 	end;
-	  { Previous work is open, this code is to show equip, appear under charactor
-      if g_MouseStateItem.S.Name <> '' then begin
+
+	{ Previous work is open, this code is to show equip, appear under charactor}
+	if g_MouseStateItem.S.Name <> '' then begin
          g_MouseItem := g_MouseStateItem;
          GetMouseItemInfo (iname, d1, d2, d3, useable);
          if iname <> '' then begin
@@ -3179,7 +3192,7 @@ begin
          end;
          g_MouseItem.S.Name := '';
       end;
-      }
+      
 
       //�̸�
       with dsurface.Canvas do begin
@@ -3427,43 +3440,60 @@ var
 	flag, movcancel: Boolean;
 begin
 	if g_MySelf = nil then exit;
+
 	if StatePage <> 0 then exit;
+
 	if g_boItemMoving then begin
 		flag := FALSE;
 		movcancel := FALSE;
-		if (g_MovingItem.Index = -97) or (g_MovingItem.Index = -98) then exit;
-		if (g_MovingItem.Item.S.Name = '') or (g_WaitingUseItem.Item.S.Name <> '') then exit;
+
+		if (g_MovingItem.Index = -97) or (g_MovingItem.Index = -98) then
+			exit;
+
+		if (g_MovingItem.Item.S.Name = '') or (g_WaitingUseItem.Item.S.Name <> '') then
+			exit;
+
 		where := GetTakeOnPosition (g_MovingItem.Item.S.StdMode);
+
 		if g_MovingItem.Index >= 0 then begin
 			case where of
 			U_DRESS: begin
 				if Sender = DSWDress then begin
-					if g_MySelf.m_btSex = 0 then //����
-					if g_MovingItem.Item.S.StdMode <> 10 then //���ڿ�
-					exit;
-                  if g_MySelf.m_btSex = 1 then //����
-                     if g_MovingItem.Item.S.StdMode <> 11 then //���ڿ�
-                        exit;
-                  flag := TRUE;
-               end;
+					if g_MySelf.m_btSex = 0 then begin //����
+						if g_MovingItem.Item.S.StdMode <> 10 then //���ڿ�
+							exit;
+					end
+
+					if g_MySelf.m_btSex = 1 then begin //����
+						if g_MovingItem.Item.S.StdMode <> 11 then //���ڿ�
+							exit;
+					end
+
+					flag := TRUE;
+				end;
             end;
+
             U_WEAPON: begin
                if Sender = DSWWEAPON then begin
                   flag := TRUE;
                end;
             end;
+
             U_NECKLACE: begin
                if Sender = DSWNecklace then
                   flag := TRUE;
             end;
+
             U_RIGHTHAND: begin
                if Sender = DSWLight then
                   flag := TRUE;
             end;
+
             U_HELMET: begin
                if Sender = DSWHelmet then
                   flag := TRUE;
             end;
+
             U_RINGR, U_RINGL: begin
                if Sender = DSWRingL then begin
                   where := U_RINGL;
@@ -3474,6 +3504,7 @@ begin
                   flag := TRUE;
                end;
             end;
+
             U_ARMRINGR: begin  //����
                if Sender = DSWArmRingL then begin
                   where := U_ARMRINGL;
@@ -3484,12 +3515,14 @@ begin
                   flag := TRUE;
                end;
             end;
+
             U_ARMRINGL: begin  //25,  ������,����
                if Sender = DSWArmRingL then begin
                   where := U_ARMRINGL;
                   flag := TRUE;
                end;
             end;
+
             U_BUJUK: begin
                if Sender = DSWBujuk then begin
                   where := U_BUJUK;
@@ -3500,18 +3533,21 @@ begin
                   flag := TRUE;
                end;               
             end;
+
             U_BELT: begin
                if Sender = DSWBelt then begin
                   where := U_BELT;
                   flag := TRUE;
                end;
             end;
+
             U_BOOTS: begin
                if Sender = DSWBoots then begin
                   where := U_BOOTS;
                   flag := TRUE;
                end;
             end;
+
             U_CHARM: begin
                if Sender = DSWCharm then begin
                   where := U_CHARM;
@@ -3519,6 +3555,7 @@ begin
                end;
             end;
          end;
+
       end else begin
          n := -(g_MovingItem.Index+1);
          if n in [0..12] then begin
@@ -3528,15 +3565,16 @@ begin
             g_boItemMoving := FALSE;
          end;
       end;
-      if flag then begin
-         ItemClickSound (g_MovingItem.Item.S);
-         g_WaitingUseItem := g_MovingItem;
-         g_WaitingUseItem.Index := where;
 
-         FrmMain.SendTakeOnItem (where, g_MovingItem.Item.MakeIndex, g_MovingItem.Item.S.Name);
-         g_MovingItem.Item.S.Name := '';
-         g_boItemMoving := FALSE;
-      end;
+	  if flag then begin
+		  ItemClickSound(g_MovingItem.Item.S);
+		  g_WaitingUseItem := g_MovingItem;
+		  g_WaitingUseItem.Index := where;
+
+		  FrmMain.SendTakeOnItem (where, g_MovingItem.Item.MakeIndex, g_MovingItem.Item.S.Name);
+		  g_MovingItem.Item.S.Name := '';
+		  g_boItemMoving := FALSE;
+	  end;
    end else begin
       flag := FALSE;
       if (g_MovingItem.Item.S.Name <> '') or (g_WaitingUseItem.Item.S.Name <> '') then exit;
