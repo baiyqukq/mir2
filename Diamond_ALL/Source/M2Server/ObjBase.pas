@@ -3413,60 +3413,70 @@ begin
   //004C7798
   try
     if m_boSuperMan then begin
-      m_WAbil.HP:=m_WAbil.MaxHP;
-      m_WAbil.MP:=m_WAbil.MaxMP;
-    end;
+		m_WAbil.HP:=m_WAbil.MaxHP;
+		m_WAbil.MP:=m_WAbil.MaxMP;
+	end;
+
     //004C77DA
     dwC:=(GetTickCount() - m_dwHPMPTick) div 20;
     m_dwHPMPTick:=GetTickCount();
+
     Inc(m_nHealthTick,dwC);
     Inc(m_nSpellTick,dwC);
-    //004C781D
-    if not m_boDeath then begin
-      if (m_WAbil.HP < m_WAbil.MaxHP) and (m_nHealthTick >= g_Config.nHealthFillTime) then begin
-        n18:= (m_WAbil.MaxHP div 75) + 1;
-        //nPlus = m_WAbility.MaxHP / 15 + 1;        
-        if (m_WAbil.HP + n18) < m_WAbil.MaxHP then begin
-          Inc(m_WAbil.HP,n18);
-        end else begin
-          m_WAbil.HP:=m_WAbil.MaxHP;
-        end;
-        HealthSpellChanged;
-      end;
-      //004C78AF
-      if (m_WAbil.MP < m_WAbil.MaxMP) and (m_nSpellTick >= g_Config.nSpellFillTime) then begin
-        n18:= (m_WAbil.MaxMP div 18) + 1;
-        if (m_WAbil.MP + n18) < m_WAbil.MaxMP then begin
-          Inc(m_WAbil.MP,n18);
-        end else begin
-          m_WAbil.MP:=m_WAbil.MaxMP;
-        end;
-        HealthSpellChanged;
-      end;
 
-      //004C7934
-      if m_WAbil.HP = 0 then begin
-        if ((m_LastHiter = nil) or not m_LastHiter.m_boUnRevival{防复活}) and m_boRevival and (GetTickCount - m_dwRevivalTick > g_Config.dwRevivalTime{60 * 1000}) then begin
-           m_dwRevivalTick:= GetTickCount();
-           ItemDamageRevivalRing;
-           m_WAbil.HP := m_WAbil.MaxHP;
-           HealthSpellChanged;
-           SysMsg (g_sRevivalRecoverMsg{'复活戒指生效，体力恢复'}, c_Green,t_Hint);
-        end;
-        if m_WAbil.HP = 0 then Die;
-      end;
-      if m_nHealthTick >= g_Config.nHealthFillTime then m_nHealthTick:=0;
-      if m_nSpellTick >= g_Config.nSpellFillTime then m_nSpellTick:=0;
-    end else begin
-      if (GetTickCount() - m_dwDeathTick > g_Config.dwMakeGhostTime {3 * 60 * 1000}) then
-        MakeGhost();
-    end;
-  except
-    on e: Exception do begin
-      MainOutMessage(sExceptionMsg1);
-      MainOutMessage(E.Message);
-    end;
-  end;
+    if not m_boDeath then begin
+		// 自动恢复HP
+		if (m_WAbil.HP < m_WAbil.MaxHP) and (m_nHealthTick >= g_Config.nHealthFillTime) then begin
+			n18:= (m_WAbil.MaxHP div 75) + 1;
+			//nPlus = m_WAbility.MaxHP / 15 + 1;        
+
+			if (m_WAbil.HP + n18) < m_WAbil.MaxHP then begin
+				Inc(m_WAbil.HP,n18);
+			end else begin
+				m_WAbil.HP:=m_WAbil.MaxHP;
+			end;
+
+			HealthSpellChanged;
+		end;
+
+		//自动恢复MP
+		if (m_WAbil.MP < m_WAbil.MaxMP) and (m_nSpellTick >= g_Config.nSpellFillTime) then begin
+			n18:= (m_WAbil.MaxMP div 18) + 1;
+
+			if (m_WAbil.MP + n18) < m_WAbil.MaxMP then begin
+				Inc(m_WAbil.MP,n18);
+			end else begin
+				m_WAbil.MP:=m_WAbil.MaxMP;
+			end;
+
+			HealthSpellChanged;
+		end;
+
+		//004C7934
+		if m_WAbil.HP = 0 then begin
+			if ((m_LastHiter = nil) or not m_LastHiter.m_boUnRevival{防复活}) and m_boRevival and (GetTickCount - m_dwRevivalTick > g_Config.dwRevivalTime{60 * 1000}) then begin
+				m_dwRevivalTick:= GetTickCount();
+				ItemDamageRevivalRing;
+				m_WAbil.HP := m_WAbil.MaxHP;
+				HealthSpellChanged;
+				SysMsg (g_sRevivalRecoverMsg{'复活戒指生效，体力恢复'}, c_Green,t_Hint);
+			end;
+			if m_WAbil.HP = 0 then Die;
+		end;
+
+		if m_nHealthTick >= g_Config.nHealthFillTime then m_nHealthTick:=0;
+		if m_nSpellTick >= g_Config.nSpellFillTime then m_nSpellTick:=0;
+
+	end else begin
+		if (GetTickCount() - m_dwDeathTick > g_Config.dwMakeGhostTime {3 * 60 * 1000}) then
+			MakeGhost();
+	end;
+	except
+		on e: Exception do begin
+			MainOutMessage(sExceptionMsg1);
+			MainOutMessage(E.Message);
+		end;
+	end;
 
   //004C7A34
   try
