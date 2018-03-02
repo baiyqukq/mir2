@@ -2,6 +2,9 @@ unit SelectChrScene
 
 interface
 
+uses
+	Share
+
 type
 	TSelChar = record
 		Valid: Boolean;
@@ -511,9 +514,13 @@ begin
 		 // Show server's name
          with MSurface do begin
             SetBkMode (Canvas.Handle, TRANSPARENT);
-            if BO_FOR_TEST then svname := 'Debug Server'
-            else svname := g_sServerName;
-            BoldTextOut (MSurface, SCREENWIDTH div 2{405} - Canvas.TextWidth(svname) div 2, (SCREENHEIGHT - 600) div 2 + 8{8}, clWhite, clBlack, svname);
+
+            if BO_FOR_TEST then 
+				svname := 'Debug Server'
+            else
+				svname := g_sServerName;
+
+            BoldTextOut (MSurface, SCREENWIDTH div 2{400} - Canvas.TextWidth(svname) div 2, (SCREENHEIGHT - 600) div 2 + 8{8}, clWhite, clBlack, svname);
             Canvas.Release;
          end;
       end;
