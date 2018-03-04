@@ -29,37 +29,37 @@ const
    MAXEFFECT = 49{31};		// MaxEffect
    {
    EffectBase: array[0..MAXEFFECT-1] of integer = (
-      0,             //0  화염장
-      200,           //1  회복술
-      400,           //2  금강화염장
-      600,           //3  암연술
-      0,             //4  검광
-      900,           //5  화염풍
-      920,           //6  화염방사
+      0,             //0  FireBall
+      200,           //1  Healing
+      400,           //2  GreatFireBall
+      600,           //3  Poisoning
+      0,             //4  
+      900,           //5  Repulsion
+      920,           //6  HellFire
       940,           //7  뢰인장 //시전효과없음
       20,            //8  강격,  Magic2
       940,           //9  폭살계 //시전효과없음
       940,           //10 대지원호 //시전효과없음
       940,           //11 대지원호마 //시전효과없음
       0,             //12 어검술
-      1380,          //13 결계
+      1380,          //13 TrapHexagon
       1500,          //14 백골투자소환, 소환술
-      1520,          //15 은신술
+      1520,          //15 Hiding
       940,           //16 대은신
-      1560,          //17 전기충격
+      1560,          //17 Eshock
       1590,          //18 순간이동
       1620,          //19 지열장
-      1650,          //20 화염폭발
-      1680,          //21 대은하(전기퍼짐)
+      1650,          //20 FireBall
+      1680,          //21 ThunderStorm
       0,           //22 반월검법
       0,           //23 염화결
       0,           //24 무태보
-      3960,          //25 탐기파연
-      1790,          //26 대회복술
+      3960,          //25 Revelation
+      1790,          //26 MassHealing
       0,            //27 신수소환  Magic2
-      3880,          //28 주술의막
-      3920,          //29 사자윤회
-      3840,          //30 빙설풍
+      3880,          //28 MagicShield
+      3920,          //29 TurnUndead
+      3840,          //30 IceStorm
       1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18
    );
    }
@@ -117,11 +117,11 @@ const
    MAXHITEFFECT = 8{5};
    {
    HitEffectBase: array[0..MAXHITEFFECT-1] of integer = (
-      800,           //0, 어검술
-      1410,          //1 어검술
-      1700,          //2 반월검법
-      3480,          //3 염화결, 시작
-      3390,          //4 염화결 반짝임
+      800,           //0 Slaying
+      1410,          //1 Thrusting 
+      1700,          //2 HalfMoon
+      3480,          //3 FlamingSword, Prepared
+      3390,          //4 FlamingSword, Trigger
       1,2,3
    );
    }
@@ -228,14 +228,16 @@ type
    public
       procedure DrawEff (surface: TDirectDrawSurface); override;
    end;
+   
    TFlyingFireBall = class (TFlyingAxe) //0xD0
    public
       procedure DrawEff (surface: TDirectDrawSurface); override;
    end;
+   
    TCharEffect = class (TMagicEff)
    public
       constructor Create (effbase, effframe: integer; target: TObject);
-      function  Run: Boolean; override; //false:끝났음.
+      function  Run: Boolean; override; //false:Finish.
       procedure DrawEff (surface: TDirectDrawSurface); override;
    end;
 
@@ -243,7 +245,7 @@ type
    public
       RepeatCount: integer;
       constructor Create (effbase, effframe: integer; x, y: integer);
-      function  Run: Boolean; override; //false:끝났음.
+      function  Run: Boolean; override; //false:Finish.
       procedure DrawEff (surface: TDirectDrawSurface); override;
    end;
 
@@ -326,7 +328,6 @@ begin
       0: begin
             case mag of
                8,27,33..35,37..39,41..42,43,44,45{46}..48: begin
-
                  wimg := g_WMagic2Images;
                  if mag in [0..MAXEFFECT-1] then
                    idx := EffectBase[mag];

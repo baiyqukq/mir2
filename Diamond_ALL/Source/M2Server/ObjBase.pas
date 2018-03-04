@@ -119,7 +119,7 @@ type
     m_dwStatusArrTick         :array [0..MAX_STATUS_ATTRIBUTE -1] of LongWord; //0x1E8
     m_wStatusArrValue         :array [0..5] of Word; //0x218
     m_dwStatusArrTimeOutTick  :array [0..5] of LongWord; // :Tarry220;           //0x220
-    m_wAppr                   :Word;         //0x238
+    m_wAppr                   :Word;         //0x238	Appearance
     m_btRaceServer            :Byte;         //0x23A   //角色类型
     m_btRaceImg               :Byte;         //0x23B   //角色外形
     m_btHitPoint              :Byte;         //0x23C   人物攻击准确度(Byte)
