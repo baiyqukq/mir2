@@ -2981,16 +2981,17 @@ begin
                      dsurface.Draw (SurfaceX(bbx+ax), SurfaceY(bby+ay), d.ClientRect, d, TRUE);
                end;
             end;
-            if g_UseItems[U_HELMET].S.Name <> '' then begin
-               idx := g_UseItems[U_HELMET].S.Looks;
-               if idx >= 0 then begin
-                  //d := FrmMain.WStateItem.GetCachedImage (idx, ax, ay);
-                  d := FrmMain.GetWStateImg(idx,ax,ay);
-                  if d <> nil then
-                     dsurface.Draw (SurfaceX(bbx+ax), SurfaceY(bby+ay), d.ClientRect, d, TRUE);
-               end;
-            end;
-         end;
+
+			if g_UseItems[U_HELMET].S.Name <> '' then begin
+				idx := g_UseItems[U_HELMET].S.Looks;
+				if idx >= 0 then begin
+					//d := FrmMain.WStateItem.GetCachedImage (idx, ax, ay);
+					d := FrmMain.GetWStateImg(idx,ax,ay);
+					if d <> nil then
+						dsurface.Draw (SurfaceX(bbx+ax), SurfaceY(bby+ay), d.ClientRect, d, TRUE);
+				end;
+			end;
+		end;
 
 		 // Statistics
          1: begin 
@@ -3790,132 +3791,145 @@ begin
 			rc := Rect (Left, Top, Right, Top+120);
 
 		btop := SCREENHEIGHT - d.height;
-		dsurface.Draw (0,
-			btop,
-			rc,
-			d, TRUE);
+		dsurface.Draw (0, btop, rc, d, TRUE);
 
 		with d.ClientRect do
 			rc := Rect (Left, Top+120, Right, Bottom);
 
-		dsurface.Draw (0,
-                   btop + 120,
-                   rc,
-                   d, FALSE);
-   end;
+		dsurface.Draw (0, btop + 120, rc, d, FALSE);
+	end;
 
-   d := nil;
+	d := nil;
 
-   case g_nDayBright of
-      0: d := g_WMainImages.Images[15];  // morning
-      1: d := g_WMainImages.Images[12];  // noon
-      2: d := g_WMainImages.Images[13];  // evening
-      3: d := g_WMainImages.Images[14];  // night 
-   end;
+	case g_nDayBright of
+		0: d := g_WMainImages.Images[15];  // morning
+		1: d := g_WMainImages.Images[12];  // noon
+		2: d := g_WMainImages.Images[13];  // evening
+		3: d := g_WMainImages.Images[14];  // night 
+	end;
 
-   if d <> nil then
-     dsurface.Draw (SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 348)){748}, 79+DBottom.Top, d.ClientRect, d, FALSE);
+	if d <> nil then
+		dsurface.Draw (SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 348)){748}, 79+DBottom.Top, d.ClientRect, d, FALSE);
 
-   if g_MySelf <> nil then begin
-      // Show HP and MP
-      if (g_MySelf.m_Abil.MaxHP > 0) and (g_MySelf.m_Abil.MaxMP > 0) then begin
-         if (g_MySelf.m_btJob = 0) and (g_MySelf.m_Abil.Level < 28) then begin //��ʿ
-            d := g_WMainImages.Images[5];
-            if d <> nil then begin
-               rc := d.ClientRect;
-               rc.Right := d.ClientRect.Right - 2;
-               dsurface.Draw (38, btop+90, rc, d, FALSE);
-            end;
-            d := g_WMainImages.Images[6];
-            if d <> nil then begin
-               rc := d.ClientRect;
-               rc.Right := d.ClientRect.Right - 2;
-               rc.Top := Round(rc.Bottom / g_MySelf.m_Abil.MaxHP * (g_MySelf.m_Abil.MaxHP - g_MySelf.m_Abil.HP));
-               dsurface.Draw (38, btop+90+rc.Top, rc, d, FALSE);
-            end;
-         end else begin
-            d := g_WMainImages.Images[4];
-            if d <> nil then begin
-               //HP Bar
-               rc := d.ClientRect;
-               rc.Right := d.ClientRect.Right div 2 - 1;
-               rc.Top := Round(rc.Bottom / g_MySelf.m_Abil.MaxHP * (g_MySelf.m_Abil.MaxHP - g_MySelf.m_Abil.HP));
-               dsurface.Draw (40, btop+91+rc.Top, rc, d, FALSE);
-               //MP Bar
-               rc := d.ClientRect;
-               rc.Left := d.ClientRect.Right div 2 + 1;
-               rc.Right := d.ClientRect.Right - 1;
-               rc.Top := Round(rc.Bottom / g_MySelf.m_Abil.MaxMP * (g_MySelf.m_Abil.MaxMP - g_MySelf.m_Abil.MP));
-               dsurface.Draw (40 + rc.Left, btop+91+rc.Top, rc, d, FALSE);
-            end;
-         end;
-      end;
+	if g_MySelf <> nil then begin
+		// Show HP and MP
+		if (g_MySelf.m_Abil.MaxHP > 0) and (g_MySelf.m_Abil.MaxMP > 0) then begin
+			if (g_MySelf.m_btJob = 0) and (g_MySelf.m_Abil.Level < 28) then begin // Warrior before 28 Lv.
+				d := g_WMainImages.Images[5];
 
-      //Level
-      with dsurface.Canvas do begin
-        PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 104, IntToStr(g_MySelf.m_Abil.Level));
-      end;
+				if d <> nil then begin
+					rc := d.ClientRect;
+					rc.Right := d.ClientRect.Right - 2;
+					dsurface.Draw (38, btop+90, rc, d, FALSE);
+				end;
 
-      if (g_MySelf.m_Abil.MaxExp > 0) and (g_MySelf.m_Abil.MaxWeight > 0) then begin
-         d := g_WMainImages.Images[7];
-         if d <> nil then begin
-            //Experience
-            rc := d.ClientRect;
-            if g_MySelf.m_Abil.Exp > 0 then r := g_MySelf.m_Abil.MaxExp / g_MySelf.m_Abil.Exp
-            else r := 0;
-            if r > 0 then rc.Right := Round (rc.Right / r)
-            else rc.Right := 0;
-            {
-            dsurface.Draw (666, 527, rc, d, FALSE);
-            PomiTextOut (dsurface, 660, 528, IntToStr(Myself.Abil.Exp));
-            }
-            dsurface.Draw (SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 266)){666}, SCREENHEIGHT - 73, rc, d, FALSE);
-            //PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 72, FloatToStrFixFmt (100 * g_MySelf.m_Abil.Exp / g_MySelf.m_Abil.MaxExp, 3, 2) + '%');
-            //PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 57, IntToStr(g_MySelf.m_Abil.MaxExp));
+				d := g_WMainImages.Images[6];
 
-            // Item bag weight bar
-            rc := d.ClientRect;
-            if g_MySelf.m_Abil.Weight > 0 then r := g_MySelf.m_Abil.MaxWeight / g_MySelf.m_Abil.Weight
-            else r := 0;
-            if r > 0 then rc.Right := Round (rc.Right / r)
-            else rc.Right := 0;
-            {
-            dsurface.Draw (666, 560, rc, d, FALSE);
-            PomiTextOut (dsurface, 660, 561, IntToStr(Myself.Abil.Weight));
-            }
-            dsurface.Draw (SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 266)){666}, SCREENHEIGHT - 40, rc, d, FALSE);
-            //PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 39, IntToStr(g_MySelf.m_Abil.Weight) + '/' + IntToStr(g_MySelf.m_Abil.MaxWeight));
-            //PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 24, IntToStr(g_MySelf.m_Abil.MaxWeight));
-         end;
-      end;
-      //PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 355)){755}, SCREENHEIGHT - 15, IntToStr(g_nMyHungryState));
-      // Hungry State
-      if g_nMyHungryState in [1..4] then begin
-        d := g_WMainImages.Images[16 + g_nMyHungryState-1];
-        if d <> nil then begin
-          dsurface.Draw (SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 354)){754}, 553, d.ClientRect, d, TRUE);
-        end;
+				if d <> nil then begin
+					rc := d.ClientRect;
+					rc.Right := d.ClientRect.Right - 2;
+					rc.Top := Round(rc.Bottom / g_MySelf.m_Abil.MaxHP * (g_MySelf.m_Abil.MaxHP - g_MySelf.m_Abil.HP));
+					dsurface.Draw (38, btop+90+rc.Top, rc, d, FALSE);
+				end;
+			end else begin
+				d := g_WMainImages.Images[4];
 
-      end;
+				if d <> nil then begin
+					//HP Bar
+					rc := d.ClientRect;
+					rc.Right := d.ClientRect.Right div 2 - 1;
+					rc.Top := Round(rc.Bottom / g_MySelf.m_Abil.MaxHP * (g_MySelf.m_Abil.MaxHP - g_MySelf.m_Abil.HP));
+					dsurface.Draw (40, btop+91+rc.Top, rc, d, FALSE);
 
-   end;
+					//MP Bar
+					rc := d.ClientRect;
+					rc.Left := d.ClientRect.Right div 2 + 1;
+					rc.Right := d.ClientRect.Right - 1;
+					rc.Top := Round(rc.Bottom / g_MySelf.m_Abil.MaxMP * (g_MySelf.m_Abil.MaxMP - g_MySelf.m_Abil.MP));
+					dsurface.Draw (40 + rc.Left, btop+91+rc.Top, rc, d, FALSE);
+				end;
+			end;
+		end;
 
-   // Draw chat text
-   sx := 208;
-   sy := SCREENHEIGHT - 130;
-   with DScreen do begin
-      SetBkMode (dsurface.Canvas.Handle, OPAQUE);
-      for i := ChatBoardTop to ChatBoardTop + VIEWCHATLINE-1 do begin
-         if i > ChatStrs.Count-1 then break;
-         fcolor := integer(ChatStrs.Objects[i]);
-         bcolor := integer(ChatBks[i]);
-         dsurface.Canvas.Font.Color := fcolor;
-         dsurface.Canvas.Brush.Color := bcolor;
-         dsurface.Canvas.TextOut (sx, sy+(i-ChatBoardTop)*12, ChatStrs.Strings[i]);
-      end;
-   end;
-   dsurface.Canvas.Release;
+		//Level
+		with dsurface.Canvas do begin
+			PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 104, IntToStr(g_MySelf.m_Abil.Level));
+		end;
 
+		if (g_MySelf.m_Abil.MaxExp > 0) and (g_MySelf.m_Abil.MaxWeight > 0) then begin
+			d := g_WMainImages.Images[7];
+			if d <> nil then begin
+				//Experience
+				rc := d.ClientRect;
+
+				if g_MySelf.m_Abil.Exp > 0 then
+					r := g_MySelf.m_Abil.MaxExp / g_MySelf.m_Abil.Exp
+				else 
+					r := 0;
+
+				if r > 0 then
+					rc.Right := Round (rc.Right / r)
+				else
+					rc.Right := 0;
+
+				{
+				dsurface.Draw (666, 527, rc, d, FALSE);
+				PomiTextOut (dsurface, 660, 528, IntToStr(Myself.Abil.Exp));
+				}
+
+				dsurface.Draw (SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 266)){666}, SCREENHEIGHT - 73, rc, d, FALSE);
+				//PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 72, FloatToStrFixFmt (100 * g_MySelf.m_Abil.Exp / g_MySelf.m_Abil.MaxExp, 3, 2) + '%');
+				//PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 57, IntToStr(g_MySelf.m_Abil.MaxExp));
+
+				// Item bag weight bar
+				rc := d.ClientRect;
+
+				if g_MySelf.m_Abil.Weight > 0 then
+					r := g_MySelf.m_Abil.MaxWeight / g_MySelf.m_Abil.Weight
+				else
+					r := 0;
+
+				if r > 0 then 
+					rc.Right := Round (rc.Right / r)
+				else
+					rc.Right := 0;
+
+				{
+				dsurface.Draw (666, 560, rc, d, FALSE);
+				PomiTextOut (dsurface, 660, 561, IntToStr(Myself.Abil.Weight));
+				}
+				dsurface.Draw (SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 266)){666}, SCREENHEIGHT - 40, rc, d, FALSE);
+				//PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 39, IntToStr(g_MySelf.m_Abil.Weight) + '/' + IntToStr(g_MySelf.m_Abil.MaxWeight));
+				//PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 260)){660}, SCREENHEIGHT - 24, IntToStr(g_MySelf.m_Abil.MaxWeight));
+			end;
+		end;
+
+		//PomiTextOut (dsurface, SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 355)){755}, SCREENHEIGHT - 15, IntToStr(g_nMyHungryState));
+		// Hungry State
+		if g_nMyHungryState in [1..4] then begin
+			d := g_WMainImages.Images[16 + g_nMyHungryState-1];
+			if d <> nil then begin
+				dsurface.Draw (SCREENWIDTH div 2 + (SCREENWIDTH div 2 - (400 - 354)){754}, 553, d.ClientRect, d, TRUE);
+			end;
+		end;
+	end;
+
+	// Draw chat text
+	sx := 208;
+	sy := SCREENHEIGHT - 130;
+	with DScreen do begin
+		SetBkMode (dsurface.Canvas.Handle, OPAQUE);
+		for i := ChatBoardTop to ChatBoardTop + VIEWCHATLINE-1 do begin
+			if i > ChatStrs.Count-1 then break;
+			fcolor := integer(ChatStrs.Objects[i]);
+			bcolor := integer(ChatBks[i]);
+			dsurface.Canvas.Font.Color := fcolor;
+			dsurface.Canvas.Brush.Color := bcolor;
+			dsurface.Canvas.TextOut (sx, sy+(i-ChatBoardTop)*12, ChatStrs.Strings[i]);
+		end;
+	end;
+
+	dsurface.Canvas.Release;
 end;
 
 
