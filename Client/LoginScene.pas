@@ -655,7 +655,7 @@ begin
    end;
    if m_boNowOpening then begin
 //      if GetTickCount - StartTime > 230 then begin
-//开门速度
+// Open the door
       if GetTickCount - m_dwStartTime > 50 then begin
          m_dwStartTime := GetTickCount;
          Inc (m_nCurFrame);

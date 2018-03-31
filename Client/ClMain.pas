@@ -435,68 +435,71 @@ end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 var
-  flname, str: string;
-  ini: TIniFile;
-  FtpConf:TIniFile;
+	flname, str: string;
+	ini: TIniFile;
+	FtpConf:TIniFile;
 begin
-  ini := nil;
-  FtpConf := nil;
+	ini := nil;
+	FtpConf := nil;
 
+	g_AutoPickupList :=TList.Create;
+	g_ShowItemList   :=TGList.Create;
 
+	g_DWinMan:=TDWinManager.Create(Self);
+	g_DXDraw:=DXDraw;
 
-  g_AutoPickupList :=TList.Create;
-  g_ShowItemList   :=TGList.Create;
+	Randomize;
 
-  g_DWinMan:=TDWinManager.Create(Self);
-  g_DXDraw:=DXDraw;
-   Randomize;
-   ini := TIniFile.Create ('.\mir.ini');
-   if ini <> nil then begin
-      if EnglishVersion then begin
-         g_sServerAddr := ini.ReadString ('Setup', 'ServerAddr', g_sServerAddr);
-         g_nServerPort := ini.ReadInteger ('Setup', 'ServerPort', g_nServerPort);
-         LocalLanguage := imOpen;
-      end;
+	ini := TIniFile.Create ('.\mir.ini');
+	if ini <> nil then begin
+		if EnglishVersion then begin
+			g_sServerAddr := ini.ReadString ('Setup', 'ServerAddr', g_sServerAddr);
+			g_nServerPort := ini.ReadInteger ('Setup', 'ServerPort', g_nServerPort);
+			LocalLanguage := imOpen;
+		end;
 
-      g_boFullScreen := ini.ReadBool ('Setup', 'FullScreen', g_boFullScreen);
-      g_sCurFontName := ini.ReadString ('Setup', 'FontName', g_sCurFontName);
-      g_sMainParam1:=Ini.ReadString('Setup', 'Param1', '');
-      g_sMainParam2:=Ini.ReadString('Setup', 'Param2', '');
-      ini.Free;
-   end;
-   FtpConf:=TIniFile.Create('.\ftp.ini');
+		g_boFullScreen := ini.ReadBool ('Setup', 'FullScreen', g_boFullScreen);
+		g_sCurFontName := ini.ReadString ('Setup', 'FontName', g_sCurFontName);
+		g_sMainParam1:=Ini.ReadString('Setup', 'Param1', '');
+		g_sMainParam2:=Ini.ReadString('Setup', 'Param2', '');
+		ini.Free;
+	end;
+
+	FtpConf:=TIniFile.Create('.\ftp.ini');
 
 {$IF CLIENTTYPE = RMCLIENT} //检查如果客户端的标识不正确,则控制权限
-    g_sLogoText:=RMCLIENTTITLE;
+	g_sLogoText:=RMCLIENTTITLE;
 {$ELSE}
-   if FtpConf <> nil then begin
-     g_sLogoText:=FtpConf.ReadString('Server','Server1Caption',g_sLogoText);
-     FtpConf.Free;
-   end;
+	if FtpConf <> nil then begin
+		g_sLogoText:=FtpConf.ReadString('Server','Server1Caption',g_sLogoText);
+		FtpConf.Free;
+	end;
 {$IFEND}
 
-   Caption:=g_sLogoText;
-   if g_boFullScreen then
-     DXDraw.Options:=DXDraw.Options + [doFullScreen];
-   LoadWMImagesLib(nil);
-   NpcImageList:=TList.Create;
-   ItemImageList:=TList.Create;
-   WeaponImageList:=TList.Create;
-   HumImageList:=TList.Create;
-   g_DXSound:=TDXSound.Create(Self);
-   g_DXSound.Initialize;
-     
+	Caption:=g_sLogoText;
 
-   DXDraw.Display.Width:=SCREENWIDTH;
-   DXDraw.Display.Height:=SCREENHEIGHT;
-   //
-  if g_DXSound.Initialized then begin
-    g_Sound:= TSoundEngine.Create (g_DXSound.DSound);
-    MP3:=TMPEG.Create(nil);
-  end else begin
-    g_Sound:= nil;
-    MP3:=nil;
-  end;
+	if g_boFullScreen then
+		DXDraw.Options:=DXDraw.Options + [doFullScreen];
+
+	LoadWMImagesLib(nil);
+	NpcImageList:=TList.Create;
+	ItemImageList:=TList.Create;
+	WeaponImageList:=TList.Create;
+	HumImageList:=TList.Create;
+	g_DXSound:=TDXSound.Create(Self);
+	g_DXSound.Initialize;
+
+
+	DXDraw.Display.Width:=SCREENWIDTH;
+	DXDraw.Display.Height:=SCREENHEIGHT;
+	
+	if g_DXSound.Initialized then begin
+		g_Sound:= TSoundEngine.Create (g_DXSound.DSound);
+		MP3:=TMPEG.Create(nil);
+	end else begin
+		g_Sound:= nil;
+		MP3:=nil;
+	end;
 
    g_ToolMenuHook := SetWindowsHookEx(WH_KEYBOARD, @KeyboardHookProc, 0, GetCurrentThreadID);
 
