@@ -27,74 +27,39 @@ const
    FIREGUNFRAME = 6;		// FireGunFrame
 
    MAXEFFECT = 49{31};		// MaxEffect
-   {
+
    EffectBase: array[0..MAXEFFECT-1] of integer = (
-      0,             //0  FireBall
-      200,           //1  Healing
-      400,           //2  GreatFireBall
-      600,           //3  Poisoning
-      0,             //4  
-      900,           //5  Repulsion
-      920,           //6  HellFire
-      940,           //7  뢰인장 //시전효과없음
-      20,            //8  강격,  Magic2
-      940,           //9  폭살계 //시전효과없음
-      940,           //10 대지원호 //시전효과없음
-      940,           //11 대지원호마 //시전효과없음
-      0,             //12 어검술
-      1380,          //13 TrapHexagon
-      1500,          //14 백골투자소환, 소환술
-      1520,          //15 Hiding
-      940,           //16 대은신
-      1560,          //17 Eshock
-      1590,          //18 순간이동
-      1620,          //19 지열장
-      1650,          //20 FireBall
-      1680,          //21 ThunderStorm
-      0,           //22 반월검법
-      0,           //23 염화결
-      0,           //24 무태보
-      3960,          //25 Revelation
-      1790,          //26 MassHealing
-      0,            //27 신수소환  Magic2
-      3880,          //28 MagicShield
-      3920,          //29 TurnUndead
-      3840,          //30 IceStorm
-      1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18
-   );
-   }
-  EffectBase: array[0..MAXEFFECT-1] of integer = (
-    0,{1}
-    200,{2}
-    400,{3}
-    600,{4}
+    0,{1}		//FireBall
+    200,{2}		//Healing
+    400,{3}		//GreatFireBall
+    600,{4}		//Poisoning
     0,{5}
-    900,{6}
-    920,{7}
-    940,{8}
-    20,{9}
-    940,{10}
-    940,{11}
-    940,{12}
-    0,{13}
-    1380,{14}
-    1500,{15}
-    1520,{16}
-    940,{17}
-    1560,{18}
-    1590,{19}
-    1620,{20}
-    1650,{21}
-    1680,{22}
-    0,{23}
-    0,{24}
-    0,{25}
-    3960,{26}
-    1790,{27}
-    0,{28}
-    3880,{29}
-    3920,{30}
-    3840,{31}
+    900,{6}		//Repulsion
+    920,{7}		//HellFire
+    940,{8}		//뢰인장 //No casting effect
+    20,{9}		//강격,  Magic2
+    940,{10}	//폭살계 //No casting effect
+    940,{11}	//대지원호 //No casting effect
+    940,{12}	//대지원호마 //No casting effect
+    0,{13}		//어검술
+    1380,{14}	//TrapHexagon
+    1500,{15}	//백골투자소환, 소환술
+    1520,{16}	//Hiding
+    940,{17}	//대은신
+    1560,{18}	//Eshock
+    1590,{19}	//순간이동
+    1620,{20}	//지열장
+    1650,{21}	//FireBall
+    1680,{22}	//ThunderStorm
+    0,{23}		//반월검법
+    0,{24}		//염화결
+    0,{25}		//무태보
+    3960,{26}	//Revelation
+    1790,{27}	//MassHealing
+    0,{28}		//신수소환  Magic2
+    3880,{29}	//MagicShield
+    3920,{30}	//TurnUndead
+    3840,{31}	//IceStorm
     0,{32}
     40,{33}
     130, {34}
@@ -1509,3 +1474,5 @@ begin
 end;
 
 end.
+
+//vi: ++enc=enc-kr
