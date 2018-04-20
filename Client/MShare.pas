@@ -15,14 +15,30 @@ type
   end;
   TPowerBlock = array[0..100-1] of Word;
   pTMovingItem = ^TMovingItem;
-  TItemType = (i_HPDurg,i_MPDurg,i_HPMPDurg,i_OtherDurg,i_Weapon,i_Dress,i_Helmet,i_Necklace,i_Armring,i_Ring,i_Belt,i_Boots,i_Charm,i_Book,i_PosionDurg,i_UseItem,i_Scroll,i_Stone,i_Gold,i_Other);
-//  [药品] [武器][衣服][头盔][项链][手镯][戒指][腰带][鞋子][宝石][技能书][毒药][消耗品][其它]
-    {
-    i_HPDurg    :Result:='金创药';
-    i_MPDurg    :Result:='魔法药';
-    i_HPMPDurg  :Result:='高级药';
-    i_OtherDurg :Result:='其它药品';
-    }
+
+  TItemType = (
+  i_HPDurg,			//i_HPDurg    :Result:='金创药';
+  i_MPDurg,			//i_MPDurg    :Result:='魔法药';
+  i_HPMPDurg,		//i_HPMPDurg  :Result:='高级药';
+  i_OtherDurg,		//i_OtherDurg :Result:='其它药品';
+  i_Weapon,			//[武器]
+  i_Dress,			//[衣服]
+  i_Helmet,			//[头盔]
+  i_Necklace,		//[项链]
+  i_Armring,		//[手镯]
+  i_Ring,			//[戒指]
+  i_Belt,			//[腰带]
+  i_Boots,			//[鞋子]
+  i_Charm,			//[宝石]
+  i_Book,			//[技能书]
+  i_PosionDurg,		//[毒药]
+  i_UseItem,		//[消耗品]
+  i_Scroll,
+  i_Stone,
+  i_Gold,
+  i_Other
+  );
+
   TShowItem = record
     sItemName    :String;
     ItemType     :TItemType;
@@ -32,6 +48,7 @@ type
     nBColor      :Integer;
   end;
   pTShowItem = ^TShowItem;
+
   TControlInfo = record
     Image       :Integer;
     Left        :Integer;
@@ -41,6 +58,7 @@ type
     Obj         :TDControl;
   end;
   pTControlInfo = ^TControlInfo;
+
   TConfig = record
     DMsgDlg       :TControlInfo;
     DMsgDlgOk     :TControlInfo;
@@ -184,6 +202,7 @@ var
 	$00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,
 	$00, $00, $00, $00, $00, $00, $00, $00
    );
+
   g_PowerBlock1:TPowerBlock = (
 	$55, $8B, $EC, $83, $C4, $E8, $89, $55, $F8, $89, $45, $FC, $C7, $45, $EC, $64,
 	$00, $00, $00, $C7, $45, $E8, $64, $00, $00, $00, $DB, $45, $EC, $DB, $45, $E8,
@@ -193,6 +212,7 @@ var
 	$00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,
 	$00, $00, $00, $00, $00, $00, $00, $00
    );
+
   g_RegInfo          :TRegInfo;
   g_nThisCRC         :Integer;
   g_sServerName      :String; //服务器显示名称

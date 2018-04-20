@@ -19,42 +19,42 @@ const
 
 
 type
-   TDrawScreen = class
-   private
-      m_dwFrameTime       :LongWord;
-      m_dwFrameCount      :LongWord;
-      m_dwDrawFrameCount  :LongWord;
-      m_SysMsgList        :TStringList;
-   public
-      CurrentScene: TScene;
-      ChatStrs: TStringList;
-      ChatBks: TList;
-      ChatBoardTop: integer;
+	TDrawScreen = class
+	private
+		m_dwFrameTime       :LongWord;
+		m_dwFrameCount      :LongWord;
+		m_dwDrawFrameCount  :LongWord;
+		m_SysMsgList        :TStringList;
+	public
+		CurrentScene: TScene;
+		ChatStrs: TStringList;
+		ChatBks: TList;
+		ChatBoardTop: integer;
 
-      HintList: TStringList;
-      HintX, HintY, HintWidth, HintHeight: integer;
-      HintUp: Boolean;
-      HintColor: TColor;
+		HintList: TStringList;
+		HintX, HintY, HintWidth, HintHeight: integer;
+		HintUp: Boolean;
+		HintColor: TColor;
 
-      constructor Create;
-      destructor Destroy; override;
-      procedure KeyPress (var Key: Char);
-      procedure KeyDown (var Key: Word; Shift: TShiftState);
-      procedure MouseMove (Shift: TShiftState; X, Y: Integer);
-      procedure MouseDown (Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-      procedure Initialize;
-      procedure Finalize;
-      procedure ChangeScene (scenetype: TSceneType);
-      procedure DrawScreen (MSurface: TDirectDrawSurface);
-      procedure DrawScreenTop (MSurface: TDirectDrawSurface);
-      procedure AddSysMsg (msg: string);
-      procedure AddChatBoardString (str: string; fcolor, bcolor: integer);
-      procedure ClearChatBoard;
+		constructor Create;
+		destructor Destroy; override;
+		procedure KeyPress (var Key: Char);
+		procedure KeyDown (var Key: Word; Shift: TShiftState);
+		procedure MouseMove (Shift: TShiftState; X, Y: Integer);
+		procedure MouseDown (Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+		procedure Initialize;
+		procedure Finalize;
+		procedure ChangeScene (scenetype: TSceneType);
+		procedure DrawScreen (MSurface: TDirectDrawSurface);
+		procedure DrawScreenTop (MSurface: TDirectDrawSurface);
+		procedure AddSysMsg (msg: string);
+		procedure AddChatBoardString (str: string; fcolor, bcolor: integer);
+		procedure ClearChatBoard;
 
-      procedure ShowHint (x, y: integer; str: string; color: TColor; drawup: Boolean);
-      procedure ClearHint;
-      procedure DrawHint (MSurface: TDirectDrawSurface);
-   end;
+		procedure ShowHint (x, y: integer; str: string; color: TColor; drawup: Boolean);
+		procedure ClearHint;
+		procedure DrawHint (MSurface: TDirectDrawSurface);
+end;
 
 
 implementation
