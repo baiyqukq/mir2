@@ -260,98 +260,111 @@ var
    rc: TRect;
    infoMsg :String;
 begin
-   MSurface.Fill(0);
-   if CurrentScene <> nil then
-      CurrentScene.PlayScene (MSurface);
+	MSurface.Fill(0);
 
-   if GetTickCount - m_dwFrameTime > 1000 then begin
-      m_dwFrameTime := GetTickCount;
-      m_dwDrawFrameCount := m_dwFrameCount;
-      m_dwFrameCount := 0;
-   end;
-   Inc (m_dwFrameCount);
+	if CurrentScene <> nil then
+		CurrentScene.PlayScene (MSurface);
 
-   if g_MySelf = nil then exit;
+	if GetTickCount - m_dwFrameTime > 1000 then begin
+		m_dwFrameTime := GetTickCount;
+		m_dwDrawFrameCount := m_dwFrameCount;
+		m_dwFrameCount := 0;
+	end;
 
-   if CurrentScene = PlayScene then begin
-      with MSurface do begin
-         //¸Ó¸®À§¿¡ Ã¼·Â Ç¥½Ã ÇØ¾ß ÇÏ´Â °Íµé
-         with PlayScene do begin
-            for k:=0 to m_ActorList.Count-1 do begin
-               actor := m_ActorList[k];
-         //ÏÔÊ¾ÈËÎïÑªÁ¿(Êý×ÖÏÔÊ¾)Jacky
-         if g_boShowHPNumber and (actor.m_Abil.MaxHP > 1) and not actor.m_boDeath then begin
-           SetBkMode (Canvas.Handle, TRANSPARENT);
-           infoMsg:=IntToStr(actor.m_Abil.HP) + '/' + IntToStr(actor.m_Abil.MaxHP);
-           BoldTextOut (MSurface,actor.m_nSayX - 15 ,actor.m_nSayY - 5, clWhite, clBlack,infoMsg );
-           Canvas.Release;
-         end;
-             if g_boShowRedHPLable then actor.m_boOpenHealth:=True; //ÏÔÊ¾ÑªÌõ
-               if (actor.m_boOpenHealth or actor.m_noInstanceOpenHealth) and not actor.m_boDeath then begin
-                  if actor.m_noInstanceOpenHealth then
-                     if GetTickCount - actor.m_dwOpenHealthStart > actor.m_dwOpenHealthTime then
-                        actor.m_noInstanceOpenHealth := FALSE;
-                  d := g_WMain2Images.Images[HEALTHBAR_BLACK];
-                  if d <> nil then
-                     MSurface.Draw (actor.m_nSayX - d.Width div 2, actor.m_nSayY - 10, d.ClientRect, d, TRUE);
-                  d := g_WMain2Images.Images[HEALTHBAR_RED];
-                  if d <> nil then begin
-                     rc := d.ClientRect;
-                     if actor.m_Abil.MaxHP > 0 then
-                        rc.Right := Round((rc.Right-rc.Left) / actor.m_Abil.MaxHP * actor.m_Abil.HP);
-                     MSurface.Draw (actor.m_nSayX - d.Width div 2, actor.m_nSayY - 10, rc, d, TRUE);
-                  end;
-               end;
-            end;
-         end;
+	Inc (m_dwFrameCount);
 
-         //¸¶¿ì½º·Î ´ë°í ÀÖ´Â Ä³¸¯ÅÍ ÀÌ¸§ ³ª¿À±â
-         SetBkMode (Canvas.Handle, TRANSPARENT);
-         if (g_FocusCret <> nil) and PlayScene.IsValidActor (g_FocusCret) then begin
-            //if FocusCret.Grouped then uname := char(7) + FocusCret.UserName
-            //else
-            uname := g_FocusCret.m_sDescUserName + '\' + g_FocusCret.m_sUserName;
-            NameTextOut (MSurface,
-                      g_FocusCret.m_nSayX, // - Canvas.TextWidth(uname) div 2,
-                      g_FocusCret.m_nSayY + 30,
-                      g_FocusCret.m_nNameColor, clBlack,
-                      uname);
-         end;
-         if g_boSelectMyself then begin
-            uname := g_MySelf.m_sDescUserName + '\' + g_MySelf.m_sUserName;
-            NameTextOut (MSurface,
-                      g_MySelf.m_nSayX, // - Canvas.TextWidth(uname) div 2,
-                      g_MySelf.m_nSayY + 30,
-                      g_MySelf.m_nNameColor, clBlack,
-                      uname);
-         end;
+	if g_MySelf = nil then exit;
 
-         Canvas.Font.Color := clWhite;
+	if CurrentScene = PlayScene then begin
+		with MSurface do begin
+			//¸Ó¸®À§¿¡ Ã¼·Â Ç¥½Ã ÇØ¾ß ÇÏ´Â °Íµé
+			with PlayScene do begin
+				for k:=0 to m_ActorList.Count-1 do begin
+					actor := m_ActorList[k];
 
-         //ÏÔÊ¾½Ç?«Ëµ»°ÎÄ×?
-         with PlayScene do begin
-            for k:=0 to m_ActorList.Count-1 do begin
-               actor := m_ActorList[k];
-               if actor.m_SayingArr[0] <> '' then begin
-                  if GetTickCount - actor.m_dwSayTime < 4 * 1000 then begin
-                     for i:=0 to actor.m_nSayLineCount - 1 do
-                        if actor.m_boDeath then
-                           BoldTextOut (MSurface,
-                                     actor.m_nSayX - (actor.m_SayWidthsArr[i] div 2),
-                                     actor.m_nSayY - (actor.m_nSayLineCount*16) + i*14,
-                                     clGray, clBlack,
-                                     actor.m_SayingArr[i])
-                        else
-                           BoldTextOut (MSurface,
-                                     actor.m_nSayX - (actor.m_SayWidthsArr[i] div 2),
-                                     actor.m_nSayY - (actor.m_nSayLineCount*16) + i*14,
-                                     clWhite, clBlack,
-                                     actor.m_SayingArr[i]);
-                  end else
-                     actor.m_SayingArr[0] := '';
-               end;
-            end;
-         end;
+					//ÏÔÊ¾ÈËÎïÑªÁ¿(Êý×ÖÏÔÊ¾)Jacky
+					if g_boShowHPNumber and (actor.m_Abil.MaxHP > 1) and not actor.m_boDeath then begin
+						SetBkMode (Canvas.Handle, TRANSPARENT);
+						infoMsg:=IntToStr(actor.m_Abil.HP) + '/' + IntToStr(actor.m_Abil.MaxHP);
+						BoldTextOut (MSurface,actor.m_nSayX - 15 ,actor.m_nSayY - 5, clWhite, clBlack,infoMsg );
+						Canvas.Release;
+					end;
+
+					if g_boShowRedHPLable then actor.m_boOpenHealth:=True; //ÏÔÊ¾ÑªÌõ
+
+					if (actor.m_boOpenHealth or actor.m_noInstanceOpenHealth) and not actor.m_boDeath then begin
+						if actor.m_noInstanceOpenHealth then
+							if GetTickCount - actor.m_dwOpenHealthStart > actor.m_dwOpenHealthTime then
+								actor.m_noInstanceOpenHealth := FALSE;
+
+						d := g_WMain2Images.Images[HEALTHBAR_BLACK];
+
+						if d <> nil then
+							MSurface.Draw (actor.m_nSayX - d.Width div 2, actor.m_nSayY - 10, d.ClientRect, d, TRUE);
+
+						d := g_WMain2Images.Images[HEALTHBAR_RED];
+
+						if d <> nil then begin
+							rc := d.ClientRect;
+
+							if actor.m_Abil.MaxHP > 0 then
+								rc.Right := Round((rc.Right-rc.Left) / actor.m_Abil.MaxHP * actor.m_Abil.HP);
+
+							MSurface.Draw (actor.m_nSayX - d.Width div 2, actor.m_nSayY - 10, rc, d, TRUE);
+						end;
+					end;
+				end;
+			end;
+
+			//¸¶¿ì½º·Î ´ë°í ÀÖ´Â Ä³¸¯ÅÍ ÀÌ¸§ ³ª¿À±â
+			SetBkMode (Canvas.Handle, TRANSPARENT);
+
+			if (g_FocusCret <> nil) and PlayScene.IsValidActor (g_FocusCret) then begin
+				//if FocusCret.Grouped then uname := char(7) + FocusCret.UserName
+				//else
+				uname := g_FocusCret.m_sDescUserName + '\' + g_FocusCret.m_sUserName;
+				NameTextOut (MSurface,
+					g_FocusCret.m_nSayX, // - Canvas.TextWidth(uname) div 2,
+					g_FocusCret.m_nSayY + 30,
+					g_FocusCret.m_nNameColor, clBlack,
+					uname);
+			end;
+
+			if g_boSelectMyself then begin
+				uname := g_MySelf.m_sDescUserName + '\' + g_MySelf.m_sUserName;
+				NameTextOut (MSurface,
+					g_MySelf.m_nSayX, // - Canvas.TextWidth(uname) div 2,
+					g_MySelf.m_nSayY + 30,
+					g_MySelf.m_nNameColor, clBlack,
+					uname);
+			end;
+
+			Canvas.Font.Color := clWhite;
+
+			//ÏÔÊ¾½Ç?«Ëµ»°ÎÄ×?
+			with PlayScene do begin
+				for k:=0 to m_ActorList.Count-1 do begin
+					actor := m_ActorList[k];
+					if actor.m_SayingArr[0] <> '' then begin
+						if GetTickCount - actor.m_dwSayTime < 4 * 1000 then begin
+							for i:=0 to actor.m_nSayLineCount - 1 do
+								if actor.m_boDeath then
+									BoldTextOut (MSurface,
+										actor.m_nSayX - (actor.m_SayWidthsArr[i] div 2),
+										actor.m_nSayY - (actor.m_nSayLineCount*16) + i*14,
+										clGray, clBlack,
+										actor.m_SayingArr[i])
+								else
+									BoldTextOut (MSurface,
+										actor.m_nSayX - (actor.m_SayWidthsArr[i] div 2),
+										actor.m_nSayY - (actor.m_nSayLineCount*16) + i*14,
+										clWhite, clBlack,
+										actor.m_SayingArr[i]);
+						end else
+							actor.m_SayingArr[0] := '';
+					end;
+				end;
+			end;
 
          //BoldTextOut (MSurface, 0, 0, clWhite, clBlack, IntToStr(SendCount) + ' : ' + IntToStr(ReceiveCount));
          //BoldTextOut (MSurface, 0, 0, clWhite, clBlack, 'HITSPEED=' + IntToStr(Myself.HitSpeed));
@@ -368,28 +381,29 @@ begin
 
          //System Message
          //¸ÊÀÇ »óÅÂ Ç¥½Ã (ÀÓ½Ã Ç¥½Ã)
-         if (g_nAreaStateValue and $04) <> 0 then begin
-            BoldTextOut (MSurface, 0, 0, clWhite, clBlack, '¹¥³ÇÇøÓò');
-         end;
+			if (g_nAreaStateValue and $04) <> 0 then begin
+				BoldTextOut (MSurface, 0, 0, clWhite, clBlack, '¹¥³ÇÇøÓò');
+			end;
 
-         Canvas.Release;
+			Canvas.Release;
 
 
-         //¸ÊÀÇ »óÅÂ Ç¥½Ã
-         k := 0;
-         for i:=0 to 15 do begin
-            if g_nAreaStateValue and ($01 shr i) <> 0 then begin
-               d := g_WMainImages.Images[AREASTATEICONBASE + i];
-               if d <> nil then begin
-                  k := k + d.Width;
-                  MSurface.Draw (SCREENWIDTH-k, 0, d.ClientRect, d, TRUE);
-               end;
-            end;
-         end;
-
+			//¸ÊÀÇ »óÅÂ Ç¥½Ã
+			k := 0;
+			for i:=0 to 15 do begin
+				if g_nAreaStateValue and ($01 shr i) <> 0 then begin
+					d := g_WMainImages.Images[AREASTATEICONBASE + i];
+					if d <> nil then begin
+						k := k + d.Width;
+						MSurface.Draw (SCREENWIDTH-k, 0, d.ClientRect, d, TRUE);
+					end;
+				end;
+			end;
+		// Miss en 'end'!!!!!!!
       end;
    end;
 end;
+
 //ÏÔÊ¾×ó?Ï½ÇÐÅÏ¢ÎÄ×?
 procedure TDrawScreen.DrawScreenTop (MSurface: TDirectDrawSurface);
 var

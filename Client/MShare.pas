@@ -822,9 +822,7 @@ var
 begin
 	Result:=nil;
 
-	if not (nUnit in [Low(g_WObjectArr) .. High(g_WObjectArr)]) then begin
-		nUnit:=0;
-	end;
+	if not (nUnit in [Low(g_WObjectArr) .. High(g_WObjectArr)]) then nUnit:=0;
 
 	if g_WObjectArr[nUnit] = nil then begin
 		if nUnit = 0 then 
@@ -862,7 +860,6 @@ begin
 	if not (nUnit in [Low(g_WObjectArr) .. High(g_WObjectArr)]) then nUnit:=0;
 
 	if g_WObjectArr[nUnit] = nil then begin
-
 		if nUnit = 0 then 
 			sFileName:=OBJECTIMAGEFILE
 		else 
@@ -933,10 +930,12 @@ begin
 	end;
 end;
 
-//取得职业名称
-//0 武士
-//1 魔法师
-//2 道士
+{
+\brief 取得职业名称
+0 武士
+1 魔法师
+2 道士
+}
 function  GetJobName (nJob:Integer):String;
 begin
   Result:= '';
@@ -1002,20 +1001,21 @@ end;
 
 procedure ClearShowItemList();
 var
-  ShowItem:pTShowItem;
-  I:Integer;
+	ShowItem:pTShowItem;
+	I:Integer;
 begin
-  g_ShowItemList.Lock;
-  try
-    for I := 0 to g_ShowItemList.Count - 1 do begin
-      ShowItem:=g_ShowItemList.Items[I];
-      Dispose(ShowItem);
-    end;
-    g_ShowItemList.Clear;
-  finally
-    g_ShowItemList.UnLock;
-  end;
+	g_ShowItemList.Lock;
+	try
+		for I := 0 to g_ShowItemList.Count - 1 do begin
+			ShowItem:=g_ShowItemList.Items[I];
+			Dispose(ShowItem);
+		end;
+		g_ShowItemList.Clear;
+	finally
+		g_ShowItemList.UnLock;
+	end;
 end;
+
 procedure SaveUserConfig(sUserName:String);
 var
   ShowItem:pTShowItem;

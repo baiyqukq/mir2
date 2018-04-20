@@ -28,6 +28,8 @@ type
 		procedure KeyDown (var Key: Word; Shift: TShiftState); dynamic;
 		procedure MouseMove (Shift: TShiftState; X, Y: Integer); dynamic;
 		procedure MouseDown (Button: TMouseButton; Shift: TShiftState; X, Y: Integer); dynamic;
+
+		// Draw scene
 		procedure PlayScene (MSurface: TDirectDrawSurface); dynamic;
    end;
 

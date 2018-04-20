@@ -566,7 +566,6 @@ begin
 		for j:=(Top - Map.m_nBlockTop - 1) to (Bottom - Map.m_nBlockTop + 1) do begin
 			nX := AAX + 14 -UNITX;		// AAX: 16, UNITX: 48
 
-		
 			for i:=(Left - Map.m_nBlockLeft -2) to (Right - Map.m_nBlockLeft + 1) do begin
 				// LOGICALMAPUNIT: 20
 				if (i >= 0) and (i < LOGICALMAPUNIT * 3) and (j >= 0) and (j < LOGICALMAPUNIT *3) then begin
@@ -654,23 +653,25 @@ end;
 
 procedure TPlayScene.ClearDropItem;
 var
-  I:Integer;
-  DropItem:pTDropItem;
+	I:Integer;
+	DropItem:pTDropItem;
 begin
-  for I := g_DropedItemList.Count - 1 downto 0 do begin
-    DropItem:=g_DropedItemList.Items[I];
-    if DropItem = nil then begin
-      g_DropedItemList.Delete(I);
-      Continue;
-    end;
-    if (abs(DropItem.x - g_MySelf.m_nCurrX) > 30) and (abs(DropItem.y - g_MySelf.m_nCurrY) > 30) then begin
+	for I := g_DropedItemList.Count - 1 downto 0 do begin
+		DropItem:=g_DropedItemList.Items[I];
+
+		if DropItem = nil then begin
+			g_DropedItemList.Delete(I);
+			Continue;
+		end;
+
+		if (abs(DropItem.x - g_MySelf.m_nCurrX) > 30) and (abs(DropItem.y - g_MySelf.m_nCurrY) > 30) then begin
 {$IF DEBUG = 1}
-      DScreen.AddChatBoardString (format('DropItem:%s X:%d Y:%d',[DropItem.Name,DropItem.X,DropItem.Y]),clWhite, clRed);
+			DScreen.AddChatBoardString (format('DropItem:%s X:%d Y:%d',[DropItem.Name,DropItem.X,DropItem.Y]),clWhite, clRed);
 {$IFEND}
-      Dispose(DropItem);
-      g_DropedItemList.Delete(I);
-    end;
-  end;
+			Dispose(DropItem);
+			g_DropedItemList.Delete(I);
+		end;
+	end;
 end;
 
 procedure TPlayScene.ClearLightMap;
@@ -762,10 +763,10 @@ end;
 
 procedure TPlayScene.ApplyLightMap;
 var
-	i, j, light, defx, defy, lx, ly, lxx, lyy, lcount: integer;
+	i, j, light, defX, defY, lx, ly, lxx, lyy, lcount: integer;
 begin
-	defx := -UNITX*2 + AAX + 14 - g_MySelf.m_nShiftX;
-	defy := -UNITY*3 - g_MySelf.m_nShiftY;
+	defX := -UNITX*2 + AAX + 14 - g_MySelf.m_nShiftX;
+	defY := -UNITY*3 - g_MySelf.m_nShiftY;
 	lcount := 0;
 	for i:=1 to LMX-1 do begin
 		for j:=1 to LMY-1 do begin
@@ -773,8 +774,8 @@ begin
 			if light >= 0 then begin
 				lx := (i + g_MySelf.m_nRx - LMX div 2);
 				ly := (j + g_MySelf.m_nRy - LMY div 2);
-				lxx := (lx-Map.m_ClientRect.Left)*UNITX + defx + m_LightMap[i, j].ShiftX;
-				lyy := (ly-Map.m_ClientRect.Top)*UNITY + defy + m_LightMap[i, j].ShiftY;
+				lxx := (lx-Map.m_ClientRect.Left)*UNITX + defX + m_LightMap[i, j].ShiftX;
+				lyy := (ly-Map.m_ClientRect.Top)*UNITY + defY + m_LightMap[i, j].ShiftY;
 
 				FogCopy (m_Lights[light].PFog,
 					0,
@@ -887,27 +888,27 @@ procedure TPlayScene.PlayScene (MSurface: TDirectDrawSurface);
 			Result := FALSE;
 	end;
 var
-	i, j, k, n, m, mmm, ix, iy, line, defx, defy, wunit, fridx, ani, anitick, ax, ay, idx, drawingbottomline: integer;
+	i, j, k, n, m, mmm, ix, iy, line, defX, defY, wunit, fridx, ani, aniTick, ax, ay, idx, drawingbottomline: integer;
 	DSurface, d: TDirectDrawSurface;
 	blend, movetick: Boolean;
 	//myrc, obrc: TRect;
 	DropItem: PTDropItem;
-	evn: TClEvent;
+	event: TClEvent;
 	actor: TActor;
-	meff: TMagicEff;
-	msgstr: string;
+	magicEffect: TMagicEff;
+	msgStr: string;
 	ShowItem:pTShowItem;
 	nFColor,nBColor:Integer;
 begin
 	drawingbottomline:=0;//jacky
 	
 	if (g_MySelf = nil) then begin
-		msgstr := 'Please wait just for a little while.';
+		msgStr := 'Please wait just for a little while.';
 
 		with MSurface.Canvas do begin
 			SetBkMode (Handle, TRANSPARENT);
-			BoldTextOut (MSurface, (SCREENWIDTH-TextWidth(msgstr)) div 2, (SCREENHEIGHT - 600) +200,
-				clWhite, clBlack, msgstr);
+			BoldTextOut (MSurface, (SCREENWIDTH-TextWidth(msgStr)) div 2, (SCREENHEIGHT - 600) +200,
+				clWhite, clBlack, msgStr);
 			Release;
 		end;
 
@@ -931,6 +932,7 @@ begin
 		if m_nAniCount > 100000 then m_nAniCount := 0;
 	end;
 
+	// Update actors
 	try
 		i := 0;                          // Just process message here
 
@@ -987,17 +989,19 @@ begin
 		DebugOutStr ('101');
 	end;
 
+	//[Clear magic effects
 	try
+		// Clear ground magic effects
 		i := 0;
 
 		while TRUE do begin
 			if i >= m_GroundEffectList.Count then break;
 
-			meff := m_GroundEffectList[i];
+			magicEffect := m_GroundEffectList[i];
 
-			if meff.m_boActive then begin
-				if not meff.Run then begin //¸¶¹ýÈ¿°ú
-					meff.Free;
+			if magicEffect.m_boActive then begin
+				if not magicEffect.Run then begin 
+					magicEffect.Free;
 					m_GroundEffectList.Delete (i);
 					continue;
 				end;
@@ -1006,16 +1010,17 @@ begin
 			Inc (i);
 		end;
 
+		// Clear magic effects
 		i := 0;
 
 		while TRUE do begin
 			if i >= m_EffectList.Count then break;
 
-			meff := m_EffectList[i];
+			magicEffect := m_EffectList[i];
 
-			if meff.m_boActive then begin
-				if not meff.Run then begin // Magic effect
-					meff.Free;
+			if magicEffect.m_boActive then begin
+				if not magicEffect.Run then begin
+					magicEffect.Free;
 					m_EffectList.Delete (i);
 					continue;
 				end;
@@ -1024,16 +1029,17 @@ begin
 			Inc (i);
 		end;
 
+		// Clear fly magic effects
 		i := 0;
 
 		while TRUE do begin
 			if i >= m_FlyList.Count then break;
 
-			meff := m_FlyList[i];
+			magicEffect := m_FlyList[i];
 
-			if meff.m_boActive then begin
-				if not meff.Run then begin // Ax, Arrow that are flying
-					meff.Free;
+			if magicEffect.m_boActive then begin
+				if not magicEffect.Run then begin // Ax, Arrow that are flying
+					magicEffect.Free;
 					m_FlyList.Delete (i);
 					continue;
 				end;
@@ -1046,36 +1052,25 @@ begin
 	except
 		DebugOutStr ('102');
 	end;
+	//]
 
+	// Clear dropped items and events
 	try
 		ClearDropItem();
-   {
-   //Çå³ý³¬¹ýÏÔÊ¾·¶Î§µÄÎïÆ·Êý¾Ý
-   for k:=0 to g_DropedItemList.Count - 1 do begin
-     DropItem:= PTDropItem(g_DropedItemList[k]);
-     if DropItem <> nil then begin
-       if (Abs(DropItem.x - Myself.m_nCurrX) > 30) and (Abs(DropItem.y - Myself.m_nCurrY) > 30) then begin
-         Dispose (PTDropItem (g_DropedItemList[k]));
-         g_DropedItemList.Delete (k);
-         break;  //ÇÑ¹ø¿¡ ÇÑ°³¾¿..
-       end;
-     end;
-   end;
-   }
 
-   		// Examining missing dynamic objects
-   		for k:=0 to EventMan.EventList.Count-1 do begin
-	   		evn := TClEvent (EventMan.EventList[k]);
-     		
-     		if (Abs(evn.m_nX-g_MySelf.m_nCurrX) > 30) and (Abs(evn.m_nY-g_MySelf.m_nCurrY) > 30) then begin
-        		evn.Free;
-        		EventMan.EventList.Delete (k);
-        		break;  // One at a time
-      		end;
-   		end;
-   	except
-      	DebugOutStr ('103');
-   	end;
+		// Examining missing dynamic objects
+		for k:=0 to EventMan.EventList.Count-1 do begin
+			event := TClEvent (EventMan.EventList[k]);
+
+			if (Abs(event.m_nX-g_MySelf.m_nCurrX) > 30) and (Abs(event.m_nY-g_MySelf.m_nCurrY) > 30) then begin
+				event.Free;
+				EventMan.EventList.Delete (k);
+				break;  // One at a time
+			end;
+		end;
+	except
+		DebugOutStr ('103');
+	end;
 
 	// Update client view area
 	try
@@ -1125,14 +1120,15 @@ begin
 		DebugOutStr ('104');
 	end;
 
-	defx := -UNITX*2 - g_MySelf.m_nShiftX + AAX + 14;
-	defy := -UNITY*2 - g_MySelf.m_nShiftY;
-	m_nDefXX := defx;
-	m_nDefYY := defy;
+	defX := -UNITX*2 - g_MySelf.m_nShiftX + AAX + 14;
+	defY := -UNITY*2 - g_MySelf.m_nShiftY;
+	m_nDefXX := defX;
+	m_nDefYY := defY;
 
 	try
-		m := defy - UNITY;
+		m := defY - UNITY;
 
+		// From top to bottom
 		for j:=(Map.m_ClientRect.Top - Map.m_nBlockTop) to (Map.m_ClientRect.Bottom - Map.m_nBlockTop + LONGHEIGHT_IMAGE) do begin
 			if j < 0 then 
 			begin 
@@ -1140,93 +1136,18 @@ begin
 				continue; 
 			end;
 
-			n := defx-UNITX*2;
+			n := defX-UNITX*2;
 
+			// From left to right
 			// Draw 48*32 tiled objects
 			for i:=(Map.m_ClientRect.Left - Map.m_nBlockLeft-2) to (Map.m_ClientRect.Right - Map.m_nBlockLeft+2) do begin
 				if (i >= 0) and (i < LOGICALMAPUNIT*3) and (j >= 0) and (j < LOGICALMAPUNIT*3) then begin
-            		fridx := (Map.m_MArr[i, j].wFrImg) and $7FFF;
-            		
-            		if fridx > 0 then begin
-               			ani := Map.m_MArr[i, j].btAniFrame;
-               			wunit := Map.m_MArr[i, j].btArea;
-               			
-               			if (ani and $80) > 0 then begin
-                  			blend := TRUE;
-                  			ani := ani and $7F;
-               			end;
-               
-               			if ani > 0 then begin
-                  			anitick := Map.m_MArr[i, j].btAniTick;
-                  			fridx := fridx + (m_nAniCount mod (ani + (ani*anitick))) div (1+anitick);
-               			end;
-               
-               			if (Map.m_MArr[i, j].btDoorOffset and $80) > 0 then begin //¿­¸²
-                  			if (Map.m_MArr[i, j].btDoorIndex and $7F) > 0 then  //¹®À¸·Î Ç¥½ÃµÈ °Í¸¸
-                     			fridx := fridx + (Map.m_MArr[i, j].btDoorOffset and $7F); //¿­¸° ¹®
-               			end;
-               
-               			fridx := fridx - 1;
-               
-               			// ¹°Ã¼ ±×¸²
-               			DSurface := GetObjs (wunit, fridx);
-               
-               			if DSurface <> nil then begin
-                  			if (DSurface.Width = 48) and (DSurface.Height = 32) then begin
-                     			mmm := m + UNITY - DSurface.Height;
-                     
-                     			if (n+DSurface.Width > 0) and (n <= SCREENWIDTH) and (mmm + DSurface.Height > 0) and (mmm < drawingbottomline) then begin
-                        			m_ObjSurface.Draw (n, mmm, DSurface.ClientRect, Dsurface, TRUE)
-                     			end else begin
-                        			if mmm < drawingbottomline then begin //ºÒÇÊ¿äÇÏ°Ô ±×¸®´Â °ÍÀ» ÇÇÇÔ
-                           				m_ObjSurface.Draw (n, mmm, DSurface.ClientRect, DSurface, TRUE)
-                        			end;
-                     			end;
-                  			end;
-               			end;
-            		end;
-         		end;
-         		Inc (n, UNITX);
-      		end;
-      		Inc (m, UNITY);
-   		end;
-
-	// Draw magic effects on the ground(such as firewall)
-	for k:=0 to m_GroundEffectList.Count-1 do begin
-		meff := TMagicEff(m_GroundEffectList[k]);
-		{ if j = (meff.Ry - Map.BlockTop) then begin }
-		meff.DrawEff (m_ObjSurface);
-
-		if g_boViewFog then begin
-			AddLight (meff.Rx, meff.Ry, 0, 0, meff.light, FALSE);
-		end;
-	end;
-
-   except
-      DebugOutStr ('105');
-   end;  
-
-	try
-		m := defy - UNITY;
-
-		for j:=(Map.m_ClientRect.Top - Map.m_nBlockTop) to (Map.m_ClientRect.Bottom - Map.m_nBlockTop + LONGHEIGHT_IMAGE) do begin
-			if j < 0 then begin 
-				Inc (m, UNITY); 
-				continue; 
-			end;
-
-			n := defx-UNITX*2;
-
-			// Draw background objects
-			for i:=(Map.m_ClientRect.Left - Map.m_nBlockLeft-2) to (Map.m_ClientRect.Right - Map.m_nBlockLeft+2) do begin
-				if (i >= 0) and (i < LOGICALMAPUNIT*3) and (j >= 0) and (j < LOGICALMAPUNIT*3) then begin
+					// Just care about two bytes ($7FFF)
 					fridx := (Map.m_MArr[i, j].wFrImg) and $7FFF;
 
 					if fridx > 0 then begin
-						blend := FALSE;
-						wunit := Map.m_MArr[i, j].btArea;
-						{ ¿¡´Ï¸ÞÀÌ¼Ç }
 						ani := Map.m_MArr[i, j].btAniFrame;
+						wunit := Map.m_MArr[i, j].btArea;
 
 						if (ani and $80) > 0 then begin
 							blend := TRUE;
@@ -1234,8 +1155,8 @@ begin
 						end;
 
 						if ani > 0 then begin
-							anitick := Map.m_MArr[i, j].btAniTick;
-							fridx := fridx + (m_nAniCount mod (ani + (ani*anitick))) div (1+anitick);
+							aniTick := Map.m_MArr[i, j].btAniTick;
+							fridx := fridx + (m_nAniCount mod (ani + (ani*aniTick))) div (1+aniTick);
 						end;
 
 						if (Map.m_MArr[i, j].btDoorOffset and $80) > 0 then begin //¿­¸²
@@ -1244,7 +1165,86 @@ begin
 						end;
 
 						fridx := fridx - 1;
-						// ¹°Ã¼ ±×¸²
+
+						// Object surface
+						DSurface := GetObjs (wunit, fridx);
+
+						if DSurface <> nil then begin
+							if (DSurface.Width = 48) and (DSurface.Height = 32) then begin
+								mmm := m + UNITY - DSurface.Height;
+
+								if (n+DSurface.Width > 0) and (n <= SCREENWIDTH) and (mmm + DSurface.Height > 0) and (mmm < drawingbottomline) then begin
+									m_ObjSurface.Draw (n, mmm, DSurface.ClientRect, Dsurface, TRUE)
+								end else begin
+									if mmm < drawingbottomline then begin //ºÒÇÊ¿äÇÏ°Ô ±×¸®´Â °ÍÀ» ÇÇÇÔ
+										m_ObjSurface.Draw (n, mmm, DSurface.ClientRect, DSurface, TRUE)
+									end;
+								end;
+							end;
+						end;
+					end;
+				end;
+
+				Inc (n, UNITX);
+			end;
+			Inc (m, UNITY);
+		end;
+
+		// Draw magic effects on the ground(such as firewall)
+		for k:=0 to m_GroundEffectList.Count-1 do begin
+			magicEffect := TMagicEff(m_GroundEffectList[k]);
+			{ if j = (magicEffect.Ry - Map.BlockTop) then begin }
+			magicEffect.DrawEff (m_ObjSurface);
+
+			if g_boViewFog then begin
+				AddLight (magicEffect.Rx, magicEffect.Ry, 0, 0, magicEffect.light, FALSE);
+			end;
+		end;
+	except
+		DebugOutStr ('105');
+	end;  
+
+	try
+		m := defY - UNITY;
+
+		for j:=(Map.m_ClientRect.Top - Map.m_nBlockTop) to (Map.m_ClientRect.Bottom - Map.m_nBlockTop + LONGHEIGHT_IMAGE) do begin
+			if j < 0 then begin 
+				Inc (m, UNITY); 
+				continue; 
+			end;
+
+			n := defX-UNITX*2;
+			// From left to right
+			// Draw other objects(Not 48*32)
+			for i:=(Map.m_ClientRect.Left - Map.m_nBlockLeft-2) to (Map.m_ClientRect.Right - Map.m_nBlockLeft+2) do begin
+				if (i >= 0) and (i < LOGICALMAPUNIT*3) and (j >= 0) and (j < LOGICALMAPUNIT*3) then begin
+					// Just care about two bytes ($7FFF)
+					fridx := (Map.m_MArr[i, j].wFrImg) and $7FFF;
+
+					if fridx > 0 then begin
+						wunit := Map.m_MArr[i, j].btArea;
+						{ ¿¡´Ï¸ÞÀÌ¼Ç }
+						ani := Map.m_MArr[i, j].btAniFrame;
+
+						blend := FALSE;
+						if (ani and $80) > 0 then begin
+							blend := TRUE;
+							ani := ani and $7F;
+						end;
+
+						if ani > 0 then begin
+							aniTick := Map.m_MArr[i, j].btAniTick;
+							fridx := fridx + (m_nAniCount mod (ani + (ani*aniTick))) div (1+aniTick);
+						end;
+
+						if (Map.m_MArr[i, j].btDoorOffset and $80) > 0 then begin //¿­¸²
+							if (Map.m_MArr[i, j].btDoorIndex and $7F) > 0 then  //¹®À¸·Î Ç¥½ÃµÈ °Í¸¸
+								fridx := fridx + (Map.m_MArr[i, j].btDoorOffset and $7F); //¿­¸° ¹®
+						end;
+
+						fridx := fridx - 1;
+
+						// Object Surface
 						if not blend then begin
 							DSurface := GetObjs (wunit, fridx);
 
@@ -1285,11 +1285,11 @@ begin
 		if (j <= (Map.m_ClientRect.Bottom - Map.m_nBlockTop)) and (not g_boServerChanging) then begin
 			{*** Traces of changed soil on the floor }
 			for k:=0 to EventMan.EventList.Count-1 do begin
-				evn := TClEvent (EventMan.EventList[k]);
+				event := TClEvent (EventMan.EventList[k]);
 
-				if j = (evn.m_nY - Map.m_nBlockTop) then begin
-					evn.DrawEvent (m_ObjSurface,
-						(evn.m_nX-Map.m_ClientRect.Left)*UNITX + defx,
+				if j = (event.m_nY - Map.m_nBlockTop) then begin
+					event.DrawEvent (m_ObjSurface,
+						(event.m_nX-Map.m_ClientRect.Left)*UNITX + defX,
 						m);
 				end;
 			end;
@@ -1303,7 +1303,7 @@ begin
 							d := g_WDnItemImages.Images[DropItem.Looks];
 
 							if d <> nil then begin
-								ix := (DropItem.x-Map.m_ClientRect.Left) * UNITX + defx + SOFFX; // + actor.ShiftX;
+								ix := (DropItem.x-Map.m_ClientRect.Left) * UNITX + defX + SOFFX; // + actor.ShiftX;
 								iy := m; // + actor.ShiftY;
 
 								if DropItem = g_FocusItem then begin
@@ -1333,24 +1333,25 @@ begin
 			actor := m_ActorList[k];
 
 			if (j = actor.m_nRy-Map.m_nBlockTop-actor.m_nDownDrawLevel) then begin
-				actor.m_nSayX := (actor.m_nRx-Map.m_ClientRect.Left)*UNITX + defx + actor.m_nShiftX + 24;
+				actor.m_nSayX := (actor.m_nRx-Map.m_ClientRect.Left)*UNITX + defX + actor.m_nShiftX + 24;
 
 				if actor.m_boDeath then
 					actor.m_nSayY := m + UNITY + actor.m_nShiftY + 16 - 60  + (actor.m_nDownDrawLevel * UNITY)
 				else 
 					actor.m_nSayY := m + UNITY + actor.m_nShiftY + 16 - 95  + (actor.m_nDownDrawLevel * UNITY);
 
-				actor.DrawChr (m_ObjSurface, (actor.m_nRx-Map.m_ClientRect.Left)*UNITX + defx,
+				actor.DrawChr (m_ObjSurface, (actor.m_nRx-Map.m_ClientRect.Left)*UNITX + defX,
 					m + (actor.m_nDownDrawLevel * UNITY),
 					FALSE,
 					True);
 			end;
 		end;
 
+		{ Draw fly magic effects }
 		for k:=0 to m_FlyList.Count-1 do begin
-			meff := TMagicEff(m_FlyList[k]);
-			if j = (meff.Ry - Map.m_nBlockTop) then
-				meff.DrawEff (m_ObjSurface);
+			magicEffect := TMagicEff(m_FlyList[k]);
+			if j = (magicEffect.Ry - Map.m_nBlockTop) then
+				magicEffect.DrawEff (m_ObjSurface);
 		end;
 	end;
 		Inc (m, UNITY);
@@ -1361,14 +1362,14 @@ begin
 
 	try
 		if g_boViewFog then begin
-			m := defy - UNITY*4;
+			m := defY - UNITY*4;
 			for j:=(Map.m_ClientRect.Top - Map.m_nBlockTop - 4) to (Map.m_ClientRect.Bottom - Map.m_nBlockTop + LONGHEIGHT_IMAGE) do begin
 				if j < 0 then begin 
 					Inc (m, UNITY); 
 					continue;
 				end;
 
-				n := defx-UNITX*5;
+				n := defX-UNITX*5;
 
 				{ ¹è°æ Æ÷±× ±×¸®±â }
 				for i:=(Map.m_ClientRect.Left - Map.m_nBlockLeft-5) to (Map.m_ClientRect.Right - Map.m_nBlockLeft+5) do begin
@@ -1411,8 +1412,8 @@ begin
 			if not g_boCheckBadMapMode then
 				if g_MySelf.m_nState and $00800000 = 0 then { If I am not transparent }
 					g_MySelf.DrawChr (m_ObjSurface, 
-						(g_MySelf.m_nRx-Map.m_ClientRect.Left)*UNITX+defx, 
-						(g_MySelf.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defy, 
+						(g_MySelf.m_nRx-Map.m_ClientRect.Left)*UNITX+defX, 
+						(g_MySelf.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defY, 
 						TRUE,
 						FALSE);
 
@@ -1421,16 +1422,16 @@ begin
 					{ if (actor.m_btRace <> 81) or (FocusCret.State and $00800000 = 0) then }
 					if (g_FocusCret.m_nState and $00800000 = 0) then 
 						g_FocusCret.DrawChr (m_ObjSurface,
-							(g_FocusCret.m_nRx - Map.m_ClientRect.Left)*UNITX+defx,
-							(g_FocusCret.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defy, TRUE,FALSE);
+							(g_FocusCret.m_nRx - Map.m_ClientRect.Left)*UNITX+defX,
+							(g_FocusCret.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defY, TRUE,FALSE);
 			end;
 
 			if (g_MagicTarget <> nil) then begin
 				if IsValidActor (g_MagicTarget) and (g_MagicTarget <> g_MySelf) then
 					if g_MagicTarget.m_nState and $00800000 = 0 then { If it is not transparent }
 						g_MagicTarget.DrawChr (m_ObjSurface,
-							(g_MagicTarget.m_nRx-Map.m_ClientRect.Left)*UNITX+defx,
-							(g_MagicTarget.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defy, 
+							(g_MagicTarget.m_nRx-Map.m_ClientRect.Left)*UNITX+defX,
+							(g_MagicTarget.m_nRy - Map.m_ClientRect.Top-1)*UNITY+defY, 
 							TRUE,
 							FALSE);
 			end;
@@ -1440,29 +1441,29 @@ begin
 	end;
    
 	try
-		{ **** Magic effect }
+		{ **** Draw effects }
 		for k:=0 to m_ActorList.Count-1 do begin
 			actor := m_ActorList[k];
 
 			actor.DrawEff (m_ObjSurface,
-				(actor.m_nRx-Map.m_ClientRect.Left)*UNITX + defx,
-				(actor.m_nRy-Map.m_ClientRect.Top-1)*UNITY + defy);
+				(actor.m_nRx-Map.m_ClientRect.Left)*UNITX + defX,
+				(actor.m_nRy-Map.m_ClientRect.Top-1)*UNITY + defY);
 		end;
    
 		for k:=0 to m_EffectList.Count-1 do begin
-			meff := TMagicEff(m_EffectList[k]);
-			{if j = (meff.Ry - Map.BlockTop) then begin}
-			meff.DrawEff (m_ObjSurface);
+			magicEffect := TMagicEff(m_EffectList[k]);
+			{if j = (magicEffect.Ry - Map.BlockTop) then begin}
+			magicEffect.DrawEff (m_ObjSurface);
 			if g_boViewFog then begin
-				AddLight (meff.Rx, meff.Ry, 0, 0, meff.Light, FALSE);
+				AddLight (magicEffect.Rx, magicEffect.Ry, 0, 0, magicEffect.Light, FALSE);
 			end;
 		end;
 
 		if g_boViewFog then begin
 			for k:=0 to EventMan.EventList.Count-1 do begin
-				evn := TClEvent (EventMan.EventList[k]);
-				if evn.m_nLight > 0 then
-					AddLight (evn.m_nX, evn.m_nY, 0, 0, evn.m_nLight, FALSE);
+				event := TClEvent (EventMan.EventList[k]);
+				if event.m_nLight > 0 then
+					AddLight (event.m_nX, event.m_nY, 0, 0, event.m_nLight, FALSE);
 			end;
 		end;
 	except
@@ -1481,8 +1482,8 @@ begin
 					DropItem.FlashStep := 0;
 				end;
 
-				ix:=(DropItem.x - Map.m_ClientRect.Left) * UNITX + defx + SOFFX;
-				iy:=(DropItem.y - Map.m_ClientRect.Top - 1) * UNITY + defy + SOFFY;
+				ix:=(DropItem.x - Map.m_ClientRect.Left) * UNITX + defX + SOFFX;
+				iy:=(DropItem.y - Map.m_ClientRect.Top - 1) * UNITY + defY + SOFFY;
 
 				if DropItem.BoFlash then begin
 					if GetTickCount - DropItem.FlashStepTime >= 20 then begin
@@ -1556,7 +1557,7 @@ procedure TPlayScene.NewMagic (aowner: TActor;
                                var bofly: Boolean);
 var
 	i, scx, scy, sctx, scty, effnum: integer;
-	meff: TMagicEff;
+	magicEffect: TMagicEff;
 	target: TActor;
 	wimg: TWMImages;
 begin
@@ -1575,17 +1576,17 @@ begin
 
 	target := FindActor (targetcode);
 
-	meff := nil;
+	magicEffect := nil;
 
 	case mtype of  //EffectType
 	mtReady, mtFly, mtFlyAxe: begin
-		meff := TMagicEff.Create (magid{ÌæÎªmagnumb£¬»÷ÖÐºóµÄÐ§¹û¸Ä±äÁË}, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-		meff.TargetActor := target;
+		magicEffect := TMagicEff.Create (magid{ÌæÎªmagnumb£¬»÷ÖÐºóµÄÐ§¹û¸Ä±äÁË}, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+		magicEffect.TargetActor := target;
 
 		if magnumb = 39 then begin
-			meff.frame := 4;
+			magicEffect.frame := 4;
 			if wimg <> nil then
-				meff.ImgLib:=wimg;
+				magicEffect.ImgLib:=wimg;
 		end;
 
 		bofly := TRUE;
@@ -1593,203 +1594,203 @@ begin
 	mtExplosion:
 		case magnumb of
 		18: begin //ÓÕ»óÖ®¹â
-			meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-			meff.MagExplosionBase := 1570;
-			meff.TargetActor := target;
-			meff.NextFrameTime := 80;
+			magicEffect := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+			magicEffect.MagExplosionBase := 1570;
+			magicEffect.TargetActor := target;
+			magicEffect.NextFrameTime := 80;
 		end;
 		21: begin //±¬ÁÑ»ðÑæ
-			meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-			meff.MagExplosionBase := 1660;
-			meff.TargetActor := nil; //target;
-			meff.NextFrameTime := 80;
-			meff.ExplosionFrame := 20;
-			meff.Light := 3;
+			magicEffect := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+			magicEffect.MagExplosionBase := 1660;
+			magicEffect.TargetActor := nil; //target;
+			magicEffect.NextFrameTime := 80;
+			magicEffect.ExplosionFrame := 20;
+			magicEffect.Light := 3;
 		end;
 		26: begin //ÐÄÁéÆôÊ¾
-			meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-			meff.MagExplosionBase := 3990;
-			meff.TargetActor := target;
-			meff.NextFrameTime := 80;
-			meff.ExplosionFrame := 10;
-			meff.Light := 2;
+			magicEffect := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+			magicEffect.MagExplosionBase := 3990;
+			magicEffect.TargetActor := target;
+			magicEffect.NextFrameTime := 80;
+			magicEffect.ExplosionFrame := 10;
+			magicEffect.Light := 2;
 		end;
 		27: begin //ÈºÌåÖÎÁÆÊõ
-			meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-			meff.MagExplosionBase := 1800;
-			meff.TargetActor := nil; //target;
-			meff.NextFrameTime := 80;
-			meff.ExplosionFrame := 10;
-			meff.Light := 3;
+			magicEffect := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+			magicEffect.MagExplosionBase := 1800;
+			magicEffect.TargetActor := nil; //target;
+			magicEffect.NextFrameTime := 80;
+			magicEffect.ExplosionFrame := 10;
+			magicEffect.Light := 3;
 		end;
 		30: begin //Ê¥ÑÔÊõ
-            meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-            meff.MagExplosionBase := 3930;
-            meff.TargetActor := target;
-            meff.NextFrameTime := 80;
-            meff.ExplosionFrame := 16;
-            meff.Light := 3;
+            magicEffect := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+            magicEffect.MagExplosionBase := 3930;
+            magicEffect.TargetActor := target;
+            magicEffect.NextFrameTime := 80;
+            magicEffect.ExplosionFrame := 16;
+            magicEffect.Light := 3;
 		end;
 		31: begin //±ùÅØÏø
-            meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-            meff.MagExplosionBase := 3850;
-            meff.TargetActor := nil; //target;
-            meff.NextFrameTime := 80;
-            meff.ExplosionFrame := 20;
-            meff.Light := 3;
+            magicEffect := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+            magicEffect.MagExplosionBase := 3850;
+            magicEffect.TargetActor := nil; //target;
+            magicEffect.NextFrameTime := 80;
+            magicEffect.ExplosionFrame := 20;
+            magicEffect.Light := 3;
 		end;
 		34: begin //ÃðÌì»ð
-            meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-            meff.MagExplosionBase := 140;
-            meff.TargetActor := target; //target;
-            meff.NextFrameTime := 80;
-            meff.ExplosionFrame := 20;
-            meff.Light := 3;
+            magicEffect := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+            magicEffect.MagExplosionBase := 140;
+            magicEffect.TargetActor := target; //target;
+            magicEffect.NextFrameTime := 80;
+            magicEffect.ExplosionFrame := 20;
+            magicEffect.Light := 3;
 			if wimg <> nil then
-				meff.ImgLib:=wimg;
+				magicEffect.ImgLib:=wimg;
 		end;
 		40: begin // ¾»»¯Êõ
-            meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-            meff.MagExplosionBase := 620;
-            meff.TargetActor := nil; //target;
-            meff.NextFrameTime := 100;
-            meff.ExplosionFrame := 20;
-            meff.Light := 3;
+            magicEffect := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+            magicEffect.MagExplosionBase := 620;
+            magicEffect.TargetActor := nil; //target;
+            magicEffect.NextFrameTime := 100;
+            magicEffect.ExplosionFrame := 20;
+            magicEffect.Light := 3;
 			if wimg <> nil then
-				meff.ImgLib:=wimg;
+				magicEffect.ImgLib:=wimg;
 		end;
 		45: begin //»ðÁúÆøÑæ
-            meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-            meff.MagExplosionBase := 920;
-            meff.TargetActor := nil; //target;
-            meff.NextFrameTime := 100;
-            meff.ExplosionFrame := 20;
-            meff.Light := 3;
+            magicEffect := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+            magicEffect.MagExplosionBase := 920;
+            magicEffect.TargetActor := nil; //target;
+            magicEffect.NextFrameTime := 100;
+            magicEffect.ExplosionFrame := 20;
+            magicEffect.Light := 3;
 			if wimg <> nil then
-				meff.ImgLib:=wimg;
+				magicEffect.ImgLib:=wimg;
 		end;
 		47: begin //ì«·çÆÆ
-            meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-            meff.MagExplosionBase := 1010;
-            meff.TargetActor := nil; //target;
-            meff.NextFrameTime := 100;
-            meff.ExplosionFrame := 20;
-            meff.Light := 3;
+            magicEffect := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+            magicEffect.MagExplosionBase := 1010;
+            magicEffect.TargetActor := nil; //target;
+            magicEffect.NextFrameTime := 100;
+            magicEffect.ExplosionFrame := 20;
+            magicEffect.Light := 3;
 			if wimg <> nil then
-				meff.ImgLib:=wimg;
+				magicEffect.ImgLib:=wimg;
 		end;
 		48: begin //ÑªÖä
-            meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-            meff.MagExplosionBase := 1060;
-            meff.TargetActor := nil; //target;
-            meff.NextFrameTime := 50;
-            meff.ExplosionFrame := 40;
-            meff.Light := 3;
+            magicEffect := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+            magicEffect.MagExplosionBase := 1060;
+            magicEffect.TargetActor := nil; //target;
+            magicEffect.NextFrameTime := 50;
+            magicEffect.ExplosionFrame := 40;
+            magicEffect.Light := 3;
             if wimg <> nil then
-				meff.ImgLib:=wimg;
+				magicEffect.ImgLib:=wimg;
 		end;
 		49: begin //÷¼÷ÃÖä
-            meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-            meff.MagExplosionBase := 1110;
-            meff.TargetActor := nil; //target;
-            meff.NextFrameTime := 100;
-            meff.ExplosionFrame := 10;
-            meff.Light := 3;
+            magicEffect := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+            magicEffect.MagExplosionBase := 1110;
+            magicEffect.TargetActor := nil; //target;
+            magicEffect.NextFrameTime := 100;
+            magicEffect.ExplosionFrame := 10;
+            magicEffect.Light := 3;
             if wimg <> nil then
-				meff.ImgLib:=wimg;
+				magicEffect.ImgLib:=wimg;
 		end;
 		else begin //Ä¬ÈÏ
-			meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-			meff.TargetActor := target;
-			meff.NextFrameTime := 80;
+			magicEffect := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+			magicEffect.TargetActor := target;
+			magicEffect.NextFrameTime := 80;
 		end;
 	end;
       mtFireWind:
-         meff := nil;  //È¿°ú ¾øÀ½
+         magicEffect := nil;  //È¿°ú ¾øÀ½
       mtFireGun: //È­¿°¹æ»ç
-         meff := TFireGunEffect.Create (930, scx, scy, sctx, scty);
+         magicEffect := TFireGunEffect.Create (930, scx, scy, sctx, scty);
       mtThunder: begin
-        //meff := TThuderEffect.Create (950, sctx, scty, nil); //target);
-        meff := TThuderEffect.Create (10, sctx, scty, nil); //target);
-        meff.ExplosionFrame := 6;
-        meff.ImgLib := g_WMagic2Images;
+        //magicEffect := TThuderEffect.Create (950, sctx, scty, nil); //target);
+        magicEffect := TThuderEffect.Create (10, sctx, scty, nil); //target);
+        magicEffect.ExplosionFrame := 6;
+        magicEffect.ImgLib := g_WMagic2Images;
       end;
       mtLightingThunder:
-         meff := TLightingThunder.Create (970, scx, scy, sctx, scty, target);
+         magicEffect := TLightingThunder.Create (970, scx, scy, sctx, scty, target);
       mtExploBujauk: begin
         case magnumb of
           10: begin  //
-            meff := TExploBujaukEffect.Create (1160, scx, scy, sctx, scty, target);
-            meff.MagExplosionBase := 1360;
+            magicEffect := TExploBujaukEffect.Create (1160, scx, scy, sctx, scty, target);
+            magicEffect.MagExplosionBase := 1360;
           end;
           17: begin  //
-            meff := TExploBujaukEffect.Create (1160, scx, scy, sctx, scty, target);
-            meff.MagExplosionBase := 1540;
+            magicEffect := TExploBujaukEffect.Create (1160, scx, scy, sctx, scty, target);
+            magicEffect.MagExplosionBase := 1540;
           end;
         end;
         bofly := TRUE;
       end;
       mtBujaukGroundEffect: begin
-        meff := TBujaukGroundEffect.Create (1160, magnumb, scx, scy, sctx, scty);
+        magicEffect := TBujaukGroundEffect.Create (1160, magnumb, scx, scy, sctx, scty);
         case magnumb of
-          11: meff.ExplosionFrame := 16; //
-          12: meff.ExplosionFrame := 16; //
-          46: meff.ExplosionFrame := 24;
+          11: magicEffect.ExplosionFrame := 16; //
+          12: magicEffect.ExplosionFrame := 16; //
+          46: magicEffect.ExplosionFrame := 24;
         end;
         bofly := TRUE;
       end;
       mtKyulKai: begin
-        meff := nil; //TKyulKai.Create (1380, scx, scy, sctx, scty);
+        magicEffect := nil; //TKyulKai.Create (1380, scx, scy, sctx, scty);
       end;
       mt12: begin
 
       end;
       mt13: begin
-        meff := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-        if meff <> nil then begin
+        magicEffect := TMagicEff.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+        if magicEffect <> nil then begin
           case magnumb of
             32: begin
-              meff.ImgLib := FrmMain.WMon21Img;
-              meff.MagExplosionBase:=3580;
-              meff.TargetActor := target;
-              meff.Light := 3;
-              meff.NextFrameTime := 20;
+              magicEffect.ImgLib := FrmMain.WMon21Img;
+              magicEffect.MagExplosionBase:=3580;
+              magicEffect.TargetActor := target;
+              magicEffect.Light := 3;
+              magicEffect.NextFrameTime := 20;
             end;
             37: begin
-              meff.ImgLib := FrmMain.WMon22Img;
-              meff.MagExplosionBase:=3520;
-              meff.TargetActor := target;
-              meff.Light := 5;
-              meff.NextFrameTime := 20;
+              magicEffect.ImgLib := FrmMain.WMon22Img;
+              magicEffect.MagExplosionBase:=3520;
+              magicEffect.TargetActor := target;
+              magicEffect.Light := 5;
+              magicEffect.NextFrameTime := 20;
             end;
           end;
         end;
       end;
       mt14: begin
-        meff := TThuderEffect.Create (140, sctx, scty, nil); //target);
-        meff.ExplosionFrame := 10;
-        meff.ImgLib := g_WMagic2Images;
+        magicEffect := TThuderEffect.Create (140, sctx, scty, nil); //target);
+        magicEffect.ExplosionFrame := 10;
+        magicEffect.ImgLib := g_WMagic2Images;
       end;
       mt15: begin
-        meff := TFlyingBug.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
-        meff.TargetActor := target;
+        magicEffect := TFlyingBug.Create (magid, effnum, scx, scy, sctx, scty, mtype, Recusion, anitime);
+        magicEffect.TargetActor := target;
         bofly:=True;
       end;
       mt16: begin
 
       end;
    end;
-   if (meff = nil) then exit;
+   if (magicEffect = nil) then exit;
 
 
-   meff.TargetRx := tx;
-   meff.TargetRy := ty;
-   if meff.TargetActor <> nil then begin
-      meff.TargetRx := TActor(meff.TargetActor).m_nCurrX;
-      meff.TargetRy := TActor(meff.TargetActor).m_nCurrY;
+   magicEffect.TargetRx := tx;
+   magicEffect.TargetRy := ty;
+   if magicEffect.TargetActor <> nil then begin
+      magicEffect.TargetRx := TActor(magicEffect.TargetActor).m_nCurrX;
+      magicEffect.TargetRy := TActor(magicEffect.TargetActor).m_nCurrY;
    end;
-   meff.MagOwner := aowner;
-   m_EffectList.Add (meff);
+   magicEffect.MagOwner := aowner;
+   m_EffectList.Add (magicEffect);
 end;
 
 procedure TPlayScene.DelMagic (magid: integer);
@@ -1809,22 +1810,22 @@ end;
 function  TPlayScene.NewFlyObject (aowner: TActor; cx, cy, tx, ty, targetcode: integer;  mtype: TMagicType): TMagicEff;
 var
    i, scx, scy, sctx, scty: integer;
-   meff: TMagicEff;
+   magicEffect: TMagicEff;
 begin
    ScreenXYfromMCXY (cx, cy, scx, scy);
    ScreenXYfromMCXY (tx, ty, sctx, scty);
    case mtype of
-      mtFlyArrow: meff := TFlyingArrow.Create (1, 1, scx, scy, sctx, scty, mtype, TRUE, 0);
-      mt12: meff := TFlyingFireBall.Create (1, 1, scx, scy, sctx, scty, mtype, TRUE, 0);
-      mt15: meff := TFlyingBug.Create (1, 1, scx, scy, sctx, scty, mtype, TRUE, 0);
-      else meff := TFlyingAxe.Create (1, 1, scx, scy, sctx, scty, mtype, TRUE, 0);
+      mtFlyArrow: magicEffect := TFlyingArrow.Create (1, 1, scx, scy, sctx, scty, mtype, TRUE, 0);
+      mt12: magicEffect := TFlyingFireBall.Create (1, 1, scx, scy, sctx, scty, mtype, TRUE, 0);
+      mt15: magicEffect := TFlyingBug.Create (1, 1, scx, scy, sctx, scty, mtype, TRUE, 0);
+      else magicEffect := TFlyingAxe.Create (1, 1, scx, scy, sctx, scty, mtype, TRUE, 0);
    end;
-   meff.TargetRx := tx;
-   meff.TargetRy := ty;
-   meff.TargetActor := FindActor (targetcode);
-   meff.MagOwner := aowner;
-   m_FlyList.Add (meff);
-   Result := meff;
+   magicEffect.TargetRx := tx;
+   magicEffect.TargetRy := ty;
+   magicEffect.TargetActor := FindActor (targetcode);
+   magicEffect.MagOwner := aowner;
+   m_FlyList.Add (magicEffect);
+   Result := magicEffect;
 end;
 
 //Àü±â½î´Â Á»ºñÀÇ ¸¶¹ýÃ³·³ ±æ°Ô ³ª°¡´Â ¸¶¹ý
@@ -1832,7 +1833,7 @@ end;
 {function  NewStaticMagic (aowner: TActor; tx, ty, targetcode, effnum: integer);
 var
    i, scx, scy, sctx, scty, effbase: integer;
-   meff: TMagicEff;
+   magicEffect: TMagicEff;
 begin
    ScreenXYfromMCXY (cx, cy, scx, scy);
    ScreenXYfromMCXY (tx, ty, sctx, scty);
@@ -1841,13 +1842,13 @@ begin
       else exit;
    end;
 
-   meff := TLightingEffect.Create (effbase, 1, 1, scx, scy, sctx, scty, mtype, TRUE, 0);
-   meff.TargetRx := tx;
-   meff.TargetRy := ty;
-   meff.TargetActor := FindActor (targetcode);
-   meff.MagOwner := aowner;
-   FlyList.Add (meff);
-   Result := meff;
+   magicEffect := TLightingEffect.Create (effbase, 1, 1, scx, scy, sctx, scty, mtype, TRUE, 0);
+   magicEffect.TargetRx := tx;
+   magicEffect.TargetRy := ty;
+   magicEffect.TargetActor := FindActor (targetcode);
+   magicEffect.MagOwner := aowner;
+   FlyList.Add (magicEffect);
+   Result := magicEffect;
 end;  }
 
 {-------------------------------------------------------}
