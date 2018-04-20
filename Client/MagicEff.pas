@@ -18,6 +18,8 @@ const
    EXPLOSIONBASE = 170;			// ExplosionBase
    //EFFECTFRAME = 260;			// EffectFrame
    MAXMAGIC = 10;				// MaxMagic
+
+   // Image Index
    FLYOMAAXEBASE = 447;			// FlyOmaAxeBase
    THORNBASE = 2967;			// ThornBase
    ARCHERBASE = 2607;			// ArcherBase
@@ -26,39 +28,39 @@ const
    FLYFORSEC = 500;			// FlyForSec
    FIREGUNFRAME = 6;		// FireGunFrame
 
-   MAXEFFECT = 49{31};		// MaxEffect
+   MAXEFFECT = 49{31};		// MaxEffect (31 is origin)
 
    EffectBase: array[0..MAXEFFECT-1] of integer = (
     0,{1}		//FireBall
     200,{2}		//Healing
     400,{3}		//GreatFireBall
-    600,{4}		//Poisoning
-    0,{5}
-    900,{6}		//Repulsion
-    920,{7}		//HellFire
-    940,{8}		//汾牢厘 //No casting effect
-    20,{9}		//碍拜,  Magic2
-    940,{10}	//气混拌 //No casting effect
-    940,{11}	//措瘤盔龋 //No casting effect
-    940,{12}	//措瘤盔龋付 //No casting effect
-    0,{13}		//绢八贱
-    1380,{14}	//TrapHexagon
-    1500,{15}	//归榜捧磊家券, 家券贱
+    600,{4}		//Poisoning 施毒术
+    0,{5}		//Slaying 攻杀剑术
+    900,{6}		//Repulsion 抗拒火环
+    920,{7}		//HellFire 地狱火
+    940,{8}		//Lightning 疾光电影  //No casting effect
+    20,{9}		//ThunderBolt 雷电术  Magic2
+    940,{10}	//SoulFireBall灵魂火符 //No casting effect
+    940,{11}	//SoulShield 幽灵盾 //No casting effect
+    940,{12}	//BlessedArmou 神圣战甲术 //No casting effect
+    0,{13}		//Thrusting 刺杀剑术
+    1380,{14}	//TrapHexagon 捆魔咒
+    1500,{15}	//SummonSkele 召唤骷髅
     1520,{16}	//Hiding
-    940,{17}	//措篮脚
-    1560,{18}	//Eshock
-    1590,{19}	//鉴埃捞悼
-    1620,{20}	//瘤凯厘
-    1650,{21}	//FireBall
-    1680,{22}	//ThunderStorm
-    0,{23}		//馆岿八过
-    0,{24}		//堪拳搬
-    0,{25}		//公怕焊
-    3960,{26}	//Revelation
-    1790,{27}	//MassHealing
-    0,{28}		//脚荐家券  Magic2
+    940,{17}	//MassHiding 集体隐身术
+    1560,{18}	//Eshock 诱惑之光
+    1590,{19}	//Teleport 瞬息移动
+    1620,{20}	//FireWall 火墙
+    1650,{21}	//FireBall 爆裂火焰
+    1680,{22}	//ThunderStorm 地狱雷光
+    0,{23}		//HalfMoon 半月弯刀
+    0,{24}		//FlamingSword 烈火剑法
+    0,{25}		//ShoulderDash 野蛮冲撞
+    3960,{26}	//Revelation 心灵启示
+    1790,{27}	//MassHealing 群体治疗术
+    0,{28}		//SummonShinsu 召唤神兽 Magic2
     3880,{29}	//MagicShield
-    3920,{30}	//TurnUndead
+    3920,{30}	//TurnUndead 圣言术
     3840,{31}	//IceStorm
     0,{32}
     40,{33}
@@ -79,27 +81,20 @@ const
     1040,{48}
     1110 {49}
     );
+
    MAXHITEFFECT = 8{5};
-   {
+
    HitEffectBase: array[0..MAXHITEFFECT-1] of integer = (
-      800,           //0 Slaying
-      1410,          //1 Thrusting 
-      1700,          //2 HalfMoon
-      3480,          //3 FlamingSword, Prepared
-      3390,          //4 FlamingSword, Trigger
-      1,2,3
+   800,				//0 Slaying
+   1410,			//1 Thrusting 
+   1700,			//2 HalfMoon
+   3480,			//3 FlamingSword, Prepared
+   3390,			//4 FlamingSword, Trigger
+   40,
+   220,
+   740
    );
-   }
-  HitEffectBase: array[0..MAXHITEFFECT-1] of integer = (
-    800,
-    1410,
-    1700,
-    3480,
-    3390,
-    40,
-    220,
-    740
-    );
+
    MAXMAGICTYPE = 16;
 
 type
@@ -122,6 +117,7 @@ type
       Recusion: Boolean;
       AniTime: integer;
    end;
+
    PTUseMagicInfo = ^TUseMagicInfo;
 
    TMagicEff = class//Size 0xC8
