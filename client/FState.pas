@@ -42,7 +42,7 @@ type
 
 	pTClickPoint = ^TClickPoint;
 
-	// Dice: 骰�?�
+	// Dice: 骰???
 	TDiceInfo = record
 		nDicePoint :Integer;		//0x66C
 		nPlayPoint :Integer;		//0x670 //Current point value
@@ -788,7 +788,7 @@ begin
    end;
 end;
 
-procedure TFrmDlg.Initialize;  //�����? ���������Ҷ����� ȣ����
+procedure TFrmDlg.Initialize;  //����??? ���������Ҷ����� ȣ����
 var
    i: integer;
    d: TDirectDrawSurface;
@@ -1461,8 +1461,8 @@ begin
    // Sell Dialog
    d := g_WMainImages.Images[392];
    if d <> nil then begin
-      DSellDlg.Left := 328;
-      DSellDlg.Top  := 163;
+      DSellDlg.Left := 260;
+      DSellDlg.Top  := 176;
       DSellDlg.SetImgIndex (g_WMainImages, 392);
    end;
    DSellDlgOk.Left := 85;
@@ -1971,8 +1971,8 @@ begin
    ArrangeItemBag;
 end;
 
-//�̵����� �������? �ٴڿ� ���� �߸�...
-//����(��Ʈ)���� ��͸�? ȣ����
+//�̵����� ������??? �ٴڿ� ���� �߸�...
+//����(��Ʈ)���� ��͸??? ȣ����
 procedure TFrmDlg.DropMovingItem;
 var
    idx: integer;
@@ -2014,7 +2014,7 @@ begin
          //
          FrmMain.SendDropGold (dropgold);
       end;
-      if g_MovingItem.Index >= 0 then //������ ���濡�� ��͸�?..
+      if g_MovingItem.Index >= 0 then //������ ���濡�� ��͸???..
          DropMovingItem;
    end;
 end;
@@ -2132,7 +2132,7 @@ begin
    lx := XBase;
    ly := 126;
    case DialogSize of
-      0:  //�����?
+      0:  //����???
          begin
             d := g_WMainImages.Images[381];
             if d <> nil then begin
@@ -2158,7 +2158,7 @@ begin
                ly := 126;
             end;
          end;
-      2:  //�����?
+      2:  //����???
          begin
             d := g_WMainImages.Images[380];
             if d <> nil then begin
@@ -2696,7 +2696,7 @@ begin
    end;
    if svname <> '' then begin
       if BO_FOR_TEST then begin
-         svname := '�����?';
+         svname := '����???';
          ServerMiniName := '����';
       end;
       FrmMain.SendSelectServer (svname);
@@ -2736,7 +2736,7 @@ begin
    end;
    if svname <> '' then begin
       if BO_FOR_TEST then begin
-         svname := '�����?';
+         svname := '����???';
          g_sServerMiniName := '����';
       end;
       FrmMain.SendSelectServer (svname);
@@ -3735,7 +3735,7 @@ begin
             end;
          end;
          pm := PTClientMagic (g_MagicList[idx]);
-         //if pm.Def.EffectType <> 0 then begin //�˹��? Ű���� ����.
+         //if pm.Def.EffectType <> 0 then begin //�˹�??? Ű���� ����.
          pm.Key := keych;
          FrmMain.SendMagicKeyChange (pm.Def.wMagicId, keych);
          //end;
@@ -4107,7 +4107,7 @@ begin
          end;
       end else begin
          if (g_MovingItem.Index = -97) or (g_MovingItem.Index = -98) then exit;
-         if g_MovingItem.Item.S.StdMode <= 3 then begin //����,���?,��ũ��
+         if g_MovingItem.Item.S.StdMode <= 3 then begin //����,��???,��ũ��
             //ItemClickSound (MovingItem.Item.S.StdMode);
             if g_ItemArr[idx].S.Name <> '' then begin
                temp := g_ItemArr[idx];
@@ -4385,11 +4385,11 @@ begin
                      end;
                   41: begin
                         useable := TRUE;
-                        line3 := line3 + '����ת??&�����?' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '����ת??&����???' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   42: begin
                         useable := TRUE;
-                        line3 := line3 + '����ת??&ħ���?' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '����ת??&ħ��???' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   43: begin
                         useable := TRUE;
@@ -4434,7 +4434,7 @@ begin
                end;
             end;
          15,     //ͷ��,����
-         19,20,21,  //���?
+         19,20,21,  //��???
          22,23,  //��ָ
          24,26, //����
          51,
@@ -4447,7 +4447,7 @@ begin
                         ' Dura'+ GetDuraStr(g_MouseItem.Dura, g_MouseItem.DuraMax);
 
                case g_MouseItem.S.StdMode of
-                  19,53: //���?
+                  19,53: //��???
                      begin
                         if g_MouseItem.S.AC > 0 then
                            line2 := line2 + 'MR+' + IntToStr(HiWord(g_MouseItem.S.AC)) + '0% ';
@@ -4455,14 +4455,14 @@ begin
                         if HiWord(g_MouseItem.S.MAC) > 0 then line2 := line2 + 'Luck+' + IntToStr(HiWord(g_MouseItem.S.MAC)) + ' ';
                            //���� ǥ�þȵ� + IntToStr(Hibyte(MouseItem.S.MAC)) + ' ';
                      end;
-                  20, 24,52: //���? �� ����: MaxAC -> Hit,  MaxMac -> Speed
+                  20, 24,52: //��??? �� ����: MaxAC -> Hit,  MaxMac -> Speed
                      begin
                         if g_MouseItem.S.AC > 0 then
                            line2 := line2 + 'Acc+' + IntToStr(HiWord(g_MouseItem.S.AC)) + ' ';
                         if g_MouseItem.S.MAC > 0 then
                            line2 := line2 + 'Agil+' + IntToStr(HiWord(g_MouseItem.S.MAC)) + ' ';
                      end;
-                  21,54:  //���?
+                  21,54:  //��???
                      begin
                         if HiWord(g_MouseItem.S.AC) > 0 then
                            line2 := line2 + 'HPR+' + IntToStr(HiWord(g_MouseItem.S.AC)) + '0% ';
@@ -4550,11 +4550,11 @@ begin
                      end;
                   41: begin
                         useable := TRUE;
-                        line3 := line3 + '����ת??&�����?' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '����ת??&����???' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   42: begin
                         useable := TRUE;
-                        line3 := line3 + '����ת??&ħ���?' + IntToStr(g_MouseItem.S.NeedLevel);
+                        line3 := line3 + '����ת??&ħ��???' + IntToStr(g_MouseItem.S.NeedLevel);
                      end;
                   43: begin
                         useable := TRUE;
@@ -4764,8 +4764,8 @@ begin
          //ItemClickSound (MovingItem.Item.S.StdMode);
          mi := g_MovingItem.Index;
          if (mi = -97) or (mi = -98) then exit; //��...
-         if (mi < 0) and (mi >= -13 {-9}) then begin  //-99: Sellâ���� �������?
-            //����â���� �������?
+         if (mi < 0) and (mi >= -13 {-9}) then begin  //-99: Sellâ���� ������???
+            //����â���� ������???
             g_WaitingUseItem := g_MovingItem;
             FrmMain.SendTakeOffItem (-(g_MovingItem.Index+1), g_MovingItem.Item.MakeIndex, g_MovingItem.Item.S.Name);
             g_MovingItem.Item.S.name := '';
@@ -4801,12 +4801,12 @@ begin
          FillChar(keyvalue, sizeof(TKeyboardState), #0);
          GetKeyboardState (keyvalue);
          if keyvalue[VK_CONTROL] = $80 then begin
-            //��Ʈâ���? �ű�
+            //��Ʈâ��??? �ű�
             cu := g_ItemArr[idx];
             g_ItemArr[idx].S.Name := '';
             AddItemBag (cu);
          end else
-            if (g_ItemArr[idx].S.StdMode <= 4) or (g_ItemArr[idx].S.StdMode = 31) then begin //�����? �� �ִ� ������
+            if (g_ItemArr[idx].S.StdMode <= 4) or (g_ItemArr[idx].S.StdMode = 31) then begin //����??? �� �ִ� ������
                FrmMain.EatItem (idx);
             end;
       end else begin
@@ -4814,7 +4814,7 @@ begin
             FillChar(keyvalue, sizeof(TKeyboardState), #0);
             GetKeyboardState (keyvalue);
             if keyvalue[VK_CONTROL] = $80 then begin
-               //��Ʈâ���? �ű�
+               //��Ʈâ��??? �ű�
                cu := g_MovingItem.Item;
                g_MovingItem.Item.S.Name := '';
                g_boItemMoving := FALSE;
@@ -4892,13 +4892,13 @@ procedure TFrmDlg.ShowMDlg (face: integer; mname, msgstr: string);
 var
    i: integer;
 begin
-   DMerchantDlg.Left := 0;  //�⺻ ��?
+   DMerchantDlg.Left := 0;  //�⺻ �??
    DMerchantDlg.Top := 0;
    MerchantFace := face;
    MerchantName := mname;
    MDlgStr := msgstr;
    DMerchantDlg.Visible := TRUE;
-   DItemBag.Left := 475;  //������? ����
+   DItemBag.Left := 475;  //�����?? ����
    DItemBag.Top := 0;
    for i:=0 to MDlgPoints.Count-1 do
       Dispose (pTClickPoint (MDlgPoints[i]));
@@ -4936,7 +4936,7 @@ procedure TFrmDlg.ShowShopMenuDlg;
 begin
    MenuIndex := -1;
 
-   DMerchantDlg.Left := 0;  //�⺻ ��?
+   DMerchantDlg.Left := 0;  //�⺻ �??
    DMerchantDlg.Top := 0;
    DMerchantDlg.Visible := TRUE;
 
@@ -4979,7 +4979,7 @@ begin
    for i:=0 to MDlgPoints.Count-1 do
       Dispose (PTClickPoint (MDlgPoints[i]));
    MDlgPoints.Clear;
-   //�޴�â�� ���?
+   //�޴�â�� ��???
    DItemBag.Left := 0;
    DItemBag.Top := 0;
    DMenuDlg.Visible := FALSE;
@@ -5037,7 +5037,7 @@ begin
                      drawcenter := FALSE;
                      continue;
                   end;
-                  cmdparam := GetValidStr3 (cmdstr, cmdstr, ['/']); //cmdparam : Ŭ�� �Ǿ��? �� ����
+                  cmdparam := GetValidStr3 (cmdstr, cmdstr, ['/']); //cmdparam : Ŭ�� �Ǿ�??? �� ����
                end else begin
                   DMenuDlg.Visible := FALSE;
                   DSellDlg.Visible := FALSE;
@@ -5223,7 +5223,7 @@ procedure TFrmDlg.DMenuBuyClick(Sender: TObject; X, Y: Integer);
 var
    pg: PTClientGoods;
 begin
-   if GetTickCount < LastestClickTime then exit; //Ŭ���? ���� ���ϰ� ���?
+   if GetTickCount < LastestClickTime then exit; //Ŭ��??? ���� ���ϰ� ��???
    if (MenuIndex >= 0) and (MenuIndex < MenuList.Count) then begin
       pg := PTClientGoods (MenuList[MenuIndex]);
       LastestClickTime := GetTickCount + 5000;
@@ -5312,7 +5312,7 @@ var
    i, L, T: integer;
    p: PTClickPoint;
 begin
-   if GetTickCount < LastestClickTime then exit; //Ŭ���? ���� ���ϰ� ���?
+   if GetTickCount < LastestClickTime then exit; //Ŭ��??? ���� ���ϰ� ��???
    L := DMerchantDlg.Left;
    T := DMerchantDlg.Top;
    with DMerchantDlg do
@@ -5322,7 +5322,7 @@ begin
             (Y >= SurfaceY(T + p.rc.Top)) and (Y <= SurfaceY(T + p.rc.Bottom)) then begin
             PlaySound (s_glass_button_click);
             FrmMain.SendMerchantDlgSelect (g_nCurMerchant, p.RStr);
-            LastestClickTime := GetTickCount + 5000; //5���Ŀ� ���? ����
+            LastestClickTime := GetTickCount + 5000; //5���Ŀ� ��??? ����
             break;
          end;
       end;
@@ -5334,7 +5334,7 @@ var
    i, L, T: integer;
    p: PTClickPoint;
 begin
-   if GetTickCount < LastestClickTime then exit; //Ŭ���? ���� ���ϰ� ���?
+   if GetTickCount < LastestClickTime then exit; //Ŭ��??? ���� ���ϰ� ��???
    SelectMenuStr := '';
    L := DMerchantDlg.Left;
    T := DMerchantDlg.Top;
@@ -5356,29 +5356,29 @@ begin
 end;
 
 procedure TFrmDlg.DSellDlgDirectPaint(Sender: TObject;
-  dsurface: TDirectDrawSurface);
+	dsurface: TDirectDrawSurface);
 var
-   d: TDirectDrawSurface;
-   actionname: string;
+	d: TDirectDrawSurface;
+	actionName: string;
 begin
-   with DSellDlg do begin
-      d := DMenuDlg.WLib.Images[FaceIndex];
-      if d <> nil then
-         dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
+	with DSellDlg do begin
+		d := DMenuDlg.WLib.Images[FaceIndex];
+		if d <> nil then
+			dsurface.Draw (SurfaceX(Left), SurfaceY(Top), d.ClientRect, d, TRUE);
 
-      with dsurface.Canvas do begin
-         SetBkMode (Handle, TRANSPARENT);
-         Font.Color := clWhite;
-         actionname := '';
-         case SpotDlgMode of
-            dmSell:   actionname := 'Sale: ';
-            dmRepair: actionname := 'Repair: ';
-            dmStorage: actionname := ' custody of Item';
-         end;
-         TextOut (SurfaceX(Left+8), SurfaceY(Top+6), actionname + g_sSellPriceStr);
-         Release;
-      end;
-   end;
+		with dsurface.Canvas do begin
+			SetBkMode (Handle, TRANSPARENT);
+			Font.Color := clWhite;
+			actionName := '';
+			case SpotDlgMode of
+			dmSell:   actionName := 'Sale: ';
+			dmRepair: actionName := 'Repair: ';
+			dmStorage: actionName := ' custody of Item';
+		end;
+		TextOut (SurfaceX(Left+8), SurfaceY(Top+6), actionName + g_sSellPriceStr);
+		Release;
+	end;
+end;
 end;
 
 procedure TFrmDlg.DSellDlgCloseClick(Sender: TObject; X, Y: Integer);
@@ -5403,7 +5403,7 @@ begin
       if (g_MovingItem.Index = -97) or (g_MovingItem.Index = -98) then exit;
       if (g_MovingItem.Index >= 0) or (g_MovingItem.Index = -99) then begin //����,��Ʈ���� �°͸�
          ItemClickSound (g_MovingItem.Item.S);
-         if g_SellDlgItem.S.Name <> '' then begin //�ڸ��� �����?
+         if g_SellDlgItem.S.Name <> '' then begin //�ڸ��� ����???
             temp := g_SellDlgItem;
             g_SellDlgItem := g_MovingItem.Item;
             g_MovingItem.Index := -99; //sell â���� ����..
@@ -5445,7 +5445,7 @@ end;
 procedure TFrmDlg.DSellDlgOkClick(Sender: TObject; X, Y: Integer);
 begin
    if (g_SellDlgItem.S.Name = '') and (g_SellDlgItemSellWait.S.Name = '') then exit;
-   if GetTickCount < LastestClickTime then exit; //Ŭ���? ���� ���ϰ� ���?
+   if GetTickCount < LastestClickTime then exit; //Ŭ��??? ���� ���ϰ� ��???
    case SpotDlgMode of
       dmSell: FrmMain.SendSellItem (g_nCurMerchant, g_SellDlgItem.MakeIndex, g_SellDlgItem.S.Name);
       dmRepair: FrmMain.SendRepairItem (g_nCurMerchant, g_SellDlgItem.MakeIndex, g_SellDlgItem.S.Name);
@@ -5463,7 +5463,7 @@ end;
 
 {------------------------------------------------------------------------}
 
-//ħ�� Ű ���? â (���̾� �α�)
+//ħ�� Ű ��??? â (���̾� �α�)
 
 {------------------------------------------------------------------------}
 
@@ -5846,7 +5846,7 @@ begin
       FrmMain.SendDealEnd;
       g_dwDealActionTick := GetTickCount + 4000;
       g_boDealEnd := TRUE;
-      //�� â���� ���콺�� ���� �ִ� ���? ��â���? �ִ´�. ���콺�� ���� �ܻ�(����)�? ���ش�.
+      //�� â���� ���콺�� ���� �ִ� ��??? ��â��??? �ִ´�. ���콺�� ���� �ܻ�(����)??? ���ش�.
       if g_boItemMoving then begin
          mi := g_MovingItem.Index;
          if (mi <= -20) and (mi > -30) then begin //�� â���� �°͸�
@@ -6508,10 +6508,10 @@ begin
 
       if DMsgDlg.DialogResult = mrOk then begin
          //GuildMembers.Assign (Memo.Lines);
-         //����... ���ĵ����? ������Ʈ �Ѵ�.
+         //����... ���ĵ���??? ������Ʈ �Ѵ�.
          data := '';
          for i:=0 to Memo.Lines.Count-1 do begin
-            data := data + Memo.Lines[i] + #13;  //�����? �Ľ���.
+            data := data + Memo.Lines[i] + #13;  //����??? �Ľ���.
          end;
          if Length(data) > 5000 then begin
             data := Copy (data, 1, 5000);
@@ -6927,7 +6927,7 @@ begin
       ly := LocalY (Y - Top);
       flag := FALSE;
       if (lx >= 50) and (lx < 150) then
-         for i:=0 to 8 do begin  //DC,MC,SC..�� ��Ʈ�� �����? �Ѵ�.
+         for i:=0 to 8 do begin  //DC,MC,SC..�� ��Ʈ�� ����??? �Ѵ�.
             if (ly >= 98 + i*20) and (ly < 98 + (i+1)*20) then begin
                DScreen.ShowHint (SurfaceX(Left) + lx + 10,
                                  SurfaceY(Top) + ly + 5,
