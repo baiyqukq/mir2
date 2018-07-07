@@ -3,7 +3,7 @@ unit ObjBase;
 interface
 uses
   Windows, Classes, SysUtils, Forms, StrUtils, Math, SDK, Grobal2, Envir,
-  ItmUnit, MD5Unit;
+  ItemUnit, MD5Unit;
 
 type
   TClientAction = (cHit,cMagHit,cRun,cWalk,cDigUp,cTurn);

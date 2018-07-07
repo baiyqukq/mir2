@@ -3,7 +3,7 @@ unit M2Share;
 interface
 
 uses
-  Windows, Messages,Classes, SysUtils, StdCtrls, Graphics, RunSock, Envir, ItmUnit, Magic, NoticeM, Guild, Event,
+  Windows, Messages,Classes, SysUtils, StdCtrls, Graphics, RunSock, Envir, ItemUnit, Magic, NoticeM, Guild, Event,
   Castle,  FrnEngn, UsrEngn, MudUtil, Grobal2, ObjBase, ObjRobot, ObjNpc, SyncObjs, IniFiles, SDK, EncryptUnit, WinSock, MD5Unit;
 
 ResourceString

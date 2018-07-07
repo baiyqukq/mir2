@@ -23,7 +23,7 @@ uses
   Mission in 'Mission.pas',
   Magic in 'Magic.pas',
   M2Share in 'M2Share.pas',
-  ItmUnit in 'ItmUnit.pas',
+  ItemUnit in 'ItemUnit.pas',
   Guild in 'Guild.pas',
   FrnEngn in 'FrnEngn.pas',
   Event in 'Event.pas',

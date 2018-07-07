@@ -101,7 +101,7 @@ var
 
 implementation
 
-uses UsrEngn, ItmUnit, M2Share, Grobal2;
+uses UsrEngn, ItemUnit, M2Share, Grobal2;
 
 {$R *.dfm}
 var

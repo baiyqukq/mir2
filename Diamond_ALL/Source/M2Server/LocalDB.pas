@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, StrUtils, Variants, Classes, Graphics, Controls, Forms,ActiveX,
-  Dialogs, M2Share, ADODB, DB, HUtil32, Grobal2, SDK, ObjNpc, ItmUnit;
+  Dialogs, M2Share, ADODB, DB, HUtil32, Grobal2, SDK, ObjNpc, ItemUnit;
 
 
 type

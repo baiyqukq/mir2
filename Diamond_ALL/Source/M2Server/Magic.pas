@@ -50,7 +50,7 @@ type
 
 implementation
 
-uses HUtil32, M2Share, Event, Envir, ItmUnit, sysutils;
+uses HUtil32, M2Share, Event, Envir, ItemUnit, sysutils;
 
 function MPow(UserMagic:pTUserMagic):Integer;
 begin

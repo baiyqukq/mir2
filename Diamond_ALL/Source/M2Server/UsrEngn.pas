@@ -3,7 +3,7 @@ unit UsrEngn;
 interface
 uses
   Windows, Classes, SysUtils, StrUtils, Forms, ObjBase, MudUtil, ObjNpc, Envir,
-  ItmUnit, Grobal2, SDK;
+  ItemUnit, Grobal2, SDK;
 
 type
   TUserEngine = class

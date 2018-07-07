@@ -395,7 +395,7 @@ type
 implementation
 
 uses Castle, M2Share, HUtil32, LocalDB, Envir, Guild, EDcode, ObjMon2,
-  Event, ItmUnit;
+  Event, ItemUnit;
 
 procedure TCastleOfficial.Click(PlayObject: TPlayObject); //004A4588
 begin

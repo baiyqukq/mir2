@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, NMUDP, JSocket, ExtCtrls, Buttons, StdCtrls, IniFiles, M2Share,
-  Grobal2, SDK, HUtil32, RunSock, Envir, ItmUnit, Magic, NoticeM, Guild, Event,
+  Grobal2, SDK, HUtil32, RunSock, Envir, ItemUnit, Magic, NoticeM, Guild, Event,
   Castle,  FrnEngn, UsrEngn, MudUtil, SyncObjs, Menus, ComCtrls, Grids, MD5Unit;
 
 type
