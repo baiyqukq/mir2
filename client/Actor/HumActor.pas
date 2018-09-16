@@ -72,22 +72,29 @@ begin
   m_nBodyOffset := HUMANFRAME * (m_btDress); //m_btSex; //巢磊0, 咯磊1
 
   haircount := g_WHairImgImages.ImageCount div HUMANFRAME div 2;
-  if m_btHair > haircount-1 then m_btHair := haircount-1;
+
+  if m_btHair > haircount-1 then 
+	m_btHair := haircount-1;
+
   m_btHair := m_btHair * 2;
+
   if m_btHair > 1 then
-    m_nHairOffset := HUMANFRAME * (m_btHair + m_btSex)
-  else m_nHairOffset := -1;
+	  m_nHairOffset := HUMANFRAME * (m_btHair + m_btSex)
+  else
+	  m_nHairOffset := -1;
+
   m_nWeaponOffset := HUMANFRAME * m_btWeapon; //(weapon*2 + m_btSex);
 //   if Dress in [1..4] then begin
 //   if Dress in [18..21] then begin
 //     HumWinOffset:=(Dress - 18)* HUMANFRAME;
 //   end;
-  if (m_btEffect = 50) then begin
-    m_nHumWinOffset:=352;
-  end else
-  if m_btEffect <> 0 then
-     m_nHumWinOffset:=(m_btEffect - 1) * HUMANFRAME;
-   case m_nCurrentAction of
+	if (m_btEffect = 50) then begin
+		m_nHumWinOffset:=352;
+	end else
+		if m_btEffect <> 0 then
+			m_nHumWinOffset:=(m_btEffect - 1) * HUMANFRAME;
+
+	case m_nCurrentAction of
       SM_TURN:
          begin
             m_nStartFrame := HA.ActStand.start + m_btDir * (HA.ActStand.frame + HA.ActStand.skip);
@@ -610,14 +617,16 @@ begin
    }
 
    //BodySurface := FrmMain.WHumImg.GetCachedImage (BodyOffset + m_nCurrentFrame, px, py);
-   m_BodySurface := FrmMain.GetWHumImg(m_btDress,m_btSex ,m_nCurrentFrame, m_nPx, m_nPy);
-   if m_BodySurface = nil then
-     m_BodySurface := FrmMain.GetWHumImg(0,m_btSex ,m_nCurrentFrame, m_nPx, m_nPy);
-     
+	m_BodySurface := FrmMain.GetWHumImg(m_btDress, m_btSex, m_nCurrentFrame, m_nPx, m_nPy);
 
-   if m_nHairOffset >= 0 then
-      m_HairSurface := g_WHairImgImages.GetCachedImage (m_nHairOffset + m_nCurrentFrame, m_nHpx, m_nHpy)
-   else m_HairSurface := nil;
+	if m_BodySurface = nil then
+		m_BodySurface := FrmMain.GetWHumImg(0, m_btSex, m_nCurrentFrame, m_nPx, m_nPy);
+
+	if m_nHairOffset >= 0 then
+		m_HairSurface := g_WHairImgImages.GetCachedImage (m_nHairOffset + m_nCurrentFrame, m_nHpx, m_nHpy);
+	else 
+		m_HairSurface := nil;
+
    if (m_btEffect = 50) then begin
      if (m_nCurrentFrame <= 536) then begin
        if (GetTickCount - m_dwFrameTick) > 100 then begin
@@ -655,7 +664,7 @@ procedure  THumActor.DrawChr (dsurface: TDirectDrawSurface; dx, dy: integer; ble
 var
    idx, ax, ay: integer;
    d: TDirectDrawSurface;
-   ceff: TColorEffect;
+   cEff: TColorEffect;
    wimg: TWMImages;
 begin
    d:=nil;//Jacky
@@ -665,7 +674,7 @@ begin
       LoadSurface; //bodysurface loadsurface
    end;
 
-   ceff := GetDrawEffectValue;
+   cEff := GetDrawEffectValue;
 
 
    if m_btRace = 0 then begin
@@ -722,11 +731,12 @@ begin
          DrawWeaponGlimmer (dsurface, dx + m_nShiftX, dy + m_nShiftY);
          //dsurface.Draw (dx + wpx + ShiftX, dy + wpy + ShiftY, WeaponSurface.ClientRect, WeaponSurface, TRUE);
       end;
-      //个烹 弊府绊
+
       if m_BodySurface <> nil then
-         DrawEffSurface (dsurface, m_BodySurface, dx + m_nPx + m_nShiftX, dy + m_nPy + m_nShiftY, blend, ceff);
+         DrawEffSurface (dsurface, m_BodySurface, dx + m_nPx + m_nShiftX, dy + m_nPy + m_nShiftY, blend, cEff);
+
       if m_HairSurface <> nil then
-         DrawEffSurface (dsurface, m_HairSurface, dx + m_nHpx + m_nShiftX, dy + m_nHpy + m_nShiftY, blend, ceff);
+         DrawEffSurface (dsurface, m_HairSurface, dx + m_nHpx + m_nShiftX, dy + m_nHpy + m_nShiftY, blend, cEff);
 
       //
       if (m_nWpord = 1) and {(not blend) and} (m_btWeapon >= 2) and (m_WeaponSurface <> nil) and (not m_boHideWeapon) then begin

@@ -12,7 +12,7 @@ const
 	CMMX     = 150;
 	CMMY     = 200;
 
-	HUMANFRAME = 600;					// Human frame
+	HUMANFRAME = 600;					// Human frame count
 	MONFRAME  = 280;					// Monster frame
 	EXPMONFRAME = 360;					// Exp monster frame
 	SCULMONFRAME = 440;					// Scullpture monster frame
@@ -605,15 +605,17 @@ type
      m_nShiftX                 :Integer;    //0x98
      m_nShiftY                 :Integer;    //0x9C
 
-     m_nPx                     :Integer;  //0xA0
-     m_nHpx                    :Integer;  //0xA4
-     m_nWpx                    :Integer;  //0xA8
-     m_nSpx                    :Integer;  //0xAC
+	 //![Position
+     m_nPx                     :Integer;  //0xA0	// Body
+     m_nHpx                    :Integer;  //0xA4	// Hair
+     m_nWpx                    :Integer;  //0xA8	// Weapon
+     m_nSpx                    :Integer;  //0xAC	// Wing
 
      m_nPy                     :Integer;
      m_nHpy                    :Integer;
      m_nWpy                    :Integer;
      m_nSpy                    :Integer;  //0xB0 0xB4 0xB8 0xBC
+	 //!]
 
      m_nRx                     :Integer;
      m_nRy                     :Integer;//0xC0 0xC4
@@ -1245,7 +1247,7 @@ end;
 
 procedure TActor.CalcActorFrame;
 var
-  haircount: integer;
+  hairCount: integer;
 begin
   m_boUseMagic    := FALSE;
   m_nCurrentFrame := -1;
@@ -1762,7 +1764,7 @@ end;
 
 procedure  TActor.FeatureChanged;
 var
-   haircount: integer;
+   hairCount: integer;
 begin
    case m_btRace of
       //human
@@ -1778,8 +1780,8 @@ begin
          m_btHorse  := Horsefeature(m_nFeatureEx);
          m_btEffect := Effectfeature(m_nFeatureEx);
          m_nBodyOffset := HUMANFRAME * m_btDress; //남자0, 여자1
-         haircount := g_WHairImgImages.ImageCount div HUMANFRAME div 2;
-         if m_btHair > haircount-1 then m_btHair := haircount-1;
+         hairCount := g_WHairImgImages.ImageCount div HUMANFRAME div 2;
+         if m_btHair > hairCount-1 then m_btHair := hairCount-1;
          m_btHair := m_btHair * 2;
          if m_btHair > 1 then
             m_nHairOffset := HUMANFRAME * (m_btHair + m_btSex)

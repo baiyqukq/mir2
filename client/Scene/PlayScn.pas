@@ -2280,7 +2280,7 @@ begin
 	end;
 
 	with actor do begin
-		m_nRecogId := chrid;
+		m_nRecogId	 := chrid;
 		m_nCurrX     := cx;
 		m_nCurrY     := cy;
 		m_nRx        := m_nCurrX;

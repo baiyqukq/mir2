@@ -49,7 +49,7 @@ type
 		procedure FreeOldBmps;
 		function  FGetImageBitmap (index: integer): TBitmap;
 	protected
-      //MemorySize: integer;      //0x3C      ?
+		//MemorySize: integer;      //0x3C      ?
 		lsDib: TDib;              //0x40
 		m_dwMemChecktTick: LongWord;   //0x44
 	public
@@ -64,27 +64,27 @@ type
 		destructor Destroy; override;
 
 		procedure Initialize;
-      procedure Finalize;
-      procedure ClearCache;
-      procedure LoadPalette;
-      procedure FreeBitmap (index: integer);
-      function  GetImage (index: integer; var px, py: integer): TDirectDrawSurface;
-      function  GetCachedImage (index: integer; var px, py: integer): TDirectDrawSurface;
-      function  GetCachedSurface (index: integer): TDirectDrawSurface;
-      function  GetCachedBitmap (index: integer): TBitmap;
-      procedure DrawZoom (paper: TCanvas; x, y, index: integer; zoom: Real);
-      procedure DrawZoomEx (paper: TCanvas; x, y, index: integer; zoom: Real; leftzero: Boolean);
-      property Images[index: integer]: TDirectDrawSurface read FGetImageSurface;
-    	property Bitmaps[Index: Integer]: TBitmap read FGetImageBitmap;
-      property DDraw: TDirectDraw read FDDraw write FDDraw;
-   published
-      property FileName: string read FFileName write FFileName;
-      property ImageCount: integer read FImageCount;
-      property DxDraw: TDxDraw read FDxDraw write FSetDxDraw;
-      property LibType: TLibType read FLibType write FLibType;
-      property MaxMemorySize: integer read FMaxMemorySize write FMaxMemorySize;
-      property Appr:Word read FAppr write FAppr;
-   end;
+		procedure Finalize;
+		procedure ClearCache;
+		procedure LoadPalette;
+		procedure FreeBitmap (index: integer);
+		function  GetImage (index: integer; var px, py: integer): TDirectDrawSurface;
+		function  GetCachedImage (index: integer; var px, py: integer): TDirectDrawSurface;
+		function  GetCachedSurface (index: integer): TDirectDrawSurface;
+		function  GetCachedBitmap (index: integer): TBitmap;
+		procedure DrawZoom (paper: TCanvas; x, y, index: integer; zoom: Real);
+		procedure DrawZoomEx (paper: TCanvas; x, y, index: integer; zoom: Real; leftzero: Boolean);
+		property Images[index: integer]: TDirectDrawSurface read FGetImageSurface;
+		property Bitmaps[Index: Integer]: TBitmap read FGetImageBitmap;
+		property DDraw: TDirectDraw read FDDraw write FDDraw;
+	published
+		property FileName: string read FFileName write FFileName;
+		property ImageCount: integer read FImageCount;
+		property DxDraw: TDxDraw read FDxDraw write FSetDxDraw;
+		property LibType: TLibType read FLibType write FLibType;
+		property MaxMemorySize: integer read FMaxMemorySize write FMaxMemorySize;
+		property Appr:Word read FAppr write FAppr;
+	end;
 
 function TDXDrawRGBQuadsToPaletteEntries(const RGBQuads: TRGBQuads; AllowPalette256: Boolean): TPaletteEntries;
 
@@ -322,29 +322,32 @@ end;
 
 procedure TWMImages.LoadIndex (idxfile: string);
 var
-   fhandle, i, value: integer;
+   fHandle, i, value: integer;
    header: TWMIndexHeader;
    pidx: PTWMIndexInfo;
-   pvalue: PInteger;
+   pValue: PInteger;
 begin
    m_IndexList.Clear;
+
    if FileExists (idxfile) then begin
-      fhandle := FileOpen (idxfile, fmOpenRead or fmShareDenyNone);
-      if fhandle > 0 then begin
+      fHandle := FileOpen (idxfile, fmOpenRead or fmShareDenyNone);
+      if fHandle > 0 then begin
          if btVersion <> 0 then
-           FileRead (fhandle, header, sizeof(TWMIndexHeader) - 4)
+           FileRead (fHandle, header, sizeof(TWMIndexHeader) - 4)
          else
-           FileRead (fhandle, header, sizeof(TWMIndexHeader));
+           FileRead (fHandle, header, sizeof(TWMIndexHeader));
            
-         GetMem (pvalue, 4*header.IndexCount);
-         FileRead (fhandle, pvalue^, 4*header.IndexCount);
+         GetMem (pValue, 4*header.IndexCount);
+         FileRead (fHandle, pValue^, 4*header.IndexCount);
+
          for i:=0 to header.IndexCount-1 do begin
             new (pidx);
-            value := PInteger(integer(pvalue) + 4*i)^;
+            value := PInteger(integer(pValue) + 4*i)^;
             m_IndexList.Add (pointer(value));
          end;
-         FreeMem (pvalue);
-         FileClose (fhandle);
+
+         FreeMem (pValue);
+         FileClose (fHandle);
       end;
    end;
 end;
@@ -392,63 +395,66 @@ var
    nErrorCode:Integer;
 
 begin
-   m_FileStream.Seek (position, 0);
-   if btVersion <> 0 then m_FileStream.Read (imginfo, SizeOf(TWMImageInfo)-4)
-   else m_FileStream.Read (imginfo, SizeOf(TWMImageInfo));
+	m_FileStream.Seek (position, 0);
 
+	if btVersion <> 0 then
+		m_FileStream.Read (imginfo, SizeOf(TWMImageInfo)-4)
+	else
+		m_FileStream.Read (imginfo, SizeOf(TWMImageInfo));
 
-   if g_boUseDIBSurface then begin //DIB
-      //·ÇÈ«ÆÁÊ±
-      try
-      lsDib.Clear;
-      lsDib.Width := imginfo.nWidth;
-      lsDib.Height := imginfo.nHeight;
-      except
-      end;
-      lsDib.ColorTable := MainPalette;
-      lsDib.UpdatePalette;
-      DBits := lsDib.PBits;
-      m_FileStream.Read (DBits^, imginfo.nWidth * imgInfo.nHeight);
+	if g_boUseDIBSurface then begin //DIB
+		//??È«??Ê±
+		try
+			lsDib.Clear;
+			lsDib.Width := imginfo.nWidth;
+			lsDib.Height := imginfo.nHeight;
+		except
+		end;
 
+		lsDib.ColorTable := MainPalette;
+		lsDib.UpdatePalette;
+		DBits := lsDib.PBits;
+		m_FileStream.Read (DBits^, imginfo.nWidth * imgInfo.nHeight);
 
-      pdximg.nPx := imginfo.px;
-      pdximg.nPy := imginfo.py;
-      pdximg.surface := TDirectDrawSurface.Create (FDDraw);
-      pdximg.surface.SystemMemory := TRUE;
-      pdximg.surface.SetSize (imginfo.nWidth, imginfo.nHeight);
-      pdximg.surface.Canvas.Draw (0, 0, lsDib);
-      pdximg.surface.Canvas.Release;
+		pdximg.nPx := imginfo.px;
+		pdximg.nPy := imginfo.py;
+		pdximg.surface := TDirectDrawSurface.Create (FDDraw);
+		pdximg.surface.SystemMemory := TRUE;
+		pdximg.surface.SetSize (imginfo.nWidth, imginfo.nHeight);
+		pdximg.surface.Canvas.Draw (0, 0, lsDib);
+		pdximg.surface.Canvas.Release;
+		pdximg.surface.TransparentColor := 0;
+	end else begin //
+		//??È«??Ê±   
+		slen  := WidthBytes(imginfo.nWidth);
+		GetMem (PSrc, slen * imgInfo.nHeight);
+		SBits := PSrc;
+		m_FileStream.Read (PSrc^, slen * imgInfo.nHeight);
+		try
+			pdximg.surface := TDirectDrawSurface.Create (FDDraw);
+			pdximg.surface.SystemMemory := TRUE;
+			pdximg.surface.SetSize (slen, imginfo.nHeight);
+			//pdximg.surface.Palette := MainSurfacePalette;
 
-      pdximg.surface.TransparentColor := 0;
-   end else begin //
-      //·ÇÈ«ÆÁÊ±   
-      slen  := WidthBytes(imginfo.nWidth);
-      GetMem (PSrc, slen * imgInfo.nHeight);
-      SBits := PSrc;
-      m_FileStream.Read (PSrc^, slen * imgInfo.nHeight);
-      try
-         pdximg.surface := TDirectDrawSurface.Create (FDDraw);
-         pdximg.surface.SystemMemory := TRUE;
-         pdximg.surface.SetSize (slen, imginfo.nHeight);
-         //pdximg.surface.Palette := MainSurfacePalette;
+			pdximg.nPx := imginfo.px;
+			pdximg.nPy := imginfo.py;
+			ddsd.dwSize := SizeOf(ddsd);
 
-         pdximg.nPx := imginfo.px;
-         pdximg.nPy := imginfo.py;
-         ddsd.dwSize := SizeOf(ddsd);
+			pdximg.surface.Lock (TRect(nil^), ddsd);
+			DBits := ddsd.lpSurface;
 
-         pdximg.surface.Lock (TRect(nil^), ddsd);
-         DBits := ddsd.lpSurface;
-         for n:=imginfo.nHeight - 1 downto 0 do begin
-            SBits := PByte (Integer(PSrc) + slen * n);
-            Move(SBits^, DBits^, slen);
-            Inc (integer(DBits), ddsd.lPitch);
-         end;
-         pdximg.surface.TransparentColor := 0;
-      finally
-        pdximg.surface.UnLock();
-        FreeMem (PSrc);
-      end;
-   end;
+			for n:=imginfo.nHeight - 1 downto 0 do begin
+				SBits := PByte (Integer(PSrc) + slen * n);
+				Move(SBits^, DBits^, slen);
+				Inc (integer(DBits), ddsd.lPitch);
+			end;
+
+			pdximg.surface.TransparentColor := 0;
+		finally
+			pdximg.surface.UnLock();
+			FreeMem (PSrc);
+		end;
+	end;
 end;
 
 procedure TWMImages.LoadBmpImage (position: integer; pbmpimg: PTBmpImage);
@@ -549,7 +555,7 @@ begin
 end;
 
 
-//¿À·¡µÈ Ä³½Ã Áö¿ò
+//?À·??? Ä³?? ????
 procedure TWMImages.FreeOldMemorys;
 var
    i, n, ntime, curtime, limit: integer;
@@ -573,7 +579,7 @@ begin
    end;
 end;
 
-//Cache¸¦ ÀÌ¿ëÇÔ
+//Cache?? ?Ì¿???
 function  TWMImages.GetCachedSurface (index: integer): TDirectDrawSurface;
 var
   nPosition:Integer;
@@ -590,7 +596,7 @@ begin
       //end;
    end;
    nErrCode:=1;
-   if m_ImgArr[index].Surface = nil then begin //cacheµÇ¾î ÀÖÁö ¾ÊÀ½. »õ·Î ÀÐ¾î¾ßÇÔ.
+   if m_ImgArr[index].Surface = nil then begin //cache?Ç¾? ???? ??À½. ???? ?Ð¾?????.
       if index < m_IndexList.Count then begin
          nPosition:= Integer(m_IndexList[index]);
          LoadDxImage (nPosition, @m_ImgArr[index]);
@@ -612,40 +618,45 @@ end;
 
 function  TWMImages.GetCachedImage (index: integer; var px, py: integer): TDirectDrawSurface;
 var
-   position: integer;
-   nErrCode:Integer;   
+	position: integer;
+	nErrCode:Integer;   
 begin
-   Result := nil;
-   nErrCode:=0;
-   try
-   if (index < 0) or (index >= ImageCount) then exit;
-   if GetTickCount - m_dwMemChecktTick > 10000 then  begin
-      m_dwMemChecktTick := GetTickCount;
-      //if MemorySize > FMaxMemorySize then begin
-      FreeOldMemorys;
-      //end;
-   end;
-   nErrCode:=1;
-   if m_ImgArr[index].Surface = nil then begin //cache
-      if index < m_IndexList.Count then begin
-         position := Integer(m_IndexList[index]);
-         LoadDxImage (position, @m_ImgArr[index]);
-         m_ImgArr[index].dwLatestTime := GetTickCount;
-         px := m_ImgArr[index].nPx;
-         py := m_ImgArr[index].nPy;
-         Result := m_ImgArr[index].Surface;
-         //MemorySize := MemorySize + ImgArr[index].Surface.Width * ImgArr[index].Surface.Height;
-      end;
+	Result := nil;
+	nErrCode:=0;
 
-   end else begin
-      m_ImgArr[index].dwLatestTime := GetTickCount;
-      px := m_ImgArr[index].nPx;
-      py := m_ImgArr[index].nPy;
-      Result := m_ImgArr[index].Surface;
-   end;
-   except
-    //DebugOutStr ('GetCachedImage 3 Index: ' + IntToStr(index) + ' Error Code: ' + IntToStr(nErrCode));
-   end;
+	try
+		if (index < 0) or (index >= ImageCount) then
+			exit;
+
+		if GetTickCount - m_dwMemChecktTick > 10000 then begin
+			m_dwMemChecktTick := GetTickCount;
+			//if MemorySize > FMaxMemorySize then begin
+			FreeOldMemorys;
+			//end;
+		end;
+
+		nErrCode:=1;
+
+		if m_ImgArr[index].Surface = nil then begin //cache
+			if index < m_IndexList.Count then begin
+				position := Integer(m_IndexList[index]);
+				LoadDxImage (position, @m_ImgArr[index]);
+				m_ImgArr[index].dwLatestTime := GetTickCount;
+				px := m_ImgArr[index].nPx;
+				py := m_ImgArr[index].nPy;
+				Result := m_ImgArr[index].Surface;
+				//MemorySize := MemorySize + ImgArr[index].Surface.Width * ImgArr[index].Surface.Height;
+			end;
+
+		end else begin
+			m_ImgArr[index].dwLatestTime := GetTickCount;
+			px := m_ImgArr[index].nPx;
+			py := m_ImgArr[index].nPy;
+			Result := m_ImgArr[index].Surface;
+		end;
+	except
+		//DebugOutStr ('GetCachedImage 3 Index: ' + IntToStr(index) + ' Error Code: ' + IntToStr(nErrCode));
+	end;
 end;
 
 function  TWMImages.GetCachedBitmap (index: integer): TBitmap;
@@ -654,7 +665,7 @@ var
 begin
    Result := nil;
    if (index < 0) or (index >= ImageCount) then exit;
-   if m_BmpArr[index].Bmp = nil then begin //cacheµÇ¾î ÀÖÁö ¾ÊÀ½. »õ·Î ÀÐ¾î¾ßÇÔ.
+   if m_BmpArr[index].Bmp = nil then begin //cache?Ç¾? ???? ??À½. ???? ?Ð¾?????.
       if index < m_IndexList.Count then begin
          position := Integer(m_IndexList[index]);
          LoadBmpImage (position, @m_BmpArr[index]);

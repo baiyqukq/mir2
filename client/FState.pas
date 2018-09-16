@@ -6080,14 +6080,18 @@ begin
       // Dressed state
       sex := DRESSfeature (UserState1.Feature) mod 2;
       hair := HAIRfeature (UserState1.Feature);
-      if sex = 1 then pgidx := 377   // Female
-      else pgidx := 376;     // Male
+
+      if sex = 1 then
+		  pgidx := 377   // Female
+      else
+		  pgidx := 376;  // Male
 
       bbx := Left + 38;	// EquipPanel(38, 52)
       bby := Top + 52;
 
 	  // Draw body
       d := g_WMainImages.Images[pgidx];
+
       if d <> nil then
          dsurface.Draw (SurfaceX(bbx), SurfaceY(bby), d.ClientRect, d, FALSE);
 
@@ -6096,12 +6100,15 @@ begin
       
 	  // Draw hair
       idx := 440 + hair div 2;
-      if sex = 1 then idx := 480 + hair div 2;
+
+      if sex = 1 then
+		  idx := 480 + hair div 2;
+
       if idx > 0 then begin
-         d := g_WMainImages.GetCachedImage (idx, ax, ay);
-         if d <> nil then
-            dsurface.Draw (SurfaceX(bbx+ax), SurfaceY(bby+ay), d.ClientRect, d, TRUE);
-      end;
+		  d := g_WMainImages.GetCachedImage (idx, ax, ay);
+		  if d <> nil then
+			  dsurface.Draw (SurfaceX(bbx+ax), SurfaceY(bby+ay), d.ClientRect, d, TRUE);
+	  end;
 
 	  // Draw dress
       if UserState1.UseItems[U_DRESS].S.Name <> '' then begin
