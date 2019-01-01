@@ -146,17 +146,17 @@ const
 
 	MA14: TMonsterAction = (  // Skeleton Bone* RakingCat HookingCat
 		ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
-		ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
+		ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3);
 		ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
 		ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
 		ActStruck: (start: 240;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
 		ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 120;  usetick: 0);
-		ActDeath:  (start: 340;    frame: 10; skip: 0;  ftime: 100;  usetick: 0); //백골인경우(소환)
+		ActDeath:  (start: 340;    frame: 10; skip: 0;  ftime: 100;  usetick: 0); //If BoneFamm, it's summon
 		);
 
 	MA15: TMonsterAction = (  //AxeSkeleton
 		ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
-		ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
+		ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3);
 		ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
 		ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
 		ActStruck: (start: 240;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
@@ -166,7 +166,7 @@ const
 
    MA16: TMonsterAction = (  //CaveMaggot
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
-        ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
+        ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3);
         ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 160;  usetick: 0);
         ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
         ActStruck: (start: 240;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
@@ -175,25 +175,25 @@ const
       );
    MA17: TMonsterAction = (  
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 60;  usetick: 0);
-        ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
+        ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3);
         ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
         ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
         ActStruck: (start: 240;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
         ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 100;  usetick: 0);
-        ActDeath:  (start: 340;    frame: 1;  skip: 0;  ftime: 140;  usetick: 0); //
+        ActDeath:  (start: 340;    frame: 1;  skip: 0;  ftime: 140;  usetick: 0); 
       );
    MA19: TMonsterAction = (  //Oma (Quickly Death)
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
-        ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
+        ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); 
         ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 100;  usetick: 0);
         ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
         ActStruck: (start: 240;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
         ActDie:    (start: 260;    frame: 10; skip: 0;  ftime: 140;  usetick: 0);
-        ActDeath:  (start: 340;    frame: 1;  skip: 0;  ftime: 140;  usetick: 0); //
+        ActDeath:  (start: 340;    frame: 1;  skip: 0;  ftime: 140;  usetick: 0); 
       );
    MA20: TMonsterAction = (  //Zombie
         ActStand:  (start: 0;      frame: 4;  skip: 6;  ftime: 200;  usetick: 0);
-        ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); //
+        ActWalk:   (start: 80;     frame: 6;  skip: 4;  ftime: 160;  usetick: 3); 
         ActAttack: (start: 160;    frame: 6;  skip: 4;  ftime: 120;  usetick: 0);
         ActCritical:(start: 0;     frame: 0;  skip: 0;  ftime: 0;    usetick: 0);
         ActStruck: (start: 240;    frame: 2;  skip: 0;  ftime: 100;  usetick: 0);
@@ -783,7 +783,10 @@ uses
    ClMain, SoundUtil, clEvent, MShare;
 
 
-{ Get MonsterAction by race and appearance }
+{
+   \brief Get MonsterAction by race and appearance
+   \param race RaceImg field in DB
+}
 function GetRaceByPM (race: integer;Appr:word): pTMonsterAction;
 begin
    Result := nil;

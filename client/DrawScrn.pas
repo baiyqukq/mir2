@@ -14,8 +14,9 @@ const
    BOTTOMBOARD = 1;
    VIEWCHATLINE = 9;
    AREASTATEICONBASE = 150;
-   HEALTHBAR_BLACK = 0;
-   HEALTHBAR_RED = 1;
+
+   HEALTHBAR_BLACK = 0;	/// HpBar
+   HEALTHBAR_RED = 1;	/// HpBar
 
 
 type
