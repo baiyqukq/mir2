@@ -94,7 +94,7 @@ const
   BODYLUCKUNIT = 5000;   //10?
 
 
-
+  {Human Attack Mode}
   HAM_ALL      = 0;
   HAM_PEACE    = 1;
   HAM_DEAR     = 2;
@@ -103,10 +103,13 @@ const
   HAM_GUILD    = 5;
   HAM_PKATTACK = 6;
 
+  {初始准确度}
   DEFHIT       = 5;
+  
+  {初始闪避}
   DEFSPEED     = 15;
 
-  // { Job }
+  { Job }
   jWarr        = 0;
   jWizard      = 1;
   jTaos        = 2;
@@ -114,6 +117,7 @@ const
 
   SIZEOFTHUMAN           = 3588;
 
+  {Animal ID}
   MONSTER_SANDMOB        = 3;
   MONSTER_ROCKMAN        = 4;
   MONSTER_RON            = 9;
